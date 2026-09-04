@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+.env
+.pytest_cache/
+
+# Node
+node_modules/
+dist/
+build/
+.next/
+.nuxt/
+
+# Frontend
+coverage/
+
+# .NET / Visual Studio
+bin/
+obj/
+.vs/
+*.user
+*.suo
+
+# Unity
+Library/
+Temp/
+Logs/
+UserSettings/
+MemoryCaptures/
+Build/
+Builds/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
