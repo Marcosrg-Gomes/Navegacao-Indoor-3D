@@ -1,16 +1,17 @@
 """
-cameras/views.py — Criação, posicionamento e animação de câmeras
+cameras/views.py — Criação, posicionamento e animação de câmeras nos 2 pavimentos
 
 Gera:
-  - Câmera da Entrada (visão frontal do exterior)
-  - Câmera do Corredor (ponto de vista de pedestre no corredor)
-  - Câmera Aérea / Isométrica (visão geral 3/4 do shopping)
-  - Câmera da Praça de Alimentação
-  - Câmera Animada de Passeio (Walkthrough) com keyframes pelo corredor
+  - Câmera da Entrada (CAM_Entrada)
+  - Câmera do Corredor Térreo (CAM_Corredor)
+  - Câmera Aérea / Isométrica (CAM_Aerea)
+  - Câmera da Praça de Alimentação Superior (CAM_Praca)
+  - Câmera Balcão Mezanino (CAM_Mezanino) — Balcony View
+  - Câmera Visão de Baixo (CAM_Wormseye) — Vão do Átrio e Claraboia
+  - Câmera Animada de Passeio (CAM_Anim_Passeio) em 350 frames (Térreo -> Escada Rolante -> Mezanino)
 """
 
 import bpy
-import math
 from config import CONFIG, DERIVED
 from utils.helpers import link_to_collection, set_object_rotation
 from utils.logging import log_object_created, log_section, log_section_end, log_info
@@ -43,12 +44,11 @@ def create_camera(
 
 def create_walkthrough_animation(
     collection: bpy.types.Collection,
-    duration_frames: int = 250,
+    duration_frames: int = 350,
 ) -> bpy.types.Object:
     """
-    Cria uma câmera animada que realiza um tour virtual em primeira pessoa
-    caminhando pela entrada, percorrendo todo o corredor central observando
-    as vitrines e finalizando na praça de alimentação.
+    Cria uma câmera animada em 350 frames que realiza um tour imersivo nos dois andares:
+    Entrada térreo -> Corredor e quiosques -> Sobe a escada rolante -> Passarela do mezanino com vista do átrio -> Praça superior.
     """
     scene = bpy.context.scene
     scene.frame_start = 1
@@ -57,25 +57,28 @@ def create_walkthrough_animation(
 
     name = "CAM_Anim_Passeio"
     cam_data = bpy.data.cameras.new(name=name)
-    cam_data.lens = 28.0  # Lente grande-angular suave para passeio imersivo
+    cam_data.lens = 26.0
     cam_data.clip_end = 200.0
 
     cam_obj = bpy.data.objects.new(name=name, object_data=cam_data)
     link_to_collection(cam_obj, collection)
 
-    # Roteiro de keyframes (frame, (X, Y, Z), (RotX, RotY, RotZ em graus))
     half_l = DERIVED["half_length"]
     keyframes = [
-        # Frame 1: Entrada do shopping
+        # Frame 1: Entrada do shopping (térreo)
         (1, (0.0, -half_l + 2.0, 1.7), (90.0, 0.0, 0.0)),
-        # Frame 60: Caminhando no início das lojas, olhando levemente para as lojas da esquerda
-        (60, (-0.6, -half_l + 12.0, 1.7), (90.0, 0.0, 15.0)),
-        # Frame 120: Meio do corredor, olhando para o centro e bancos
-        (120, (0.0, 0.0, 1.7), (90.0, 0.0, 0.0)),
-        # Frame 180: Caminhando para o fundo, olhando para as lojas da direita
-        (180, (0.6, half_l - 16.0, 1.7), (90.0, 0.0, -15.0)),
-        # Frame 250: Chegando na Praça de Alimentação e escada
-        (250, (0.0, half_l - 8.0, 1.8), (85.0, 0.0, 0.0)),
+        # Frame 60: Caminhando no térreo entre os quiosques e vitrines
+        (60, (-0.8, -12.0, 1.7), (90.0, 0.0, 20.0)),
+        # Frame 110: Chegando no pé da escada rolante no átrio
+        (110, (-0.75, -4.5, 1.7), (85.0, 0.0, 0.0)),
+        # Frame 170: Subindo a escada rolante, olhando para o átrio e pendentes
+        (170, (-0.75, 0.0, 3.8), (65.0, 0.0, 10.0)),
+        # Frame 230: Chegando no mezanino (piso superior em Z=4.7m)
+        (230, (-1.5, 4.5, 6.4), (90.0, 0.0, -35.0)),
+        # Frame 290: Caminhando pela passarela lateral do mezanino contemplando o vão central
+        (290, (-3.5, 10.0, 6.4), (85.0, 0.0, -45.0)),
+        # Frame 350: Finalizando na Praça de Alimentação no pavimento superior
+        (350, (0.0, 20.0, 6.4), (85.0, 0.0, 180.0)),
     ]
 
     for frame, loc, rot_deg in keyframes:
@@ -85,7 +88,7 @@ def create_walkthrough_animation(
         cam_obj.keyframe_insert(data_path="location", frame=frame)
         cam_obj.keyframe_insert(data_path="rotation_euler", frame=frame)
 
-    # Suavizar curvas de interpolação dos keyframes (Bézier com compatibilidade Blender 3.x, 4.x, 5.x)
+    # Interpolação Bézier suave
     try:
         act = getattr(cam_obj.animation_data, "action", None)
         if act:
@@ -100,7 +103,6 @@ def create_walkthrough_animation(
     except Exception:
         pass
 
-
     scene.frame_set(1)
     log_object_created(name, f"Câmera Animada ({duration_frames} frames)")
     return cam_obj
@@ -108,11 +110,16 @@ def create_walkthrough_animation(
 
 def build_cameras(collections: dict) -> dict:
     """Ponto de entrada do módulo de câmeras."""
-    log_section("Criando Câmeras e Animação de Passeio")
+    log_section("Criando Câmeras e Animação de Passeio (2 Andares)")
 
-    col_cams = collections.get("07_CAMERAS")
+    col_cams = collections.get("08_CAMERAS") or collections.get("07_CAMERAS") or collections.get("CAMERAS")
     if not col_cams:
-        raise ValueError("Collection '07_CAMERAS' não encontrada.")
+        for k, v in collections.items():
+            if "CAM" in k.upper():
+                col_cams = v
+                break
+    if not col_cams:
+        raise ValueError("Collection de Câmeras não encontrada.")
 
     cam_cfg = CONFIG.get("cameras", {})
     views = cam_cfg.get("views", {})
@@ -137,14 +144,15 @@ def build_cameras(collections: dict) -> dict:
         )
         created_cameras[view_key] = cam_obj
 
-    # Criar câmera de animação de passeio virtual
-    anim_cam = create_walkthrough_animation(col_cams, duration_frames=250)
+    # Câmera animada em 350 frames
+    anim_cam = create_walkthrough_animation(col_cams, duration_frames=350)
     created_cameras["animated_walkthrough"] = anim_cam
 
-    # Definir câmera ativa padrão
-    if "corridor" in created_cameras:
-        bpy.context.scene.camera = created_cameras["corridor"]
-        log_info(f"Câmera ativa: {created_cameras['corridor'].name}")
+    # Câmera padrão ativa
+    if "corredor" in created_cameras:
+        bpy.context.scene.camera = created_cameras["corridor"] if "corridor" in created_cameras else created_cameras.get("corredor")
+        if bpy.context.scene.camera:
+            log_info(f"Câmera ativa: {bpy.context.scene.camera.name}")
 
-    log_section_end(f"Câmeras ({len(created_cameras)} configuradas com animação)")
+    log_section_end(f"Câmeras ({len(created_cameras)} configuradas com animação 2 andares)")
     return created_cameras

@@ -179,9 +179,13 @@ def set_object_rotation(
 
     Args:
         obj: O objeto.
-        rx, ry, rz: Ângulos de rotação (em graus se degrees=True).
+        rx, ry, rz: Ângulos de rotação (ou rx pode ser uma tupla/lista (rx, ry, rz)).
         degrees: Se True, os valores são em graus e serão convertidos para radianos.
     """
+    if isinstance(rx, (tuple, list)):
+        vals = rx
+        rx, ry, rz = vals[0], vals[1], vals[2]
+
     if degrees:
         rx = math.radians(rx)
         ry = math.radians(ry)

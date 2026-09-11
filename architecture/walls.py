@@ -1,10 +1,11 @@
 """
-architecture/walls.py — Criação das paredes do shopping
+architecture/walls.py — Criação das paredes do shopping (Dois Pavimentos)
 
 Gera:
   - 4 paredes externas (Norte/Sul/Leste/Oeste) com abertura para a entrada
-  - Paredes internas divisórias entre lojas (lado esquerdo e direito)
-  - Parede de fundo de cada loja
+  - Paredes internas divisórias entre lojas do térreo (Z: 0 a 4.2m)
+  - Paredes internas divisórias entre lojas do mezanino (Z: 4.7m a 9.2m)
+  - Parede de fundo de cada pavimento
 
 Convenção de orientação:
   Sul  = frente (entrada), Y = -half_length  (menor Y)
@@ -27,14 +28,8 @@ from materials import MatNames
 
 def create_external_walls(collection: bpy.types.Collection) -> list:
     """
-    Cria as 4 paredes externas do shopping.
+    Cria as 4 paredes externas do shopping com altura total (9.2m).
     A parede sul (frente) tem abertura para a entrada principal.
-
-    Args:
-        collection: Collection PAREDES_EXTERNAS.
-
-    Returns:
-        Lista de todos os objetos de parede externa criados.
     """
     s = CONFIG["shopping"]
     ent = CONFIG["entrance"]
@@ -46,9 +41,7 @@ def create_external_walls(collection: bpy.types.Collection) -> list:
 
     objects = []
 
-    # ------------------------------------------------------------------
-    # PAREDE NORTE (fundo) — ao longo do eixo X
-    # ------------------------------------------------------------------
+    # 1. PAREDE NORTE (fundo)
     obj_norte = create_box(
         name="ARQ_PAREDE_EXT_Norte",
         width=s["width"],
@@ -63,9 +56,7 @@ def create_external_walls(collection: bpy.types.Collection) -> list:
     log_object_created("ARQ_PAREDE_EXT_Norte", "Parede")
     objects.append(obj_norte)
 
-    # ------------------------------------------------------------------
-    # PAREDE SUL (frente/entrada) — com abertura para entrada
-    # ------------------------------------------------------------------
+    # 2. PAREDE SUL (frente/entrada com abertura)
     wall_parts = create_wall_with_opening(
         name="ARQ_PAREDE_EXT_Sul",
         wall_length=s["width"],
@@ -73,7 +64,7 @@ def create_external_walls(collection: bpy.types.Collection) -> list:
         wall_thickness=wt,
         opening_width=ent["width"],
         opening_height=ent["height"],
-        opening_offset_x=0.0,         # Centralizado
+        opening_offset_x=0.0,
         location=(0.0, -half_l + wt / 2.0, 0.0),
         axis="X",
     )
@@ -83,9 +74,7 @@ def create_external_walls(collection: bpy.types.Collection) -> list:
         log_object_created(part.name, "Parede")
     objects.extend(wall_parts)
 
-    # ------------------------------------------------------------------
-    # PAREDE OESTE (esquerda) — ao longo do eixo Y
-    # ------------------------------------------------------------------
+    # 3. PAREDE OESTE (esquerda)
     obj_oeste = create_box(
         name="ARQ_PAREDE_EXT_Oeste",
         width=wt,
@@ -100,9 +89,7 @@ def create_external_walls(collection: bpy.types.Collection) -> list:
     log_object_created("ARQ_PAREDE_EXT_Oeste", "Parede")
     objects.append(obj_oeste)
 
-    # ------------------------------------------------------------------
-    # PAREDE LESTE (direita) — ao longo do eixo Y
-    # ------------------------------------------------------------------
+    # 4. PAREDE LESTE (direita)
     obj_leste = create_box(
         name="ARQ_PAREDE_EXT_Leste",
         width=wt,
@@ -126,51 +113,65 @@ def create_external_walls(collection: bpy.types.Collection) -> list:
 
 def create_store_dividers(collection: bpy.types.Collection) -> list:
     """
-    Cria paredes divisórias entre lojas em ambos os lados do corredor.
-    Cada divisória separa duas lojas adjacentes.
-
-    Returns:
-        Lista de objetos de parede divisória.
+    Cria paredes divisórias entre lojas do térreo e mezanino.
     """
     s = CONFIG["shopping"]
     st = CONFIG["stores"]
+    mz = CONFIG.get("mezzanine", {})
     corridor_half = CONFIG["corridor"]["width"] / 2.0
 
     store_depth = st["depth"]
     store_width = st["width"]
     div_t = st["wall_thickness"]
-    store_h = s["height"]
-    count = st["count_per_side"]
     start_y = DERIVED["store_start_y"]
+
+    ground_h = mz.get("height", 4.2)
+    upper_base_z = mz.get("floor_z", 4.7)
+    upper_h = s["height"] - upper_base_z
 
     objects = []
 
     sides = [
-        ("E", -(corridor_half + store_depth / 2.0)),   # Lado esquerdo — centro X
-        ("D", +(corridor_half + store_depth / 2.0)),   # Lado direito — centro X
+        ("E", -(corridor_half + store_depth / 2.0)),   # Esquerda
+        ("D", +(corridor_half + store_depth / 2.0)),   # Direita
     ]
 
+    # 1. Divisórias do Térreo (6 lojas por lado -> 5 divisórias internas)
+    count_ground = st["count_per_side"]
     for side_code, center_x in sides:
-        # Número de divisórias = count - 1 (entre as lojas) + 2 (bordas externas)
-        # Bordas externas já são as paredes Leste/Oeste — não recriar.
-        # Criar apenas as divisórias internas: count - 1
-        for i in range(count - 1):
-            # Y da divisória: após a loja i
+        for i in range(count_ground - 1):
             div_y = start_y + (i + 1) * store_width + i * div_t + div_t / 2.0
-
-            name = f"ARQ_PAREDE_INT_{side_code}{i+1:02d}_{side_code}{i+2:02d}"
+            name = f"ARQ_PAREDE_INT_T_{side_code}{i+1:02d}_{side_code}{i+2:02d}"
             obj = create_box(
                 name=name,
                 width=store_depth,
                 depth=div_t,
-                height=store_h,
+                height=ground_h,
                 location=(center_x, div_y, 0.0),
                 centered_xy=True,
                 base_at_zero=True,
             )
             link_to_collection(obj, collection)
             apply_material_by_name(obj, MatNames.PAREDE)
-            log_object_created(name, "Divisória")
+            objects.append(obj)
+
+    # 2. Divisórias do Mezanino (5 lojas por lado -> 4 divisórias internas)
+    count_mz = mz.get("count_per_side", 5)
+    for side_code, center_x in sides:
+        for i in range(count_mz - 1):
+            div_y = start_y + (i + 1) * store_width + i * div_t + div_t / 2.0
+            name = f"ARQ_PAREDE_INT_M_{side_code}{i+1:02d}_{side_code}{i+2:02d}"
+            obj = create_box(
+                name=name,
+                width=store_depth,
+                depth=div_t,
+                height=upper_h,
+                location=(center_x, div_y, upper_base_z),
+                centered_xy=True,
+                base_at_zero=True,
+            )
+            link_to_collection(obj, collection)
+            apply_material_by_name(obj, MatNames.PAREDE)
             objects.append(obj)
 
     return objects
@@ -178,77 +179,70 @@ def create_store_dividers(collection: bpy.types.Collection) -> list:
 
 def create_store_back_walls(collection: bpy.types.Collection) -> list:
     """
-    Cria as paredes de fundo de cada loja (paralelas ao corredor).
-    Estas paredes separam o interior da loja do corredor de serviço / parede externa.
-
-    Returns:
-        Lista de objetos de parede de fundo.
+    Cria as paredes de fundo das lojas nos dois pavimentos.
     """
     s = CONFIG["shopping"]
     st = CONFIG["stores"]
+    mz = CONFIG.get("mezzanine", {})
     corridor_half = CONFIG["corridor"]["width"] / 2.0
 
     store_depth = st["depth"]
     store_width = st["width"]
     div_t = st["wall_thickness"]
-    wt = s["wall_thickness"]
-    half_w = DERIVED["half_width"]
-
-    objects = []
-
-    # Espessura da parede de fundo das lojas
     back_wall_t = 0.15
 
-    # X da face de fundo das lojas (toca a parede externa)
-    # Lado esquerdo: X = -(half_w - wt)
-    # Lado direito:  X = +(half_w - wt)
+    ground_h = mz.get("height", 4.2)
+    upper_base_z = mz.get("floor_z", 4.7)
+    upper_h = s["height"] - upper_base_z
+
     sides = [
-        ("E", -(corridor_half + store_depth), -1),   # Lado esquerdo
-        ("D", +(corridor_half + store_depth), +1),    # Lado direito
+        ("E", -(corridor_half + store_depth), -1),
+        ("D", +(corridor_half + store_depth), +1),
     ]
 
     start_y = DERIVED["store_start_y"]
-    count = st["count_per_side"]
+    count_ground = st["count_per_side"]
+    count_mz = mz.get("count_per_side", 5)
 
+    objects = []
+
+    # Fundo Térreo
+    total_len_g = count_ground * store_width + (count_ground - 1) * div_t
     for side_code, back_edge_x, sign in sides:
-        # X do centro da parede de fundo
-        # A parede de fundo vai de back_edge_x até back_edge_x ± back_wall_t
         wall_center_x = back_edge_x + sign * back_wall_t / 2.0
-
-        # Uma parede de fundo contínua cobrindo todas as lojas do lado
-        total_store_length = count * store_width + (count - 1) * div_t
-
-        name = f"ARQ_PAREDE_FUNDO_{side_code}"
+        name = f"ARQ_PAREDE_FUNDO_T_{side_code}"
         obj = create_box(
             name=name,
             width=back_wall_t,
-            depth=total_store_length,
-            height=s["height"],
-            location=(wall_center_x, start_y + total_store_length / 2.0, 0.0),
+            depth=total_len_g,
+            height=ground_h,
+            location=(wall_center_x, start_y + total_len_g / 2.0, 0.0),
             centered_xy=True,
             base_at_zero=True,
         )
         link_to_collection(obj, collection)
         apply_material_by_name(obj, MatNames.PAREDE)
-        log_object_created(name, "Parede Fundo Lojas")
+        objects.append(obj)
+
+    # Fundo Mezanino
+    total_len_m = count_mz * store_width + (count_mz - 1) * div_t
+    for side_code, back_edge_x, sign in sides:
+        wall_center_x = back_edge_x + sign * back_wall_t / 2.0
+        name = f"ARQ_PAREDE_FUNDO_M_{side_code}"
+        obj = create_box(
+            name=name,
+            width=back_wall_t,
+            depth=total_len_m,
+            height=upper_h,
+            location=(wall_center_x, start_y + total_len_m / 2.0, upper_base_z),
+            centered_xy=True,
+            base_at_zero=True,
+        )
+        link_to_collection(obj, collection)
+        apply_material_by_name(obj, MatNames.PAREDE)
         objects.append(obj)
 
     return objects
-
-
-def create_corridor_walls(collection: bpy.types.Collection) -> list:
-    """
-    Cria as paredes que delimitam o corredor central nas extremidades
-    (onde não há lojas — frente/entrada e fundo/praça de alimentação).
-
-    Returns:
-        Lista de objetos.
-    """
-    # Esta função cria volumes de preenchimento onde o corredor encontra
-    # a entrada e o fundo, fechando a caixa arquitetônica lateralmente.
-    # Para o blockout inicial, as paredes externas já fazem este papel.
-    # Retorna lista vazia — pode ser expandida nas fases posteriores.
-    return []
 
 
 # =============================================================================
@@ -257,14 +251,7 @@ def create_corridor_walls(collection: bpy.types.Collection) -> list:
 
 def build_walls(collections: dict) -> dict:
     """
-    Ponto de entrada principal do módulo.
-    Cria todas as paredes do shopping.
-
-    Args:
-        collections: Dicionário de Collections retornado por scene_setup.
-
-    Returns:
-        Dicionário com listas de objetos por categoria.
+    Cria todas as paredes do shopping em ambos os pavimentos.
     """
     log_section("Criando Paredes")
 
@@ -278,11 +265,9 @@ def build_walls(collections: dict) -> dict:
 
     result = {}
 
-    # Paredes externas
     result["external"] = create_external_walls(col_ext)
     log_info(f"Paredes externas criadas: {len(result['external'])}")
 
-    # Divisórias entre lojas
     if CONFIG["features"].get("stores", True):
         result["dividers"] = create_store_dividers(col_int)
         result["back_walls"] = create_store_back_walls(col_int)

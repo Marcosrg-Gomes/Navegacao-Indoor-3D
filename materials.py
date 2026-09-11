@@ -205,11 +205,16 @@ def create_principled_material(
             pass
         try:
             if hasattr(mat, 'shadow_method'):
-                mat.shadow_method = 'CLIP'
+                mat.shadow_method = 'NONE'
         except Exception:
             pass
         try:
             mat.use_backface_culling = False
+        except Exception:
+            pass
+        try:
+            if hasattr(mat, 'use_screen_refraction'):
+                mat.use_screen_refraction = True
         except Exception:
             pass
 
@@ -236,6 +241,15 @@ def create_all_materials(config: dict) -> dict:
         mortar_color=(0.32, 0.32, 0.32, 1.0),
         scale=1.2, # Placas grandes de porcelanato
         roughness_base=0.22,
+    )
+
+    registry[MatNames.PISO_MEZANINO] = create_tile_floor_material(
+        name=MatNames.PISO_MEZANINO,
+        tile_color_1=(0.82, 0.78, 0.70, 1.0),
+        tile_color_2=(0.76, 0.72, 0.64, 1.0),
+        mortar_color=(0.30, 0.30, 0.30, 1.0),
+        scale=1.2,
+        roughness_base=0.20,
     )
 
     registry[MatNames.PISO_PRACA] = create_tile_floor_material(
@@ -300,6 +314,7 @@ class MatNames:
     PISO_SHOPPING   = "MAT_Piso_Shopping"
     PISO_LOJA       = "MAT_Piso_Loja"
     PISO_PRACA      = "MAT_Piso_Praca"
+    PISO_MEZANINO   = "MAT_Piso_Mezanino"
     PAREDE          = "MAT_Parede"
     TETO            = "MAT_Teto"
     VIDRO           = "MAT_Vidro"
@@ -312,3 +327,14 @@ class MatNames:
     LETREIRO        = "MAT_Letreiro"
     PORTA           = "MAT_Porta"
     FACHADA_LOJA    = "MAT_Fachada_Loja"
+    PENDENTE        = "MAT_Pendente"
+    LED             = "MAT_LED"
+    ESCADA_ROLANTE  = "MAT_Escada_Rolante"
+    ELEVADOR_VIDRO  = "MAT_Elevador_Vidro"
+    LAJE_MEZANINO   = "MAT_Laje_Mezanino"
+    QUARTZO         = "MAT_Quartzo"
+    MARMORE         = "MAT_Marmore"
+    ALUMINIO        = "MAT_Aluminio_Escovado"
+    VIDRO_ESCURO    = "MAT_Vidro_Escurecido"
+    ACOLCHOADO      = "MAT_Acolchoado"
+    LOUCA           = "MAT_Louca"

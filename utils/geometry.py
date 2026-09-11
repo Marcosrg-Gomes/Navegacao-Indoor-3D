@@ -156,6 +156,7 @@ def create_cylinder(
     location: Tuple[float, float, float] = (0.0, 0.0, 0.0),
     base_at_zero: bool = True,
     cap_ends: bool = True,
+    vertices: Optional[int] = None,
 ) -> bpy.types.Object:
     """
     Cria um cilindro usando bmesh.
@@ -168,10 +169,10 @@ def create_cylinder(
         location: Posição no mundo.
         base_at_zero: Se True, base em Z=0; se False, centrado em Z.
         cap_ends: Se True, cria tampas superior e inferior.
-
-    Returns:
-        Objeto Blender criado.
+        vertices: Alias para segments.
     """
+    if vertices is not None:
+        segments = vertices
     import math
 
     mesh = bpy.data.meshes.new(name)

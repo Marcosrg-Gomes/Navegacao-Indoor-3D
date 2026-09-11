@@ -1,13 +1,14 @@
 """
-furniture/planters.py — Vasos de plantas decorativas para o shopping
+furniture/planters.py — Vasos de plantas e jardineiras suspensas do mezanino
 
-Cria vasos cilíndricos com folhagens (esferas de baixa resolução)
-distribuídos pelo shopping para compor o paisagismo interno.
+Gera:
+  - Vasos esculturais no piso térreo com folhagens
+  - Jardineiras suspensas com plantas pendentes contornando as bordas do mezanino
 """
 
 import bpy
 from config import CONFIG, DERIVED
-from utils.geometry import create_cylinder, create_sphere_ico
+from utils.geometry import create_cylinder, create_sphere_ico, create_box
 from utils.helpers import link_to_collection, apply_material_by_name, create_linked_instance
 from utils.logging import log_object_created, log_section, log_section_end
 from materials import MatNames
@@ -43,13 +44,84 @@ def create_planter_prototype() -> tuple:
     return pot, bush
 
 
-def build_planters(collections: dict) -> list:
-    """Distribui vasos de plantas pelo shopping."""
-    log_section("Criando Vasos de Plantas")
+def create_hanging_planters(collection: bpy.types.Collection) -> list:
+    """Cria jardineiras suspensas nas bordas do vão central do mezanino."""
+    mz = CONFIG.get("mezzanine", {})
+    mz_slab_z = mz.get("height", 4.2)
+    atrium_w = mz.get("atrium_opening", 5.0)
+    half_aw = atrium_w / 2.0
 
-    col_vasos = collections.get("VASOS")
-    if not col_vasos:
-        raise ValueError("Collection 'VASOS' não encontrada.")
+    objects = []
+    planter_w = 0.35
+    planter_len = 3.0
+    planter_h = 0.25
+
+    y_positions = [-10.0, 0.0, 10.0]
+
+    for side_code, sign in [("Esq", -1), ("Dir", 1)]:
+        px = sign * (half_aw + planter_w / 2.0)
+        for i, py in enumerate(y_positions):
+            # Caixa da floreira
+            box_name = f"MOB_Jardineira_Susp_{side_code}_{i+1:02d}"
+            box = create_box(
+                name=box_name,
+                width=planter_w,
+                depth=planter_len,
+                height=planter_h,
+                location=(px, py, mz_slab_z + 0.1),
+                centered_xy=True,
+                base_at_zero=True,
+            )
+            link_to_collection(box, collection)
+            apply_material_by_name(box, MatNames.VASO)
+            objects.append(box)
+
+            foliage = create_box(
+                name=f"MOB_Planta_Pendente_{side_code}_{i+1:02d}",
+                width=planter_w * 1.15,
+                depth=planter_len * 0.92,
+                height=0.28,
+                location=(px, py, mz_slab_z + 0.18),
+                centered_xy=True,
+                base_at_zero=True,
+            )
+            link_to_collection(foliage, collection)
+            apply_material_by_name(foliage, MatNames.PLANTA)
+            objects.append(foliage)
+
+            # Jiboias / samambaias caindo em direção ao átrio
+            for k in range(5):
+                drop_y = py - planter_len / 2.0 + 0.35 + k * 0.55
+                trail = create_sphere_ico(
+                    name=f"MOB_Planta_Cacho_{side_code}_{i+1:02d}_{k+1}",
+                    radius=0.16,
+                    subdivisions=1,
+                    location=(px - sign * 0.22, drop_y, mz_slab_z - 0.18 - (k % 2) * 0.12),
+                )
+                link_to_collection(trail, collection)
+                apply_material_by_name(trail, MatNames.PLANTA)
+                objects.append(trail)
+
+                vine = create_cylinder(
+                    name=f"MOB_Planta_Cipó_{side_code}_{i+1:02d}_{k+1}",
+                    radius=0.035,
+                    height=0.55,
+                    segments=8,
+                    location=(px - sign * 0.18, drop_y, mz_slab_z - 0.45),
+                    base_at_zero=True,
+                )
+                link_to_collection(vine, collection)
+                apply_material_by_name(vine, MatNames.PLANTA)
+                objects.append(vine)
+
+    return objects
+
+
+def build_planters(collections: dict) -> list:
+    """Distribui vasos de plantas e jardineiras suspensas pelo shopping."""
+    log_section("Criando Vasos de Plantas e Jardineiras Suspensas")
+
+    col_vasos = collections.get("VASOS") or collections.get("PLANTAS") or list(collections.values())[0]
 
     f_cfg = CONFIG["furniture"]
     count = f_cfg.get("planter_count", 6)
@@ -61,7 +133,6 @@ def build_planters(collections: dict) -> list:
 
     pot_proto, bush_proto = create_planter_prototype()
 
-    # Primeiro par no início
     pot_proto.name = "MOB_VASO_01"
     pot_proto.location = (0.0, start_y, 0.0)
     link_to_collection(pot_proto, col_vasos)
@@ -92,5 +163,9 @@ def build_planters(collections: dict) -> list:
 
         all_objects.extend([pot_inst, bush_inst])
 
-    log_section_end(f"Vasos e Plantas ({count} conjuntos)")
+    # Jardineiras suspensas no mezanino
+    hanging_objs = create_hanging_planters(col_vasos)
+    all_objects.extend(hanging_objs)
+
+    log_section_end(f"Paisagismo ({len(all_objects)} elementos)")
     return all_objects

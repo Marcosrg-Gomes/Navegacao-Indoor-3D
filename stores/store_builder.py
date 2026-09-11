@@ -1,21 +1,12 @@
 """
-stores/store_builder.py — Construtor parametrizado de lojas
+stores/store_builder.py — Construtor parametrizado de lojas (Térreo e Mezanino)
 
-Monta cada loja completa:
-  - Sub-Collection individual (LOJA_E01, LOJA_D03, etc.)
-  - Parede de fundo interna
-  - Parede superior da vitrine (acima do vidro até o teto rebaixado)
-  - Vitrine de vidro
-  - Caixilho metálico
-  - Porta
-  - Fachada lateral (banda colorida acima da vitrine)
-
-Convenção de lados:
-  "E" = Esquerdo — lojas ficam no lado -X (corredor à direita)
-  "D" = Direito  — lojas ficam no lado +X (corredor à esquerda)
-
-Para o lado E, a vitrine enfrenta +X (corredor).
-Para o lado D, a vitrine enfrenta -X (corredor).
+Monta 22 lojas abertas (12 no térreo e 10 no mezanino):
+  - Sub-Collection individual por loja
+  - Fáscia superior
+  - Vitrine lateral de vidro com vão central aberto
+  - Pórtico, caixa de cortina rolo e soleira
+  - Sem portas de vidro no horário comercial
 """
 
 import bpy
@@ -33,16 +24,7 @@ from stores.doors import create_store_door
 
 
 def _get_store_position(side: str, index: int) -> dict:
-    """
-    Calcula todas as posições relevantes para uma loja.
-
-    Args:
-        side: "E" (esquerdo) ou "D" (direito).
-        index: Índice da loja (0-based).
-
-    Returns:
-        Dicionário com coordenadas e dimensões da loja.
-    """
+    """Calcula coordenadas e dimensões de uma loja."""
     st = CONFIG["stores"]
     corridor_half = CONFIG["corridor"]["width"] / 2.0
     store_depth = st["depth"]
@@ -50,17 +32,14 @@ def _get_store_position(side: str, index: int) -> dict:
     div_t = st["wall_thickness"]
     start_y = DERIVED["store_start_y"]
 
-    # Centro Y desta loja
     center_y = start_y + index * (store_width + div_t) + store_width / 2.0
 
     if side == "E":
-        # Lojas do lado esquerdo: de X = -(corridor_half + store_depth) até X = -corridor_half
-        inner_x = -corridor_half          # Borda do corredor (vitrine aqui)
+        inner_x = -corridor_half
         outer_x = -(corridor_half + store_depth)
         center_x = -(corridor_half + store_depth / 2.0)
-        vitrine_x = inner_x              # X da vitrine (face do corredor)
+        vitrine_x = inner_x
     else:
-        # Lojas do lado direito: de X = +corridor_half até X = +(corridor_half + store_depth)
         inner_x = +corridor_half
         outer_x = +(corridor_half + store_depth)
         center_x = +(corridor_half + store_depth / 2.0)
@@ -81,85 +60,75 @@ def create_store(
     side: str,
     index: int,
     parent_collection: bpy.types.Collection,
+    is_mezzanine: bool = False,
 ) -> dict:
     """
-    Cria uma loja completa com todos seus elementos.
-
-    Args:
-        side: "E" ou "D".
-        index: Índice 0-based da loja.
-        parent_collection: Collection 02_LOJAS (pai).
-
-    Returns:
-        Dicionário com todos os objetos criados para esta loja.
+    Cria uma loja individual completa no térreo ou mezanino.
     """
-    store_code = f"{side}{index+1:02d}"
+    st = CONFIG["stores"]
+    s = CONFIG["shopping"]
+    mz = CONFIG.get("mezzanine", {})
+
+    prefix = "M" if is_mezzanine else ""
+    store_code = f"{prefix}{side}{index+1:02d}"
     store_col_name = f"LOJA_{store_code}"
 
-    # Criar Sub-Collection para esta loja
     store_col = get_or_create_collection(store_col_name, parent=parent_collection)
 
     pos = _get_store_position(side, index)
-    st = CONFIG["stores"]
-    s = CONFIG["shopping"]
+    base_z = mz.get("floor_z", 4.7) if is_mezzanine else 0.0
+    store_ceiling_z = s["height"] if is_mezzanine else mz.get("height", 4.2)
+    store_total_h = store_ceiling_z - base_z
     vitrine_h = st["storefront_height"]
-    store_h = s["height"]
 
-    # Largura interna da vitrine (descontando os montantes)
-    glass_width = pos["store_width"] - 0.16  # 8 cm de montante em cada lado
+    glass_width = pos["store_width"] - 0.16
 
     objects = {}
 
-    # ------------------------------------------------------------------
-    # 1. Parede superior da vitrine (acima do vidro, até o teto rebaixado)
-    # ------------------------------------------------------------------
-    fascia_h = store_h - vitrine_h
+    # 1. Fáscia superior da vitrine
+    fascia_h = store_total_h - vitrine_h
     fascia_name = f"LOJA_{store_code}_Fascia"
     fascia = create_box(
         name=fascia_name,
         width=0.15,
         depth=pos["store_width"],
-        height=fascia_h,
-        location=(pos["vitrine_x"], pos["center_y"], vitrine_h),
+        height=max(fascia_h, 0.4),
+        location=(pos["vitrine_x"], pos["center_y"], base_z + vitrine_h),
         centered_xy=True,
         base_at_zero=True,
     )
     link_to_collection(fascia, store_col)
     apply_material_by_name(fascia, MatNames.FACHADA_LOJA)
-    log_object_created(fascia_name, "Fáscia")
     objects["fascia"] = fascia
 
-    # ------------------------------------------------------------------
     # 2. Vitrine de vidro
-    # ------------------------------------------------------------------
     objects["glass"] = create_storefront_glass(
         store_name=store_code,
         center_x=pos["vitrine_x"],
         center_y=pos["center_y"],
         vitrine_width=glass_width,
         collection=store_col,
+        base_z=base_z,
     )
 
-    # ------------------------------------------------------------------
     # 3. Caixilho metálico
-    # ------------------------------------------------------------------
     frame_parts = create_storefront_frame(
         store_name=store_code,
         center_x=pos["vitrine_x"],
         center_y=pos["center_y"],
         store_width=pos["store_width"],
         collection=store_col,
+        base_z=base_z,
     )
     objects["frame"] = frame_parts
 
-    # ------------------------------------------------------------------
     # 4. Porta
-    # ------------------------------------------------------------------
     objects["door"] = create_store_door(
         store_name=store_code,
         center_x=pos["vitrine_x"],
         center_y=pos["center_y"],
         collection=store_col,
+        base_z=base_z,
     )
 
     return objects
@@ -167,33 +136,40 @@ def create_store(
 
 def build_stores(collections: dict) -> dict:
     """
-    Ponto de entrada principal. Cria todas as lojas dos dois lados.
-
-    Args:
-        collections: Dicionário de Collections do projeto.
-
-    Returns:
-        Dicionário {store_code: {objetos}} para todas as lojas.
+    Ponto de entrada principal. Cria todas as 22 lojas (12 no térreo e 10 no mezanino).
     """
-    log_section("Criando Lojas")
+    log_section("Criando Lojas (Térreo e Mezanino)")
 
     col_lojas = collections.get("02_LOJAS")
     if not col_lojas:
         raise ValueError("Collection '02_LOJAS' não encontrada.")
 
-    count = CONFIG["stores"]["count_per_side"]
+    count_ground = CONFIG["stores"]["count_per_side"]
+    count_mz = CONFIG.get("mezzanine", {}).get("count_per_side", 5)
+
     all_stores = {}
     total_objs = 0
 
+    # 1. Lojas do Térreo (E01-E06, D01-D06)
     for side in ("E", "D"):
         side_label = "Esquerdo" if side == "E" else "Direito"
-        log_info(f"  Criando {count} lojas — Lado {side_label}")
-        for i in range(count):
+        log_info(f"  Criando {count_ground} lojas térreo — Lado {side_label}")
+        for i in range(count_ground):
             store_code = f"{side}{i+1:02d}"
-            store_objects = create_store(side, i, col_lojas)
+            store_objects = create_store(side, i, col_lojas, is_mezzanine=False)
             all_stores[store_code] = store_objects
-            # Contar objetos (glass, door, fascia + frame parts)
             total_objs += 3 + len(store_objects.get("frame", []))
 
-    log_section_end(f"Lojas ({count * 2} lojas, ~{total_objs} objetos)")
+    # 2. Lojas do Mezanino (ME01-ME05, MD01-MD05)
+    for side in ("E", "D"):
+        side_label = "Esquerdo" if side == "E" else "Direito"
+        log_info(f"  Criando {count_mz} lojas mezanino — Lado {side_label}")
+        for i in range(count_mz):
+            store_code = f"M{side}{i+1:02d}"
+            store_objects = create_store(side, i, col_lojas, is_mezzanine=True)
+            all_stores[store_code] = store_objects
+            total_objs += 3 + len(store_objects.get("frame", []))
+
+    total_stores_count = (count_ground + count_mz) * 2
+    log_section_end(f"Lojas ({total_stores_count} lojas no total, ~{total_objs} objetos)")
     return all_stores

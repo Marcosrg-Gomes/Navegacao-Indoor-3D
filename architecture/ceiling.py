@@ -1,11 +1,11 @@
 """
-architecture/ceiling.py — Criação do teto e claraboia envidraçada (Skylight)
+architecture/ceiling.py — Criação do teto e claraboia zenital envidraçada (Skylight)
 
 Gera:
-  - Lajes de teto laterais sobre as lojas
-  - Claraboia central envidraçada longitudinal sobre o corredor
-  - Vigas metálicas treliçadas transversais para suporte da claraboia
-  - Forro rebaixado diferenciado sobre as lojas
+  - Lajes de teto laterais sobre o pavimento superior (Z = 9.2m)
+  - Claraboia central envidraçada longitudinal sobre o átrio
+  - 14 vigas metálicas treliçadas transversais para suporte da claraboia
+  - Forro rebaixado diferenciado sobre as lojas do mezanino
 """
 
 import bpy
@@ -18,17 +18,16 @@ from materials import MatNames
 
 def create_skylight_ceiling(collection: bpy.types.Collection) -> list:
     """
-    Cria as lajes do teto com abertura central (claraboia) e o vidro translúcido
-    com caixilhos metálicos transversais sobre o corredor.
+    Cria as lajes do teto no topo do shopping (Z = 9.2m) com abertura central
+    (claraboia) e o vidro translúcido com caixilhos metálicos transversais.
     """
     s = CONFIG["shopping"]
     c = CONFIG["corridor"]
     ct = s["ceiling_thickness"]
-    skylight_w = c["width"] * 0.6  # Claraboia ocupa 60% da largura do corredor (ex: 4.8m)
+    skylight_w = c["width"] * 0.75  # Claraboia ampla ocupando 6.0m de vão
     ceil_h = s["height"]
 
     half_w = DERIVED["half_width"]
-    half_l = DERIVED["half_length"]
     wt = s["wall_thickness"]
     inner_len = s["length"] - 2 * wt
 
@@ -79,7 +78,7 @@ def create_skylight_ceiling(collection: bpy.types.Collection) -> list:
     objects.append(skylight_glass)
 
     # 4. Vigas metálicas transversais ao longo da claraboia
-    beam_count = 12
+    beam_count = 14
     step_y = inner_len / max(beam_count - 1, 1)
     start_y = -inner_len / 2.0
 
@@ -87,9 +86,9 @@ def create_skylight_ceiling(collection: bpy.types.Collection) -> list:
         by = start_y + i * step_y
         beam = create_box(
             name=f"ARQ_TETO_Claraboia_Viga_{i+1:02d}",
-            width=skylight_w + 0.2,
-            depth=0.15,
-            height=0.20,
+            width=skylight_w + 0.3,
+            depth=0.18,
+            height=0.25,
             location=(0.0, by, ceil_h),
             centered_xy=True,
             base_at_zero=True,
@@ -102,17 +101,22 @@ def create_skylight_ceiling(collection: bpy.types.Collection) -> list:
 
 
 def create_store_ceiling_drop(collection: bpy.types.Collection) -> list:
-    """Cria forros rebaixados sobre as lojas para transição volumétrica elegante."""
+    """Cria forros rebaixados elegantes sobre as lojas do piso superior."""
     s = CONFIG["shopping"]
     st = CONFIG["stores"]
+    mz = CONFIG.get("mezzanine", {})
     corridor_half = CONFIG["corridor"]["width"] / 2.0
 
     store_depth = st["depth"]
-    store_ceiling_h = st["storefront_height"] + 0.8
+    upper_floor_z = mz.get("floor_z", 4.7)
+    store_ceiling_h = upper_floor_z + st["storefront_height"] + 0.8
     drop_thickness = s["height"] - store_ceiling_h
 
+    if drop_thickness <= 0.05:
+        return []
+
     start_y = DERIVED["store_start_y"]
-    count = st["count_per_side"]
+    count = mz.get("count_per_side", 5)
     div_t = st["wall_thickness"]
     total_store_length = count * st["width"] + (count - 1) * div_t
 
@@ -124,7 +128,7 @@ def create_store_ceiling_drop(collection: bpy.types.Collection) -> list:
     ]
 
     for side_code, center_x in sides:
-        name = f"ARQ_TETO_Rebaixado_{side_code}"
+        name = f"ARQ_TETO_Rebaixado_M_{side_code}"
         center_y = start_y + total_store_length / 2.0
 
         obj = create_box(
@@ -144,8 +148,8 @@ def create_store_ceiling_drop(collection: bpy.types.Collection) -> list:
 
 
 def build_ceiling(collections: dict) -> dict:
-    """Ponto de entrada do teto com claraboia."""
-    log_section("Criando Teto e Claraboia Zenital")
+    """Ponto de entrada do teto com claraboia zenital."""
+    log_section("Criando Teto e Claraboia Zenital (2 Pavimentos)")
 
     col_teto = collections.get("TETO")
     if not col_teto:

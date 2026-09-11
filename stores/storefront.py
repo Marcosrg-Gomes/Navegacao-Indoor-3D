@@ -1,16 +1,29 @@
 """
-stores/storefront.py — Vitrine de vidro das lojas
+stores/storefront.py — Vitrine de lojas abertas (Open Storefronts)
 
-Cria o painel de vidro que ocupa a abertura frontal da loja,
-entre a fachada metálica e a altura da vitrine definida em config.
+Cria vitrines laterais parciais em vidro com pórtico em U invertido,
+soleira de transição e caixa de cortina de enrolar no topo da fáscia,
+mantendo o vão central 100% aberto no horário comercial.
 """
 
 import bpy
 from config import CONFIG
 from utils.geometry import create_box
 from utils.helpers import link_to_collection, apply_material_by_name
-from utils.logging import log_object_created
 from materials import MatNames
+
+
+PORTICO_FINISHES = (
+    MatNames.MADEIRA,
+    MatNames.ALUMINIO,
+    MatNames.MARMORE,
+)
+
+
+def _portico_material(store_name: str) -> str:
+    """Alterna madeira nobre, alumínio escovado e mármore entre as lojas."""
+    idx = sum(ord(ch) for ch in store_name) % len(PORTICO_FINISHES)
+    return PORTICO_FINISHES[idx]
 
 
 def create_storefront_glass(
@@ -19,39 +32,47 @@ def create_storefront_glass(
     center_y: float,
     vitrine_width: float,
     collection: bpy.types.Collection,
-) -> bpy.types.Object:
+    base_z: float = 0.0,
+) -> list:
     """
-    Cria o painel de vidro da vitrine para uma loja.
-
-    Args:
-        store_name: Código da loja (ex: "E01", "D03") para nomear o objeto.
-        center_x: Centro X da vitrine (borda do corredor).
-        center_y: Centro Y da loja.
-        vitrine_width: Largura da abertura de vidro (= largura da loja - estrutura).
-        collection: Collection da loja.
-
-    Returns:
-        Objeto de vitrine.
+    Painéis de vidro laterais da fachada, deixando o vão central aberto.
     """
     st = CONFIG["stores"]
-    glass_thickness = 0.05  # 5 cm de espessura do vidro
+    glass_thickness = 0.04
     glass_height = st["storefront_height"]
 
-    name = f"LOJA_{store_name}_Vitrine"
-    obj = create_box(
-        name=name,
+    wing_glass_w = vitrine_width * 0.28
+    offset_y = (vitrine_width / 2.0) - (wing_glass_w / 2.0)
+
+    objects = []
+
+    g_left = create_box(
+        name=f"LOJA_{store_name}_Vitrine_Esq",
         width=glass_thickness,
-        depth=vitrine_width,
+        depth=wing_glass_w,
         height=glass_height,
-        location=(center_x, center_y, 0.0),
+        location=(center_x, center_y - offset_y, base_z),
         centered_xy=True,
         base_at_zero=True,
     )
+    link_to_collection(g_left, collection)
+    apply_material_by_name(g_left, MatNames.VIDRO)
+    objects.append(g_left)
 
-    link_to_collection(obj, collection)
-    apply_material_by_name(obj, MatNames.VIDRO)
-    log_object_created(name, "Vitrine")
-    return obj
+    g_right = create_box(
+        name=f"LOJA_{store_name}_Vitrine_Dir",
+        width=glass_thickness,
+        depth=wing_glass_w,
+        height=glass_height,
+        location=(center_x, center_y + offset_y, base_z),
+        centered_xy=True,
+        base_at_zero=True,
+    )
+    link_to_collection(g_right, collection)
+    apply_material_by_name(g_right, MatNames.VIDRO)
+    objects.append(g_right)
+
+    return objects
 
 
 def create_storefront_frame(
@@ -60,59 +81,76 @@ def create_storefront_frame(
     center_y: float,
     store_width: float,
     collection: bpy.types.Collection,
+    base_z: float = 0.0,
 ) -> list:
     """
-    Cria a estrutura metálica (caixilho) ao redor da vitrine.
-    Composta por: montantes laterais + verga superior + peitoril inferior.
-
-    Args:
-        store_name: Código da loja.
-        center_x: Centro X da vitrine (borda do corredor).
-        center_y: Centro Y da loja.
-        store_width: Largura total da fachada da loja.
-        collection: Collection da loja.
-
-    Returns:
-        Lista de objetos do caixilho.
+    Pórtico em U invertido, caixa de cortina rolo e soleira de transição.
     """
     st = CONFIG["stores"]
     h = st["storefront_height"]
-    s = CONFIG["shopping"]
-    frame_t = 0.08       # Espessura do perfil metálico
-    frame_depth = 0.05   # Profundidade do perfil
+    frame_t = 0.10
+    frame_depth = 0.14
+    toward_corridor = 0.08 if center_x < 0 else -0.08
+    fx = center_x + toward_corridor
+    finish = _portico_material(store_name)
+    open_span = store_width * 0.44
 
     objects = []
 
-    # Verga superior (barra horizontal no topo da vitrine)
-    verga_name = f"LOJA_{store_name}_Frame_Verga"
     verga = create_box(
-        name=verga_name,
+        name=f"LOJA_{store_name}_Portico_Topo",
         width=frame_depth,
         depth=store_width,
         height=frame_t,
-        location=(center_x, center_y, h - frame_t / 2),
+        location=(fx, center_y, base_z + h - frame_t),
         centered_xy=True,
         base_at_zero=True,
     )
     link_to_collection(verga, collection)
-    apply_material_by_name(verga, MatNames.FACHADA_LOJA)
+    apply_material_by_name(verga, finish)
     objects.append(verga)
 
-    # Montante esquerdo
-    for side, y_offset in [("L", -(store_width / 2.0 - frame_t / 2.0)),
-                            ("R", +(store_width / 2.0 - frame_t / 2.0))]:
-        mont_name = f"LOJA_{store_name}_Frame_{side}"
+    for side, y_offset in (
+        ("L", -(store_width / 2.0 - frame_t / 2.0)),
+        ("R", +(store_width / 2.0 - frame_t / 2.0)),
+    ):
         mont = create_box(
-            name=mont_name,
+            name=f"LOJA_{store_name}_Portico_{side}",
             width=frame_depth,
             depth=frame_t,
             height=h,
-            location=(center_x, center_y + y_offset, 0.0),
+            location=(fx, center_y + y_offset, base_z),
             centered_xy=True,
             base_at_zero=True,
         )
         link_to_collection(mont, collection)
-        apply_material_by_name(mont, MatNames.FACHADA_LOJA)
+        apply_material_by_name(mont, finish)
         objects.append(mont)
+
+    caixa_rolo = create_box(
+        name=f"LOJA_{store_name}_CaixaRolo",
+        width=0.22,
+        depth=open_span,
+        height=0.16,
+        location=(fx, center_y, base_z + h - 0.04),
+        centered_xy=True,
+        base_at_zero=True,
+    )
+    link_to_collection(caixa_rolo, collection)
+    apply_material_by_name(caixa_rolo, MatNames.ALUMINIO)
+    objects.append(caixa_rolo)
+
+    soleira = create_box(
+        name=f"LOJA_{store_name}_Soleira",
+        width=0.42,
+        depth=open_span,
+        height=0.018,
+        location=(center_x, center_y, base_z + 0.002),
+        centered_xy=True,
+        base_at_zero=True,
+    )
+    link_to_collection(soleira, collection)
+    apply_material_by_name(soleira, MatNames.MARMORE)
+    objects.append(soleira)
 
     return objects

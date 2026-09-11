@@ -22,7 +22,7 @@ ROOT_COLLECTION = "MINI_SHOPPING"
 
 COLLECTION_TREE = {
     "01_ARQUITETURA": {
-        "children": ["PISOS", "PAREDES_EXTERNAS", "PAREDES_INTERNAS", "TETO", "ENTRADA", "ESCADAS"],
+        "children": ["PISOS", "PAREDES_EXTERNAS", "PAREDES_INTERNAS", "TETO", "ENTRADA", "ESCADAS", "MEZANINO", "GUARDACORPOS"],
     },
     "02_LOJAS": {
         "children": [],  # Sub-collections criadas dinamicamente por store_builder.py
@@ -31,15 +31,18 @@ COLLECTION_TREE = {
         "children": ["PRACA_ALIMENTACAO", "SANITARIOS"],
     },
     "04_MOBILIARIO": {
-        "children": ["BANCOS", "LIXEIRAS", "VASOS", "MESAS"],
+        "children": ["BANCOS", "LIXEIRAS", "VASOS", "MESAS", "QUIOSQUES", "TOTENS"],
     },
     "05_DECORACAO": {
-        "children": ["LETREIROS", "SINALIZACAO", "PLANTAS"],
+        "children": ["LETREIROS", "SINALIZACAO", "PLANTAS", "PENDENTES"],
     },
     "06_ILUMINACAO": {
         "children": ["LUZ_GERAL", "LUZ_LOJAS"],
     },
-    "07_CAMERAS": {
+    "07_CIRCULACAO_VERTICAL": {
+        "children": ["ESCADAS_ROLANTES", "ELEVADOR", "ESCADA_MONUMENTAL"],
+    },
+    "08_CAMERAS": {
         "children": [],
     },
 }
