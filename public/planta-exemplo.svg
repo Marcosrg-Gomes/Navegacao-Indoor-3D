@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+  <rect width="1200" height="720" fill="#e8e4d8"/>
+  <rect x="40" y="40" width="1120" height="640" fill="#d9d3c3" stroke="#9a917c"/>
+  <rect x="80" y="80" width="1040" height="80" fill="#cfc6b0"/>
+  <rect x="80" y="560" width="1040" height="80" fill="#cfc6b0"/>
+  <rect x="80" y="200" width="1040" height="320" fill="#b7c4b3"/>
+  <text x="600" y="380" text-anchor="middle" font-family="Arial" font-size="28" fill="#4a5344">Corredor central</text>
+</svg>
