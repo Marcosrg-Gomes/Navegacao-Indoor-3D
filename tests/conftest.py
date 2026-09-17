@@ -1,8 +1,10 @@
 import os
 
 # The application lifespan also opens its configured engine. Never inherit a
-# developer/production database URL when running the isolated test suite.
-os.environ["DATABASE_URL"] = "sqlite:///:memory:"
+# developer/production database URL when running tests. CI can opt into an
+# isolated MySQL database through TEST_DATABASE_URL.
+test_database_url = os.environ.get("TEST_DATABASE_URL")
+os.environ["DATABASE_URL"] = test_database_url or "sqlite:///:memory:"
 os.environ["ADMIN_API_KEY"] = "test-api-key"
 os.environ["SECRET_KEY"] = "test-secret-key"
 os.environ["DEBUG"] = "true"
@@ -20,13 +22,16 @@ from app.models import Shopping, Piso, No, Aresta, Loja, Categoria, QRCode
 
 get_settings.cache_clear()
 
-SQLALCHEMY_DATABASE_URL = "sqlite:///:memory:"
+SQLALCHEMY_DATABASE_URL = os.environ["DATABASE_URL"]
 
-engine = create_engine(
-    SQLALCHEMY_DATABASE_URL,
-    connect_args={"check_same_thread": False},
-    poolclass=StaticPool,
-)
+if SQLALCHEMY_DATABASE_URL.startswith("sqlite"):
+    engine = create_engine(
+        SQLALCHEMY_DATABASE_URL,
+        connect_args={"check_same_thread": False},
+        poolclass=StaticPool,
+    )
+else:
+    engine = create_engine(SQLALCHEMY_DATABASE_URL)
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
