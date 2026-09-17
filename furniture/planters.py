@@ -1,47 +1,76 @@
 """
-furniture/planters.py — Vasos de plantas e jardineiras suspensas do mezanino
+furniture/planters.py — Vasos trapezoidais e jardineiras com vegetação composta
 
 Gera:
-  - Vasos esculturais no piso térreo com folhagens
+  - Vasos trapezoidais no piso térreo (boca expandida) com folhagens em cachos múltiplos
   - Jardineiras suspensas com plantas pendentes contornando as bordas do mezanino
 """
 
 import bpy
 from config import CONFIG, DERIVED
-from utils.geometry import create_cylinder, create_sphere_ico, create_box
+from utils.geometry import create_cylinder, create_sphere_ico, create_box, create_trapezoid_box
 from utils.helpers import link_to_collection, apply_material_by_name, create_linked_instance
 from utils.logging import log_object_created, log_section, log_section_end
 from materials import MatNames
 
 
 def create_planter_prototype() -> tuple:
-    """Cria um vaso e sua folhagem como protótipo."""
+    """Cria um vaso trapezoidal escultural e sua folhagem em múltiplos cachos como protótipo."""
     f_cfg = CONFIG["furniture"]
     p_radius = f_cfg.get("planter_radius", 0.35)
-    p_height = f_cfg.get("planter_height", 0.5)
-    plant_h = f_cfg.get("plant_height", 0.8)
+    p_height = f_cfg.get("planter_height", 0.55)
 
-    # Vaso
-    pot = create_cylinder(
+    # 1. Vaso trapezoidal (boca mais larga: 0.75m, base: 0.48m)
+    pot = create_trapezoid_box(
         name="PROTO_VASO_Base",
-        radius=p_radius,
+        top_width=p_radius * 2.2,
+        top_depth=p_radius * 2.2,
+        bottom_width=p_radius * 1.4,
+        bottom_depth=p_radius * 1.4,
         height=p_height,
-        segments=16,
         location=(0.0, 0.0, 0.0),
         base_at_zero=True,
     )
     apply_material_by_name(pot, MatNames.VASO)
 
-    # Folhagem / Arbusto
-    bush = create_sphere_ico(
-        name="PROTO_PLANTA_Folhagem",
-        radius=p_radius * 1.3,
-        subdivisions=2,
-        location=(0.0, 0.0, p_height + plant_h * 0.4),
+    # 2. Terra / substrato escuro
+    soil = create_box(
+        name="PROTO_VASO_Terra",
+        width=p_radius * 2.0,
+        depth=p_radius * 2.0,
+        height=0.04,
+        location=(0.0, 0.0, p_height - 0.03),
+        centered_xy=True,
+        base_at_zero=True,
     )
-    apply_material_by_name(bush, MatNames.PLANTA)
+    apply_material_by_name(soil, MatNames.VASO)
 
-    return pot, bush
+    # 3. Folhagem composta: Cacho principal central + 2 cachos laterais
+    bush_main = create_sphere_ico(
+        name="PROTO_PLANTA_Cacho_Principal",
+        radius=p_radius * 1.25,
+        subdivisions=2,
+        location=(0.0, 0.0, p_height + 0.32),
+    )
+    apply_material_by_name(bush_main, MatNames.PLANTA)
+
+    bush_side1 = create_sphere_ico(
+        name="PROTO_PLANTA_Cacho_Esq",
+        radius=p_radius * 0.85,
+        subdivisions=2,
+        location=(-0.16, -0.08, p_height + 0.18),
+    )
+    apply_material_by_name(bush_side1, MatNames.PLANTA)
+
+    bush_side2 = create_sphere_ico(
+        name="PROTO_PLANTA_Cacho_Dir",
+        radius=p_radius * 0.80,
+        subdivisions=2,
+        location=(0.14, 0.10, p_height + 0.22),
+    )
+    apply_material_by_name(bush_side2, MatNames.PLANTA)
+
+    return pot, soil, bush_main, bush_side1, bush_side2
 
 
 def create_hanging_planters(collection: bpy.types.Collection) -> list:
@@ -52,7 +81,7 @@ def create_hanging_planters(collection: bpy.types.Collection) -> list:
     half_aw = atrium_w / 2.0
 
     objects = []
-    planter_w = 0.35
+    planter_w = 0.38
     planter_len = 3.0
     planter_h = 0.25
 
@@ -61,15 +90,16 @@ def create_hanging_planters(collection: bpy.types.Collection) -> list:
     for side_code, sign in [("Esq", -1), ("Dir", 1)]:
         px = sign * (half_aw + planter_w / 2.0)
         for i, py in enumerate(y_positions):
-            # Caixa da floreira
+            # Caixa da floreira trapezoidal
             box_name = f"MOB_Jardineira_Susp_{side_code}_{i+1:02d}"
-            box = create_box(
+            box = create_trapezoid_box(
                 name=box_name,
-                width=planter_w,
-                depth=planter_len,
+                top_width=planter_w * 1.1,
+                top_depth=planter_len,
+                bottom_width=planter_w * 0.85,
+                bottom_depth=planter_len * 0.95,
                 height=planter_h,
                 location=(px, py, mz_slab_z + 0.1),
-                centered_xy=True,
                 base_at_zero=True,
             )
             link_to_collection(box, collection)
@@ -103,7 +133,7 @@ def create_hanging_planters(collection: bpy.types.Collection) -> list:
                 objects.append(trail)
 
                 vine = create_cylinder(
-                    name=f"MOB_Planta_Cipó_{side_code}_{i+1:02d}_{k+1}",
+                    name=f"MOB_Planta_Cipo_{side_code}_{i+1:02d}_{k+1}",
                     radius=0.035,
                     height=0.55,
                     segments=8,
@@ -131,17 +161,29 @@ def build_planters(collections: dict) -> list:
     end_y = half_l - 14.0
     step_y = (end_y - start_y) / max(count - 1, 1)
 
-    pot_proto, bush_proto = create_planter_prototype()
+    pot_proto, soil_proto, b1_proto, b2_proto, b3_proto = create_planter_prototype()
 
     pot_proto.name = "MOB_VASO_01"
     pot_proto.location = (0.0, start_y, 0.0)
     link_to_collection(pot_proto, col_vasos)
 
-    bush_proto.name = "MOB_PLANTA_01"
-    bush_proto.location = (0.0, start_y, 0.5 + 0.32)
-    link_to_collection(bush_proto, col_vasos)
+    soil_proto.name = "MOB_TERRA_01"
+    soil_proto.location = (0.0, start_y, 0.55 - 0.03)
+    link_to_collection(soil_proto, col_vasos)
 
-    all_objects = [pot_proto, bush_proto]
+    b1_proto.name = "MOB_PLANTA_01_C1"
+    b1_proto.location = (0.0, start_y, 0.55 + 0.32)
+    link_to_collection(b1_proto, col_vasos)
+
+    b2_proto.name = "MOB_PLANTA_01_C2"
+    b2_proto.location = (-0.16, start_y - 0.08, 0.55 + 0.18)
+    link_to_collection(b2_proto, col_vasos)
+
+    b3_proto.name = "MOB_PLANTA_01_C3"
+    b3_proto.location = (0.14, start_y + 0.10, 0.55 + 0.22)
+    link_to_collection(b3_proto, col_vasos)
+
+    all_objects = [pot_proto, soil_proto, b1_proto, b2_proto, b3_proto]
 
     for i in range(1, count):
         y_pos = start_y + i * step_y
@@ -154,14 +196,28 @@ def build_planters(collections: dict) -> list:
             collection=col_vasos,
         )
 
-        bush_inst = create_linked_instance(
-            source_obj=bush_proto,
-            name=f"MOB_PLANTA_{i+1:02d}",
-            location=(x_offset, y_pos, 0.5 + 0.32),
+        b1_inst = create_linked_instance(
+            source_obj=b1_proto,
+            name=f"MOB_PLANTA_{i+1:02d}_C1",
+            location=(x_offset, y_pos, 0.55 + 0.32),
             collection=col_vasos,
         )
 
-        all_objects.extend([pot_inst, bush_inst])
+        b2_inst = create_linked_instance(
+            source_obj=b2_proto,
+            name=f"MOB_PLANTA_{i+1:02d}_C2",
+            location=(x_offset - 0.16, y_pos - 0.08, 0.55 + 0.18),
+            collection=col_vasos,
+        )
+
+        b3_inst = create_linked_instance(
+            source_obj=b3_proto,
+            name=f"MOB_PLANTA_{i+1:02d}_C3",
+            location=(x_offset + 0.14, y_pos + 0.10, 0.55 + 0.22),
+            collection=col_vasos,
+        )
+
+        all_objects.extend([pot_inst, b1_inst, b2_inst, b3_inst])
 
     # Jardineiras suspensas no mezanino
     hanging_objs = create_hanging_planters(col_vasos)

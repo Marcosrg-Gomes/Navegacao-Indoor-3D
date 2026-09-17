@@ -3,19 +3,25 @@ areas/restrooms.py — Sanitários do shopping (4 Banheiros nos 2 Pavimentos)
 
 Gera:
   - Térreo (Z=0.0m):
-      1. Sanitário Masculino Térreo (bancada quartzo, cubas, espelho LED,
-         3 mictórios com divisórias de vidro escurecido, 2 cabines)
+      1. Sanitário Masculino Térreo (bancada quartzo, cubas esculpidas, espelho LED,
+         3 mictórios com divisórias de vidro escurecido, 2 cabines completas)
       2. Sanitário Feminino Térreo (bancada dupla de sobrepor, camarim com
-         espelhos circulares, 3 cabines)
+         espelhos circulares/ovais, 3 cabines completas)
   - Mezanino (Z=4.7m):
-      3. Sanitário Masculino PCD (acesso amplo, barras ABNT NBR 9050)
-      4. Sanitário Feminino Família (fraldário, pia infantil, poltrona)
+      3. Sanitário Masculino PCD (acesso amplo, barras ABNT NBR 9050, louça adaptada)
+      4. Sanitário Feminino Família (fraldário, pia infantil, poltrona de amamentação)
 """
 
 import bpy
 from config import CONFIG, DERIVED
-from utils.geometry import create_box, create_cylinder, create_wall_with_opening
-from utils.helpers import link_to_collection, apply_material_by_name
+from utils.geometry import (
+    create_box,
+    create_cylinder,
+    create_rounded_box,
+    create_cone,
+    create_wall_with_opening,
+)
+from utils.helpers import link_to_collection, apply_material_by_name, set_object_rotation
 from utils.logging import log_section, log_section_end
 from materials import MatNames
 from stores.signs import create_3d_text
@@ -90,8 +96,40 @@ def _room_shell(prefix, ox, oy, w, d, h, base_z, door_off_y, door_w, collection,
     return front_y
 
 
+def _create_toilet(name_prefix: str, location: tuple, collection, objects):
+    """Cria um vaso sanitário composto (bacia cônica + caixa de descarga chanfrada + assento)."""
+    x, y, z = location
+
+    # 1. Bacia cônica (corpo do vaso)
+    bacia = create_cone(
+        name=f"{name_prefix}_Bacia",
+        radius_top=0.20, radius_bottom=0.14, height=0.40, segments=16,
+        location=(x, y, z),
+        base_at_zero=True,
+    )
+    _link(bacia, collection, MatNames.LOUCA, objects)
+
+    # 2. Caixa de descarga acoplada chanfrada
+    caixa = create_rounded_box(
+        name=f"{name_prefix}_CaixaAcoplada",
+        width=0.38, depth=0.18, height=0.36, bevel_radius=0.015,
+        location=(x + 0.18, y, z + 0.35),
+        centered_xy=True, base_at_zero=True,
+    )
+    _link(caixa, collection, MatNames.LOUCA, objects)
+
+    # 3. Tampa / assento
+    tampa = create_cylinder(
+        name=f"{name_prefix}_Tampa",
+        radius=0.21, height=0.02, segments=16,
+        location=(x, y, z + 0.40),
+        base_at_zero=True,
+    )
+    _link(tampa, collection, MatNames.FACHADA_LOJA, objects)
+
+
 def _stalls(prefix, x, y0, base_z, n, collection, objects, door_mat=MatNames.ALUMINIO):
-    """Cabines privativas alinhadas no eixo Y."""
+    """Cabines privativas completas alinhadas no eixo Y."""
     stall_w, stall_d, stall_h = 0.90, 1.35, 2.0
     for i in range(n):
         cy = y0 + i * (stall_w + 0.04)
@@ -111,26 +149,32 @@ def _stalls(prefix, x, y0, base_z, n, collection, objects, door_mat=MatNames.ALU
         )
         _link(door, collection, door_mat, objects)
 
-        vaso = create_box(
-            name=f"{prefix}_Cabine_{i+1}_Vaso",
-            width=0.42, depth=0.55, height=0.42,
-            location=(x + 0.25, cy, base_z),
-            centered_xy=True, base_at_zero=True,
-        )
-        _link(vaso, collection, MatNames.LOUCA, objects)
+        # Vaso composto
+        _create_toilet(f"{prefix}_Cabine_{i+1}", (x + 0.22, cy, base_z), collection, objects)
 
 
 def _sinks_on_counter(prefix, cx, cy, base_z, n, span, collection, objects):
-    """Cubas de sobrepor sobre a bancada."""
+    """Cubas esculpidas com torneira metálica sobre a bancada."""
     for i in range(n):
         t = (i / max(n - 1, 1)) - 0.5
-        cuba = create_cylinder(
+        sy = cy + t * span
+        # Cuba cilíndrica de sobrepor
+        cuba = create_cone(
             name=f"{prefix}_Cuba_{i+1}",
-            radius=0.16, height=0.12, segments=20,
-            location=(cx, cy + t * span, base_z + 0.85),
+            radius_top=0.18, radius_bottom=0.14, height=0.14, segments=20,
+            location=(cx, sy, base_z + 0.88),
             base_at_zero=True,
         )
         _link(cuba, collection, MatNames.LOUCA, objects)
+
+        # Torneira metálica
+        torneira = create_cylinder(
+            name=f"{prefix}_Torneira_{i+1}",
+            radius=0.015, height=0.22, segments=8,
+            location=(cx - 0.18, sy, base_z + 0.88),
+            base_at_zero=True,
+        )
+        _link(torneira, collection, MatNames.INOX, objects)
 
 
 def _sign(name, text, loc, collection, objects, size=0.16):

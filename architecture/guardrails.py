@@ -8,6 +8,7 @@ Gera:
 """
 
 import bpy
+from math import ceil
 from config import CONFIG, DERIVED
 from utils.geometry import create_box, create_cylinder
 from utils.helpers import link_to_collection, apply_material_by_name
@@ -21,6 +22,7 @@ def create_guardrail_section(
     start_pos: tuple,
     axis: str,
     collection: bpy.types.Collection,
+    include_end_posts: bool = True,
 ) -> list:
     """
     Cria uma seção de guarda-corpo linear com vidro, corrimão superior e montantes.
@@ -31,6 +33,7 @@ def create_guardrail_section(
         start_pos: Posição inicial (X, Y, Z).
         axis: 'Y' para seções longitudinais ou 'X' para transversais.
         collection: Collection onde inserir os objetos.
+        include_end_posts: Desative nas travessas para compartilhar os postes dos cantos.
     """
     mz = CONFIG.get("mezzanine", {})
     gh = mz.get("guardrail_height", 1.1)
@@ -85,10 +88,12 @@ def create_guardrail_section(
 
     # 3. Montantes Metálicos (postes verticais)
     post_spacing = 3.0
-    num_posts = max(int(length / post_spacing) + 1, 2)
+    num_posts = max(ceil(length / post_spacing) + 1, 2)
     step = length / max(num_posts - 1, 1)
 
     for i in range(num_posts):
+        if not include_end_posts and i in (0, num_posts - 1):
+            continue
         if axis == 'Y':
             px = center_x
             py = start_pos[1] + i * step
@@ -120,70 +125,27 @@ def build_guardrails(collections: dict) -> dict:
     if not col_gc:
         col_gc = list(collections.values())[0]
 
-    s = CONFIG["shopping"]
     mz = CONFIG.get("mezzanine", {})
-    wt = s["wall_thickness"]
-    atrium_w = mz.get("atrium_opening", 5.0)
     base_z = mz.get("floor_z", 4.7)
 
-    # Vão longitudinal do átrio
-    atrium_start_y = DERIVED["store_start_y"] - 1.0
-    total_len = s["length"] - 2 * wt
-    atrium_len = total_len * 0.65  # Vão cobre a maior parte central
-
-    half_atrium_w = atrium_w / 2.0
-    half_atrium_l = atrium_len / 2.0
-
+    # Assentar vidro e postes sobre a laje, junto aos limites reais do vão.
+    edge_offset = max(0.03, mz.get("guardrail_thickness", 0.04) / 2.0)
+    left_x = DERIVED["mz_corridor_left_x"] - edge_offset
+    right_x = DERIVED["mz_corridor_right_x"] + edge_offset
+    front_y = DERIVED["mz_atrium_start_y"] - edge_offset
+    back_y = DERIVED["mz_atrium_end_y"] + edge_offset
     objects = []
-
-    # 1. Guarda-corpo Lateral Esquerdo (longitudinal)
-    gc_esq = create_guardrail_section(
-        name_prefix="ARQ_GC_Mezanino_Esq",
-        length=atrium_len,
-        start_pos=(-half_atrium_w, -half_atrium_l, base_z),
-        axis='Y',
-        collection=col_gc,
-    )
-    objects.extend(gc_esq)
-
-    # 2. Guarda-corpo Lateral Direito (longitudinal)
-    gc_dir = create_guardrail_section(
-        name_prefix="ARQ_GC_Mezanino_Dir",
-        length=atrium_len,
-        start_pos=(+half_atrium_w, -half_atrium_l, base_z),
-        axis='Y',
-        collection=col_gc,
-    )
-    objects.extend(gc_dir)
-
-    # 3. Guarda-corpo Frontal (transversal com abertura central para escada/circulação)
-    gc_front_l = create_guardrail_section(
-        name_prefix="ARQ_GC_Mezanino_Frente_Esq",
-        length=half_atrium_w - 0.8,
-        start_pos=(-half_atrium_w, -half_atrium_l, base_z),
-        axis='X',
-        collection=col_gc,
-    )
-    objects.extend(gc_front_l)
-
-    gc_front_r = create_guardrail_section(
-        name_prefix="ARQ_GC_Mezanino_Frente_Dir",
-        length=half_atrium_w - 0.8,
-        start_pos=(0.8, -half_atrium_l, base_z),
-        axis='X',
-        collection=col_gc,
-    )
-    objects.extend(gc_front_r)
-
-    # 4. Guarda-corpo Fundo (transversal em frente à praça de alimentação)
-    gc_back = create_guardrail_section(
-        name_prefix="ARQ_GC_Mezanino_Fundo",
-        length=atrium_w,
-        start_pos=(-half_atrium_w, half_atrium_l, base_z),
-        axis='X',
-        collection=col_gc,
-    )
-    objects.extend(gc_back)
+    for side, axis, length, x, y in (
+        ("Esq", 'Y', back_y - front_y, left_x, front_y),
+        ("Dir", 'Y', back_y - front_y, right_x, front_y),
+        ("Frente", 'X', right_x - left_x, left_x, front_y),
+        ("Fundo", 'X', right_x - left_x, left_x, back_y),
+    ):
+        objects.extend(create_guardrail_section(
+            name_prefix=f"ARQ_GC_Mezanino_{side}",
+            length=length, start_pos=(x, y, base_z), axis=axis,
+            collection=col_gc, include_end_posts=(axis == 'Y'),
+        ))
 
     log_section_end(f"Guarda-Corpos ({len(objects)} elementos)")
     return {"guardrails": objects}

@@ -1,75 +1,45 @@
-# Mini Shopping — Automação Procedural em Blender Python
+# Shopping 3D — automação procedural em Blender Python
 
-Projeto acadêmico de geração procedural completa de um mini shopping center interno navegável, utilizando exclusivamente Python e a API `bpy` do Blender.
+Projeto acadêmico que cria um mini shopping interno navegável usando Python e a API `bpy` do Blender. As unidades são metros (`1 unidade Blender = 1 m`).
 
----
+## Ambiente reproduzível
 
-## 📁 Estrutura do Projeto
+- Blender alvo: **4.5.14 LTS**. O projeto usa `bpy`, `bmesh` e `mathutils` que vêm com o Blender; Python comum não executa a geração da cena.
+- Python para as verificações puras: **3.11+**. Não há dependências de execução fora do Blender; a única ferramenta de desenvolvimento é `ruff`.
+- O render usa EEVEE Next quando disponível, EEVEE nas versões anteriores e Cycles como último fallback. O gerenciamento de cores tenta AgX e faz fallback para Filmic.
+- A compatibilidade com Blender 3.6 LTS e 4.x foi mantida em trechos com fallback, mas a validação automatizada é feita na versão alvo 4.5.14 LTS.
 
-```text
-mini_shopping/
-├── main.py                    # Orquestrador central (execute este arquivo)
-├── config.py                  # Dimensões, parâmetros e opções de execução
-├── scene_setup.py             # Criação e limpeza seletiva de Collections
-├── materials.py               # Materiais Principled BSDF reutilizáveis
-│
-├── utils/
-│   ├── geometry.py            # Criação de malhas primitivas via bmesh
-│   ├── helpers.py             # Utilitários de coleções, vínculos e rotações
-│   └── logging.py             # Formatação de logs de progresso
-│
-├── architecture/
-│   ├── floor.py               # Lajes de piso (geral, praça, lojas)
-│   ├── walls.py               # Paredes externas com vão e divisórias
-│   ├── ceiling.py             # Teto principal e forro rebaixado
-│   ├── entrance.py            # Hall de entrada, colunas e marquise
-│   └── stairs.py              # Escada decorativa com degraus e guarda-corpo
-│
-├── stores/
-│   ├── store_builder.py       # Montagem modular das lojas (E01–E06 e D01–D06)
-│   ├── storefront.py          # Vitrines em vidro e caixilhos metálicos
-│   ├── doors.py               # Portas de alumínio
-│   └── signs.py               # Letreiros luminosos frontais
-│
-├── areas/
-│   ├── food_court.py          # Praça de alimentação (balcões, mesas e cadeiras)
-│   └── restrooms.py           # Bloco de sanitários com divisórias e placas
-│
-├── furniture/
-│   ├── benches.py             # Bancos de descanso (linked instances)
-│   ├── bins.py                # Lixeiras de aço escovado
-│   ├── planters.py            # Vasos de plantas com folhagem
-│   └── tables.py              # Conjuntos de mesas/cadeiras
-│
-├── lighting/
-│   ├── general.py             # Area Lights no teto do corredor e praça
-│   └── store_lights.py        # Iluminação individual por loja
-│
-└── cameras/
-    └── views.py               # Câmeras (Entrada, Corredor, Aérea 3/4, Praça)
+## Execução
+
+Na interface do Blender, abra `main.py` na área **Scripting** e use **Run Script** (`Alt + P`).
+
+Para gerar e renderizar sem interface, a partir da raiz do repositório:
+
+```powershell
+& "C:\caminho\para\blender.exe" --background --factory-startup --python scripts\render_headless.py
 ```
 
----
+O comando recria apenas as collections do projeto, renderiza as câmeras estáticas em `renders/` a 640×360 e grava `renders/shopping_validado.blend`. O modo headless não abre viewport; a inspeção é feita nos PNGs gerados.
 
-## 🚀 Como Executar no Blender
+## Desenvolvimento e validação
 
-1. Abra o **Blender** (3.6 LTS, 4.0, 4.1 ou superior).
-2. Vá até a aba **Scripting** no topo da janela.
-3. Clique em **Open** e navegue até:
-   `mini_shopping/main.py`
-4. Abra o Console do Sistema para acompanhar o progresso em tempo real:
-   - Menu superior: **Window > Toggle System Console**
-5. Clique no botão **Run Script** (ou pressione **Alt + P**).
-6. Mude o Viewport Shading para **Material Preview** ou **Rendered** para ver os materiais e luzes.
-
----
-
-## ⚙️ Customização
-
-Para alterar dimensões, quantidades de lojas, ligar/desligar mobiliário ou letreiros, edite o arquivo [`config.py`](file:///c:/Users/Dev_2o_Ano/Documents/2°Semestre/Shopping Mini/mini_shopping/config.py):
-
-```python
-# Ativar mobiliário e letreiros (Fase 2):
-CONFIG["features"]["furniture"] = True
-CONFIG["features"]["decoration"] = True
+```powershell
+python -m pip install ruff
+ruff check tests scripts utils/mesh_data.py config.py utils/geometry.py
+ruff format --check tests scripts utils/mesh_data.py
+python -m compileall -q .
+python -m unittest discover -s tests -v
 ```
+
+Os testes de `tests/` validam o layout derivado e malhas puras sem importar `bpy`. A adaptação dessas malhas para `bmesh` permanece em `utils/geometry.py`. O GitHub Actions executa essas verificações e também roda a geração da cena com Blender headless 4.5.14 LTS.
+
+## Estrutura
+
+- `main.py`: orquestra a geração da cena.
+- `config.py`: valores e layout derivados.
+- `utils/mesh_data.py`: malhas testáveis, sem dependência do Blender.
+- `architecture/`, `stores/`, `areas/`, `furniture/`, `lighting/` e `cameras/`: construtores por domínio.
+- `scripts/`: pontos de entrada para geração e smoke test headless.
+- `renders/`: artefatos de validação visual.
+
+`config.py` continua centralizado porque os domínios ainda compartilham muitas dimensões. Quando os conflitos de edição ou as configurações específicas crescerem, a divisão recomendada é `config/architecture.py`, `config/stores.py`, `config/lighting.py` e um módulo pequeno de composição/validação. Essa migração não foi antecipada para não alterar a API atual.

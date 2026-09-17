@@ -136,19 +136,35 @@ def cleanup_project(confirm: bool = True) -> int:
         log_info("Nenhuma Collection do projeto encontrada. Cena já está limpa.")
         return 0
 
-    # Coletar todos os objetos dentro do projeto
-    all_project_objects = get_collection_all_objects(root, recursive=True)
+    # Capturar apenas dados do projeto; objetos também vinculados fora dele ficam.
+    project_collections = set()
+    def collect(col):
+        if col in project_collections:
+            return
+        project_collections.add(col)
+        for child in col.children:
+            collect(child)
+    collect(root)
+    all_project_objects = list(root.all_objects)
+    data_to_remove = {obj.data for obj in all_project_objects if obj.data is not None}
 
     # Remover objetos
     for obj in all_project_objects:
+        if any(col not in project_collections for col in obj.users_collection):
+            continue
         bpy.data.objects.remove(obj, do_unlink=True)
         removed_objects += 1
 
     log_info(f"Objetos removidos: {removed_objects}")
 
     # Remover Collections de dentro para fora (sub-collections primeiro)
+    visited = set()
     def remove_collection_recursive(col):
         nonlocal removed_collections
+        pointer = col.as_pointer()
+        if pointer in visited:
+            return
+        visited.add(pointer)
         for child in list(col.children):
             remove_collection_recursive(child)
         bpy.data.collections.remove(col)
@@ -157,21 +173,16 @@ def cleanup_project(confirm: bool = True) -> int:
     remove_collection_recursive(root)
     log_info(f"Collections removidas: {removed_collections}")
 
-    # Limpar meshes órfãos gerados pelo projeto
-    orphan_meshes = [m for m in bpy.data.meshes if m.users == 0]
-    for mesh in orphan_meshes:
-        bpy.data.meshes.remove(mesh)
-    log_info(f"Meshes órfãos removidos: {len(orphan_meshes)}")
-
-    # Limpar luzes órfãs
-    orphan_lights = [l for l in bpy.data.lights if l.users == 0]
-    for light in orphan_lights:
-        bpy.data.lights.remove(light)
-
-    # Limpar câmeras órfãs
-    orphan_cameras = [c for c in bpy.data.cameras if c.users == 0]
-    for cam in orphan_cameras:
-        bpy.data.cameras.remove(cam)
+    # Inclui curvas/textos para não acumular dados a cada reconstrução.
+    for data in data_to_remove:
+        if data.users == 0:
+            for kind, registry in ((bpy.types.Mesh, bpy.data.meshes),
+                                   (bpy.types.Curve, bpy.data.curves),
+                                   (bpy.types.Light, bpy.data.lights),
+                                   (bpy.types.Camera, bpy.data.cameras)):
+                if isinstance(data, kind):
+                    registry.remove(data)
+                    break
 
     log_section_end("Limpeza")
     return removed_objects
@@ -231,13 +242,6 @@ def setup_scene() -> None:
     scene.render.resolution_x = 1920
     scene.render.resolution_y = 1080
     scene.render.resolution_percentage = 100
-
-    # --- Remover objetos padrão do Blender ---
-    default_names = {"Cube", "Light", "Camera"}
-    for name in default_names:
-        obj = bpy.data.objects.get(name)
-        if obj:
-            bpy.data.objects.remove(obj, do_unlink=True)
 
     log_section_end("Configuração de cena")
 

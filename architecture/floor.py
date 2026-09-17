@@ -94,7 +94,7 @@ def create_mezzanine_slab(collection: bpy.types.Collection) -> list:
     objects.append(slab_right)
 
     # 3. Laje de Conexão Frontal (mezanino sobre a entrada / hall sul)
-    front_bridge_depth = CONFIG["entrance"]["depth"] + CONFIG["stores"]["start_offset"]
+    front_bridge_depth = DERIVED["mz_atrium_start_y"] - DERIVED["front_wall_y"]
     front_bridge_center_y = -half_l + wt + front_bridge_depth / 2.0
     slab_front = create_box(
         name="ARQ_LAJE_Mezanino_Frente",
@@ -110,7 +110,7 @@ def create_mezzanine_slab(collection: bpy.types.Collection) -> list:
     objects.append(slab_front)
 
     # 4. Laje de Conexão Fundo (praça de alimentação e sanitários no mezanino)
-    back_bridge_depth = CONFIG["food_court"]["depth"] + CONFIG["food_court"]["offset_from_back"] + 2.0
+    back_bridge_depth = DERIVED["back_wall_y"] - DERIVED["mz_atrium_end_y"]
     back_bridge_center_y = half_l - wt - back_bridge_depth / 2.0
     slab_back = create_box(
         name="ARQ_LAJE_Mezanino_Fundo",
@@ -126,8 +126,8 @@ def create_mezzanine_slab(collection: bpy.types.Collection) -> list:
     objects.append(slab_back)
 
     # 5. Pisos de acabamento caminhável para as passarelas do Mezanino
-    walkway_w = mz.get("walkway_width", 3.5)
-    walkway_offset_x = atrium_w / 2.0 + walkway_w / 2.0
+    walkway_w = DERIVED["mz_walkway_width"]
+    walkway_offset_x = DERIVED["mz_right_center_x"]
     mz_floor_z = mz.get("floor_z", 4.7)
 
     for side, sign in [("Esq", -1), ("Dir", 1)]:
@@ -179,63 +179,26 @@ def create_food_court_floor(collection: bpy.types.Collection) -> bpy.types.Objec
 
 def create_store_floors(
     collection: bpy.types.Collection,
-    stores_collection: bpy.types.Collection,
 ) -> list:
     """
-    Cria pisos individuais para cada loja no térreo (Z=0.001) e mezanino (Z=4.701).
+    Cria pisos individuais para cada loja, 2 mm acima da cota base do pavimento,
+    com materiais e paginações específicas por segmento de loja.
     """
-    s = CONFIG["shopping"]
-    st = CONFIG["stores"]
-    mz = CONFIG.get("mezzanine", {})
-    corridor_half = CONFIG["corridor"]["width"] / 2.0
-    store_depth = st["depth"]
-    store_width = st["width"]
-    div_t = st["wall_thickness"]
-    start_y = DERIVED["store_start_y"]
-
     floors = []
-
-    sides = [
-        ("E", -(corridor_half + store_depth / 2.0)),
-        ("D", +(corridor_half + store_depth / 2.0)),
-    ]
-
-    # 1. Pisos Lojas Térreo (6 por lado)
-    for side_code, center_x in sides:
-        for i in range(st["count_per_side"]):
-            center_y = start_y + i * (store_width + div_t) + store_width / 2.0
-            name = f"LOJA_{side_code}{i+1:02d}_Piso"
-            obj = create_box(
-                name=name,
-                width=store_depth,
-                depth=store_width,
-                height=0.01,
-                location=(center_x, center_y, 0.001),
-                centered_xy=True,
-                base_at_zero=True,
-            )
-            link_to_collection(obj, collection)
-            apply_material_by_name(obj, MatNames.PISO_LOJA)
-            floors.append(obj)
-
-    # 2. Pisos Lojas Mezanino (5 por lado)
-    mz_floor_z = mz.get("floor_z", 4.7)
-    for side_code, center_x in sides:
-        for i in range(mz.get("count_per_side", 5)):
-            center_y = start_y + i * (store_width + div_t) + store_width / 2.0
-            name = f"LOJA_M{side_code}{i+1:02d}_Piso"
-            obj = create_box(
-                name=name,
-                width=store_depth,
-                depth=store_width,
-                height=0.01,
-                location=(center_x, center_y, mz_floor_z + 0.002),
-                centered_xy=True,
-                base_at_zero=True,
-            )
-            link_to_collection(obj, collection)
-            apply_material_by_name(obj, MatNames.PISO_LOJA)
-            floors.append(obj)
+    for code, pos in DERIVED["store_positions"].items():
+        base_z = CONFIG["mezzanine"]["floor_z"] if pos["is_mezzanine"] else 0.0
+        obj = create_box(
+            name=f"LOJA_{code}_Piso",
+            width=pos["store_depth"],
+            depth=pos["store_width"],
+            height=0.01,
+            location=(pos["center_x"], pos["center_y"], base_z + 0.002),
+            centered_xy=True,
+            base_at_zero=True,
+        )
+        link_to_collection(obj, collection)
+        apply_material_by_name(obj, pos["floor_mat"])
+        floors.append(obj)
 
     return floors
 
@@ -269,8 +232,9 @@ def build_floors(collections: dict) -> dict:
     result["food_court"] = create_food_court_floor(col_pisos)
 
     # Pisos das lojas
-    if CONFIG["features"].get("stores", True) and col_lojas:
-        result["stores"] = create_store_floors(col_pisos, col_lojas)
+    if (CONFIG["features"].get("stores", True)
+            and CONFIG["features"].get("store_floors", True) and col_lojas):
+        result["stores"] = create_store_floors(col_pisos)
     else:
         result["stores"] = []
 

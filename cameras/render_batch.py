@@ -44,42 +44,57 @@ def render_all_cameras(output_dir: str = None, resolution_x: int = 1920, resolut
     log_section("Iniciando Render em Lote das Vistas")
 
     scene = bpy.context.scene
-    scene.render.resolution_x = resolution_x
-    scene.render.resolution_y = resolution_y
-    scene.render.image_settings.file_format = 'PNG'
-    scene.render.image_settings.color_mode = 'RGBA'
-
-    setup_color_management()
+    camera_collection = bpy.data.collections.get("08_CAMERAS")
+    cameras_to_render = sorted((
+        obj for obj in (camera_collection.all_objects if camera_collection else [])
+        if obj.type == 'CAMERA' and obj.name in scene.objects
+        and not obj.name.startswith("CAM_Anim")
+    ), key=lambda obj: obj.name)
+    if not cameras_to_render:
+        log_warning("Nenhuma câmera estática do projeto encontrada para renderizar.")
+        return []
 
     if output_dir is None:
         base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         output_dir = os.path.join(base_dir, "renders")
-
+    output_dir = bpy.path.abspath(output_dir)
     os.makedirs(output_dir, exist_ok=True)
 
-    # Coletar câmeras estáticas
-    cameras_to_render = [
-        obj for obj in bpy.data.objects
-        if obj.type == 'CAMERA' and not obj.name.startswith("CAM_Anim")
-    ]
-
-    if not cameras_to_render:
-        log_warning("Nenhuma câmera estática encontrada para renderizar.")
-        return []
-
-    saved_files = []
+    render = scene.render
     original_cam = scene.camera
+    original_render = {key: getattr(render, key) for key in (
+        "resolution_x", "resolution_y", "resolution_percentage", "filepath",
+        "use_file_extension",
+    )}
+    original_image = {key: getattr(render.image_settings, key)
+                      for key in ("file_format", "color_mode")}
+    original_view = {key: getattr(scene.view_settings, key)
+                     for key in ("view_transform", "look", "exposure", "gamma")}
+    saved_files = []
+    try:
+        render.resolution_x = resolution_x
+        render.resolution_y = resolution_y
+        render.resolution_percentage = 100
+        render.use_file_extension = True
+        render.image_settings.file_format = 'PNG'
+        render.image_settings.color_mode = 'RGBA'
+        setup_color_management()
+        for cam in cameras_to_render:
+            scene.camera = cam
+            filename = f"{cam.name.lower()}.png"
+            filepath = os.path.join(output_dir, filename)
+            render.filepath = filepath
+            log_info(f"Renderizando vista: {cam.name} -> {filename}")
+            bpy.ops.render.render(write_still=True)
+            saved_files.append(filepath)
+    finally:
+        scene.camera = original_cam
+        for key, value in original_render.items():
+            setattr(render, key, value)
+        for key, value in original_image.items():
+            setattr(render.image_settings, key, value)
+        for key, value in original_view.items():
+            setattr(scene.view_settings, key, value)
 
-    for cam in cameras_to_render:
-        scene.camera = cam
-        filename = f"{cam.name.lower()}.png"
-        filepath = os.path.join(output_dir, filename)
-        scene.render.filepath = filepath
-
-        log_info(f"Renderizando vista: {cam.name} -> {filename}")
-        bpy.ops.render.render(write_still=True)
-        saved_files.append(filepath)
-
-    scene.camera = original_cam
     log_section_end(f"Render em Lote ({len(saved_files)} imagens salvas em {output_dir})")
     return saved_files

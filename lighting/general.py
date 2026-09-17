@@ -160,12 +160,13 @@ def create_led_strips(collection: bpy.types.Collection) -> list:
     """
     Cria fitas de LED contornando a borda inferior da laje do mezanino.
     """
-    s = CONFIG["shopping"]
     mz = CONFIG.get("mezzanine", {})
     slab_z = mz.get("height", 4.2)
     atrium_w = mz.get("atrium_opening", 5.0)
-    wt = s["wall_thickness"]
-    atrium_len = (s["length"] - 2 * wt) * 0.65
+    atrium_start_y = DERIVED["mz_atrium_start_y"]
+    atrium_end_y = DERIVED["mz_atrium_end_y"]
+    atrium_len = atrium_end_y - atrium_start_y
+    center_y = (atrium_start_y + atrium_end_y) / 2.0
 
     objects = []
 
@@ -177,7 +178,7 @@ def create_led_strips(collection: bpy.types.Collection) -> list:
             width=0.04,
             depth=atrium_len,
             height=0.02,
-            location=(sign * half_aw, 0.0, slab_z - 0.01),
+            location=(sign * (half_aw + 0.02), center_y, slab_z - 0.01),
             centered_xy=True,
             base_at_zero=False,
         )

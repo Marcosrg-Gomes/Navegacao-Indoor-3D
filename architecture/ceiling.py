@@ -101,13 +101,10 @@ def create_skylight_ceiling(collection: bpy.types.Collection) -> list:
 
 
 def create_store_ceiling_drop(collection: bpy.types.Collection) -> list:
-    """Cria forros rebaixados elegantes sobre as lojas do piso superior."""
+    """Cria forros rebaixados elegantes sobre as lojas do piso superior com grelhas lineares de ar condicionado."""
     s = CONFIG["shopping"]
     st = CONFIG["stores"]
     mz = CONFIG.get("mezzanine", {})
-    corridor_half = CONFIG["corridor"]["width"] / 2.0
-
-    store_depth = st["depth"]
     upper_floor_z = mz.get("floor_z", 4.7)
     store_ceiling_h = upper_floor_z + st["storefront_height"] + 0.8
     drop_thickness = s["height"] - store_ceiling_h
@@ -115,26 +112,22 @@ def create_store_ceiling_drop(collection: bpy.types.Collection) -> list:
     if drop_thickness <= 0.05:
         return []
 
-    start_y = DERIVED["store_start_y"]
-    count = mz.get("count_per_side", 5)
-    div_t = st["wall_thickness"]
-    total_store_length = count * st["width"] + (count - 1) * div_t
-
     objects = []
 
-    sides = [
-        ("E", -(corridor_half + store_depth / 2.0)),
-        ("D", +(corridor_half + store_depth / 2.0)),
-    ]
+    for code, pos in DERIVED["store_positions"].items():
+        if not pos["is_mezzanine"]:
+            continue
+        sign = -1 if pos["side"] == "E" else 1
+        center_x, center_y = pos["center_x"], pos["center_y"]
+        store_depth = pos["store_depth"]
+        store_width = pos["store_width"]
+        name = f"ARQ_TETO_Rebaixado_{code}"
 
-    for side_code, center_x in sides:
-        name = f"ARQ_TETO_Rebaixado_M_{side_code}"
-        center_y = start_y + total_store_length / 2.0
-
+        # 1. Forro de gesso rebaixado
         obj = create_box(
             name=name,
             width=store_depth,
-            depth=total_store_length,
+            depth=store_width,
             height=drop_thickness,
             location=(center_x, center_y, store_ceiling_h),
             centered_xy=True,
@@ -143,6 +136,20 @@ def create_store_ceiling_drop(collection: bpy.types.Collection) -> list:
         link_to_collection(obj, collection)
         apply_material_by_name(obj, MatNames.TETO)
         objects.append(obj)
+
+        # 2. Grelha linear de Ar Condicionado (ao fundo do forro)
+        grelha = create_box(
+            name=f"ARQ_TETO_GrelhaAr_{code}",
+            width=0.18,
+            depth=store_width * 0.92,
+            height=0.02,
+            location=(pos["outer_x"] - sign * 0.40, center_y, store_ceiling_h - 0.01),
+            centered_xy=True,
+            base_at_zero=True,
+        )
+        link_to_collection(grelha, collection)
+        apply_material_by_name(grelha, MatNames.GRELHA_AR)
+        objects.append(grelha)
 
     return objects
 
@@ -156,7 +163,9 @@ def build_ceiling(collections: dict) -> dict:
         raise ValueError("Collection 'TETO' não encontrada.")
 
     skylight_parts = create_skylight_ceiling(col_teto)
-    store_drops = create_store_ceiling_drop(col_teto)
+    store_drops = (create_store_ceiling_drop(col_teto)
+                   if CONFIG["features"].get("stores", True)
+                   and CONFIG["features"].get("store_ceilings", True) else [])
 
     result = {
         "skylight": skylight_parts,

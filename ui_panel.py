@@ -59,6 +59,10 @@ class SHOPPING_OT_build_all(bpy.types.Operator):
     bl_icon = "MOD_BUILD"
 
     def execute(self, context):
+        # O primeiro import pode recarregar config; aplique os valores depois dele.
+        from main import run_project
+        from config import CONFIG
+
         props = context.scene.mini_shopping_props
 
         # Atualizar CONFIG
@@ -68,14 +72,13 @@ class SHOPPING_OT_build_all(bpy.types.Operator):
         CONFIG["features"]["furniture"] = props.include_furniture
         CONFIG["features"]["decoration"] = props.include_signs
 
-        from main import run_project
         success = run_project()
 
         if success:
             self.report({'INFO'}, "Mini Shopping gerado com sucesso!")
         else:
             self.report({'ERROR'}, "Ocorreu um erro durante a geração.")
-        return {'FINISHED'}
+        return {'FINISHED'} if success else {'CANCELLED'}
 
 
 class SHOPPING_OT_cleanup(bpy.types.Operator):

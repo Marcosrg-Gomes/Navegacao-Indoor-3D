@@ -37,7 +37,7 @@ CONFIG = {
         "height": 4.2,          # Altura onde começa a laje (pé-direito térreo)
         "slab_thickness": 0.5,  # Espessura da laje estrutural
         "floor_z": 4.7,         # Z do piso caminhável (height + slab_thickness)
-        "walkway_width": 3.5,   # Largura da passarela lateral do mezanino (cada lado)
+        # A largura da passarela é derivada do corredor e do vão do átrio.
         "atrium_opening": 5.0,  # Largura do vão central aberto (= corredor - 2*guarda-corpo)
         "guardrail_height": 1.1, # Altura do guarda-corpo de vidro
         "guardrail_thickness": 0.04, # Espessura do vidro do guarda-corpo
@@ -46,20 +46,53 @@ CONFIG = {
     },
 
     # -------------------------------------------------------------------------
-    # Lojas (térreo)
+    # Lojas (térreo e mezanino) — Catálogo individual de dimensões e segmentos
     # -------------------------------------------------------------------------
     "stores": {
-        "count_per_side": 6,    # Quantidade de lojas em cada lado do corredor (térreo)
-        "width": 4.5,           # Largura da fachada de cada loja (eixo Y)
-        "depth": 8.0,           # Profundidade de cada loja (eixo X)
-        "wall_thickness": 0.15, # Espessura das paredes divisórias entre lojas
+        "count_per_side": 6,       # Quantidade padrão por lado no térreo
+        "default_width": 4.5,
+        "default_depth": 8.0,
+        "width": 4.5,              # Mantido para retrocompatibilidade
+        "depth": 8.0,
+        "wall_thickness": 0.15,    # Espessura das paredes divisórias entre lojas
         "storefront_height": 3.0,  # Altura da vitrine de vidro
-        "door_width": 1.4,      # Largura da porta da loja
-        "door_height": 2.6,     # Altura da porta da loja
-        "sign_height": 0.8,     # Altura do letreiro acima da vitrine
-        # Offset de início das lojas a partir da entrada (eixo Y)
-        "start_offset": 6.0,
+        "door_width": 1.4,         # Largura da porta da loja
+        "door_height": 2.6,        # Altura da porta da loja
+        "sign_height": 0.8,        # Altura do letreiro acima da vitrine
+        "start_offset": 6.0,       # Offset de início das lojas a partir da entrada (eixo Y)
     },
+
+    "store_catalog": [
+        # TÉRREO ESQUERDO (E01 a E06) — Âncoras e Lojas Especiais
+        {"code": "E01", "brand": "ADIDAS",          "category": "ESPORTE",     "width": 7.2, "depth": 9.0, "recuo": 0.0,  "floor": "MAT_Piso_Esporte", "is_anchor": True},
+        {"code": "E02", "brand": "AREZZO",          "category": "MODA",        "width": 5.0, "depth": 8.5, "recuo": 0.25, "floor": "MAT_Madeira",      "is_anchor": False},
+        {"code": "E03", "brand": "CALVIN KLEIN",    "category": "MODA",        "width": 4.8, "depth": 8.5, "recuo": 0.20, "floor": "MAT_Madeira",      "is_anchor": False},
+        {"code": "E04", "brand": "NATURA",          "category": "BELEZA",      "width": 4.5, "depth": 7.0, "recuo": 0.0,  "floor": "MAT_Piso_Mezanino", "is_anchor": False},
+        {"code": "E05", "brand": "CENTAURO",        "category": "ESPORTE",     "width": 6.5, "depth": 9.0, "recuo": 0.0,  "floor": "MAT_Piso_Esporte", "is_anchor": True},
+        {"code": "E06", "brand": "CHILLI BEANS",    "category": "JOIAS",       "width": 3.2, "depth": 6.5, "recuo": 0.0,  "floor": "MAT_Marmore",      "is_anchor": False},
+
+        # TÉRREO DIREITO (D01 a D06)
+        {"code": "D01", "brand": "C&A",             "category": "MODA",        "width": 8.0, "depth": 9.5, "recuo": 0.0,  "floor": "MAT_Madeira",      "is_anchor": True},
+        {"code": "D02", "brand": "ANACAPRI",        "category": "MODA",        "width": 5.0, "depth": 8.5, "recuo": 0.20, "floor": "MAT_Madeira",      "is_anchor": False},
+        {"code": "D03", "brand": "MAHOGANY",        "category": "BELEZA",      "width": 4.5, "depth": 7.0, "recuo": 0.0,  "floor": "MAT_Piso_Mezanino", "is_anchor": False},
+        {"code": "D04", "brand": "CASA DAS ALIANÇAS","category": "JOIAS",      "width": 3.5, "depth": 6.5, "recuo": 0.0,  "floor": "MAT_Marmore",      "is_anchor": False},
+        {"code": "D05", "brand": "REALME",          "category": "TECH",        "width": 3.8, "depth": 7.0, "recuo": 0.0,  "floor": "MAT_Piso_Tech",    "is_anchor": False},
+        {"code": "D06", "brand": "SESTINI",         "category": "MODA",        "width": 4.5, "depth": 8.0, "recuo": 0.15, "floor": "MAT_Madeira",      "is_anchor": False},
+
+        # MEZANINO ESQUERDO (ME01 a ME05)
+        {"code": "ME01", "brand": "BURGER KING",    "category": "GASTRONOMIA", "width": 7.5, "depth": 5.5, "recuo": 0.0,  "floor": "MAT_Piso_Praca",   "is_anchor": True},
+        {"code": "ME02", "brand": "CACAU SHOW",     "category": "GASTRONOMIA", "width": 3.5, "depth": 5.0, "recuo": 0.0,  "floor": "MAT_Piso_Praca",   "is_anchor": False},
+        {"code": "ME03", "brand": "BACIO DI LATTE", "category": "GASTRONOMIA", "width": 4.2, "depth": 5.5, "recuo": 0.0,  "floor": "MAT_Piso_Praca",   "is_anchor": False},
+        {"code": "ME04", "brand": "SMART FIT",      "category": "ESPORTE",     "width": 6.5, "depth": 8.5, "recuo": 0.0,  "floor": "MAT_Piso_Esporte", "is_anchor": True},
+        {"code": "ME05", "brand": "YOUCOM",         "category": "MODA",        "width": 4.5, "depth": 8.0, "recuo": 0.20, "floor": "MAT_Madeira",      "is_anchor": False},
+
+        # MEZANINO DIREITO (MD01 a MD05)
+        {"code": "MD01", "brand": "AMOR AOS PEDAÇOS","category": "GASTRONOMIA","width": 3.5, "depth": 5.0, "recuo": 0.0,  "floor": "MAT_Piso_Praca",   "is_anchor": False},
+        {"code": "MD02", "brand": "AMERICAN COOKIES","category": "GASTRONOMIA","width": 4.0, "depth": 5.5, "recuo": 0.0,  "floor": "MAT_Piso_Praca",   "is_anchor": False},
+        {"code": "MD03", "brand": "SANTA LOLLA",    "category": "MODA",        "width": 4.5, "depth": 8.0, "recuo": 0.20, "floor": "MAT_Madeira",      "is_anchor": False},
+        {"code": "MD04", "brand": "ARTWALK",        "category": "MODA",        "width": 5.0, "depth": 8.5, "recuo": 0.15, "floor": "MAT_Madeira",      "is_anchor": False},
+        {"code": "MD05", "brand": "CARTER'S",       "category": "MODA",        "width": 4.5, "depth": 8.0, "recuo": 0.0,  "floor": "MAT_Madeira",      "is_anchor": False},
+    ],
 
     # -------------------------------------------------------------------------
     # Praça de alimentação (agora no mezanino - piso superior)
@@ -231,6 +264,11 @@ CONFIG = {
     # Materiais — Cores base em RGB linear (0.0–1.0)
     # -------------------------------------------------------------------------
     "materials": {
+        "MAT_Espelho": {
+            "color": (0.95, 0.95, 0.95, 1.0),
+            "roughness": 0.03,
+            "metallic": 1.0,
+        },
         "MAT_Piso_Shopping": {
             "color": (0.76, 0.72, 0.63, 1.0),  # Bege claro
             "roughness": 0.3,
@@ -399,6 +437,60 @@ CONFIG = {
             "metallic": 0.0,
             "specular": 0.7,
         },
+        "MAT_Piso_Tech": {
+            "color": (0.08, 0.08, 0.09, 1.0),
+            "roughness": 0.15,
+            "metallic": 0.0,
+            "specular": 0.7,
+        },
+        "MAT_Piso_Esporte": {
+            "color": (0.18, 0.18, 0.18, 1.0),
+            "roughness": 0.6,
+            "metallic": 0.0,
+            "specular": 0.15,
+        },
+        "MAT_Roupa_1": {
+            "color": (0.70, 0.12, 0.12, 1.0),
+            "roughness": 0.95,
+            "metallic": 0.0,
+            "specular": 0.0,
+        },
+        "MAT_Roupa_2": {
+            "color": (0.08, 0.18, 0.55, 1.0),
+            "roughness": 0.95,
+            "metallic": 0.0,
+            "specular": 0.0,
+        },
+        "MAT_Roupa_3": {
+            "color": (0.88, 0.88, 0.88, 1.0),
+            "roughness": 0.95,
+            "metallic": 0.0,
+            "specular": 0.0,
+        },
+        "MAT_Couro": {
+            "color": (0.15, 0.08, 0.04, 1.0),
+            "roughness": 0.35,
+            "metallic": 0.0,
+            "specular": 0.3,
+        },
+        "MAT_Inox": {
+            "color": (0.78, 0.78, 0.80, 1.0),
+            "roughness": 0.08,
+            "metallic": 1.0,
+            "specular": 0.9,
+        },
+        "MAT_Veludo": {
+            "color": (0.05, 0.05, 0.12, 1.0),
+            "roughness": 0.98,
+            "metallic": 0.0,
+            "specular": 0.0,
+        },
+        "MAT_Grelha_Ar": {
+            "color": (0.72, 0.72, 0.72, 1.0),
+            "roughness": 0.4,
+            "metallic": 0.8,
+            "specular": 0.5,
+        },
     },
 
     # -------------------------------------------------------------------------
@@ -413,6 +505,8 @@ CONFIG = {
         "vertical_circulation": True,  # Escadas rolantes + elevador
         "kiosks": True,          # Quiosques no corredor térreo
         "stores": True,
+        "store_floors": True,    # Pisos internos por segmento
+        "store_ceilings": True,  # Sancas perimetrais por loja
         "areas": True,           # Praça de alimentação + sanitários
         "furniture": True,       # Bancos, lixeiras, vasos
         "decoration": True,      # Letreiros 3D, marcas exclusivas
@@ -427,49 +521,138 @@ CONFIG = {
 # Não edite esta seção — é calculada automaticamente.
 # =============================================================================
 
+def validate_config(cfg: dict) -> None:
+    """Valida os valores básicos antes de calcular o layout derivado."""
+    positive_dimensions = (
+        ("shopping.width", cfg["shopping"]["width"]),
+        ("shopping.length", cfg["shopping"]["length"]),
+        ("shopping.height", cfg["shopping"]["height"]),
+        ("corridor.width", cfg["corridor"]["width"]),
+        ("entrance.depth", cfg["entrance"]["depth"]),
+        ("stores.wall_thickness", cfg["stores"]["wall_thickness"]),
+    )
+    invalid = [name for name, value in positive_dimensions if value <= 0]
+    if invalid:
+        raise ValueError(f"Configurações devem ser positivas: {', '.join(invalid)}.")
+    if cfg["mezzanine"]["floor_z"] <= cfg["mezzanine"]["height"]:
+        raise ValueError("mezzanine.floor_z deve estar acima da laje estrutural.")
+
 def get_derived(cfg: dict) -> dict:
     """
     Calcula dimensões derivadas para evitar repetição de cálculos nos módulos.
     Retorna um dicionário com valores prontos para uso.
     """
+    validate_config(cfg)
     s = cfg["shopping"]
     c = cfg["corridor"]
     st = cfg["stores"]
     mz = cfg["mezzanine"]
+    catalog = cfg.get("store_catalog", [])
 
     half_l = s["length"] / 2.0
     half_w = s["width"] / 2.0
+    div_t = st.get("wall_thickness", 0.15)
+    start_y = -half_l + cfg["entrance"]["depth"] + st["start_offset"]
+    atrium_half_width = mz["atrium_opening"] / 2.0
+    walkway_width = c["width"] / 2.0 - atrium_half_width
+    atrium_start_y = -half_l + s["wall_thickness"] + cfg["entrance"]["depth"] + st["start_offset"]
+    atrium_end_y = (half_l - s["wall_thickness"] - cfg["food_court"]["depth"]
+                    - cfg["food_court"]["offset_from_back"] - 2.0)
+    if walkway_width <= 0 or atrium_half_width <= 0 or atrium_end_y <= atrium_start_y:
+        raise ValueError("O vão do átrio deve deixar passarelas laterais e comprimento livre positivos.")
+
+    catalog_by_code = {item["code"]: item for item in catalog}
+
+    if len(catalog_by_code) != len(catalog):
+        raise ValueError("O catálogo contém códigos de loja duplicados.")
+
+    def compute_positions(side_code, is_mz):
+        corridor_half = c["width"] / 2.0
+        sign = -1 if side_code == "E" else 1
+        count = mz["count_per_side"] if is_mz else st["count_per_side"]
+        prefix = "M" if is_mz else ""
+        res = {}
+        curr_y = start_y
+        for idx in range(count):
+            code = f"{prefix}{side_code}{idx + 1:02d}"
+            item = catalog_by_code.get(code, {})
+            w = item.get("width", st["default_width"])
+            d = item.get("depth", st["default_depth"])
+            recuo = item.get("recuo", 0.0)
+            if w <= 0 or d <= 0 or not 0 <= recuo < d:
+                raise ValueError(f"Loja {code}: dimensões ou recuo inválidos.")
+            if corridor_half + d + div_t > half_w - s["wall_thickness"]:
+                raise ValueError(f"Loja {code}: profundidade ultrapassa a parede externa.")
+            if curr_y + w + div_t > half_l - s["wall_thickness"]:
+                raise ValueError(f"Loja {code}: comprimento ultrapassa o fundo do shopping.")
+            cy = curr_y + w / 2.0
+
+            inner_x = sign * corridor_half
+            vitrine_x = inner_x + (sign * recuo if recuo > 0 else 0.0)
+            outer_x = sign * (corridor_half + d)
+            center_x = (inner_x + outer_x) / 2.0
+
+            res[code] = {
+                "code": code,
+                "brand": item.get("brand", code),
+                "category": item.get("category", "MODA"),
+                "store_width": w,
+                "store_depth": d,
+                "recuo": recuo,
+                "floor_mat": item.get("floor", "MAT_Madeira"),
+                "is_anchor": item.get("is_anchor", False),
+                "center_y": cy,
+                "start_y": curr_y,
+                "end_y": curr_y + w,
+                "inner_x": inner_x,
+                "outer_x": outer_x,
+                "center_x": center_x,
+                "vitrine_x": vitrine_x,
+                "is_mezzanine": is_mz,
+                "side": side_code,
+            }
+            curr_y += w + div_t
+        return res
+
+    store_positions = {}
+    for is_mz in (False, True):
+        for side in ("E", "D"):
+            store_positions.update(compute_positions(side, is_mz))
 
     store_side_width = (half_w - c["width"] / 2.0 - s["wall_thickness"])
 
-    store_row_length = (st["count_per_side"] * st["width"]
-                        + (st["count_per_side"] - 1) * st["wall_thickness"])
-
-    mz_row_length = (mz["count_per_side"] * st["width"]
-                     + (mz["count_per_side"] - 1) * st["wall_thickness"])
+    def row_length(is_mz):
+        return max((p["end_y"] - start_y for p in store_positions.values()
+                    if p["is_mezzanine"] == is_mz), default=0.0)
 
     return {
         "half_length": half_l,
         "half_width": half_w,
         "store_side_width": store_side_width,
-        "store_row_length": store_row_length,
-        "mz_row_length": mz_row_length,
+        "store_row_length": row_length(False),
+        "mz_row_length": row_length(True),
         "corridor_center_x": 0.0,
         "left_store_inner_x": -(c["width"] / 2.0),
         "right_store_inner_x": (c["width"] / 2.0),
-        "store_start_y": -half_l + cfg["entrance"]["depth"] + st["start_offset"],
+        "store_start_y": start_y,
         "back_wall_y": half_l - s["wall_thickness"],
         "front_wall_y": -half_l + s["wall_thickness"],
+        # Catálogo e posições individuais
+        "store_catalog_by_code": catalog_by_code,
+        "store_positions": store_positions,
         # Mezanino
         "mz_floor_z": mz["floor_z"],
         "mz_slab_z": mz["height"],
         "mz_ceiling_z": mz["ceiling_height"],
+        "mz_atrium_start_y": atrium_start_y,
+        "mz_atrium_end_y": atrium_end_y,
+        "mz_walkway_width": walkway_width,
         # Passarelas do mezanino: X dos centros
-        "mz_left_center_x": -(c["width"] / 2.0 + mz["walkway_width"] / 2.0),
-        "mz_right_center_x": +(c["width"] / 2.0 + mz["walkway_width"] / 2.0),
+        "mz_left_center_x": -(atrium_half_width + walkway_width / 2.0),
+        "mz_right_center_x": +(atrium_half_width + walkway_width / 2.0),
         # Inner X do corredor (face interna da passarela)
-        "mz_corridor_left_x": -(c["width"] / 2.0),
-        "mz_corridor_right_x": +(c["width"] / 2.0),
+        "mz_corridor_left_x": -atrium_half_width,
+        "mz_corridor_right_x": +atrium_half_width,
     }
 
 

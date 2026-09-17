@@ -136,6 +136,11 @@ def run_project(options: dict = None) -> bool:
     print("=" * 65)
 
     try:
+        # Preservar a referência importada pelos construtores ao atualizar o layout.
+        derived = config.get_derived(CONFIG)
+        config.DERIVED.clear()
+        config.DERIVED.update(derived)
+
         # 1. Limpeza do Projeto
         if options.get("clear_project_collections", True):
             scene_setup.cleanup_project(confirm=True)

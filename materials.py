@@ -311,6 +311,7 @@ def create_all_materials(config: dict) -> dict:
 
 
 class MatNames:
+    ESPELHO        = "MAT_Espelho"
     PISO_SHOPPING   = "MAT_Piso_Shopping"
     PISO_LOJA       = "MAT_Piso_Loja"
     PISO_PRACA      = "MAT_Piso_Praca"
@@ -338,3 +339,13 @@ class MatNames:
     VIDRO_ESCURO    = "MAT_Vidro_Escurecido"
     ACOLCHOADO      = "MAT_Acolchoado"
     LOUCA           = "MAT_Louca"
+    # Novos materiais para lojas especializadas
+    PISO_TECH       = "MAT_Piso_Tech"
+    PISO_ESPORTE    = "MAT_Piso_Esporte"
+    ROUPA_1         = "MAT_Roupa_1"
+    ROUPA_2         = "MAT_Roupa_2"
+    ROUPA_3         = "MAT_Roupa_3"
+    COURO           = "MAT_Couro"
+    INOX            = "MAT_Inox"
+    VELUDO          = "MAT_Veludo"
+    GRELHA_AR       = "MAT_Grelha_Ar"

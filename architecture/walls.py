@@ -113,17 +113,16 @@ def create_external_walls(collection: bpy.types.Collection) -> list:
 
 def create_store_dividers(collection: bpy.types.Collection) -> list:
     """
-    Cria paredes divisórias entre lojas do térreo e mezanino.
+    Cria paredes divisórias entre lojas do térreo e mezanino respeitando larguras individuais.
     """
     s = CONFIG["shopping"]
     st = CONFIG["stores"]
     mz = CONFIG.get("mezzanine", {})
     corridor_half = CONFIG["corridor"]["width"] / 2.0
+    store_positions = DERIVED.get("store_positions", {})
 
     store_depth = st["depth"]
-    store_width = st["width"]
     div_t = st["wall_thickness"]
-    start_y = DERIVED["store_start_y"]
 
     ground_h = mz.get("height", 4.2)
     upper_base_z = mz.get("floor_z", 4.7)
@@ -131,20 +130,23 @@ def create_store_dividers(collection: bpy.types.Collection) -> list:
 
     objects = []
 
-    sides = [
-        ("E", -(corridor_half + store_depth / 2.0)),   # Esquerda
-        ("D", +(corridor_half + store_depth / 2.0)),   # Direita
-    ]
-
-    # 1. Divisórias do Térreo (6 lojas por lado -> 5 divisórias internas)
+    # 1. Divisórias do Térreo (E01..E06 e D01..D06)
     count_ground = st["count_per_side"]
-    for side_code, center_x in sides:
+    for side_code in ("E", "D"):
+        sign = -1 if side_code == "E" else 1
         for i in range(count_ground - 1):
-            div_y = start_y + (i + 1) * store_width + i * div_t + div_t / 2.0
+            c1 = f"{side_code}{i+1:02d}"
+            c2 = f"{side_code}{i+2:02d}"
+            info1 = store_positions.get(c1, {})
+            info2 = store_positions.get(c2, {})
+            sd = max(info1.get("store_depth", store_depth), info2.get("store_depth", store_depth))
+            center_x = sign * (corridor_half + sd / 2.0)
+            div_y = (info1.get("end_y", 0.0) + info2.get("start_y", 0.0)) / 2.0 if (c1 in store_positions and c2 in store_positions) else (DERIVED["store_start_y"] + (i + 1) * st["width"] + i * div_t + div_t / 2.0)
+
             name = f"ARQ_PAREDE_INT_T_{side_code}{i+1:02d}_{side_code}{i+2:02d}"
             obj = create_box(
                 name=name,
-                width=store_depth,
+                width=sd,
                 depth=div_t,
                 height=ground_h,
                 location=(center_x, div_y, 0.0),
@@ -155,15 +157,23 @@ def create_store_dividers(collection: bpy.types.Collection) -> list:
             apply_material_by_name(obj, MatNames.PAREDE)
             objects.append(obj)
 
-    # 2. Divisórias do Mezanino (5 lojas por lado -> 4 divisórias internas)
+    # 2. Divisórias do Mezanino (ME01..ME05 e MD01..MD05)
     count_mz = mz.get("count_per_side", 5)
-    for side_code, center_x in sides:
+    for side_code in ("E", "D"):
+        sign = -1 if side_code == "E" else 1
         for i in range(count_mz - 1):
-            div_y = start_y + (i + 1) * store_width + i * div_t + div_t / 2.0
+            c1 = f"M{side_code}{i+1:02d}"
+            c2 = f"M{side_code}{i+2:02d}"
+            info1 = store_positions.get(c1, {})
+            info2 = store_positions.get(c2, {})
+            sd = max(info1.get("store_depth", store_depth), info2.get("store_depth", store_depth))
+            center_x = sign * (corridor_half + sd / 2.0)
+            div_y = (info1.get("end_y", 0.0) + info2.get("start_y", 0.0)) / 2.0 if (c1 in store_positions and c2 in store_positions) else (DERIVED["store_start_y"] + (i + 1) * st["width"] + i * div_t + div_t / 2.0)
+
             name = f"ARQ_PAREDE_INT_M_{side_code}{i+1:02d}_{side_code}{i+2:02d}"
             obj = create_box(
                 name=name,
-                width=store_depth,
+                width=sd,
                 depth=div_t,
                 height=upper_h,
                 location=(center_x, div_y, upper_base_z),
@@ -178,63 +188,23 @@ def create_store_dividers(collection: bpy.types.Collection) -> list:
 
 
 def create_store_back_walls(collection: bpy.types.Collection) -> list:
-    """
-    Cria as paredes de fundo das lojas nos dois pavimentos.
-    """
+    """Fecha cada loja na profundidade e largura definidas pelo layout comum."""
     s = CONFIG["shopping"]
-    st = CONFIG["stores"]
-    mz = CONFIG.get("mezzanine", {})
-    corridor_half = CONFIG["corridor"]["width"] / 2.0
-
-    store_depth = st["depth"]
-    store_width = st["width"]
-    div_t = st["wall_thickness"]
-    back_wall_t = 0.15
-
-    ground_h = mz.get("height", 4.2)
-    upper_base_z = mz.get("floor_z", 4.7)
-    upper_h = s["height"] - upper_base_z
-
-    sides = [
-        ("E", -(corridor_half + store_depth), -1),
-        ("D", +(corridor_half + store_depth), +1),
-    ]
-
-    start_y = DERIVED["store_start_y"]
-    count_ground = st["count_per_side"]
-    count_mz = mz.get("count_per_side", 5)
-
+    mz = CONFIG["mezzanine"]
+    thickness = CONFIG["stores"]["wall_thickness"]
     objects = []
 
-    # Fundo Térreo
-    total_len_g = count_ground * store_width + (count_ground - 1) * div_t
-    for side_code, back_edge_x, sign in sides:
-        wall_center_x = back_edge_x + sign * back_wall_t / 2.0
-        name = f"ARQ_PAREDE_FUNDO_T_{side_code}"
+    for code, pos in DERIVED["store_positions"].items():
+        sign = -1 if pos["side"] == "E" else 1
+        base_z = mz["floor_z"] if pos["is_mezzanine"] else 0.0
+        ceiling_z = s["height"] if pos["is_mezzanine"] else mz["height"]
         obj = create_box(
-            name=name,
-            width=back_wall_t,
-            depth=total_len_g,
-            height=ground_h,
-            location=(wall_center_x, start_y + total_len_g / 2.0, 0.0),
-            centered_xy=True,
-            base_at_zero=True,
-        )
-        link_to_collection(obj, collection)
-        apply_material_by_name(obj, MatNames.PAREDE)
-        objects.append(obj)
-
-    # Fundo Mezanino
-    total_len_m = count_mz * store_width + (count_mz - 1) * div_t
-    for side_code, back_edge_x, sign in sides:
-        wall_center_x = back_edge_x + sign * back_wall_t / 2.0
-        name = f"ARQ_PAREDE_FUNDO_M_{side_code}"
-        obj = create_box(
-            name=name,
-            width=back_wall_t,
-            depth=total_len_m,
-            height=upper_h,
-            location=(wall_center_x, start_y + total_len_m / 2.0, upper_base_z),
+            name=f"ARQ_PAREDE_FUNDO_{code}",
+            width=thickness,
+            depth=pos["store_width"] + thickness,
+            height=ceiling_z - base_z,
+            location=(pos["outer_x"] + sign * thickness / 2.0,
+                      pos["center_y"], base_z),
             centered_xy=True,
             base_at_zero=True,
         )

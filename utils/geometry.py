@@ -17,6 +17,7 @@ import bpy
 import bmesh
 from mathutils import Vector
 from typing import Optional, Tuple
+from utils.mesh_data import arch_mesh, trapezoid_box_mesh
 
 
 # =============================================================================
@@ -82,12 +83,12 @@ def create_box(
 
     # 6 faces
     faces = [
-        [verts[0], verts[1], verts[2], verts[3]],  # bottom
-        [verts[4], verts[7], verts[6], verts[5]],  # top
-        [verts[0], verts[4], verts[5], verts[1]],  # front (-Y)
-        [verts[2], verts[6], verts[7], verts[3]],  # back (+Y)
-        [verts[0], verts[3], verts[7], verts[4]],  # left (-X)
-        [verts[1], verts[5], verts[6], verts[2]],  # right (+X)
+        [verts[0], verts[3], verts[2], verts[1]],  # bottom (-Z)
+        [verts[4], verts[5], verts[6], verts[7]],  # top (+Z)
+        [verts[0], verts[1], verts[5], verts[4]],  # front (-Y)
+        [verts[2], verts[3], verts[7], verts[6]],  # back (+Y)
+        [verts[0], verts[4], verts[7], verts[3]],  # left (-X)
+        [verts[1], verts[2], verts[6], verts[5]],  # right (+X)
     ]
     for face_verts in faces:
         bm.faces.new(face_verts)
@@ -415,3 +416,339 @@ def create_step(
         centered_xy=False,
         base_at_zero=True,
     )
+
+
+# =============================================================================
+# NOVAS PRIMITIVAS GEOMÉTRICAS AVANÇADAS
+# =============================================================================
+
+def create_rounded_box(
+    name: str,
+    width: float,
+    depth: float,
+    height: float,
+    bevel_radius: float = 0.025,
+    bevel_segments: int = 2,
+    location: Tuple[float, float, float] = (0.0, 0.0, 0.0),
+    centered_xy: bool = True,
+    base_at_zero: bool = True,
+) -> bpy.types.Object:
+    """
+    Cria uma caixa com chanfro/arredondamento nas arestas (bmesh bevel).
+    Ideal para totens, soleiras, bancadas, móveis e fáscias.
+    """
+    obj = create_box(name, width, depth, height, location, centered_xy, base_at_zero)
+    mesh = obj.data
+    bm = bmesh.new()
+    bm.from_mesh(mesh)
+    bm.edges.ensure_lookup_table()
+
+    if bevel_radius > 0.001:
+        max_offset = min(width, depth, height) * 0.45
+        actual_bevel = min(bevel_radius, max_offset)
+        bmesh.ops.bevel(
+            bm, geom=list(bm.edges), offset=actual_bevel,
+            segments=max(bevel_segments, 1), profile=0.5, affect='EDGES',
+        )
+
+    bm.to_mesh(mesh)
+    bm.free()
+    mesh.update()
+
+    obj.location = Vector(location)
+    return obj
+
+
+def create_glass_case(name, width, depth, height, location, thickness=0.012):
+    """Cinco painéis finos, com interior vazio e base aberta sobre o balcão."""
+    x, y, z = location
+    return [create_box(
+        name=f"{name}_{suffix}", width=w, depth=d, height=h,
+        location=(x + dx, y + dy, z + dz),
+    ) for suffix, w, d, h, dx, dy, dz in (
+        ("Topo", width, depth, thickness, 0, 0, height - thickness),
+        ("Esq", thickness, depth, height - thickness, -(width-thickness)/2, 0, 0),
+        ("Dir", thickness, depth, height - thickness, (width-thickness)/2, 0, 0),
+        ("Frente", width-2*thickness, thickness, height-thickness, 0, -(depth-thickness)/2, 0),
+        ("Fundo", width-2*thickness, thickness, height-thickness, 0, (depth-thickness)/2, 0),
+    )]
+
+
+def create_arch(
+    name: str,
+    inner_radius: float,
+    outer_radius: float,
+    arch_height: float,
+    angle_deg: float = 180.0,
+    segments: int = 16,
+    depth: float = 0.10,
+    location: Tuple[float, float, float] = (0.0, 0.0, 0.0),
+) -> bpy.types.Object:
+    """
+    Cria um arco curvo ou meio-cilindro oco no plano XZ extrudado em Y.
+    Ideal para vitrines curvas de gastronomia, passagens em arco e cúpulas.
+    """
+    mesh = bpy.data.meshes.new(name)
+    obj = bpy.data.objects.new(name, mesh)
+
+    bm = bmesh.new()
+    vertices, faces = arch_mesh(
+        inner_radius, outer_radius, arch_height, angle_deg, segments, depth
+    )
+    mesh.from_pydata(vertices, [], faces)
+    bm.from_mesh(mesh)
+
+    bm.to_mesh(mesh)
+    bm.free()
+    mesh.update()
+
+    obj.location = Vector(location)
+    return obj
+
+
+def create_torus(
+    name: str,
+    major_radius: float,
+    minor_radius: float,
+    major_segments: int = 16,
+    minor_segments: int = 8,
+    location: Tuple[float, float, float] = (0.0, 0.0, 0.0),
+) -> bpy.types.Object:
+    """Cria um toro/anel no plano XY."""
+    import math
+    mesh = bpy.data.meshes.new(name)
+    obj = bpy.data.objects.new(name, mesh)
+
+    bm = bmesh.new()
+
+    verts_grid = []
+    for i in range(major_segments):
+        u = (2.0 * math.pi * i) / major_segments
+        cos_u, sin_u = math.cos(u), math.sin(u)
+        ring = []
+        for j in range(minor_segments):
+            v = (2.0 * math.pi * j) / minor_segments
+            cos_v, sin_v = math.cos(v), math.sin(v)
+            x = (major_radius + minor_radius * cos_v) * cos_u
+            y = (major_radius + minor_radius * cos_v) * sin_u
+            z = minor_radius * sin_v
+            ring.append(bm.verts.new((x, y, z)))
+        verts_grid.append(ring)
+
+    bm.verts.ensure_lookup_table()
+
+    for i in range(major_segments):
+        next_i = (i + 1) % major_segments
+        for j in range(minor_segments):
+            next_j = (j + 1) % minor_segments
+            bm.faces.new([
+                verts_grid[i][j],
+                verts_grid[next_i][j],
+                verts_grid[next_i][next_j],
+                verts_grid[i][next_j],
+            ])
+
+    bm.to_mesh(mesh)
+    bm.free()
+    mesh.update()
+
+    obj.location = Vector(location)
+    return obj
+
+
+def create_cone(
+    name: str,
+    radius_top: float,
+    radius_bottom: float,
+    height: float,
+    segments: int = 12,
+    location: Tuple[float, float, float] = (0.0, 0.0, 0.0),
+    base_at_zero: bool = True,
+) -> bpy.types.Object:
+    """Cria um cone truncado / tronco de cone. Usado para manequins, luminárias e vasos."""
+    import math
+    mesh = bpy.data.meshes.new(name)
+    obj = bpy.data.objects.new(name, mesh)
+
+    bm = bmesh.new()
+
+    z0 = 0.0 if base_at_zero else -height / 2.0
+    z1 = height if base_at_zero else height / 2.0
+
+    bottom_verts = []
+    top_verts = []
+
+    for i in range(segments):
+        angle = (2.0 * math.pi * i) / segments
+        cos_a, sin_a = math.cos(angle), math.sin(angle)
+        bottom_verts.append(bm.verts.new((radius_bottom * cos_a, radius_bottom * sin_a, z0)))
+        top_verts.append(bm.verts.new((radius_top * cos_a, radius_top * sin_a, z1)))
+
+    bm.verts.ensure_lookup_table()
+
+    for i in range(segments):
+        next_i = (i + 1) % segments
+        bm.faces.new([
+            bottom_verts[i],
+            bottom_verts[next_i],
+            top_verts[next_i],
+            top_verts[i],
+        ])
+
+    if radius_bottom > 0.001:
+        bm.faces.new(bottom_verts[::-1])
+    if radius_top > 0.001:
+        bm.faces.new(top_verts)
+
+    bm.to_mesh(mesh)
+    bm.free()
+    mesh.update()
+
+    obj.location = Vector(location)
+    return obj
+
+
+def create_trapezoid_box(
+    name: str,
+    top_width: float,
+    top_depth: float,
+    bottom_width: float,
+    bottom_depth: float,
+    height: float,
+    location: Tuple[float, float, float] = (0.0, 0.0, 0.0),
+    base_at_zero: bool = True,
+) -> bpy.types.Object:
+    """
+    Cria uma caixa trapezoidal com topo mais largo que a base (vasos de plantas, pedestais).
+    """
+    mesh = bpy.data.meshes.new(name)
+    obj = bpy.data.objects.new(name, mesh)
+
+    bm = bmesh.new()
+
+    vertices, faces = trapezoid_box_mesh(
+        top_width, top_depth, bottom_width, bottom_depth, height, base_at_zero
+    )
+    mesh.from_pydata(vertices, [], faces)
+    bm.from_mesh(mesh)
+
+    bm.to_mesh(mesh)
+    bm.free()
+    mesh.update()
+
+    obj.location = Vector(location)
+    return obj
+
+
+def create_tube(
+    name: str,
+    outer_radius: float,
+    wall_thickness: float,
+    height: float,
+    segments: int = 16,
+    location: Tuple[float, float, float] = (0.0, 0.0, 0.0),
+    base_at_zero: bool = True,
+) -> bpy.types.Object:
+    """Cria um tubo cilíndrico oco (araras, cortinas rolo, tubulações)."""
+    import math
+    inner_radius = max(outer_radius - wall_thickness, 0.001)
+    mesh = bpy.data.meshes.new(name)
+    obj = bpy.data.objects.new(name, mesh)
+
+    bm = bmesh.new()
+
+    z0 = 0.0 if base_at_zero else -height / 2.0
+    z1 = height if base_at_zero else height / 2.0
+
+    b_out = []
+    t_out = []
+    b_in = []
+    t_in = []
+
+    for i in range(segments):
+        ang = (2.0 * math.pi * i) / segments
+        cos_a, sin_a = math.cos(ang), math.sin(ang)
+        b_out.append(bm.verts.new((outer_radius * cos_a, outer_radius * sin_a, z0)))
+        t_out.append(bm.verts.new((outer_radius * cos_a, outer_radius * sin_a, z1)))
+        b_in.append(bm.verts.new((inner_radius * cos_a, inner_radius * sin_a, z0)))
+        t_in.append(bm.verts.new((inner_radius * cos_a, inner_radius * sin_a, z1)))
+
+    bm.verts.ensure_lookup_table()
+
+    for i in range(segments):
+        ni = (i + 1) % segments
+        bm.faces.new([b_out[i], b_out[ni], t_out[ni], t_out[i]])
+        bm.faces.new([t_in[i], t_in[ni], b_in[ni], b_in[i]])
+        bm.faces.new([b_in[i], b_in[ni], b_out[ni], b_out[i]])
+        bm.faces.new([t_out[i], t_out[ni], t_in[ni], t_in[i]])
+
+    bm.to_mesh(mesh)
+    bm.free()
+    mesh.update()
+
+    obj.location = Vector(location)
+    return obj
+
+
+def create_profile_u(
+    name: str,
+    total_width: float,
+    total_height: float,
+    flange_thickness: float,
+    web_thickness: float,
+    depth: float = 0.12,
+    location: Tuple[float, float, float] = (0.0, 0.0, 0.0),
+    base_at_zero: bool = True,
+) -> bpy.types.Object:
+    """
+    Cria um perfil em U estrutural extrudado no eixo Y.
+    O U abre para o eixo +X.
+    """
+    mesh = bpy.data.meshes.new(name)
+    obj = bpy.data.objects.new(name, mesh)
+
+    bm = bmesh.new()
+
+    z0 = 0.0 if base_at_zero else -total_height / 2.0
+    z1 = total_height if base_at_zero else total_height / 2.0
+    y0 = -depth / 2.0
+    y1 = depth / 2.0
+
+    x_back = -total_width / 2.0
+    x_web = x_back + web_thickness
+    x_front = total_width / 2.0
+
+    z_bot = z0
+    z_bot_flange = z0 + flange_thickness
+    z_top_flange = z1 - flange_thickness
+    z_top = z1
+
+    poly_xz = [
+        (x_back, z_bot),
+        (x_front, z_bot),
+        (x_front, z_bot_flange),
+        (x_web, z_bot_flange),
+        (x_web, z_top_flange),
+        (x_front, z_top_flange),
+        (x_front, z_top),
+        (x_back, z_top),
+    ]
+
+    front_verts = [bm.verts.new((x, y0, z)) for x, z in poly_xz]
+    back_verts = [bm.verts.new((x, y1, z)) for x, z in poly_xz]
+    bm.verts.ensure_lookup_table()
+
+    bm.faces.new(front_verts)
+    bm.faces.new(back_verts[::-1])
+
+    n = len(poly_xz)
+    for i in range(n):
+        ni = (i + 1) % n
+        bm.faces.new([front_verts[i], back_verts[i], back_verts[ni], front_verts[ni]])
+
+    bm.to_mesh(mesh)
+    bm.free()
+    mesh.update()
+
+    obj.location = Vector(location)
+    return obj

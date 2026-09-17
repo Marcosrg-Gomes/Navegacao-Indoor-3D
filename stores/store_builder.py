@@ -1,17 +1,16 @@
 """
 stores/store_builder.py — Construtor parametrizado de lojas (Térreo e Mezanino)
 
-Monta 22 lojas abertas (12 no térreo e 10 no mezanino):
+Monta 22 lojas abertas com dimensões, tipologias e acabamentos individualizados:
   - Sub-Collection individual por loja
-  - Fáscia superior
-  - Vitrine lateral de vidro com vão central aberto
-  - Pórtico, caixa de cortina rolo e soleira
-  - Sem portas de vidro no horário comercial
+  - Fáscia superior com acabamentos e iluminação de âncora
+  - Vitrine com caixilho fino de alumínio (40-50mm) e peitoril
+  - Pórtico em U verdadeiro, cortina rolo tubular e soleira de mármore
 """
 
 import bpy
 from config import CONFIG, DERIVED
-from utils.geometry import create_box
+from utils.geometry import create_box, create_rounded_box
 from utils.helpers import (
     link_to_collection,
     apply_material_by_name,
@@ -21,39 +20,6 @@ from utils.logging import log_info, log_object_created, log_section, log_section
 from materials import MatNames
 from stores.storefront import create_storefront_glass, create_storefront_frame
 from stores.doors import create_store_door
-
-
-def _get_store_position(side: str, index: int) -> dict:
-    """Calcula coordenadas e dimensões de uma loja."""
-    st = CONFIG["stores"]
-    corridor_half = CONFIG["corridor"]["width"] / 2.0
-    store_depth = st["depth"]
-    store_width = st["width"]
-    div_t = st["wall_thickness"]
-    start_y = DERIVED["store_start_y"]
-
-    center_y = start_y + index * (store_width + div_t) + store_width / 2.0
-
-    if side == "E":
-        inner_x = -corridor_half
-        outer_x = -(corridor_half + store_depth)
-        center_x = -(corridor_half + store_depth / 2.0)
-        vitrine_x = inner_x
-    else:
-        inner_x = +corridor_half
-        outer_x = +(corridor_half + store_depth)
-        center_x = +(corridor_half + store_depth / 2.0)
-        vitrine_x = inner_x
-
-    return {
-        "center_x": center_x,
-        "center_y": center_y,
-        "inner_x": inner_x,
-        "outer_x": outer_x,
-        "vitrine_x": vitrine_x,
-        "store_width": store_width,
-        "store_depth": store_depth,
-    }
 
 
 def create_store(
@@ -75,24 +41,26 @@ def create_store(
 
     store_col = get_or_create_collection(store_col_name, parent=parent_collection)
 
-    pos = _get_store_position(side, index)
+    pos = DERIVED["store_positions"][store_code]
     base_z = mz.get("floor_z", 4.7) if is_mezzanine else 0.0
     store_ceiling_z = s["height"] if is_mezzanine else mz.get("height", 4.2)
     store_total_h = store_ceiling_z - base_z
     vitrine_h = st["storefront_height"]
-
-    glass_width = pos["store_width"] - 0.16
+    cat = pos.get("category", "MODA")
+    recuo = pos.get("recuo", 0.0)
+    is_anchor = pos.get("is_anchor", False)
 
     objects = {}
 
-    # 1. Fáscia superior da vitrine
+    # 1. Fáscia superior da vitrine (com chanfro e acabamento nobre)
     fascia_h = store_total_h - vitrine_h
     fascia_name = f"LOJA_{store_code}_Fascia"
-    fascia = create_box(
+    fascia = create_rounded_box(
         name=fascia_name,
         width=0.15,
         depth=pos["store_width"],
         height=max(fascia_h, 0.4),
+        bevel_radius=0.015,
         location=(pos["vitrine_x"], pos["center_y"], base_z + vitrine_h),
         centered_xy=True,
         base_at_zero=True,
@@ -101,17 +69,33 @@ def create_store(
     apply_material_by_name(fascia, MatNames.FACHADA_LOJA)
     objects["fascia"] = fascia
 
-    # 2. Vitrine de vidro
+    # Fita LED de destaque para lojas âncoras
+    if is_anchor:
+        led_strip = create_box(
+            name=f"LOJA_{store_code}_Fascia_LED",
+            width=0.04,
+            depth=pos["store_width"] * 0.95,
+            height=0.025,
+            location=(pos["vitrine_x"] + (0.08 if pos["center_x"] < 0 else -0.08), pos["center_y"], base_z + vitrine_h + 0.02),
+            centered_xy=True,
+            base_at_zero=True,
+        )
+        link_to_collection(led_strip, store_col)
+        apply_material_by_name(led_strip, MatNames.LED)
+        objects["fascia_led"] = led_strip
+
+    # 2. Vitrine de vidro com caixilhos finos (40-50mm)
     objects["glass"] = create_storefront_glass(
         store_name=store_code,
         center_x=pos["vitrine_x"],
         center_y=pos["center_y"],
-        vitrine_width=glass_width,
+        store_width=pos["store_width"],
         collection=store_col,
         base_z=base_z,
+        category=cat,
     )
 
-    # 3. Caixilho metálico
+    # 3. Pórtico em U verdadeiro, cortina rolo tubular e soleira
     frame_parts = create_storefront_frame(
         store_name=store_code,
         center_x=pos["vitrine_x"],
@@ -119,10 +103,12 @@ def create_store(
         store_width=pos["store_width"],
         collection=store_col,
         base_z=base_z,
+        category=cat,
+        recuo=recuo,
     )
     objects["frame"] = frame_parts
 
-    # 4. Porta
+    # 4. Porta (aberta no horário comercial)
     objects["door"] = create_store_door(
         store_name=store_code,
         center_x=pos["vitrine_x"],
