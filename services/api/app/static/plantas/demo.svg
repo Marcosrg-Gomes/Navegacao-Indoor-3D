@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="600" viewBox="0 0 1000 600">
+  <rect width="1000" height="600" fill="#f8fafc"/>
+  <rect x="30" y="30" width="940" height="540" rx="28" fill="#e2e8f0" stroke="#64748b" stroke-width="4"/>
+  <path d="M100 300H900 M300 90V510 M500 90V510 M700 90V510 M300 180H900 M300 420H700" fill="none" stroke="#fff" stroke-width="42" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="#bfdbfe" stroke="#60a5fa" stroke-width="2">
+    <rect x="248" y="55" width="104" height="66" rx="8"/>
+    <rect x="448" y="55" width="104" height="66" rx="8"/>
+    <rect x="648" y="55" width="104" height="66" rx="8"/>
+    <rect x="248" y="480" width="104" height="66" rx="8"/>
+    <rect x="448" y="480" width="104" height="66" rx="8"/>
+    <rect x="648" y="480" width="104" height="66" rx="8"/>
+  </g>
+  <g font-family="sans-serif" font-size="15" fill="#334155" text-anchor="middle">
+    <text x="300" y="78">Moda</text><text x="500" y="78">Tecnologia</text><text x="700" y="78">Restaurante</text>
+    <text x="300" y="540">Cinema</text><text x="500" y="540">Farmácia</text><text x="700" y="540">Banheiro</text>
+    <text x="100" y="335">Entrada</text><text x="900" y="335">Entrada lateral</text>
+    <text x="900" y="155">Escada</text><text x="500" y="280">Corredor central</text>
+  </g>
+</svg>
