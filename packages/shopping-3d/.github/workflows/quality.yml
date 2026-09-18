@@ -1,0 +1,30 @@
+name: Quality
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  static:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install ruff
+      - run: ruff check tests scripts utils/mesh_data.py config.py utils/geometry.py
+      - run: ruff format --check tests scripts utils/mesh_data.py
+      - run: python -m compileall -q .
+      - run: python -m unittest discover -s tests -v
+
+  blender-headless:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download Blender 4.5.14 LTS
+        run: |
+          curl -L --fail --output blender.tar.xz https://download.blender.org/release/Blender4.5/blender-4.5.14-linux-x64.tar.xz
+          tar -xf blender.tar.xz
+      - name: Generate the scene in background mode
+        run: ./blender-4.5.14-linux-x64/blender --background --factory-startup --python scripts/blender_smoke.py
