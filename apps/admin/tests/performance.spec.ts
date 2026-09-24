@@ -31,8 +31,8 @@ test("RNF03: mapa visível e rota em 4G simulado", async ({ browser }, info) => 
     samples.push({ mapMs: Math.round(mapMs), routeMs: Date.now() - start });
     await context.close();
   }
-  mkdirSync("../evidence", { recursive: true });
-  writeFileSync(`../evidence/performance-${process.env.AUDIT_PHASE || "after"}.json`, JSON.stringify({
+  mkdirSync("../../evidence", { recursive: true });
+  writeFileSync(`../../evidence/performance-${process.env.AUDIT_PHASE || "after"}.json`, JSON.stringify({
     profile: "4G simulado: 9 Mbps down / 1 Mbps up / 80 ms, cache frio, Chromium, 360x640", samples,
   }, null, 2));
   console.log("RNF03", JSON.stringify(samples));

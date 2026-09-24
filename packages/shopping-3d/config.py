@@ -11,6 +11,22 @@ Todas as dimensões estão em metros (1 unidade Blender = 1 metro).
 
 CONFIG = {
 
+    "navigation": {
+        "door_clearance": 0.6,
+        "front_bridge_clearance": 1.0,
+        "rear_side_clearance": 1.0,
+        "landing_clearance": 0.6,
+    },
+    "vertical_circulation": {
+        "escalators": {"start_y": -4.5, "length": 9.0, "width": 1.2, "spacing": 0.3,
+                       "platform_length": 1.2},
+        "elevator": {"x": 0.0, "y": 8.5, "radius": 1.4},
+    },
+    "restroom_layout": {
+        "T": {"width": 6.4, "depth": 5.2, "back_margin": 0.8, "side_margin": 0.2, "door_offset": 1.6},
+        "M": {"width": 5.6, "depth": 4.6, "back_margin": 0.4, "side_margin": 0.15, "door_offset": 1.35},
+    },
+
     # -------------------------------------------------------------------------
     # Dimensões gerais do shopping
     # -------------------------------------------------------------------------
@@ -149,6 +165,7 @@ CONFIG = {
     # Quiosques no corredor térreo
     # -------------------------------------------------------------------------
     "kiosks": {
+        "y_positions": [-16.0, -9.0, 14.0],
         "count": 3,             # Número de quiosques
         "width": 2.5,           # Largura do quiosque (eixo X)
         "depth": 2.0,           # Profundidade do quiosque (eixo Y)
@@ -654,6 +671,36 @@ def get_derived(cfg: dict) -> dict:
         "mz_corridor_left_x": -atrium_half_width,
         "mz_corridor_right_x": +atrium_half_width,
     }
+
+
+def get_navigation_layout(cfg=None):
+    cfg = cfg or CONFIG
+    d = get_derived(cfg)
+    esc = cfg["vertical_circulation"]["escalators"]
+    lift = cfg["vertical_circulation"]["elevator"]
+    nav = cfg["navigation"]
+    top_y = esc["start_y"] + esc["length"] + esc["platform_length"] / 2
+    lobby_y = lift["y"] - lift["radius"] - nav["landing_clearance"]
+    restrooms = []
+    for prefix in ("T", "M"):
+        wc = cfg["restroom_layout"][prefix]
+        front_y = d["back_wall_y"] - wc["depth"] - wc["back_margin"]
+        for side, sex in [(-1, "MASC"), (1, "FEM")]:
+            suffix = sex if prefix == "T" else ("MASC_PCD" if side < 0 else "FEM_FAMILIA")
+            center_x = side * (d["half_width"] - cfg["shopping"]["wall_thickness"] - wc["width"] / 2 - wc["side_margin"])
+            code = f"BANHEIRO_{prefix}_{suffix}"
+            restrooms.append(dict(wc, prefix=prefix, side=side, code=code,
+                center_x=center_x, front_y=front_y, door_x=center_x-side*wc["door_offset"],
+                anchor_code=f"{prefix}_BANHEIRO_{suffix}", nav_object=f"NAV_{code}",
+                object_prefix=f"AREA_WC_{prefix}_{'Masc' if side < 0 else 'Fem'}" + ("_PCD" if prefix == "M" and side < 0 else "_Familia" if prefix == "M" else ""),
+                name=("Banheiro masculino" if side < 0 else "Banheiro feminino") +
+                     (" — térreo" if prefix == "T" else " PCD — mezanino" if side < 0 else " / família — mezanino")))
+    return {"escalator_bottom_y": esc["start_y"]-esc["platform_length"]-nav["landing_clearance"],
+            "escalator_top_y": top_y, "lobby_y": lobby_y, "elevator_x": lift["x"],
+            "bridge_start_y": esc["start_y"]+esc["length"],
+            "bridge_end_y": lift["y"]-lift["radius"],
+            "rear_crossing_y": d["mz_atrium_end_y"]+nav["front_bridge_clearance"],
+            "restrooms": restrooms}
 
 
 DERIVED = get_derived(CONFIG)

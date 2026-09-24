@@ -42,6 +42,14 @@ app.add_middleware(
 app.include_router(public.router, prefix="/api", tags=["public"])
 app.include_router(admin.router, prefix="/api/admin", tags=["admin"])
 
+from sqlalchemy.exc import IntegrityError
+from fastapi.responses import JSONResponse
+
+
+@app.exception_handler(IntegrityError)
+async def integrity_error_handler(request, exc):
+    return JSONResponse(status_code=409, content={"detail": "Código ou vínculo já utilizado. Revise o cadastro."})
+
 # Montagem de arquivos estáticos (plantas baixas e painel admin)
 import os
 from fastapi.staticfiles import StaticFiles

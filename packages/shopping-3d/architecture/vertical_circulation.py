@@ -112,7 +112,7 @@ def create_single_escalator(
         objects.append(handrail)
 
     # 4. Patamares horizontais de entrada (térreo) e saída (mezanino)
-    plat_len = 1.2
+    plat_len = CONFIG["vertical_circulation"]["escalators"]["platform_length"]
     # Base Térreo
     plat_bottom = create_box(
         name=f"{name_prefix}_Plat_Terreo",
@@ -150,10 +150,11 @@ def create_escalators(collection: bpy.types.Collection) -> list:
     """
     mz = CONFIG.get("mezzanine", {})
     height_z = mz.get("floor_z", 4.7)
-    length_y = 9.0  # Comprimento da rampa
-    esc_w = 1.2
-    spacing_x = 0.3
-    start_y = -4.5  # Centralizada longitudinalmente no átrio
+    esc = CONFIG["vertical_circulation"]["escalators"]
+    length_y = esc["length"]
+    esc_w = esc["width"]
+    spacing_x = esc["spacing"]
+    start_y = esc["start_y"]
 
     objects = []
 
@@ -198,8 +199,9 @@ def create_panoramic_elevator(collection: bpy.types.Collection) -> list:
     total_h = s["height"] - 0.5
     mz_floor_z = mz.get("floor_z", 4.7)
 
-    radius = 1.4
-    center_pos = (0.0, 8.5, 0.0) # Posicionado ao norte do átrio
+    lift = CONFIG["vertical_circulation"]["elevator"]
+    radius = lift["radius"]
+    center_pos = (lift["x"], lift["y"], 0.0) # Posicionado ao norte do átrio
     cx, cy, cz = center_pos
 
     objects = []

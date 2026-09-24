@@ -85,11 +85,11 @@ test("Administrador cadastra um piso navegável, edita e remove seus registros",
     await page.goto("/admin/lojas");
     await page.getByRole("button", { name: "Nova loja", exact: true }).click();
     await dialog.getByLabel("Nome *", { exact: true }).fill(storeName);
-    await dialog.getByLabel("Nó associado *", { exact: true }).selectOption(String(nodes[1].id));
-    await dialog.getByLabel("Categoria *", { exact: true }).selectOption(String(category.id));
+    await dialog.getByRole("combobox", { name: "Nó associado *", exact: true }).selectOption(String(nodes[1].id));
+    await dialog.getByRole("combobox", { name: "Categoria *", exact: true }).selectOption(String(category.id));
     const store = await save("stores", "POST", "Salvar");
     await row(storeName).getByRole("button", { name: "Editar", exact: true }).click();
-    await dialog.getByLabel("Status operacional *", { exact: true }).selectOption("fechado");
+    await dialog.getByRole("combobox", { name: "Status operacional *", exact: true }).selectOption("fechado");
     expect((await save(`stores/${store.id}`, "PUT", "Salvar")).status_operacional).toBe("fechado");
 
     await page.goto("/admin/qr");

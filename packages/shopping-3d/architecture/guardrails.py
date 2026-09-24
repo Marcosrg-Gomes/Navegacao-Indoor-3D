@@ -9,7 +9,7 @@ Gera:
 
 import bpy
 from math import ceil
-from config import CONFIG, DERIVED
+from config import CONFIG, DERIVED, get_navigation_layout
 from utils.geometry import create_box, create_cylinder
 from utils.helpers import link_to_collection, apply_material_by_name
 from utils.logging import log_info, log_object_created, log_section, log_section_end
@@ -135,11 +135,23 @@ def build_guardrails(collections: dict) -> dict:
     front_y = DERIVED["mz_atrium_start_y"] - edge_offset
     back_y = DERIVED["mz_atrium_end_y"] + edge_offset
     objects = []
+    nav = get_navigation_layout(CONFIG)
+    bridge_start, bridge_end = nav["bridge_start_y"], nav["bridge_end_y"]
+    esc = CONFIG["vertical_circulation"]["escalators"]
+    outer_escalator = esc["width"] + esc["spacing"] / 2 + 0.1
+    lift = CONFIG["vertical_circulation"]["elevator"]
+    # Leave real openings to the landing, escalators and lift; protect free edges.
     for side, axis, length, x, y in (
-        ("Esq", 'Y', back_y - front_y, left_x, front_y),
-        ("Dir", 'Y', back_y - front_y, right_x, front_y),
+        ("EsqSul", 'Y', bridge_start - front_y, left_x, front_y),
+        ("DirSul", 'Y', bridge_start - front_y, right_x, front_y),
+        ("EsqNorte", 'Y', back_y - bridge_end, left_x, bridge_end),
+        ("DirNorte", 'Y', back_y - bridge_end, right_x, bridge_end),
         ("Frente", 'X', right_x - left_x, left_x, front_y),
         ("Fundo", 'X', right_x - left_x, left_x, back_y),
+        ("DesembarqueSulE", 'X', -outer_escalator - left_x, left_x, bridge_start),
+        ("DesembarqueSulD", 'X', right_x - outer_escalator, outer_escalator, bridge_start),
+        ("DesembarqueNorteE", 'X', -lift["radius"] - left_x, left_x, bridge_end),
+        ("DesembarqueNorteD", 'X', right_x - lift["radius"], lift["radius"], bridge_end),
     ):
         objects.extend(create_guardrail_section(
             name_prefix=f"ARQ_GC_Mezanino_{side}",

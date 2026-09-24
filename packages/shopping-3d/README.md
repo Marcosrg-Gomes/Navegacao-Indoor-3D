@@ -2,6 +2,25 @@
 
 Projeto acadêmico que cria um mini shopping interno navegável usando Python e a API `bpy` do Blender. As unidades são metros (`1 unidade Blender = 1 m`).
 
+## Integração com navegação indoor
+
+Este módulo integra o monorepo TCC. `navigation.py` deriva 27 destinos, dois pisos,
+âncoras `NAV_*`, grafo e sete QR Codes do mesmo layout da geometria. A laje de
+desembarque conecta as escadas rolantes e o elevador às passarelas do mezanino.
+
+Execute os comandos abaixo a partir de `packages/shopping-3d`:
+
+```powershell
+blender --background --factory-startup --python-exit-code 1 --python scripts/validate_navigation_geometry.py
+blender --background --factory-startup --python-exit-code 1 --python scripts/export_navigation_scene.py -- --release 2 --output ../../.work/scene-v2
+```
+
+O exportador gera GLB com Draco, catálogo e plantas SVG versionadas. Ele verifica
+as âncoras e o inventário dentro do GLB e rejeita modelos acima de 25 MiB.
+`python navigation.py` apenas valida o catálogo em memória. Os dados da API e a
+publicação seguem [o guia do monorepo](../../docs/publicacao-modelo-3d.md).
+As verificações atuais estão em [validação da integração](../../docs/validacao-integracao.md).
+
 ## Ambiente reproduzível
 
 - Blender alvo: **4.5.14 LTS**. O projeto usa `bpy`, `bmesh` e `mathutils` que vêm com o Blender; Python comum não executa a geração da cena.
@@ -13,7 +32,7 @@ Projeto acadêmico que cria um mini shopping interno navegável usando Python e 
 
 Na interface do Blender, abra `main.py` na área **Scripting** e use **Run Script** (`Alt + P`).
 
-Para gerar e renderizar sem interface, a partir da raiz do repositório:
+Para gerar e renderizar sem interface, a partir da pasta deste módulo:
 
 ```powershell
 & "C:\caminho\para\blender.exe" --background --factory-startup --python scripts\render_headless.py
@@ -25,7 +44,7 @@ O comando recria apenas as collections do projeto, renderiza as câmeras estáti
 
 ```powershell
 python -m pip install ruff
-ruff check tests scripts utils/mesh_data.py config.py utils/geometry.py
+ruff check tests scripts utils/mesh_data.py config.py utils/geometry.py navigation.py ../scene-contract
 ruff format --check tests scripts utils/mesh_data.py
 python -m compileall -q .
 python -m unittest discover -s tests -v

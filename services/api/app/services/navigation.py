@@ -115,10 +115,10 @@ class NavigationEngine:
 
             source, target = nos_navegaveis[origem], nos_navegaveis[destino]
             if source.piso_id != target.piso_id and (
-                source.tipo not in {"escada", "elevador"} or target.tipo not in {"escada", "elevador"}
+                source.tipo not in {"escada", "escada_rolante", "elevador"} or target.tipo not in {"escada", "escada_rolante", "elevador"}
             ):
                 continue
-            if acessivel and "escada" in (source.tipo, target.tipo):
+            if acessivel and {source.tipo, target.tipo} & {"escada", "escada_rolante"}:
                 continue
 
             peso = float(aresta.distancia or 0)
@@ -226,6 +226,9 @@ class NavigationEngine:
                 piso_destino = proximo.piso.nome
                 if tipo == 'elevador' or atual.tipo == 'elevador':
                     instrucoes.append(f"Use o elevador para o piso {piso_destino}")
+                elif tipo == 'escada_rolante' or atual.tipo == 'escada_rolante':
+                    verbo = 'subir' if proximo.piso.nivel > atual.piso.nivel else 'descer'
+                    instrucoes.append(f'Use a escada rolante para {verbo} ao {piso_destino}')
                 elif tipo == 'escada' or atual.tipo == 'escada':
                     verbo = "Suba" if proximo.piso.nivel > atual.piso.nivel else "Desça"
                     instrucoes.append(f"{verbo} as escadas para {piso_destino}")

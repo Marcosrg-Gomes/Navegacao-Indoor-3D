@@ -179,7 +179,7 @@ def build_kiosks(collections: dict) -> list:
         (0.3, 1.0, 0.5, 1.0),
     ])
 
-    y_positions = [-16.0, -9.0, 14.0]
+    y_positions = k_cfg["y_positions"]
 
     all_kiosks = []
     for i, (name, col, y) in enumerate(zip(names, colors, y_positions)):

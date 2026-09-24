@@ -8,7 +8,7 @@ import { FormField } from "../components/FormField";
 
 const emptyForm = {
   shopping_id: "",
-  nome: "",
+  codigo: "", nome: "",
   nivel: "0",
   imagem_planta_url: "",
   largura_metros: "100",
@@ -74,7 +74,7 @@ export default function Floors() {
     setEditPiso(item);
     setForm({
       shopping_id: String(item.shopping_id),
-      nome: item.nome,
+      codigo: item.codigo, nome: item.nome,
       nivel: String(item.nivel),
       imagem_planta_url: item.imagem_planta_url || "",
       largura_metros: item.largura_metros?.toString() ?? "100",
@@ -96,7 +96,7 @@ export default function Floors() {
     try {
       const payload = {
         shopping_id: Number(form.shopping_id),
-        nome: form.nome.trim(),
+        codigo: form.codigo.trim() || undefined, nome: form.nome.trim(),
         nivel: Number(form.nivel),
         imagem_planta_url: form.imagem_planta_url.trim() || null,
         largura_metros: form.largura_metros ? Number(form.largura_metros) : null,
@@ -285,6 +285,9 @@ export default function Floors() {
         >
           <form onSubmit={handleSubmit}>
             <div className="form-grid">
+              <FormField label="Código estável (gerado se vazio)">
+                <input value={form.codigo} onChange={(e) => setForm({ ...form, codigo: e.target.value.toUpperCase() })} pattern="[A-Z][A-Z0-9_]*" maxLength={80} />
+              </FormField>
               <FormField label="Shopping Associado" required className="full">
                 <select
                   value={form.shopping_id}

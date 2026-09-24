@@ -1,5 +1,6 @@
 import Svg, {
   Circle,
+  G,
   Image as SvgImage,
   Line,
   Rect,
@@ -23,6 +24,7 @@ type FloorMapProps = {
   imagemPlantaUrl?: string | null;
   floorId?: number;
   onNodePress?: (node: No) => void;
+  detailZoom?: number;
 };
 
 export function FloorMap({
@@ -37,10 +39,16 @@ export function FloorMap({
   imagemPlantaUrl,
   floorId,
   onNodePress,
+  detailZoom = 1,
 }: FloorMapProps) {
   const toX = (coord: number) => coordenadaNormalizada(coord) * width;
   const toY = (coord: number) => coordenadaNormalizada(coord) * height;
   const plantaUrl = getAssetUrl(imagemPlantaUrl);
+  const transitions = ["elevador", "escada", "escada_rolante"];
+  const priority = (node: No) => [originNodeId, destinationNodeId].includes(node.id) ? 0 : transitions.includes(node.tipo) ? 1 : 2;
+  const visibleNodes = nodes.filter((node) => node.tipo !== "corredor" || [originNodeId, destinationNodeId, highlightNodeId].includes(node.id))
+    .sort((a, b) => priority(a) - priority(b));
+  const occupiedLabels: { x: number; y: number; width: number }[] = [];
 
   return (
     <Svg
@@ -124,32 +132,37 @@ export function FloorMap({
         );
       })}
 
-      <RouteOverlay width={width} height={height} routeNodes={routeNodes} floorId={floorId} />
+      <RouteOverlay width={width} height={height} routeNodes={routeNodes} floorId={floorId} showEndpoints={false} />
 
-      {nodes.map((node) => {
+      {visibleNodes.map((node) => {
         const isOrigin = node.id === originNodeId;
         const isDestination = node.id === destinationNodeId;
         const isHighlight = node.id === highlightNodeId;
-        const radius = isOrigin || isDestination || isHighlight ? 8 : 5;
+        const radius = isOrigin || isDestination || isHighlight ? 9 : 6;
         const fill = isOrigin
-          ? "#22c55e"
+          ? "#16a34a"
           : isDestination
-            ? "#ef4444"
+            ? "#e11d48"
             : TIPO_NO_COR[node.tipo] ?? "#64748b";
 
-        return (
-          <Circle
-            key={node.id}
-            onPress={() => onNodePress?.(node)}
-            accessibilityLabel={node.nome || node.tipo}
-            cx={toX(node.coord_x)}
-            cy={toY(node.coord_y)}
-            r={radius}
-            fill={fill}
-            stroke="#ffffff"
-            strokeWidth={2}
-          />
-        );
+        const transition = transitions.includes(node.tipo);
+        const label = isOrigin ? "Você está aqui" : isDestination ? "Destino" : node.tipo === "banheiro" ? "WC" : transition ? node.tipo === "elevador" ? "Elevador" : "Escada" : detailZoom >= 1.6 ? node.nome : null;
+        const labelWidth = Math.min(174, (label?.length || 0) * 6.5 + 16);
+        const labelX = Math.max(labelWidth / 2 + 4, Math.min(width - labelWidth / 2 - 4, toX(node.coord_x) + (isOrigin || isDestination ? 0 : node.coord_x < .5 ? -labelWidth / 2 - 12 : labelWidth / 2 + 12)));
+        const preferredY = toY(node.coord_y) - (isOrigin || isDestination ? 23 : 0);
+        const labelY = [0, -26, 26, -52, 52].map((offset) => Math.max(16, Math.min(height - 16, preferredY + offset)))
+          .find((y) => !occupiedLabels.some((other) => Math.abs(other.y - y) < 25 && Math.abs(other.x - labelX) < (other.width + labelWidth) / 2 + 5)
+            && !visibleNodes.some((point) => Math.abs(toY(point.coord_y) - y) < 21 && Math.abs(toX(point.coord_x) - labelX) < labelWidth / 2 + 10));
+        if (label && labelY !== undefined) occupiedLabels.push({ x: labelX, y: labelY, width: labelWidth });
+        return <G key={node.id} onPress={() => onNodePress?.(node)} accessibilityLabel={node.nome || node.tipo}>
+          {label && labelY !== undefined && Math.abs(labelY - preferredY) > 2 && <Line x1={toX(node.coord_x)} y1={toY(node.coord_y)} x2={labelX} y2={labelY} stroke="#94a3b8" strokeWidth={1} />}
+          <Circle cx={toX(node.coord_x)} cy={toY(node.coord_y)} r={16} fill={fill} opacity={isOrigin || isDestination ? .18 : 0.01} />
+          <Circle cx={toX(node.coord_x)} cy={toY(node.coord_y)} r={radius} fill={transition && !isOrigin && !isDestination ? "#7c3aed" : fill} stroke="#ffffff" strokeWidth={2} />
+          {label && labelY !== undefined && <G>
+            <Rect x={labelX - labelWidth / 2} y={labelY - 11} width={labelWidth} height={22} rx={6} fill={isOrigin ? "#166534" : isDestination ? "#be123c" : "#fff"} stroke={isOrigin || isDestination ? "#fff" : "#cbd5e1"} strokeWidth={1} />
+            <SvgText x={labelX} y={labelY + 4} fontSize={11} fontFamily="sans-serif" fontWeight="600" textAnchor="middle" fill={isOrigin || isDestination ? "#fff" : "#334155"}>{label.length > 25 ? label.slice(0, 23) + "…" : label}</SvgText>
+          </G>}
+        </G>;
       })}
     </Svg>
   );

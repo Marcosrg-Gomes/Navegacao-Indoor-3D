@@ -194,17 +194,18 @@ def create_ground_restrooms(collection: bpy.types.Collection) -> list:
     wt = s["wall_thickness"]
     ground_h = CONFIG.get("mezzanine", {}).get("height", 4.2)
 
-    block_w, block_d = 6.4, 5.2
+    wc = CONFIG["restroom_layout"]["T"]
+    block_w, block_d = wc["width"], wc["depth"]
     objects = []
-    block_y = half_l - wt - block_d / 2.0 - 0.8
+    block_y = half_l - wt - block_d / 2.0 - wc["back_margin"]
 
     # -------------------------------------------------------------------------
     # 1. SANITÁRIO MASCULINO TÉRREO
     # -------------------------------------------------------------------------
-    ox_m = -half_w + wt + block_w / 2.0 + 0.2
+    ox_m = -half_w + wt + block_w / 2.0 + wc["side_margin"]
     front_m = _room_shell(
         "AREA_WC_T_Masc", ox_m, block_y, block_w, block_d, ground_h, 0.0,
-        door_off_y=1.6, door_w=1.0, collection=collection, objects=objects,
+        door_off_y=wc["door_offset"], door_w=1.0, collection=collection, objects=objects,
     )
 
     bancada_m = create_box(
@@ -259,10 +260,10 @@ def create_ground_restrooms(collection: bpy.types.Collection) -> list:
     # -------------------------------------------------------------------------
     # 2. SANITÁRIO FEMININO TÉRREO
     # -------------------------------------------------------------------------
-    ox_f = half_w - wt - block_w / 2.0 - 0.2
+    ox_f = half_w - wt - block_w / 2.0 - wc["side_margin"]
     front_f = _room_shell(
         "AREA_WC_T_Fem", ox_f, block_y, block_w, block_d, ground_h, 0.0,
-        door_off_y=-1.6, door_w=1.0, collection=collection, objects=objects,
+        door_off_y=-wc["door_offset"], door_w=1.0, collection=collection, objects=objects,
     )
 
     bancada_f = create_box(
@@ -318,17 +319,18 @@ def create_mezzanine_restrooms(collection: bpy.types.Collection) -> list:
     base_z = mz.get("floor_z", 4.7)
     upper_h = s["height"] - base_z
 
-    block_w, block_d = 5.6, 4.6
+    wc = CONFIG["restroom_layout"]["M"]
+    block_w, block_d = wc["width"], wc["depth"]
     objects = []
-    block_y = half_l - wt - block_d / 2.0 - 0.4
+    block_y = half_l - wt - block_d / 2.0 - wc["back_margin"]
 
     # -------------------------------------------------------------------------
     # 3. SANITÁRIO MASCULINO MEZANINO PCD (acesso amplo, sem desnível)
     # -------------------------------------------------------------------------
-    ox_m = -half_w + wt + block_w / 2.0 + 0.15
+    ox_m = -half_w + wt + block_w / 2.0 + wc["side_margin"]
     front_m = _room_shell(
         "AREA_WC_M_Masc_PCD", ox_m, block_y, block_w, block_d, upper_h, base_z,
-        door_off_y=1.35, door_w=1.20, collection=collection, objects=objects,
+        door_off_y=wc["door_offset"], door_w=1.20, collection=collection, objects=objects,
     )
 
     vaso_pcd = create_box(
@@ -387,10 +389,10 @@ def create_mezzanine_restrooms(collection: bpy.types.Collection) -> list:
     # -------------------------------------------------------------------------
     # 4. SANITÁRIO FEMININO MEZANINO + ESPAÇO FAMÍLIA / FRALDÁRIO
     # -------------------------------------------------------------------------
-    ox_f = half_w - wt - block_w / 2.0 - 0.15
+    ox_f = half_w - wt - block_w / 2.0 - wc["side_margin"]
     front_f = _room_shell(
         "AREA_WC_M_Fem_Familia", ox_f, block_y, block_w, block_d, upper_h, base_z,
-        door_off_y=-1.35, door_w=1.10, collection=collection, objects=objects,
+        door_off_y=-wc["door_offset"], door_w=1.10, collection=collection, objects=objects,
     )
 
     fraldario = create_box(

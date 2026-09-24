@@ -1,3 +1,4 @@
+from app.codes import Code, new_code
 from enum import Enum
 from typing import Optional
 
@@ -14,6 +15,7 @@ class StatusOperacional(str, Enum):
 
 
 class LojaCreate(BaseModel):
+    codigo: Code = Field(default_factory=new_code)
     no_id: int = Field(gt=0)
     nome: str = Field(min_length=1, max_length=200)
     descricao: Optional[str] = None
@@ -36,7 +38,8 @@ from app.schemas.patch import PatchModel
 
 
 class LojaUpdate(PatchModel):
-    non_nullable = {"no_id", "nome", "categoria_id", "status_operacional", "ativo"}
+    codigo: Optional[Code] = None
+    non_nullable = {"codigo", "no_id", "nome", "categoria_id", "status_operacional", "ativo"}
     no_id: Optional[int] = Field(default=None, gt=0)
     nome: Optional[str] = Field(default=None, min_length=1, max_length=200)
     descricao: Optional[str] = None
@@ -58,6 +61,7 @@ class LojaUpdate(PatchModel):
         return value
 
 class LojaResponse(BaseModel):
+    codigo: str
     id: int
     no_id: int
     nome: str

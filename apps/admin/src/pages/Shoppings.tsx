@@ -4,7 +4,7 @@ import { useToast } from "../toast";
 import type { Shopping } from "../types";
 import { Field, FormActions, Modal, confirmDelete, useBusySubmit } from "../ui";
 
-const empty = { nome: "", endereco: "", latitude: "", longitude: "", ativo: true };
+const empty = { codigo: "", nome: "", endereco: "", latitude: "", longitude: "", ativo: true };
 
 export default function Shoppings() {
   const toast = useToast();
@@ -31,7 +31,7 @@ export default function Shoppings() {
   function startEdit(item: Shopping) {
     setEdit(item);
     setForm({
-      nome: item.nome,
+      codigo: item.codigo, nome: item.nome,
       endereco: item.endereco || "",
       latitude: item.latitude?.toString() ?? "",
       longitude: item.longitude?.toString() ?? "",
@@ -100,7 +100,7 @@ export default function Shoppings() {
             onSubmit={(e) =>
               run(e, async () => {
                 const payload = {
-                  nome: form.nome,
+                  codigo: form.codigo.trim() || undefined, nome: form.nome,
                   endereco: form.endereco || null,
                   latitude: form.latitude ? Number(form.latitude) : null,
                   longitude: form.longitude ? Number(form.longitude) : null,
@@ -119,6 +119,9 @@ export default function Shoppings() {
             }
           >
             <div className="form-grid">
+              <Field label="Código estável (gerado se vazio)">
+                <input value={form.codigo} onChange={(e) => setForm({ ...form, codigo: e.target.value.toUpperCase() })} pattern="[A-Z][A-Z0-9_]*" maxLength={80} />
+              </Field>
               <Field label="Nome" className="full">
                 <input value={form.nome} onChange={(e) => setForm({ ...form, nome: e.target.value })} required />
               </Field>

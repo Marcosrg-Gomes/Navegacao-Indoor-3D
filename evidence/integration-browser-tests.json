@@ -1,0 +1,401 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\TCC\\apps\\admin\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--project=chromium",
+      "tests/scene.spec.ts"
+    ],
+    "configFile": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\TCC\\apps\\admin\\playwright.config.ts",
+    "rootDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/TCC/apps/admin/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/TCC/evidence/integration-browser-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/TCC/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/TCC/evidence/integration-browser-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/TCC/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/TCC/evidence/integration-browser-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/TCC/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/TCC/evidence/integration-browser-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chrome",
+        "name": "chrome",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/TCC/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/TCC/evidence/integration-browser-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "msedge",
+        "name": "msedge",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/TCC/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "../../evidence/integration-browser-tests.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "scene.spec.ts",
+      "file": "scene.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Mini Shopping: QR, GLB real, loja térrea, rota idêntica em 2D/3D e chegada",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7027,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-20T02:56:38.523Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "route",
+                      "contentType": "application/json",
+                      "body": "ewogICJzdWNlc3NvIjogdHJ1ZSwKICAibm9zIjogWwogICAgewogICAgICAiaWQiOiA0NSwKICAgICAgImNvb3JkX3giOiAwLjUsCiAgICAgICJjb29yZF95IjogMC4wMjUsCiAgICAgICJ0aXBvIjogImVudHJhZGEiLAogICAgICAibm9tZSI6ICJFbnRyYWRhIHByaW5jaXBhbCIsCiAgICAgICJwaXNvX2lkIjogMQogICAgfSwKICAgIHsKICAgICAgImlkIjogNDYsCiAgICAgICJjb29yZF94IjogMC40MTMzMzMsCiAgICAgICJjb29yZF95IjogMC4wMjUsCiAgICAgICJ0aXBvIjogImNvcnJlZG9yIiwKICAgICAgIm5vbWUiOiAiVF9DT1JfRV8wMTUwMCIsCiAgICAgICJwaXNvX2lkIjogMQogICAgfSwKICAgIHsKICAgICAgImlkIjogMiwKICAgICAgImNvb3JkX3giOiAwLjQxMzMzMywKICAgICAgImNvb3JkX3kiOiAwLjIxLAogICAgICAidGlwbyI6ICJjb3JyZWRvciIsCiAgICAgICJub21lIjogIlRfQ09SX0VfMTI2MDAiLAogICAgICAicGlzb19pZCI6IDEKICAgIH0sCiAgICB7CiAgICAgICJpZCI6IDEsCiAgICAgICJjb29yZF94IjogMC4zODY2NjcsCiAgICAgICJjb29yZF95IjogMC4yMSwKICAgICAgInRpcG8iOiAibG9qYSIsCiAgICAgICJub21lIjogIkFESURBUyIsCiAgICAgICJwaXNvX2lkIjogMQogICAgfQogIF0sCiAgImRpc3RhbmNpYV90b3RhbF9tZXRyb3MiOiAxNC41LAogICJpbnN0cnVjb2VzIjogWwogICAgIlBhcnRpbmRvIGRlIEVudHJhZGEgcHJpbmNpcGFsIChwb250byBkZSBvcmlnZW0pIiwKICAgICJTaWdhIGVtIGZyZW50ZSBwb3IgMi42IG1ldHJvcyIsCiAgICAiVmlyZSDDoCBlc3F1ZXJkYSBwb3IgMTEuMSBtZXRyb3MiLAogICAgIlZpcmUgw6AgZGlyZWl0YSBwb3IgMC44IG1ldHJvcyIsCiAgICAiVm9jw6ogY2hlZ291IGFvIGRlc3Rpbm86IEFESURBUyIKICBdCn0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3aa4c5b91f4bbc99f382-109f2631f3e6ca0b2638",
+          "file": "scene.spec.ts",
+          "line": 5,
+          "column": 1
+        },
+        {
+          "title": "Mini Shopping: elevador acessível, mudança de piso e bloqueio",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 12660,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-20T02:56:45.973Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "accessible-route",
+                      "contentType": "application/json",
+                      "body": "ewogICJzdWNlc3NvIjogdHJ1ZSwKICAibm9zIjogWwogICAgewogICAgICAiaWQiOiA0NSwKICAgICAgImNvb3JkX3giOiAwLjUsCiAgICAgICJjb29yZF95IjogMC4wMjUsCiAgICAgICJ0aXBvIjogImVudHJhZGEiLAogICAgICAibm9tZSI6ICJFbnRyYWRhIHByaW5jaXBhbCIsCiAgICAgICJwaXNvX2lkIjogMQogICAgfSwKICAgIHsKICAgICAgImlkIjogNDYsCiAgICAgICJjb29yZF94IjogMC40MTMzMzMsCiAgICAgICJjb29yZF95IjogMC4wMjUsCiAgICAgICJ0aXBvIjogImNvcnJlZG9yIiwKICAgICAgIm5vbWUiOiAiVF9DT1JfRV8wMTUwMCIsCiAgICAgICJwaXNvX2lkIjogMQogICAgfSwKICAgIHsKICAgICAgImlkIjogMiwKICAgICAgImNvb3JkX3giOiAwLjQxMzMzMywKICAgICAgImNvb3JkX3kiOiAwLjIxLAogICAgICAidGlwbyI6ICJjb3JyZWRvciIsCiAgICAgICJub21lIjogIlRfQ09SX0VfMTI2MDAiLAogICAgICAicGlzb19pZCI6IDEKICAgIH0sCiAgICB7CiAgICAgICJpZCI6IDQsCiAgICAgICJjb29yZF94IjogMC40MTMzMzMsCiAgICAgICJjb29yZF95IjogMC4zMTQxNjcsCiAgICAgICJ0aXBvIjogImNvcnJlZG9yIiwKICAgICAgIm5vbWUiOiAiVF9DT1JfRV8xODg1MCIsCiAgICAgICJwaXNvX2lkIjogMQogICAgfSwKICAgIHsKICAgICAgImlkIjogNDgsCiAgICAgICJjb29yZF94IjogMC40MTMzMzMsCiAgICAgICJjb29yZF95IjogMC4zOTUsCiAgICAgICJ0aXBvIjogImNvcnJlZG9yIiwKICAgICAgIm5vbWUiOiAiVF9DT1JfRV8yMzcwMCIsCiAgICAgICJwaXNvX2lkIjogMQogICAgfSwKICAgIHsKICAgICAgImlkIjogNiwKICAgICAgImNvb3JkX3giOiAwLjQxMzMzMywKICAgICAgImNvb3JkX3kiOiAwLjM5ODMzMywKICAgICAgInRpcG8iOiAiY29ycmVkb3IiLAogICAgICAibm9tZSI6ICJUX0NPUl9FXzIzOTAwIiwKICAgICAgInBpc29faWQiOiAxCiAgICB9LAogICAgewogICAgICAiaWQiOiA4LAogICAgICAiY29vcmRfeCI6IDAuNDEzMzMzLAogICAgICAiY29vcmRfeSI6IDAuNDc4MzMzLAogICAgICAidGlwbyI6ICJjb3JyZWRvciIsCiAgICAgICJub21lIjogIlRfQ09SX0VfMjg3MDAiLAogICAgICAicGlzb19pZCI6IDEKICAgIH0sCiAgICB7CiAgICAgICJpZCI6IDEwLAogICAgICAiY29vcmRfeCI6IDAuNDEzMzMzLAogICAgICAiY29vcmRfeSI6IDAuNTcyNSwKICAgICAgInRpcG8iOiAiY29ycmVkb3IiLAogICAgICAibm9tZSI6ICJUX0NPUl9FXzM0MzUwIiwKICAgICAgInBpc29faWQiOiAxCiAgICB9LAogICAgewogICAgICAiaWQiOiA1MCwKICAgICAgImNvb3JkX3giOiAwLjQxMzMzMywKICAgICAgImNvb3JkX3kiOiAwLjYwODMzMywKICAgICAgInRpcG8iOiAiY29ycmVkb3IiLAogICAgICAibm9tZSI6ICJUX0NPUl9FXzM2NTAwIiwKICAgICAgInBpc29faWQiOiAxCiAgICB9LAogICAgewogICAgICAiaWQiOiA3OCwKICAgICAgImNvb3JkX3giOiAwLjUsCiAgICAgICJjb29yZF95IjogMC42MDgzMzMsCiAgICAgICJ0aXBvIjogImVsZXZhZG9yIiwKICAgICAgIm5vbWUiOiAiRWxldmFkb3Ig4oCUIHTDqXJyZW8iLAogICAgICAicGlzb19pZCI6IDEKICAgIH0sCiAgICB7CiAgICAgICJpZCI6IDc5LAogICAgICAiY29vcmRfeCI6IDAuNSwKICAgICAgImNvb3JkX3kiOiAwLjYwODMzMywKICAgICAgInRpcG8iOiAiZWxldmFkb3IiLAogICAgICAibm9tZSI6ICJFbGV2YWRvciDigJQgbWV6YW5pbm8iLAogICAgICAicGlzb19pZCI6IDIKICAgIH0sCiAgICB7CiAgICAgICJpZCI6IDU2LAogICAgICAiY29vcmRfeCI6IDAuMzkxNjY3LAogICAgICAiY29vcmRfeSI6IDAuNjA4MzMzLAogICAgICAidGlwbyI6ICJjb3JyZWRvciIsCiAgICAgICJub21lIjogIk1fQ09SX0VfMzY1MDAiLAogICAgICAicGlzb19pZCI6IDIKICAgIH0sCiAgICB7CiAgICAgICJpZCI6IDM0LAogICAgICAiY29vcmRfeCI6IDAuMzkxNjY3LAogICAgICAiY29vcmRfeSI6IDAuNTU5MTY3LAogICAgICAidGlwbyI6ICJjb3JyZWRvciIsCiAgICAgICJub21lIjogIk1fQ09SX0VfMzM1NTAiLAogICAgICAicGlzb19pZCI6IDIKICAgIH0sCiAgICB7CiAgICAgICJpZCI6IDMyLAogICAgICAiY29vcmRfeCI6IDAuMzkxNjY3LAogICAgICAiY29vcmRfeSI6IDAuNDY1LAogICAgICAidGlwbyI6ICJjb3JyZWRvciIsCiAgICAgICJub21lIjogIk1fQ09SX0VfMjc5MDAiLAogICAgICAicGlzb19pZCI6IDIKICAgIH0sCiAgICB7CiAgICAgICJpZCI6IDMwLAogICAgICAiY29vcmRfeCI6IDAuMzkxNjY3LAogICAgICAiY29vcmRfeSI6IDAuMzczMzMzLAogICAgICAidGlwbyI6ICJjb3JyZWRvciIsCiAgICAgICJub21lIjogIk1fQ09SX0VfMjI0MDAiLAogICAgICAicGlzb19pZCI6IDIKICAgIH0sCiAgICB7CiAgICAgICJpZCI6IDI4LAogICAgICAiY29vcmRfeCI6IDAuMzkxNjY3LAogICAgICAiY29vcmRfeSI6IDAuMzA2NjY3LAogICAgICAidGlwbyI6ICJjb3JyZWRvciIsCiAgICAgICJub21lIjogIk1fQ09SX0VfMTg0MDAiLAogICAgICAicGlzb19pZCI6IDIKICAgIH0sCiAgICB7CiAgICAgICJpZCI6IDI2LAogICAgICAiY29vcmRfeCI6IDAuMzkxNjY3LAogICAgICAiY29vcmRfeSI6IDAuMjEyNSwKICAgICAgInRpcG8iOiAiY29ycmVkb3IiLAogICAgICAibm9tZSI6ICJNX0NPUl9FXzEyNzUwIiwKICAgICAgInBpc29faWQiOiAyCiAgICB9LAogICAgewogICAgICAiaWQiOiAyNSwKICAgICAgImNvb3JkX3giOiAwLjM4NjY2NywKICAgICAgImNvb3JkX3kiOiAwLjIxMjUsCiAgICAgICJ0aXBvIjogImxvamEiLAogICAgICAibm9tZSI6ICJCVVJHRVIgS0lORyIsCiAgICAgICJwaXNvX2lkIjogMgogICAgfQogIF0sCiAgImRpc3RhbmNpYV90b3RhbF9tZXRyb3MiOiA3Mi4wNSwKICAiaW5zdHJ1Y29lcyI6IFsKICAgICJQYXJ0aW5kbyBkZSBFbnRyYWRhIHByaW5jaXBhbCAocG9udG8gZGUgb3JpZ2VtKSIsCiAgICAiU2lnYSBlbSBmcmVudGUgcG9yIDIuNiBtZXRyb3MiLAogICAgIlZpcmUgw6AgZXNxdWVyZGEgcG9yIDExLjEgbWV0cm9zIiwKICAgICJTaWdhIGVtIGZyZW50ZSBwb3IgNi4yIG1ldHJvcyIsCiAgICAiU2lnYSBlbSBmcmVudGUgcG9yIDQuOCBtZXRyb3MiLAogICAgIlNpZ2EgZW0gZnJlbnRlIHBvciAwLjIgbWV0cm9zIiwKICAgICJTaWdhIGVtIGZyZW50ZSBwb3IgNC44IG1ldHJvcyIsCiAgICAiU2lnYSBlbSBmcmVudGUgcG9yIDUuNyBtZXRyb3MiLAogICAgIlNpZ2EgZW0gZnJlbnRlIHBvciAyLjEgbWV0cm9zIiwKICAgICJWaXJlIMOgIGVzcXVlcmRhIHBvciAyLjYgbWV0cm9zIiwKICAgICJVc2UgbyBlbGV2YWRvciBwYXJhIG8gcGlzbyBNZXphbmlubyIsCiAgICAiU2lnYSBlbSBmcmVudGUgcG9yIDMuMiBtZXRyb3MiLAogICAgIlZpcmUgw6AgZGlyZWl0YSBwb3IgMy4wIG1ldHJvcyIsCiAgICAiU2lnYSBlbSBmcmVudGUgcG9yIDUuNyBtZXRyb3MiLAogICAgIlNpZ2EgZW0gZnJlbnRlIHBvciA1LjUgbWV0cm9zIiwKICAgICJTaWdhIGVtIGZyZW50ZSBwb3IgNC4wIG1ldHJvcyIsCiAgICAiU2lnYSBlbSBmcmVudGUgcG9yIDUuNyBtZXRyb3MiLAogICAgIlZpcmUgw6AgZXNxdWVyZGEgcG9yIDAuMSBtZXRyb3MiLAogICAgIlZvY8OqIGNoZWdvdSBhbyBkZXN0aW5vOiBCVVJHRVIgS0lORyIKICBdCn0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3aa4c5b91f4bbc99f382-87eb99f0b6ebce647d5c",
+          "file": "scene.spec.ts",
+          "line": 31,
+          "column": 1
+        },
+        {
+          "title": "Falha do GLB preserva mapa 2D, destino e instruções; tentativa manual recupera",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5825,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-20T02:56:58.648Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3aa4c5b91f4bbc99f382-d97f31ef46fc4d2c530f",
+          "file": "scene.spec.ts",
+          "line": 64,
+          "column": 1
+        },
+        {
+          "title": "Painel mostra inventário da cena e links dos pisos",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 754,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-20T02:57:04.491Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3aa4c5b91f4bbc99f382-33d4e48437f2917500b7",
+          "file": "scene.spec.ts",
+          "line": 79,
+          "column": 1
+        },
+        {
+          "title": "Clique na loja visível do térreo abre o POI correto sem selecionar o piso oculto",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4719,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-20T02:57:05.259Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3aa4c5b91f4bbc99f382-c1851a36577ba820cc97",
+          "file": "scene.spec.ts",
+          "line": 89,
+          "column": 1
+        },
+        {
+          "title": "Sem WebGL o visitante mantém QR e mapa 2D",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 621,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-20T02:57:09.991Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3aa4c5b91f4bbc99f382-261570515e61da1bb1a8",
+          "file": "scene.spec.ts",
+          "line": 102,
+          "column": 1
+        },
+        {
+          "title": "GLB sem resposta atinge o limite de carregamento e libera o mapa 2D",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 20514,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-20T02:57:10.625Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3aa4c5b91f4bbc99f382-cd52e7732a82076ef4d6",
+          "file": "scene.spec.ts",
+          "line": 115,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-09-20T02:56:37.703Z",
+    "duration": 53616.931,
+    "expected": 7,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

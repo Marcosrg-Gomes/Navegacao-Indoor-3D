@@ -10,7 +10,7 @@ Gera:
 """
 
 import bpy
-from config import CONFIG, DERIVED
+from config import CONFIG, DERIVED, get_navigation_layout
 from utils.geometry import create_box
 from utils.helpers import link_to_collection, apply_material_by_name
 from utils.logging import log_info, log_object_created, log_section, log_section_end
@@ -124,6 +124,20 @@ def create_mezzanine_slab(collection: bpy.types.Collection) -> list:
     link_to_collection(slab_back, collection)
     apply_material_by_name(slab_back, MatNames.LAJE_MEZANINO)
     objects.append(slab_back)
+
+    # Lobby connects both lateral walkways to escalators and the elevator.
+    nav = get_navigation_layout(CONFIG)
+    bridge = create_box(
+        name="ARQ_LAJE_Mezanino_Desembarque",
+        width=atrium_w,
+        depth=nav["bridge_end_y"] - nav["bridge_start_y"],
+        height=slab_thick,
+        location=(0, (nav["bridge_start_y"] + nav["bridge_end_y"]) / 2, slab_z),
+        centered_xy=True, base_at_zero=True,
+    )
+    link_to_collection(bridge, collection)
+    apply_material_by_name(bridge, MatNames.PISO_MEZANINO)
+    objects.append(bridge)
 
     # 5. Pisos de acabamento caminhável para as passarelas do Mezanino
     walkway_w = DERIVED["mz_walkway_width"]

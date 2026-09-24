@@ -2,9 +2,15 @@
 
 ## Projeto
 
-Este repositório é destinado ao desenvolvimento do TCC. Como ainda não há
-implementação ou stack definida, priorize decisões simples, documentadas e
-fáceis de revisar.
+Monorepo do TCC de navegação indoor: `services/api` (FastAPI), `apps/visitor`
+(Expo), `apps/admin` (React/Vite), `packages/shopping-3d` (Blender) e
+`packages/scene-contract` (contrato espacial). Leia o README e a documentação
+de integração antes de alterar contratos. A API é a fonte de verdade da
+navegação; posições físicas vêm do catálogo gerado pelo Blender.
+
+Preserve as validações Blender e API. Não edite os builds em
+`services/api/app/static/visitor` e `admin`; gere-os pelos respectivos comandos.
+GLB e catálogo são publicados pelo exportador/publicador, com release explícito.
 
 ## Diretrizes de trabalho
 

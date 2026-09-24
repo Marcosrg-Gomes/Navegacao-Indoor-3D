@@ -1,0 +1,127 @@
+name: Integrated quality
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  api:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        database: [sqlite, mysql]
+    services:
+      mysql:
+        image: mysql:8.4
+        env:
+          MYSQL_DATABASE: navegacao_indoor_test
+          MYSQL_ROOT_PASSWORD: root
+        ports: ['3306:3306']
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -proot"
+          --health-interval=10s --health-timeout=5s --health-retries=10
+    env:
+      TEST_DATABASE_URL: ${{ matrix.database == 'mysql' && 'mysql+pymysql://root:root@127.0.0.1:3306/navegacao_indoor_test' || '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -r services/api/requirements.txt
+      - run: pytest services/api/tests -v
+
+  blender:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/shopping-3d
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install ruff
+      - run: ruff check tests scripts utils/mesh_data.py config.py utils/geometry.py navigation.py ../scene-contract
+      - run: ruff format --check tests scripts utils/mesh_data.py
+      - run: python -m compileall -q .
+      - run: python -m unittest discover -s tests -v
+      - name: Download Blender 4.5.14 LTS
+        run: |
+          curl -L --fail --output blender.tar.xz https://download.blender.org/release/Blender4.5/blender-4.5.14-linux-x64.tar.xz
+          tar -xf blender.tar.xz
+      - name: Existing generation smoke test
+        run: ./blender-4.5.14-linux-x64/blender --background --factory-startup --python-exit-code 1 --python scripts/blender_smoke.py
+      - name: Physical navigation and GLB export
+        run: |
+          ./blender-4.5.14-linux-x64/blender --background --factory-startup --python-exit-code 1 --python scripts/validate_navigation_geometry.py
+          ./blender-4.5.14-linux-x64/blender --background --factory-startup --python-exit-code 1 --python scripts/export_navigation_scene.py -- --output ../../.work/ci-scene
+      - uses: actions/upload-artifact@v4
+        with:
+          name: generated-navigation-scene
+          include-hidden-files: true
+          path: |
+            .work/ci-scene
+            evidence/navigation-geometry.json
+
+  frontends:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: |
+            apps/visitor/package-lock.json
+            apps/admin/package-lock.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -r services/api/requirements.txt
+      - name: Visitor web and native isolation
+        working-directory: apps/visitor
+        run: |
+          npm ci
+          npm run typecheck
+          npm run build:web
+          npm run build:native
+      - name: Admin build and browser
+        working-directory: apps/admin
+        run: |
+          npm ci
+          npm run build
+          npx playwright install --with-deps chromium
+      - name: Existing E2E regression
+        working-directory: apps/admin
+        env:
+          AUDIT_REPORT: ../../evidence/regression-browser-tests.json
+          AUDIT_ARTIFACTS: ../../evidence/regression-browser-artifacts
+        run: |
+          python ../../services/api/audit_server.py --port 8765 > ../../.work-audit-server.log 2>&1 &
+          server_pid=$!
+          trap 'kill $server_pid' EXIT
+          for attempt in $(seq 1 30); do curl --fail --silent http://127.0.0.1:8765/health && break; sleep 1; done
+          curl --fail --silent http://127.0.0.1:8765/health
+          npm run test:e2e -- --project=chromium tests/navigation.spec.ts tests/scanner.spec.ts tests/admin-crud.spec.ts tests/multiuser.spec.ts
+      - name: Integrated 3D E2E
+        working-directory: apps/admin
+        env:
+          AUDIT_URL: http://127.0.0.1:8766
+          AUDIT_REPORT: ../../evidence/integration-browser-tests.json
+          AUDIT_ARTIFACTS: ../../evidence/integration-browser-artifacts
+        run: |
+          python ../../services/api/mini_server.py --port 8766 > ../../.work-mini-server.log 2>&1 &
+          server_pid=$!
+          trap 'kill $server_pid' EXIT
+          for attempt in $(seq 1 30); do curl --fail --silent http://127.0.0.1:8766/health && break; sleep 1; done
+          curl --fail --silent http://127.0.0.1:8766/health
+          npm run test:e2e -- --project=chromium tests/scene.spec.ts tests/map-interactions.spec.ts
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: browser-evidence
+          path: evidence

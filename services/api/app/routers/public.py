@@ -17,6 +17,14 @@ from app.services.navigation import NavigationEngine
 
 router = APIRouter(tags=["Público"])
 
+from app.schemas.scene import SceneResponse
+from app.services.scenes import resolve_scene
+
+
+@router.get("/shoppings/{shopping_id}/scene", response_model=SceneResponse)
+def obter_cena(shopping_id: int, db: Session = Depends(get_db)):
+    return resolve_scene(db, shopping_id)
+
 class GraphResponse(BaseModel):
     piso_id: int
     piso_nome: str

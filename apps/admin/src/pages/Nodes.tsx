@@ -27,7 +27,7 @@ export default function Nodes() {
   // Formulário de nó
   const [form, setForm] = useState({
     id: 0,
-    nome: "",
+    codigo: "", nome: "",
     tipo: "corredor" as TipoNo,
     coord_x: 0.5,
     coord_y: 0.5,
@@ -107,7 +107,7 @@ export default function Nodes() {
     setIsEditing(false);
     setForm({
       id: 0,
-      nome: "",
+      codigo: "", nome: "",
       tipo: "corredor",
       coord_x: normX,
       coord_y: normY,
@@ -121,7 +121,7 @@ export default function Nodes() {
     setIsEditing(true);
     setForm({
       id: node.id,
-      nome: node.nome || "",
+      codigo: node.codigo, nome: node.nome || "",
       tipo: (node.tipo as TipoNo) || "corredor",
       coord_x: node.coord_x,
       coord_y: node.coord_y,
@@ -140,7 +140,7 @@ export default function Nodes() {
         const updated = await api<No>(`/admin/nodes/${form.id}`, {
           method: "PUT",
           body: JSON.stringify({
-            nome: form.nome.trim() || null,
+            codigo: form.codigo.trim() || undefined, nome: form.nome.trim() || null,
             tipo: form.tipo,
             coord_x: form.coord_x,
             coord_y: form.coord_y,
@@ -155,7 +155,7 @@ export default function Nodes() {
           method: "POST",
           body: JSON.stringify({
             piso_id: pisoId,
-            nome: form.nome.trim() || null,
+            codigo: form.codigo.trim() || undefined, nome: form.nome.trim() || null,
             tipo: form.tipo,
             coord_x: form.coord_x,
             coord_y: form.coord_y,
@@ -260,7 +260,7 @@ export default function Nodes() {
             className="primary"
             onClick={() => {
               setIsEditing(false);
-              setForm({ id: 0, nome: "", tipo: "corredor", coord_x: 0.5, coord_y: 0.5, ativo: true });
+              setForm({ id: 0, codigo: "", nome: "", tipo: "corredor", coord_x: 0.5, coord_y: 0.5, ativo: true });
               setModalOpen(true);
             }}
           >
@@ -549,6 +549,9 @@ export default function Nodes() {
         >
           <form onSubmit={handleSubmit}>
             <div className="form-grid">
+              <FormField label="Código estável (gerado se vazio)">
+                <input value={form.codigo} onChange={(e) => setForm({ ...form, codigo: e.target.value.toUpperCase() })} pattern="[A-Z][A-Z0-9_]*" maxLength={80} />
+              </FormField>
               <FormField label="Nome / Identificação do Local" className="full">
                 <input
                   type="text"

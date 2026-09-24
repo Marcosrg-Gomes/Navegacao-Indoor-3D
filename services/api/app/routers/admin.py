@@ -22,7 +22,13 @@ router = APIRouter(
 )
 
 
-TIPOS_TRANSICAO_ENTRE_PISOS = {"escada", "elevador"}
+TIPOS_TRANSICAO_ENTRE_PISOS = {"escada", "escada_rolante", "elevador"}
+
+
+@router.get("/shoppings/{shopping_id}/scene/validation")
+def validar_cena(shopping_id: int, db: Session = Depends(get_db)):
+    from app.services.scenes import resolve_scene
+    return resolve_scene(db, shopping_id, diagnostic=True)
 
 
 def _obter_no_para_aresta(db: Session, no_id: int, papel: str) -> tuple[No, Piso]:
@@ -63,7 +69,7 @@ def _validar_extremos_aresta(
     ):
         raise HTTPException(
             status_code=400,
-            detail="Conexões entre pisos devem ligar nós de escada ou elevador",
+            detail="Conexões entre pisos devem ligar nós de escada, escada rolante ou elevador",
         )
 
     return origem, destino, piso_origem

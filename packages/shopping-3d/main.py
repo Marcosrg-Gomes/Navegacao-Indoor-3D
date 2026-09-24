@@ -218,6 +218,9 @@ def run_project(options: dict = None) -> bool:
             lighting_gen_module.build_general_lighting(collections)
             store_lights_module.build_store_lighting(collections)
 
+        from navigation import create_anchors
+        create_anchors(collections)
+
         # 18. Câmeras e Animação de Passeio nos 2 Andares (350 Frames)
         if options.get("create_cameras", True) and CONFIG["features"].get("cameras", True):
             cameras_module.build_cameras(collections)

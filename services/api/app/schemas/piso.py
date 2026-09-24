@@ -1,8 +1,10 @@
+from app.codes import Code, new_code
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 from typing import Optional
 from datetime import datetime
 
 class PisoCreate(BaseModel):
+    codigo: Code = Field(default_factory=new_code)
     shopping_id: int = Field(gt=0)
     nome: str = Field(min_length=1, max_length=100)
     nivel: int
@@ -23,7 +25,8 @@ from app.schemas.patch import PatchModel
 
 
 class PisoUpdate(PatchModel):
-    non_nullable = {"shopping_id", "nome", "nivel", "ativo"}
+    codigo: Optional[Code] = None
+    non_nullable = {"codigo", "shopping_id", "nome", "nivel", "ativo"}
     shopping_id: Optional[int] = Field(default=None, gt=0)
     nome: Optional[str] = Field(default=None, min_length=1, max_length=100)
     nivel: Optional[int] = None
@@ -43,6 +46,7 @@ class PisoUpdate(PatchModel):
         return value
 
 class PisoResponse(BaseModel):
+    codigo: str
     id: int
     shopping_id: int
     nome: str

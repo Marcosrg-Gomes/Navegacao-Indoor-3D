@@ -1,8 +1,10 @@
+from app.codes import Code, new_code
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 from typing import Optional
 from datetime import datetime
 
 class ShoppingCreate(BaseModel):
+    codigo: Code = Field(default_factory=new_code)
     nome: str = Field(min_length=1, max_length=200)
     endereco: Optional[str] = None
     latitude: Optional[float] = None
@@ -21,7 +23,8 @@ from app.schemas.patch import PatchModel
 
 
 class ShoppingUpdate(PatchModel):
-    non_nullable = {"nome", "ativo"}
+    codigo: Optional[Code] = None
+    non_nullable = {"codigo", "nome", "ativo"}
     nome: Optional[str] = Field(default=None, min_length=1, max_length=200)
     endereco: Optional[str] = None
     latitude: Optional[float] = None
@@ -39,6 +42,7 @@ class ShoppingUpdate(PatchModel):
         return value
 
 class ShoppingResponse(BaseModel):
+    codigo: str
     id: int
     nome: str
     endereco: Optional[str] = None

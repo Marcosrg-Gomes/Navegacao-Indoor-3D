@@ -1,10 +1,12 @@
+from app.codes import Code, new_code
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 from typing import Optional
 from datetime import datetime
 
-TIPOS_PERMITIDOS = ['corredor', 'loja', 'entrada', 'escada', 'elevador', 'banheiro', 'saida']
+TIPOS_PERMITIDOS = ['corredor', 'loja', 'entrada', 'escada', 'escada_rolante', 'elevador', 'banheiro', 'saida']
 
 class NoCreate(BaseModel):
+    codigo: Code = Field(default_factory=new_code)
     piso_id: int = Field(gt=0)
     coord_x: float = Field(ge=0.0, le=1.0)
     coord_y: float = Field(ge=0.0, le=1.0)
@@ -23,7 +25,8 @@ from app.schemas.patch import PatchModel
 
 
 class NoUpdate(PatchModel):
-    non_nullable = {"piso_id", "coord_x", "coord_y", "tipo", "ativo"}
+    codigo: Optional[Code] = None
+    non_nullable = {"codigo", "piso_id", "coord_x", "coord_y", "tipo", "ativo"}
     piso_id: Optional[int] = Field(default=None, gt=0)
     coord_x: Optional[float] = Field(None, ge=0.0, le=1.0)
     coord_y: Optional[float] = Field(None, ge=0.0, le=1.0)
@@ -39,6 +42,7 @@ class NoUpdate(PatchModel):
         return v
 
 class NoResponse(BaseModel):
+    codigo: str
     id: int
     piso_id: int
     coord_x: float

@@ -4,8 +4,8 @@ import { coordenadaNormalizada } from "@/types";
 import { colors } from "@/constants/colors";
 
 /** Separa segmentos consecutivos por piso, sem unir pontos de andares diferentes. */
-export function RouteOverlay({ width, height, routeNodes, floorId }: {
-  width: number; height: number; routeNodes: NoRota[]; floorId?: number;
+export function RouteOverlay({ width, height, routeNodes, floorId, showEndpoints = true }: {
+  width: number; height: number; routeNodes: NoRota[]; floorId?: number; showEndpoints?: boolean;
 }) {
   const segments: NoRota[][] = [];
   for (const node of routeNodes) {
@@ -24,7 +24,7 @@ export function RouteOverlay({ width, height, routeNodes, floorId }: {
         <Polyline key={i} points={s.map((n) => toX(n) + "," + toY(n)).join(" ")}
           fill="none" stroke={colors.route} strokeWidth={5} strokeLinecap="round" strokeLinejoin="round" />
       ))}
-      {[{ node: first, label: "Início", color: colors.origin }, { node: last, label: "Destino", color: colors.destination }]
+      {showEndpoints && [{ node: first, label: "Início", color: colors.origin }, { node: last, label: "Destino", color: colors.destination }]
         .filter((item) => item.node && visible(item.node)).map(({ node, label, color }) => (
           <G key={label}>
             <Circle cx={toX(node)} cy={toY(node)} r={9} fill={color} stroke="white" strokeWidth={2} />

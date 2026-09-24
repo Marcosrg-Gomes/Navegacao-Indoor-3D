@@ -1,0 +1,228 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Mini Shopping scene catalog 1.x",
+  "type": "object",
+  "required": [
+    "version",
+    "release",
+    "shopping_code",
+    "model_url",
+    "floors",
+    "anchors",
+    "pois",
+    "edges",
+    "qr_codes"
+  ],
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^1\\.[0-9]+\\.[0-9]+$"
+    },
+    "release": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "shopping_code": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9_]{0,79}$"
+    },
+    "model_url": {
+      "type": "string",
+      "pattern": "^/static/models/mini-shopping/mini-shopping-v[1-9][0-9]*\\.glb$"
+    },
+    "floors": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {
+        "type": "string",
+        "pattern": "^[A-Z][A-Z0-9_]{0,79}$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "name",
+          "level",
+          "origin",
+          "axis_x",
+          "axis_y"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "level": {
+            "type": "integer"
+          },
+          "origin": {
+            "type": "array",
+            "minItems": 3,
+            "maxItems": 3,
+            "items": {
+              "type": "number"
+            }
+          },
+          "axis_x": {
+            "type": "array",
+            "minItems": 3,
+            "maxItems": 3,
+            "items": {
+              "type": "number"
+            }
+          },
+          "axis_y": {
+            "type": "array",
+            "minItems": 3,
+            "maxItems": 3,
+            "items": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    },
+    "anchors": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {
+        "type": "string",
+        "pattern": "^[A-Z][A-Z0-9_]{0,79}$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "floor_code",
+          "coord_x",
+          "coord_y",
+          "position",
+          "type",
+          "name",
+          "object_name"
+        ],
+        "properties": {
+          "floor_code": {
+            "type": "string",
+            "pattern": "^[A-Z][A-Z0-9_]{0,79}$"
+          },
+          "coord_x": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "coord_y": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "position": {
+            "type": "array",
+            "minItems": 3,
+            "maxItems": 3,
+            "items": {
+              "type": "number"
+            }
+          },
+          "type": {
+            "enum": [
+              "corredor",
+              "loja",
+              "entrada",
+              "banheiro",
+              "escada",
+              "escada_rolante",
+              "elevador",
+              "saida"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "object_name": {
+            "type": "string",
+            "pattern": "^NAV_"
+          }
+        }
+      }
+    },
+    "pois": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {
+        "type": "string",
+        "pattern": "^[A-Z][A-Z0-9_]{0,79}$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "name",
+          "category",
+          "kind",
+          "object_prefix",
+          "anchor_code"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "loja",
+              "banheiro",
+              "entrada"
+            ]
+          },
+          "object_prefix": {
+            "type": "string",
+            "minLength": 1
+          },
+          "anchor_code": {
+            "type": "string",
+            "pattern": "^[A-Z][A-Z0-9_]{0,79}$"
+          }
+        }
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "from",
+          "to",
+          "distance",
+          "bidirectional",
+          "accessible"
+        ],
+        "properties": {
+          "from": {
+            "type": "string",
+            "pattern": "^[A-Z][A-Z0-9_]{0,79}$"
+          },
+          "to": {
+            "type": "string",
+            "pattern": "^[A-Z][A-Z0-9_]{0,79}$"
+          },
+          "distance": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "bidirectional": {
+            "type": "boolean"
+          },
+          "accessible": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "qr_codes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[A-Z][A-Z0-9_]{0,79}$"
+      }
+    }
+  }
+}

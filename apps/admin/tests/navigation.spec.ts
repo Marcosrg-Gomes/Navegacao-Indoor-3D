@@ -57,7 +57,7 @@ test("QR → mapa → busca → rota → chegada; bloqueio administrativo muda a
     await info.attach("edge-cycle", { body: JSON.stringify({ edge, original, blocked: updated, restored }, null, 2), contentType: "application/json" });
     await page.getByRole("button", { name: "Cheguei ao destino", exact: true }).click();
     await expect(page.getByTestId("arrival-notice")).toContainText("Você chegou ao destino!");
-    await page.screenshot({ path: `../evidence/${process.env.AUDIT_PHASE || "final"}-${info.project.name}-arrival-360.png`, fullPage: true });
+    await page.screenshot({ path: `../../evidence/${process.env.AUDIT_PHASE || "final"}-${info.project.name}-arrival-360.png`, fullPage: true });
   } finally {
     const cleanup = await request.put("/api/admin/edges/4", { headers: auth, data: { ativa: edge.ativa } });
     expect(cleanup.ok()).toBeTruthy();
@@ -111,7 +111,7 @@ test("Mapa entre pisos e layout sem overflow em 360 e 414 pixels", async ({ page
     expect(dimensions.content).toBeLessThanOrEqual(dimensions.viewport);
     await page.getByRole("button", { name: "Aumentar zoom" }).click();
     await expect(page.getByText("1.5×", { exact: true })).toBeVisible();
-    await page.screenshot({ path: `../evidence/${process.env.AUDIT_PHASE || "final"}-${info.project.name}-map-${width}.png`, fullPage: true });
+    await page.screenshot({ path: `../../evidence/${process.env.AUDIT_PHASE || "final"}-${info.project.name}-map-${width}.png`, fullPage: true });
   }
 });
 

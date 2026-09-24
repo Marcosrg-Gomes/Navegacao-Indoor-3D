@@ -1,5 +1,20 @@
 # Auditoria de fechamento — 13/09/2026
 
+## Integração validada — 19/09/2026
+
+O histórico abaixo foi preservado. A integração atual acrescenta âncoras,
+catálogo espacial, exportação GLB e navegação nos dois pisos. Blender 4.5.14
+executou a geração e a exportação de 1.909 objetos em um GLB de 3.488.904 bytes.
+Os 27 destinos têm geometria e âncora; 1.149 amostras do grafo horizontal passaram
+sem colisões nem falta de suporte de piso. A ligação de desembarque e os
+guarda-corpos foram ajustados para criar circulação física no mezanino.
+
+Os renders `cam_aerea.png` e `cam_mezanino.png` foram regenerados. As demais
+imagens são referências anteriores. Nove testes puros, lint e formatação
+passaram. A inspeção interativa da geometria exportada foi feita no navegador;
+a inspeção em viewport nativo do Blender não foi realizada nesta integração.
+Veja [evidências e limites](../../docs/validacao-integracao.md).
+
 ## Validação dinâmica — 16/09/2026
 
 - Blender 4.5.14 LTS executado em modo headless com `--background --factory-startup --python scripts/render_headless.py`.
@@ -26,6 +41,6 @@ As 10 grelhas de ar dos forros superiores estavam posicionadas junto à fachada.
 
 As verificações geométricas executam as funções Python com captura dos parâmetros dos construtores e das coordenadas das malhas. Não executam a API real do Blender, os modificadores ou a renderização.
 
-## Pendência
+## Pendência histórica — superada pela validação dinâmica de 16/09
 
 Executar a geração e a inspeção visual no Blender. O executável não foi localizado nos caminhos verificados e o módulo `bpy` não está disponível no Python deste ambiente. As imagens existentes em `renders/` não foram regeneradas e não comprovam o estado atual do código.

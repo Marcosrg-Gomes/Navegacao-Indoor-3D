@@ -10,6 +10,7 @@ from sqlalchemy import String, Numeric, Boolean, DateTime, ForeignKey, func, Che
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database import Base
+from app.codes import new_code
 
 
 class TipoNo(str, enum.Enum):
@@ -20,6 +21,7 @@ class TipoNo(str, enum.Enum):
     loja = "loja"
     entrada = "entrada"
     escada = "escada"
+    escada_rolante = "escada_rolante"
     elevador = "elevador"
     banheiro = "banheiro"
     saida = "saida"
@@ -34,6 +36,8 @@ class No(Base):
         CheckConstraint("coord_x >= 0 AND coord_x <= 1", name="ck_no_coord_x"),
         CheckConstraint("coord_y >= 0 AND coord_y <= 1", name="ck_no_coord_y"),
     )
+
+    codigo: Mapped[str] = mapped_column(String(80), unique=True, nullable=False, default=new_code)
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     piso_id: Mapped[int] = mapped_column(ForeignKey("pisos.id"), nullable=False)

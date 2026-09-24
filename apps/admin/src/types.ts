@@ -1,4 +1,5 @@
 export type Shopping = {
+  codigo: string;
   id: number;
   nome: string;
   endereco?: string | null;
@@ -10,6 +11,7 @@ export type Shopping = {
 };
 
 export type Piso = {
+  codigo: string;
   id: number;
   shopping_id: number;
   nome: string;
@@ -22,9 +24,10 @@ export type Piso = {
   atualizado_em?: string | null;
 };
 
-export type TipoNo = "corredor" | "loja" | "entrada" | "escada" | "elevador" | "banheiro" | "saida";
+export type TipoNo = "corredor" | "loja" | "entrada" | "escada" | "escada_rolante" | "elevador" | "banheiro" | "saida";
 
 export type No = {
+  codigo: string;
   id: number;
   piso_id: number;
   coord_x: number;
@@ -59,6 +62,7 @@ export type Categoria = {
 export type StatusOperacional = "aberto" | "fechado" | "manutencao";
 
 export type Loja = {
+  codigo: string;
   id: number;
   no_id: number;
   nome: string;
@@ -105,6 +109,7 @@ export const TIPOS_NO: TipoNo[] = [
   "loja",
   "entrada",
   "escada",
+  "escada_rolante",
   "elevador",
   "banheiro",
   "saida",
@@ -115,6 +120,7 @@ export const TIPO_NO_LABEL: Record<string, string> = {
   loja: "Loja",
   entrada: "Entrada",
   escada: "Escada",
+  escada_rolante: "Escada rolante",
   elevador: "Elevador",
   banheiro: "Banheiro",
   saida: "Saída",
@@ -125,6 +131,7 @@ export const TIPO_NO_COR: Record<string, string> = {
   loja: "#e8a54b",
   entrada: "#6ea8fe",
   escada: "#c4b5fd",
+  escada_rolante: "#a78bfa",
   elevador: "#f0abfc",
   banheiro: "#86efac",
   saida: "#fda4af",

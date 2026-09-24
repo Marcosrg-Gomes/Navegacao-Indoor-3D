@@ -8,6 +8,7 @@ from sqlalchemy import String, Text, Boolean, DateTime, ForeignKey, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database import Base
+from app.codes import new_code
 
 
 class Loja(Base):
@@ -15,6 +16,8 @@ class Loja(Base):
     Entidade que representa uma Loja ou Ponto de Interesse.
     """
     __tablename__ = "lojas"
+
+    codigo: Mapped[str] = mapped_column(String(80), unique=True, nullable=False, default=new_code)
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     no_id: Mapped[int] = mapped_column(ForeignKey("nos.id"), unique=True, nullable=False)

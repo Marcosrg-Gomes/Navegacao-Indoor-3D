@@ -206,3 +206,7 @@ export function calculateRoute(origemNoId: number, destinoNoId: number, acessive
     }),
   });
 }
+
+export function getScene(shoppingId: number) {
+  return request<import("../types/scene").Scene>(`/shoppings/${shoppingId}/scene`);
+}

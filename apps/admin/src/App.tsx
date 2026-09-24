@@ -12,6 +12,7 @@ import Stores from "./pages/Stores";
 import Categories from "./pages/Categories";
 import QRCodes from "./pages/QRCodes";
 import Validation from "./pages/Validation";
+import SceneValidation from "./pages/SceneValidation";
 
 const links = [
   ["/", "Dashboard"],
@@ -23,6 +24,7 @@ const links = [
   ["/categorias", "Categorias"],
   ["/qr", "QR Codes"],
   ["/validacao", "Validação"],
+  ["/cena-3d", "Cena 3D"],
 ] as const;
 
 export default function App() {
@@ -73,6 +75,7 @@ export default function App() {
             <Route path="/categorias" element={<Categories />} />
             <Route path="/qr" element={<QRCodes />} />
             <Route path="/validacao" element={<Validation />} />
+            <Route path="/cena-3d" element={<SceneValidation />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>

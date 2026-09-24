@@ -12,7 +12,7 @@ import { Field, FormActions, Modal, confirmDelete, useBusySubmit } from "../ui";
 
 const empty = {
   no_id: "",
-  nome: "",
+  codigo: "", nome: "",
   descricao: "",
   categoria_id: "",
   horario_funcionamento: "10:00 - 22:00",
@@ -64,7 +64,7 @@ export default function Stores() {
     setEdit(item);
     setForm({
       no_id: String(item.no_id),
-      nome: item.nome,
+      codigo: item.codigo, nome: item.nome,
       descricao: item.descricao || "",
       categoria_id: item.categoria_id?.toString() ?? "",
       horario_funcionamento: item.horario_funcionamento || "",
@@ -161,7 +161,7 @@ export default function Stores() {
                 }
                 const payload = {
                   no_id: Number(form.no_id),
-                  nome: form.nome.trim(),
+                  codigo: form.codigo.trim() || undefined, nome: form.nome.trim(),
                   descricao: form.descricao || null,
                   categoria_id: Number(form.categoria_id),
                   horario_funcionamento: form.horario_funcionamento || null,
@@ -183,6 +183,9 @@ export default function Stores() {
             }
           >
             <div className="form-grid">
+              <Field label="Código estável (gerado se vazio)">
+                <input value={form.codigo} onChange={(e) => setForm({ ...form, codigo: e.target.value.toUpperCase() })} pattern="[A-Z][A-Z0-9_]*" maxLength={80} />
+              </Field>
               <Field label="Nome *" className="full">
                 <input value={form.nome} onChange={(e) => setForm({ ...form, nome: e.target.value })} required />
               </Field>

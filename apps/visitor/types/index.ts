@@ -1,4 +1,5 @@
 export type Shopping = {
+  codigo: string;
   id: number;
   nome: string;
   endereco?: string | null;
@@ -8,6 +9,7 @@ export type Shopping = {
 };
 
 export type Piso = {
+  codigo: string;
   id: number;
   shopping_id: number;
   nome: string;
@@ -24,6 +26,7 @@ export const TIPOS_NO = [
   "loja",
   "entrada",
   "escada",
+  "escada_rolante",
   "elevador",
   "banheiro",
   "saida",
@@ -36,6 +39,7 @@ export function isTipoNo(value: string): value is TipoNo {
 }
 
 export type No = {
+  codigo: string;
   id: number;
   piso_id: number;
   coord_x: number;
@@ -56,6 +60,7 @@ export type Aresta = {
 };
 
 export type Loja = {
+  codigo: string;
   id: number;
   no_id: number;
   nome: string;
@@ -130,6 +135,7 @@ export const TIPO_NO_COR: Record<TipoNo, string> = {
   loja: "#e8a54b",
   entrada: "#6ea8fe",
   escada: "#c4b5fd",
+  escada_rolante: "#a78bfa",
   elevador: "#f0abfc",
   banheiro: "#86efac",
   saida: "#fda4af",
@@ -140,6 +146,7 @@ export const TIPO_NO_LABEL: Record<TipoNo, string> = {
   loja: "Loja",
   entrada: "Entrada",
   escada: "Escada",
+  escada_rolante: "Escada rolante",
   elevador: "Elevador",
   banheiro: "Banheiro",
   saida: "Saída",
