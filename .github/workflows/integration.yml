@@ -128,7 +128,7 @@ jobs:
           trap 'kill $server_pid' EXIT
           for attempt in $(seq 1 30); do curl --fail --silent http://127.0.0.1:8766/health && break; sleep 1; done
           curl --fail --silent http://127.0.0.1:8766/health
-          npm run test:e2e -- --project=chromium tests/scene.spec.ts tests/map-interactions.spec.ts
+          npm run test:e2e -- --project=chromium tests/scene.spec.ts tests/map-interactions.spec.ts tests/visitor-journey.spec.ts tests/visitor-experience.spec.ts tests/business-rules.spec.ts tests/layout-accessibility.spec.ts tests/wayfinding.spec.ts
       - uses: actions/upload-artifact@v4
         if: always()
         with:

@@ -36,6 +36,7 @@ app.add_middleware(
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["X-Error-Code"],
 )
 
 # Incluindo os routers
@@ -43,7 +44,7 @@ app.include_router(public.router, prefix="/api", tags=["public"])
 app.include_router(admin.router, prefix="/api/admin", tags=["admin"])
 
 from sqlalchemy.exc import IntegrityError
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, RedirectResponse
 
 
 @app.exception_handler(IntegrityError)
@@ -60,6 +61,11 @@ admin_dist = os.path.join(static_dir, "admin")
 
 os.makedirs(plantas_dir, exist_ok=True)
 os.makedirs(admin_dist, exist_ok=True)
+
+@app.get("/admin", include_in_schema=False)
+def admin_entry():
+    return RedirectResponse("/admin/", status_code=307)
+
 
 app.mount("/static", StaticFiles(directory=static_dir), name="static")
 app.mount("/admin", SPAStaticFiles(directory=admin_dist, html=True), name="admin")

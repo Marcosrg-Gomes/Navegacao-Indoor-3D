@@ -21,13 +21,13 @@ export function SceneLabels({ scene, floor, origin, destination, view, width, he
     if (!point) return null;
     const [x, pointY, depth] = point, y = pointY - 20;
     const w = Math.min(190, label.text.length * 6.3 + 18);
-    if (depth < -1 || depth > 1 || x < w / 2 || x > width - w / 2 || y < 12 || y > height - 18 || occupied.some((r) => Math.abs(r.y - y) < 29 && Math.abs(r.x - x) < (r.w + w) / 2 + 5)) return null;
+    if (depth < -1 || depth > 1 || x < w / 2 || x > width - w / 2 || y < 22 || y > height - 22 || occupied.some((r) => Math.abs(r.y - y) < 45 && Math.abs(r.x - x) < (r.w + w) / 2 + 5)) return null;
     occupied.push({ x, y, w });
     return <button key={label.anchor.node_id}
     data-poi-code={label.poi?.codigo} aria-label={label.poi ? `${label.anchor.name}, ver detalhes` : label.anchor.name}
     onClick={() => { if (label.poi) onPoiPress(label.poi.loja_id); }} tabIndex={label.poi ? 0 : -1}
     style={{ position: "absolute", top: 0, left: 0, transform: `translate(${x}px, ${y}px) translate(-50%, -50%)`, pointerEvents: label.poi ? "auto" : "none", whiteSpace: "nowrap", maxWidth: 190, overflow: "hidden", textOverflow: "ellipsis", borderRadius: 7,
       border: `1px solid ${label.primary ? "#fff" : "#cbd5e1"}`, background: label.primary ? label.color : "#fffffff2", color: label.primary ? "#fff" : label.color,
-      padding: "4px 8px", font: "600 11px/17px system-ui, sans-serif", cursor: label.poi ? "pointer" : "default", boxShadow: "0 2px 5px #10243a15" }}>{label.text}</button>;
+      minHeight: label.poi ? 44 : 28, minWidth: 44, padding: "4px 8px", font: "600 12px/18px system-ui, sans-serif", cursor: label.poi ? "pointer" : "default", boxShadow: "0 2px 5px #10243a15" }}>{label.text}</button>;
   })}</div>;
 }

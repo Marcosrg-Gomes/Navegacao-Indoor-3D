@@ -67,6 +67,8 @@ export type Loja = {
   descricao?: string | null;
   categoria_id?: number | null;
   horario_funcionamento?: string | null;
+  horario_resumo?: string | null;
+  aberto_agora?: boolean | null;
   telefone?: string | null;
   logo_url?: string | null;
   /** Situação temporária de atendimento, distinta do soft-delete `ativo`. */
@@ -88,6 +90,7 @@ export const STATUS_OPERACIONAL_LABEL: Record<StatusOperacional, string> = {
  * `ativo` continua significando ciclo de vida do cadastro, não disponibilidade.
  */
 export function getStatusOperacional(loja: Loja): StatusOperacional {
+  if (loja.status_operacional === "aberto" && loja.aberto_agora === false) return "fechado";
   if (
     loja.status_operacional === "aberto" ||
     loja.status_operacional === "fechado" ||
@@ -107,6 +110,7 @@ export type GraphResponse = {
   piso_nome: string;
   nos: No[];
   arestas: Aresta[];
+  conexoes_entre_pisos?: Record<string, number[]>;
 };
 
 export type NoRota = {
@@ -123,6 +127,21 @@ export type RotaResponse = {
   nos: NoRota[];
   distancia_total_metros: number;
   instrucoes: string[];
+  etapas?: EtapaRota[];
+  resumo?: { metros_corredor: number; elevadores: number; escadas: number; minutos_estimados: number };
+  revisao: string;
+};
+
+export type EtapaRota = {
+  distancia_metros?: number;
+  referencia?: string | null;
+  referencia_no_id?: number | null;
+  texto: string;
+  tipo: "inicio" | "caminho" | "troca_piso" | "chegada";
+  no_origem_id: number;
+  no_destino_id: number;
+  piso_origem_id: number;
+  piso_destino_id: number;
 };
 
 export type QRCodeResolveResponse = {

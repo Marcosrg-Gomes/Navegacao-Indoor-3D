@@ -5,6 +5,7 @@ class RotaRequest(BaseModel):
     origem_no_id: int = Field(gt=0)
     destino_no_id: int = Field(gt=0)
     acessivel: bool = False
+    confirmar_indisponivel: bool = False
 
     @model_validator(mode='after')
     def validar_origem_destino(self) -> 'RotaRequest':
@@ -24,11 +25,31 @@ class InstrucaoRota(BaseModel):
     texto: str
     no_id: Optional[int] = None
 
+class EtapaRota(BaseModel):
+    texto: str
+    tipo: str
+    no_origem_id: int
+    no_destino_id: int
+    piso_origem_id: int
+    piso_destino_id: int
+    distancia_metros: float = 0
+    referencia: Optional[str] = None
+    referencia_no_id: Optional[int] = None
+
+class ResumoRota(BaseModel):
+    metros_corredor: float
+    elevadores: int
+    escadas: int
+    minutos_estimados: int
+
 class RotaResponse(BaseModel):
     sucesso: bool
     nos: List[NoRota]
     distancia_total_metros: float
     instrucoes: List[str]
+    etapas: List[EtapaRota] = Field(default_factory=list)
+    resumo: Optional[ResumoRota] = None
+    revisao: str
 
 class RotaErro(BaseModel):
     sucesso: bool = False

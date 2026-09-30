@@ -97,3 +97,57 @@ def test_calcular_distancia():
     dy = (0.5 - 0.5) * 60.0
     dist = math.sqrt(dx**2 + dy**2)
     assert dist == 40.0
+
+
+@pytest.mark.parametrize("acessivel", [False, True])
+def test_distancias_correspondem_as_rotas_e_bloqueios(client, db_session, sample_data, acessivel):
+    origem = sample_data["nodes"]["n1"]
+    nav = NavigationEngine(db_session)
+    for bloqueado in [False, True]:
+        if bloqueado:
+            sample_data["edges"][0].ativa = False
+            db_session.commit()
+        response = client.get("/api/routes/distances", params={"origem_no_id": origem.id, "acessivel": acessivel})
+        assert response.status_code == 200
+        distances = response.json()
+        assert distances[str(origem.id)] == 0
+        for node in sample_data["nodes"].values():
+            route = nav.calcular_rota(origem.id, node.id, acessivel)
+            if route["sucesso"]:
+                assert distances[str(node.id)] == route["distancia_total_metros"]
+            else:
+                assert str(node.id) not in distances
+
+
+def test_distancias_rejeitam_origem_inativa(client, db_session, sample_data):
+    sample_data["piso"].ativo = False
+    db_session.commit()
+    assert client.get("/api/routes/distances", params={"origem_no_id": sample_data["nodes"]["n1"].id}).status_code == 404
+
+
+def test_etapas_identificam_troca_de_piso(client, db_session, sample_data):
+    from app.models import Piso, Aresta
+
+    piso = Piso(shopping_id=sample_data["shopping"].id, nome="Mezanino", nivel=2,
+                largura_metros=100, altura_metros=60, ativo=True)
+    db_session.add(piso)
+    db_session.flush()
+    elevador = sample_data["nodes"]["n5"]
+    elevador.tipo = "elevador"
+    destino = No(piso_id=piso.id, nome="Elevador superior", tipo="elevador", coord_x=.7, coord_y=.5, ativo=True)
+    db_session.add(destino)
+    db_session.flush()
+    db_session.add(Aresta(no_origem_id=elevador.id, no_destino_id=destino.id, distancia=4,
+                         bidirecional=True, acessivel=True, ativa=True))
+    db_session.commit()
+    response = client.post("/api/routes", json={"origem_no_id": sample_data["nodes"]["n1"].id, "destino_no_id": destino.id, "acessivel": True})
+    assert response.status_code == 200
+    route = response.json()
+    assert [step["texto"] for step in route["etapas"]] == route["instrucoes"]
+    assert route["etapas"][0]["tipo"] == "inicio"
+    assert route["etapas"][-1]["tipo"] == "chegada"
+    transition, = [step for step in route["etapas"] if step["tipo"] == "troca_piso"]
+    assert transition["piso_origem_id"] == sample_data["piso"].id
+    assert transition["piso_destino_id"] == piso.id
+    assert transition["no_destino_id"] == destino.id
+    assert "elevador" in transition["texto"].lower()

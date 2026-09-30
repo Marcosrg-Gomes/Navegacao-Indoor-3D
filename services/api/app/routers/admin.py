@@ -11,18 +11,85 @@ from collections import defaultdict, deque
 
 from app.database import get_db
 from app.auth import verify_api_key
-from app.models import Shopping, Piso, No, Aresta, Loja, Categoria, QRCode
+from app.models import Shopping, Piso, No, Aresta, Loja, Categoria, QRCode, Auditoria, Diagnostico
+from app.services.auditoria import admin_context, commit_changes, snapshot
 import app.schemas as schemas
 from app.services.navigation import NavigationEngine
 from app.services.uploads import MAX_UPLOAD_BYTES, validate_image
 
 router = APIRouter(
     tags=["Admin"],
-    dependencies=[Depends(verify_api_key)]
+    dependencies=[Depends(admin_context)]
 )
 
 
 TIPOS_TRANSICAO_ENTRE_PISOS = {"escada", "escada_rolante", "elevador"}
+
+
+@router.get("/session")
+def sessao_administrativa(usuario: str = Depends(verify_api_key)):
+    return {"usuario": usuario, "credencial_compartilhada": usuario == "administrador-compartilhado"}
+
+
+@router.get("/audit")
+def listar_auditoria(entidade: Optional[str] = None, before_id: Optional[int] = None,
+                     limit: int = Query(50, ge=1, le=100), db: Session = Depends(get_db)):
+    from datetime import timezone
+    query = db.query(Auditoria)
+    if entidade:
+        query = query.filter(Auditoria.entidade == entidade)
+    if before_id:
+        query = query.filter(Auditoria.id < before_id)
+    rows = query.order_by(Auditoria.id.desc()).limit(limit).all()
+    return [{"id": row.id, "usuario": row.usuario, "motivo": row.motivo,
+             "entidade": row.entidade, "registro_id": row.registro_id, "acao": row.acao,
+             "antes": row.antes, "depois": row.depois,
+             "criado_em": row.criado_em.replace(tzinfo=timezone.utc).isoformat()} for row in rows]
+
+
+@router.post("/audit/{audit_id}/restore")
+def restaurar_alteracao(audit_id: int, db: Session = Depends(get_db)):
+    from pydantic import ValidationError
+    handlers = {
+        "shoppings": (Shopping, schemas.ShoppingUpdate, atualizar_shopping),
+        "pisos": (Piso, schemas.PisoUpdate, atualizar_piso),
+        "nos": (No, schemas.NoUpdate, atualizar_no),
+        "arestas": (Aresta, schemas.ArestaUpdate, atualizar_aresta),
+        "lojas": (Loja, schemas.LojaUpdate, atualizar_loja),
+        "categorias": (Categoria, schemas.CategoriaUpdate, atualizar_categoria),
+        "qr_codes": (QRCode, schemas.QRCodeUpdate, atualizar_qr_code),
+    }
+    entry = db.get(Auditoria, audit_id)
+    if not entry:
+        raise HTTPException(404, "Alteração não encontrada")
+    if entry.acao not in {"editar", "restaurar"} or not entry.antes or not entry.depois:
+        raise HTTPException(409, "Somente alterações de registros existentes podem ser restauradas")
+    model, schema, update = handlers[entry.entidade]
+    record = db.get(model, entry.registro_id)
+    if not record:
+        raise HTTPException(409, "O registro foi excluído; consulte o histórico para refazer o cadastro")
+    current = snapshot(record)
+    if current != entry.depois:
+        raise HTTPException(409, "O registro mudou depois desta alteração. Revise a versão atual antes de editar")
+    changes = {key: value for key, value in entry.antes.items()
+               if key != "id" and value != entry.depois.get(key) and key != "token"}
+    if not changes:
+        raise HTTPException(409, "Não há campos restauráveis; tokens de QR não são armazenados no histórico")
+    try:
+        body = schema.model_validate(changes)
+    except ValidationError:
+        raise HTTPException(409, "A versão anterior não atende às validações atuais")
+    db.info["audit"]["acao"] = "restaurar"
+    update(entry.registro_id, body, db)
+    return {"restaurado": True, "registro_id": entry.registro_id}
+
+
+@router.get("/diagnostics")
+def listar_diagnosticos(db: Session = Depends(get_db)):
+    from datetime import timezone
+    return [{"tipo": row.tipo, "codigo": row.codigo, "ocorrencias": row.ocorrencias,
+             "atualizado_em": row.atualizado_em.replace(tzinfo=timezone.utc).isoformat()}
+            for row in db.query(Diagnostico).order_by(Diagnostico.tipo, Diagnostico.codigo)]
 
 
 @router.get("/shoppings/{shopping_id}/scene/validation")
@@ -66,6 +133,7 @@ def _validar_extremos_aresta(
     if piso_origem.id != piso_destino.id and (
         origem.tipo not in TIPOS_TRANSICAO_ENTRE_PISOS
         or destino.tipo not in TIPOS_TRANSICAO_ENTRE_PISOS
+        or origem.tipo != destino.tipo
     ):
         raise HTTPException(
             status_code=400,
@@ -115,7 +183,7 @@ def criar_shopping(shopping: schemas.ShoppingCreate, db: Session = Depends(get_d
     """Cria um novo shopping."""
     db_shopping = Shopping(**shopping.model_dump())
     db.add(db_shopping)
-    db.commit()
+    commit_changes(db)
     db.refresh(db_shopping)
     return db_shopping
 
@@ -138,7 +206,7 @@ def atualizar_shopping(id: int, shopping_update: schemas.ShoppingUpdate, db: Ses
     for key, value in update_data.items():
         setattr(db_shopping, key, value)
         
-    db.commit()
+    commit_changes(db)
     db.refresh(db_shopping)
     return db_shopping
 
@@ -149,7 +217,7 @@ def deletar_shopping(id: int, db: Session = Depends(get_db)):
     if not db_shopping:
         raise HTTPException(status_code=404, detail="Shopping não encontrado")
     db_shopping.ativo = False
-    db.commit()
+    commit_changes(db)
     return None
 
 
@@ -174,7 +242,7 @@ def criar_piso(piso: schemas.PisoCreate, db: Session = Depends(get_db)):
     
     db_piso = Piso(**piso.model_dump())
     db.add(db_piso)
-    db.commit()
+    commit_changes(db)
     db.refresh(db_piso)
     return db_piso
 
@@ -206,7 +274,7 @@ def atualizar_piso(id: int, piso_update: schemas.PisoUpdate, db: Session = Depen
     for key, value in update_data.items():
         setattr(db_piso, key, value)
         
-    db.commit()
+    commit_changes(db)
     db.refresh(db_piso)
     return db_piso
 
@@ -222,7 +290,7 @@ def deletar_piso(id: int, db: Session = Depends(get_db)):
             detail="Piso possui nós cadastrados. Remova os nós e suas referências primeiro.",
         )
     db.delete(db_piso)
-    db.commit()
+    commit_changes(db)
     return None
 
 @router.post("/floors/{id}/upload-planta", response_model=schemas.PisoResponse)
@@ -259,7 +327,7 @@ async def upload_planta_piso(
     dest_path.write_bytes(data)
 
     db_piso.imagem_planta_url = f"/static/plantas/{filename}"
-    db.commit()
+    commit_changes(db)
     db.refresh(db_piso)
     return db_piso
 
@@ -285,7 +353,7 @@ def criar_no(no: schemas.NoCreate, db: Session = Depends(get_db)):
         
     db_no = No(**no.model_dump())
     db.add(db_no)
-    db.commit()
+    commit_changes(db)
     db.refresh(db_no)
     return db_no
 
@@ -325,7 +393,7 @@ def atualizar_no(id: int, no_update: schemas.NoUpdate, db: Session = Depends(get
             for edge in db.query(Aresta).filter(or_(Aresta.no_origem_id == id, Aresta.no_destino_id == id)).all():
                 _validar_extremos_aresta(db, edge.no_origem_id, edge.no_destino_id)
         
-    db.commit()
+    commit_changes(db)
     db.refresh(db_no)
     return db_no
 
@@ -345,7 +413,7 @@ def deletar_no(id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="Nó possui loja/POI vinculado. Remova-a primeiro.")
         
     db.delete(db_no)
-    db.commit()
+    commit_changes(db)
     return None
 
 
@@ -368,7 +436,7 @@ def criar_aresta(aresta: schemas.ArestaCreate, db: Session = Depends(get_db)):
         db, aresta.no_origem_id, aresta.no_destino_id
     )
     data = aresta.model_dump(mode="json")
-    if "escada" in (origem.tipo, destino.tipo):
+    if {origem.tipo, destino.tipo} & {"escada", "escada_rolante"}:
         data["acessivel"] = False
     data["distancia"] = _resolver_distancia_aresta(
         origem, destino, piso_origem, data.get("distancia")
@@ -376,7 +444,7 @@ def criar_aresta(aresta: schemas.ArestaCreate, db: Session = Depends(get_db)):
 
     db_aresta = Aresta(**data)
     db.add(db_aresta)
-    db.commit()
+    commit_changes(db)
     db.refresh(db_aresta)
     return db_aresta
 
@@ -399,7 +467,7 @@ def atualizar_aresta(id: int, aresta_update: schemas.ArestaUpdate, db: Session =
     no_origem_id = update_data.get("no_origem_id", db_aresta.no_origem_id)
     no_destino_id = update_data.get("no_destino_id", db_aresta.no_destino_id)
     origem, destino, piso_origem = _validar_extremos_aresta(db, no_origem_id, no_destino_id)
-    if "escada" in (origem.tipo, destino.tipo):
+    if {origem.tipo, destino.tipo} & {"escada", "escada_rolante"}:
         update_data["acessivel"] = False
 
     endpoints_alterados = (
@@ -412,7 +480,7 @@ def atualizar_aresta(id: int, aresta_update: schemas.ArestaUpdate, db: Session =
     for key, value in update_data.items():
         setattr(db_aresta, key, value)
         
-    db.commit()
+    commit_changes(db)
     db.refresh(db_aresta)
     return db_aresta
 
@@ -423,7 +491,7 @@ def deletar_aresta(id: int, db: Session = Depends(get_db)):
     if not db_aresta:
         raise HTTPException(status_code=404, detail="Aresta não encontrada")
     db.delete(db_aresta)
-    db.commit()
+    commit_changes(db)
     return None
 
 
@@ -450,7 +518,7 @@ def criar_loja(loja: schemas.LojaCreate, db: Session = Depends(get_db)):
 
     db_loja = Loja(**loja.model_dump(mode="json"))
     db.add(db_loja)
-    db.commit()
+    commit_changes(db)
     db.refresh(db_loja)
     return db_loja
 
@@ -486,7 +554,7 @@ def atualizar_loja(id: int, loja_update: schemas.LojaUpdate, db: Session = Depen
     for key, value in update_data.items():
         setattr(db_loja, key, value)
         
-    db.commit()
+    commit_changes(db)
     db.refresh(db_loja)
     return db_loja
 
@@ -497,7 +565,7 @@ def deletar_loja(id: int, db: Session = Depends(get_db)):
     if not db_loja:
         raise HTTPException(status_code=404, detail="Loja não encontrada")
     db.delete(db_loja)
-    db.commit()
+    commit_changes(db)
     return None
 
 
@@ -517,7 +585,7 @@ def criar_categoria(categoria: schemas.CategoriaCreate, db: Session = Depends(ge
         raise HTTPException(status_code=409, detail="Já existe uma categoria com este nome")
     db_cat = Categoria(**categoria.model_dump())
     db.add(db_cat)
-    db.commit()
+    commit_changes(db)
     db.refresh(db_cat)
     return db_cat
 
@@ -545,7 +613,7 @@ def atualizar_categoria(id: int, cat_update: schemas.CategoriaUpdate, db: Sessio
     for key, value in update_data.items():
         setattr(db_cat, key, value)
         
-    db.commit()
+    commit_changes(db)
     db.refresh(db_cat)
     return db_cat
 
@@ -561,7 +629,7 @@ def deletar_categoria(id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="Categoria possui lojas vinculadas. Remova o vínculo primeiro.")
         
     db.delete(db_cat)
-    db.commit()
+    commit_changes(db)
     return None
 
 
@@ -580,6 +648,8 @@ def criar_qr_code(qr: schemas.QRCodeCreate, db: Session = Depends(get_db)):
     no = db.query(No).filter(No.id == qr.no_id).first()
     if not no:
         raise HTTPException(status_code=400, detail="Nó associado não encontrado")
+    if qr.ativo and not NavigationEngine(db)._obter_no_navegavel(qr.no_id):
+        raise HTTPException(400, "Um QR ativo precisa de nó, piso e shopping ativos")
     if db.query(QRCode).filter(QRCode.no_id == qr.no_id).first():
         raise HTTPException(status_code=409, detail="Nó já possui um QR Code vinculado")
 
@@ -591,7 +661,7 @@ def criar_qr_code(qr: schemas.QRCodeCreate, db: Session = Depends(get_db)):
         
     db_qr = QRCode(**data)
     db.add(db_qr)
-    db.commit()
+    commit_changes(db)
     db.refresh(db_qr)
     return db_qr
 
@@ -612,6 +682,8 @@ def atualizar_qr_code(id: int, qr_update: schemas.QRCodeUpdate, db: Session = De
         
     update_data = qr_update.model_dump(exclude_unset=True)
     novo_no_id = update_data.get("no_id")
+    if update_data.get("ativo", db_qr.ativo) and not NavigationEngine(db)._obter_no_navegavel(novo_no_id or db_qr.no_id):
+        raise HTTPException(400, "Um QR ativo precisa de nó, piso e shopping ativos")
     if novo_no_id is not None and novo_no_id != db_qr.no_id:
         if not db.query(No).filter(No.id == novo_no_id).first():
             raise HTTPException(status_code=400, detail="Nó associado não encontrado")
@@ -626,7 +698,7 @@ def atualizar_qr_code(id: int, qr_update: schemas.QRCodeUpdate, db: Session = De
     for key, value in update_data.items():
         setattr(db_qr, key, value)
         
-    db.commit()
+    commit_changes(db)
     db.refresh(db_qr)
     return db_qr
 
@@ -637,7 +709,7 @@ def deletar_qr_code(id: int, db: Session = Depends(get_db)):
     if not db_qr:
         raise HTTPException(status_code=404, detail="QR Code não encontrado")
     db.delete(db_qr)
-    db.commit()
+    commit_changes(db)
     return None
 
 
@@ -756,6 +828,7 @@ def validar_grafo(piso_id: Optional[int] = None, db: Session = Depends(get_db)):
                 and (
                     origem.tipo not in TIPOS_TRANSICAO_ENTRE_PISOS
                     or destino.tipo not in TIPOS_TRANSICAO_ENTRE_PISOS
+                    or origem.tipo != destino.tipo
                 )
             )
         )

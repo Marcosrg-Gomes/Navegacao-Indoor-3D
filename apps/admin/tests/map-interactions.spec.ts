@@ -80,6 +80,15 @@ test("3D mantém câmera após arraste, oferece zoom, rotação, vista superior 
   await expect(map).toHaveAttribute("data-camera-target", panned!);
   await page.getByRole("button", { name: "Aumentar zoom", exact: true }).click();
   await expect(map).toHaveAttribute("data-zoom", "1.500");
+  const keptPosition = await map.getAttribute("data-camera-position");
+  const keptTarget = await map.getAttribute("data-camera-target");
+  await page.getByRole("button", { name: "Mapa 2D", exact: true }).click();
+  await expect(page.getByTestId("floor-map")).toBeVisible();
+  await page.getByRole("button", { name: "Mapa 3D", exact: true }).click();
+  await expect(map).toHaveAttribute("data-zoom", "1.500");
+  await expect(map).toHaveAttribute("data-camera-position", keptPosition!);
+  await expect(map).toHaveAttribute("data-camera-target", keptTarget!);
+  await page.getByRole("button", { name: "Mais controles", exact: true }).click();
   await page.getByRole("button", { name: "Vista superior", exact: true }).click();
   await expect(page.getByRole("button", { name: "Vista inclinada", exact: true })).toBeVisible();
   const position = await map.getAttribute("data-camera-position");
@@ -97,7 +106,7 @@ test("3D mantém câmera após arraste, oferece zoom, rotação, vista superior 
   expect(errors).toEqual([]);
 });
 
-test("Celular: arraste e pinça 2D/3D mantêm o zoom sem rolar a página ou abrir lojas", async ({ browser, browserName }) => {
+test("Celular: arraste e pinça 2D/3D mantêm o zoom sem rolar a página ou abrir lojas", async ({ browser, browserName }, info) => {
   test.skip(browserName !== "chromium", "Gestos multitoque enviados por CDP no Chromium");
   const context = await browser.newContext({ viewport: { width: 414, height: 896 }, hasTouch: true, isMobile: true });
   const page = await context.newPage();
@@ -124,7 +133,7 @@ test("Celular: arraste e pinça 2D/3D mantêm o zoom sem rolar a página ou abri
       expect(afterBox.y).toBeCloseTo(box.y, 0);
       await expect(page.getByRole("button", { name: "Traçar rota", exact: true })).toHaveCount(0);
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy();
-      await map.screenshot({ path: `../../evidence/map-${mode.toLowerCase()}-mobile-pinch.png` });
+      await map.screenshot({ path: info.outputPath(`map-${mode.toLowerCase()}-mobile-pinch.png`) });
     }
   } finally { await context.close(); }
 });

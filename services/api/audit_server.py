@@ -18,6 +18,7 @@ def main():
     database.parent.mkdir(parents=True, exist_ok=True)
     os.environ["DATABASE_URL"] = "sqlite:///" + database.as_posix()
     os.environ["ADMIN_API_KEY"] = "audit-local-only"
+    os.environ["ADMIN_API_KEYS"] = "{}"
     os.environ["SECRET_KEY"] = "audit-local-only"
     from app.database import Base, engine, SessionLocal
     from app.migrations import upgrade_schema

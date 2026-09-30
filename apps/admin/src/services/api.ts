@@ -44,6 +44,12 @@ function detailMessage(detail: unknown, fallback: string): string {
  */
 export async function api<T>(path: string, init?: RequestInit): Promise<T> {
   const headers = new Headers(init?.headers);
+  if (["POST", "PUT", "PATCH", "DELETE"].includes((init?.method || "GET").toUpperCase()) && !headers.has("X-Audit-Reason")) {
+    const reason = window.prompt("Motivo da alteração (3 a 240 caracteres). Será registrado no histórico:");
+    if (reason === null) throw new Error("Alteração cancelada.");
+    if (reason.trim().length < 3 || reason.trim().length > 240) throw new Error("Informe um motivo com 3 a 240 caracteres.");
+    headers.set("X-Audit-Reason", encodeURIComponent(reason.trim()));
+  }
   if (!headers.has("Content-Type") && init?.body && !(init.body instanceof FormData)) {
     headers.set("Content-Type", "application/json");
   }

@@ -18,7 +18,7 @@ class NavigationEngine:
         no_destino = self._obter_no_navegavel(destino_id)
 
         if not no_origem or not no_destino:
-            return {"sucesso": False, "mensagem": "Nó de origem ou destino não encontrado ou inativo."}
+            return {"sucesso": False, "codigo": "LOCAL_INDISPONIVEL", "mensagem": "Nó de origem ou destino não encontrado ou inativo."}
 
         if no_origem.piso.shopping_id != no_destino.piso.shopping_id:
             # A route must never escape the shopping in which the QR origin was
@@ -27,6 +27,7 @@ class NavigationEngine:
                 "sucesso": False,
                 "mensagem": "Os nós de origem e destino pertencem a shoppings diferentes.",
                 "status_code": 400,
+                "codigo": "SHOPPINGS_DIFERENTES",
             }
 
         graph = self._build_graph(
@@ -37,7 +38,7 @@ class NavigationEngine:
         caminho_ids, distancia = self._dijkstra(graph, origem_id, destino_id)
 
         if caminho_ids is None or distancia is None:
-            return {"sucesso": False, "mensagem": "Não foi possível encontrar uma rota entre os nós especificados."}
+            return {"sucesso": False, "codigo": "SEM_ROTA", "mensagem": "Não foi possível encontrar uma rota entre os nós especificados."}
 
         nos_dict = {no.id: no for no in self.db.query(No).filter(No.id.in_(caminho_ids)).all()}
         nos_caminho = [nos_dict[no_id] for no_id in caminho_ids]
@@ -58,8 +59,57 @@ class NavigationEngine:
             "sucesso": True,
             "nos": nos_serializados,
             "distancia_total_metros": round(float(distancia), 2),
-            "instrucoes": instrucoes
+            "instrucoes": instrucoes,
+            "etapas": self._enriquecer_etapas(nos_caminho, instrucoes, segmentos, graph),
+            "resumo": {
+                "metros_corredor": round(sum(weight for a, b, weight in zip(nos_caminho, nos_caminho[1:], segmentos) if a.piso_id == b.piso_id), 1),
+                "elevadores": sum(a.piso_id != b.piso_id and a.tipo == "elevador" for a, b in zip(nos_caminho, nos_caminho[1:])),
+                "escadas": sum(a.piso_id != b.piso_id and a.tipo in {"escada", "escada_rolante"} for a, b in zip(nos_caminho, nos_caminho[1:])),
+                "minutos_estimados": max(1, math.ceil(distancia / 60)),
+            },
         }
+
+    def _enriquecer_etapas(self, nos, instrucoes, segmentos, graph):
+        """Referências somente em acessos ligados ao corredor, nunca através de paredes."""
+        etapas = self._gerar_etapas(nos, instrucoes)
+        candidatos = {node.id: node for node in self.db.query(No).filter(No.ativo.is_(True), No.nome.is_not(None)).all()}
+        for index, etapa in enumerate(etapas):
+            etapa["distancia_metros"] = round(segmentos[index - 1], 1) if 0 < index < len(etapas) - 1 else 0
+            origem = candidatos.get(etapa["no_origem_id"])
+            destino = candidatos.get(etapa["no_destino_id"])
+            if etapa["tipo"] in {"inicio", "chegada"} or not origem or not destino:
+                continue
+            proximos = [(weight, candidatos[node_id]) for node_id, weight in graph.get(origem.id, [])
+                        if weight <= 8 and node_id in candidatos and candidatos[node_id].piso_id == origem.piso_id
+                        and candidatos[node_id].tipo != "corredor"]
+            referencia = origem if origem.tipo != "corredor" else min(proximos, key=lambda pair: (pair[0], pair[1].id))[1] if proximos else None
+            if referencia:
+                etapa["referencia"] = f"Referência neste trecho: {referencia.nome}"
+                etapa["referencia_no_id"] = referencia.id
+            elif destino.tipo != "corredor":
+                etapa["referencia"] = f"Procure por {destino.nome}"
+                etapa["referencia_no_id"] = destino.id
+        return etapas
+
+    @staticmethod
+    def _gerar_etapas(nos: List[No], instrucoes: List[str]) -> list:
+        pares = [(nos[0], nos[0]), *zip(nos, nos[1:]), (nos[-1], nos[-1])]
+        return [{
+            "texto": texto,
+            "tipo": "inicio" if i == 0 else "chegada" if i == len(instrucoes) - 1
+                else "troca_piso" if origem.piso_id != destino.piso_id else "caminho",
+            "no_origem_id": origem.id, "no_destino_id": destino.id,
+            "piso_origem_id": origem.piso_id, "piso_destino_id": destino.piso_id,
+        } for i, (texto, (origem, destino)) in enumerate(zip(instrucoes, pares))]
+
+    def calcular_distancias(self, origem_id: int, acessivel: bool = False) -> Optional[dict]:
+        origem = self._obter_no_navegavel(origem_id)
+        if not origem:
+            return None
+        graph = self._build_graph(acessivel, origem.piso.shopping_id)
+        distancias, _ = self._distancias_desde(graph, origem_id)
+        return {node_id: round(distance, 2) for node_id, distance in distancias.items()
+                if math.isfinite(distance)}
 
     def _obter_no_navegavel(self, no_id: int) -> Optional[No]:
         """Return a node only when its complete public hierarchy is active."""
@@ -115,7 +165,7 @@ class NavigationEngine:
 
             source, target = nos_navegaveis[origem], nos_navegaveis[destino]
             if source.piso_id != target.piso_id and (
-                source.tipo not in {"escada", "escada_rolante", "elevador"} or target.tipo not in {"escada", "escada_rolante", "elevador"}
+                source.tipo not in {"escada", "escada_rolante", "elevador"} or target.tipo not in {"escada", "escada_rolante", "elevador"} or source.tipo != target.tipo
             ):
                 continue
             if acessivel and {source.tipo, target.tipo} & {"escada", "escada_rolante"}:
@@ -160,6 +210,19 @@ class NavigationEngine:
                 return [origem_id], 0.0
             return None, None
             
+        distancias, predecessores = self._distancias_desde(graph, origem_id, destino_id)
+        if distancias.get(destino_id, float('inf')) == float('inf'):
+            return None, None
+        caminho = []
+        atual = destino_id
+        while atual is not None:
+            caminho.append(atual)
+            atual = predecessores.get(atual)
+        caminho.reverse()
+        return caminho, distancias[destino_id]
+
+    @staticmethod
+    def _distancias_desde(graph: dict, origem_id: int, destino_id: Optional[int] = None) -> tuple:
         distancias = {no: float('inf') for no in graph}
         distancias[origem_id] = 0.0
         predecessores = {no: None for no in graph}
@@ -183,18 +246,7 @@ class NavigationEngine:
                     predecessores[vizinho] = no_atual
                     heapq.heappush(fila_prioridade, (distancia, vizinho))
                     
-        if distancias.get(destino_id, float('inf')) == float('inf'):
-            return None, None
-            
-        # Reconstruir caminho
-        caminho = []
-        atual = destino_id
-        while atual is not None:
-            caminho.append(atual)
-            atual = predecessores.get(atual)
-            
-        caminho.reverse()
-        return caminho, distancias[destino_id]
+        return distancias, predecessores
 
     def _gerar_instrucoes(self, nos: List[No], segmentos: Optional[List[float]] = None) -> List[str]:
         """Gera instruções de navegação passo a passo.

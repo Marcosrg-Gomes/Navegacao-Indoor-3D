@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-const auth = { "X-API-Key": "audit-local-only" };
+const auth = { "X-API-Key": "audit-local-only", "X-Audit-Reason": "Validacao automatizada" };
 
 test("Mini Shopping: QR, GLB real, loja térrea, rota idêntica em 2D/3D e chegada", async ({ page, request }, info) => {
   const errors: string[] = [];
@@ -69,6 +69,7 @@ test("Falha do GLB preserva mapa 2D, destino e instruções; tentativa manual re
   await page.getByLabel("Buscar destinos", { exact: true }).fill("ADIDAS");
   await page.getByRole("button", { name: "ADIDAS, Aberto" }).click();
   await page.getByRole("button", { name: "Traçar rota", exact: true }).click();
+  await page.getByRole("button", { name: "Ver instruções", exact: true }).click();
   await expect(page.getByTestId("route-panel")).toContainText("Você chegou ao destino: ADIDAS");
   await page.unroute("**/mini-shopping-v*.glb");
   await page.getByRole("button", { name: "Tentar 3D novamente", exact: true }).click();

@@ -24,6 +24,12 @@ export function RouteOverlay({ width, height, routeNodes, floorId, showEndpoints
         <Polyline key={i} points={s.map((n) => toX(n) + "," + toY(n)).join(" ")}
           fill="none" stroke={colors.route} strokeWidth={5} strokeLinecap="round" strokeLinejoin="round" />
       ))}
+      {segments.filter((s) => visible(s[0])).flatMap((segment) => segment.slice(1).map((node, index) => {
+        const previous = segment[index], dx = toX(node) - toX(previous), dy = toY(node) - toY(previous), length = Math.hypot(dx, dy);
+        if (length < 24) return null;
+        const x = (toX(node) + toX(previous)) / 2, y = (toY(node) + toY(previous)) / 2, ux = dx / length, uy = dy / length;
+        return <Polyline key={previous.id + "-" + node.id} points={[(x - ux * 7 - uy * 5) + "," + (y - uy * 7 + ux * 5), (x + ux * 3) + "," + (y + uy * 3), (x - ux * 7 + uy * 5) + "," + (y - uy * 7 - ux * 5)].join(" ")} fill="none" stroke="white" strokeWidth={2} />;
+      }))}
       {showEndpoints && [{ node: first, label: "Início", color: colors.origin }, { node: last, label: "Destino", color: colors.destination }]
         .filter((item) => item.node && visible(item.node)).map(({ node, label, color }) => (
           <G key={label}>

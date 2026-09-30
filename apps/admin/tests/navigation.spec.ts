@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-const auth = { "X-API-Key": "audit-local-only" };
+const auth = { "X-API-Key": "audit-local-only", "X-Audit-Reason": "Validacao automatizada" };
 
 test.beforeEach(async ({ browser }, info) => {
   info.annotations.push({ type: "browser-version", description: `${info.project.name} ${browser.version()} (${process.platform})` });
@@ -33,6 +33,7 @@ test("QR → mapa → busca → rota → chegada; bloqueio administrativo muda a
   expect(traversesEdge(original)).toBeTruthy();
 
   const admin = await context.newPage();
+  admin.on("dialog", (d) => d.accept("Validacao automatizada"));
   await admin.goto("/admin/arestas");
   await admin.getByLabel("API key", { exact: true }).fill("audit-local-only");
   await admin.getByRole("button", { name: "Entrar", exact: true }).click();
@@ -81,7 +82,9 @@ test("Scanner manual, QR inválido, aviso de manutenção e categorias cadastrad
   await page.getByRole("button", { name: "Ver trajeto mesmo assim" }).click();
   await expect(page.getByTestId("route-panel")).toBeVisible();
   await page.getByRole("tab", { name: /Explorar/ }).click();
+  await page.getByRole("button", { name: "Filtrar e ordenar", exact: true }).click();
   await page.getByRole("button", { name: "Tecnologia", exact: true }).click();
+  await page.getByRole("button", { name: "Mostrar resultados", exact: true }).click();
   await expect(page.getByText("TechStore", { exact: true })).toBeVisible();
   await expect(page.getByText("Moda Fashion", { exact: true })).toHaveCount(0);
 });

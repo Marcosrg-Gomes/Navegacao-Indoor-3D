@@ -1,0 +1,1536 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\TCC\\apps\\admin\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--project=chromium",
+      "tests/wayfinding.spec.ts",
+      "tests/scene.spec.ts",
+      "tests/map-interactions.spec.ts",
+      "tests/visitor-journey.spec.ts",
+      "tests/visitor-experience.spec.ts",
+      "tests/business-rules.spec.ts",
+      "tests/layout-accessibility.spec.ts"
+    ],
+    "configFile": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\TCC\\apps\\admin\\playwright.config.ts",
+    "rootDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/TCC/apps/admin/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/TCC/evidence/wayfinding-regression-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/TCC/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/TCC/evidence/wayfinding-regression-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/TCC/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/TCC/evidence/wayfinding-regression-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/TCC/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/TCC/evidence/wayfinding-regression-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chrome",
+        "name": "chrome",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/TCC/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/TCC/evidence/wayfinding-regression-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "msedge",
+        "name": "msedge",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/TCC/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "../../evidence/wayfinding-regression-tests.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "business-rules.spec.ts",
+      "file": "business-rules.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Alteração espacial incompatível retira o 3D até o cadastro ser corrigido",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6714,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-28T23:59:24.101Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "11446598bb454f9fbabf-fab2a0018b360e4256ec",
+          "file": "business-rules.spec.ts",
+          "line": 5,
+          "column": 1
+        },
+        {
+          "title": "Bloqueio e desbloqueio atualizam a rota automaticamente sem alterar a posição",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 15534,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-28T23:59:31.015Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "11446598bb454f9fbabf-9b35345f74bbe5a182c7",
+          "file": "business-rules.spec.ts",
+          "line": 31,
+          "column": 1
+        },
+        {
+          "title": "Chegada verifica a revisão mesmo antes da próxima atualização automática",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7788,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-28T23:59:46.565Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "11446598bb454f9fbabf-37822285bcd4a42b9464",
+          "file": "business-rules.spec.ts",
+          "line": 52,
+          "column": 1
+        },
+        {
+          "title": "Explorar filtra funcionamento e consulta percursos acessíveis na API",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9229,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-28T23:59:54.374Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "11446598bb454f9fbabf-8423a41fbc34477bd251",
+          "file": "business-rules.spec.ts",
+          "line": 70,
+          "column": 1
+        },
+        {
+          "title": "Histórico mostra motivo, restaura uma edição e apresenta falhas agregadas",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4263,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-29T00:00:03.796Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "11446598bb454f9fbabf-9ecdcaad849d858c0ab1",
+          "file": "business-rules.spec.ts",
+          "line": 93,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "layout-accessibility.spec.ts",
+      "file": "layout-accessibility.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Explorar tem título único, destinos visíveis e ações sem duplicação",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1050,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-29T00:00:08.136Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6c380acd1e3d306227f1-44a9a19f4a60c9e8bb4b",
+          "file": "layout-accessibility.spec.ts",
+          "line": 3,
+          "column": 1
+        },
+        {
+          "title": "Filtros por teclado mantêm foco, mostram critérios ativos e permitem remoção",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1706,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-29T00:00:09.225Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6c380acd1e3d306227f1-577d861bdf919fd8291f",
+          "file": "layout-accessibility.spec.ts",
+          "line": 16,
+          "column": 1
+        },
+        {
+          "title": "Texto ampliado preserva ações e detalhes com movimento reduzido",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "timedOut",
+                  "duration": 45139,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "location": {
+                        "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\TCC\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                        "column": 81,
+                        "line": 55
+                      },
+                      "message": "Error: locator.click: Test timeout of 45000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <button role=\"button\" type=\"button\" aria-label=\"ADIDAS, ver detalhes\" class=\"css-175oi2r r-1i6wzkk r-lrvibr r-1loqt21 r-1otgn73 r-1habvwh r-13awgt0 r-18u37iz r-1ssbvtb r-1pl7oy7\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m    - element is visible, enabled and stable\u001b[22m\n\u001b[2m    - scrolling into view if needed\u001b[22m\n\u001b[2m    - done scrolling\u001b[22m\n\u001b[2m    - <a role=\"tab\" href=\"/scan\" tabindex=\"0\" aria-selected=\"false\" aria-label=\"Scan, ler QR Code\" class=\"css-175oi2r r-1otgn73 r-1awozwy r-1onu96p r-eqz5dr r-1h0z5md r-1uu6nss\">…</a> from <div class=\"css-175oi2r r-1p0dtai r-zchlnj r-1d2f490 r-14lw9ot r-549lrn r-5kkj8d r-tskmnb r-105ug2t\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m  - retrying click action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m    - element is visible, enabled and stable\u001b[22m\n\u001b[2m    - scrolling into view if needed\u001b[22m\n\u001b[2m    - done scrolling\u001b[22m\n\u001b[2m    - <div class=\"css-175oi2r\">…</div> intercepts pointer events\u001b[22m\n\u001b[2m  - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m    - element is visible, enabled and stable\u001b[22m\n\u001b[2m    - scrolling into view if needed\u001b[22m\n\u001b[2m    - done scrolling\u001b[22m\n\u001b[2m    - <div class=\"css-175oi2r\">…</div> intercepts pointer events\u001b[22m\n\u001b[2m  2 × retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m      - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <a role=\"tab\" href=\"/scan\" tabindex=\"0\" aria-selected=\"false\" aria-label=\"Scan, ler QR Code\" class=\"css-175oi2r r-1otgn73 r-1awozwy r-1onu96p r-eqz5dr r-1h0z5md r-1uu6nss\">…</a> from <div class=\"css-175oi2r r-1p0dtai r-zchlnj r-1d2f490 r-14lw9ot r-549lrn r-5kkj8d r-tskmnb r-105ug2t\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m  20 × retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\u001b[2m       - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <div class=\"css-175oi2r\">…</div> intercepts pointer events\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\u001b[2m       - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <div class=\"css-175oi2r\">…</div> intercepts pointer events\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\u001b[2m       - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <a role=\"tab\" href=\"/scan\" tabindex=\"0\" aria-selected=\"false\" aria-label=\"Scan, ler QR Code\" class=\"css-175oi2r r-1otgn73 r-1awozwy r-1onu96p r-eqz5dr r-1h0z5md r-1uu6nss\">…</a> from <div class=\"css-175oi2r r-1p0dtai r-zchlnj r-1d2f490 r-14lw9ot r-549lrn r-5kkj8d r-tskmnb r-105ug2t\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\u001b[2m       - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <a role=\"tab\" href=\"/scan\" tabindex=\"0\" aria-selected=\"false\" aria-label=\"Scan, ler QR Code\" class=\"css-175oi2r r-1otgn73 r-1awozwy r-1onu96p r-eqz5dr r-1h0z5md r-1uu6nss\">…</a> from <div class=\"css-175oi2r r-1p0dtai r-zchlnj r-1d2f490 r-14lw9ot r-549lrn r-5kkj8d r-tskmnb r-105ug2t\">…</div> subtree intercepts pointer events\u001b[22m\n\u001b[2m  - retrying click action\u001b[22m\n\u001b[2m    - waiting 500ms\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m    - element is visible, enabled and stable\u001b[22m\n\u001b[2m    - scrolling into view if needed\u001b[22m\n\u001b[2m    - done scrolling\u001b[22m\n\u001b[2m    - <div class=\"css-175oi2r\">…</div> intercepts pointer events\u001b[22m\n\u001b[2m  - retrying click action\u001b[22m\n\u001b[2m    - waiting 500ms\u001b[22m\n\n\n  53 |   await route.scrollIntoViewIfNeeded();\n  54 |   await page.screenshot({ path: info.outputPath(\"explore-large-text.png\"), fullPage: true });\n> 55 |   await page.getByRole(\"button\", { name: \"ADIDAS, ver detalhes\", exact: true }).click();\n     |                                                                                 ^\n  56 |   await expect(page.getByRole(\"button\", { name: \"Traçar rota\", exact: true })).toBeVisible();\n  57 |   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);\n  58 | });\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\TCC\\apps\\admin\\tests\\layout-accessibility.spec.ts:55:81"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-29T00:00:10.957Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\TCC\\evidence\\wayfinding-regression-artifacts\\layout-accessibility-Texto-d0828-lhes-com-movimento-reduzido-chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\TCC\\evidence\\wayfinding-regression-artifacts\\layout-accessibility-Texto-d0828-lhes-com-movimento-reduzido-chromium\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6c380acd1e3d306227f1-2f458bde13a12576152a",
+          "file": "layout-accessibility.spec.ts",
+          "line": 38,
+          "column": 1
+        },
+        {
+          "title": "Logotipo cadastrado aparece e falha de carregamento mantém identificação",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1594,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-29T00:00:57.040Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6c380acd1e3d306227f1-5ff793b22ebe4d203d2d",
+          "file": "layout-accessibility.spec.ts",
+          "line": 60,
+          "column": 1
+        },
+        {
+          "title": "Textos de resultados e ação principal mantêm contraste de pelo menos 4,5 para 1",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 780,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-29T00:00:58.811Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6c380acd1e3d306227f1-841bdc8db7beb268c3c4",
+          "file": "layout-accessibility.spec.ts",
+          "line": 79,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "map-interactions.spec.ts",
+      "file": "map-interactions.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "2D mantém arrastes sucessivos em 1×, alteração de preferências e troca de visualização",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6119,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-29T00:00:59.631Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "86e5fa077c38973b61ed-b673bdee47e840b17e63",
+          "file": "map-interactions.spec.ts",
+          "line": 28,
+          "column": 1
+        },
+        {
+          "title": "2D aproxima sob o cursor, mantém pontos clicáveis e enquadra origem e rota",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3064,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-29T00:01:05.782Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "86e5fa077c38973b61ed-157cd2bab7355bf10220",
+          "file": "map-interactions.spec.ts",
+          "line": 46,
+          "column": 1
+        },
+        {
+          "title": "3D mantém câmera após arraste, oferece zoom, rotação, vista superior e localização",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 24529,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-29T00:01:08.888Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "86e5fa077c38973b61ed-455b95f46aaf746de023",
+          "file": "map-interactions.spec.ts",
+          "line": 71,
+          "column": 1
+        },
+        {
+          "title": "Celular: arraste e pinça 2D/3D mantêm o zoom sem rolar a página ou abrir lojas",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 21622,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-29T00:01:33.449Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "86e5fa077c38973b61ed-fad7136109a30d28c972",
+          "file": "map-interactions.spec.ts",
+          "line": 109,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "scene.spec.ts",
+      "file": "scene.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Mini Shopping: QR, GLB real, loja térrea, rota idêntica em 2D/3D e chegada",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8259,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-29T00:01:55.143Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "route",
+                      "contentType": "application/json",
+                      "body": "ewogICJzdWNlc3NvIjogdHJ1ZSwKICAibm9zIjogWwogICAgewogICAgICAiaWQiOiA0NSwKICAgICAgImNvb3JkX3giOiAwLjUsCiAgICAgICJjb29yZF95IjogMC4wMjUsCiAgICAgICJ0aXBvIjogImVudHJhZGEiLAogICAgICAibm9tZSI6ICJFbnRyYWRhIHByaW5jaXBhbCIsCiAgICAgICJwaXNvX2lkIjogMQogICAgfSwKICAgIHsKICAgICAgImlkIjogNDYsCiAgICAgICJjb29yZF94IjogMC40MTMzMzMsCiAgICAgICJjb29yZF95IjogMC4wMjUsCiAgICAgICJ0aXBvIjogImNvcnJlZG9yIiwKICAgICAgIm5vbWUiOiAiVF9DT1JfRV8wMTUwMCIsCiAgICAgICJwaXNvX2lkIjogMQogICAgfSwKICAgIHsKICAgICAgImlkIjogMiwKICAgICAgImNvb3JkX3giOiAwLjQxMzMzMywKICAgICAgImNvb3JkX3kiOiAwLjIxLAogICAgICAidGlwbyI6ICJjb3JyZWRvciIsCiAgICAgICJub21lIjogIlRfQ09SX0VfMTI2MDAiLAogICAgICAicGlzb19pZCI6IDEKICAgIH0sCiAgICB7CiAgICAgICJpZCI6IDEsCiAgICAgICJjb29yZF94IjogMC4zODY2NjcsCiAgICAgICJjb29yZF95IjogMC4yMSwKICAgICAgInRpcG8iOiAibG9qYSIsCiAgICAgICJub21lIjogIkFESURBUyIsCiAgICAgICJwaXNvX2lkIjogMQogICAgfQogIF0sCiAgImRpc3RhbmNpYV90b3RhbF9tZXRyb3MiOiAxNC41LAogICJpbnN0cnVjb2VzIjogWwogICAgIlBhcnRpbmRvIGRlIEVudHJhZGEgcHJpbmNpcGFsIChwb250byBkZSBvcmlnZW0pIiwKICAgICJTaWdhIGVtIGZyZW50ZSBwb3IgMi42IG1ldHJvcyIsCiAgICAiVmlyZSDDoCBlc3F1ZXJkYSBwb3IgMTEuMSBtZXRyb3MiLAogICAgIlZpcmUgw6AgZGlyZWl0YSBwb3IgMC44IG1ldHJvcyIsCiAgICAiVm9jw6ogY2hlZ291IGFvIGRlc3Rpbm86IEFESURBUyIKICBdLAogICJldGFwYXMiOiBbCiAgICB7CiAgICAgICJ0ZXh0byI6ICJQYXJ0aW5kbyBkZSBFbnRyYWRhIHByaW5jaXBhbCAocG9udG8gZGUgb3JpZ2VtKSIsCiAgICAgICJ0aXBvIjogImluaWNpbyIsCiAgICAgICJub19vcmlnZW1faWQiOiA0NSwKICAgICAgIm5vX2Rlc3Rpbm9faWQiOiA0NSwKICAgICAgInBpc29fb3JpZ2VtX2lkIjogMSwKICAgICAgInBpc29fZGVzdGlub19pZCI6IDEsCiAgICAgICJkaXN0YW5jaWFfbWV0cm9zIjogMCwKICAgICAgInJlZmVyZW5jaWEiOiBudWxsLAogICAgICAicmVmZXJlbmNpYV9ub19pZCI6IG51bGwKICAgIH0sCiAgICB7CiAgICAgICJ0ZXh0byI6ICJTaWdhIGVtIGZyZW50ZSBwb3IgMi42IG1ldHJvcyIsCiAgICAgICJ0aXBvIjogImNhbWluaG8iLAogICAgICAibm9fb3JpZ2VtX2lkIjogNDUsCiAgICAgICJub19kZXN0aW5vX2lkIjogNDYsCiAgICAgICJwaXNvX29yaWdlbV9pZCI6IDEsCiAgICAgICJwaXNvX2Rlc3Rpbm9faWQiOiAxLAogICAgICAiZGlzdGFuY2lhX21ldHJvcyI6IDIuNiwKICAgICAgInJlZmVyZW5jaWEiOiAiUmVmZXLDqm5jaWEgbmVzdGUgdHJlY2hvOiBFbnRyYWRhIHByaW5jaXBhbCIsCiAgICAgICJyZWZlcmVuY2lhX25vX2lkIjogNDUKICAgIH0sCiAgICB7CiAgICAgICJ0ZXh0byI6ICJWaXJlIMOgIGVzcXVlcmRhIHBvciAxMS4xIG1ldHJvcyIsCiAgICAgICJ0aXBvIjogImNhbWluaG8iLAogICAgICAibm9fb3JpZ2VtX2lkIjogNDYsCiAgICAgICJub19kZXN0aW5vX2lkIjogMiwKICAgICAgInBpc29fb3JpZ2VtX2lkIjogMSwKICAgICAgInBpc29fZGVzdGlub19pZCI6IDEsCiAgICAgICJkaXN0YW5jaWFfbWV0cm9zIjogMTEuMSwKICAgICAgInJlZmVyZW5jaWEiOiAiUmVmZXLDqm5jaWEgbmVzdGUgdHJlY2hvOiBFbnRyYWRhIHByaW5jaXBhbCIsCiAgICAgICJyZWZlcmVuY2lhX25vX2lkIjogNDUKICAgIH0sCiAgICB7CiAgICAgICJ0ZXh0byI6ICJWaXJlIMOgIGRpcmVpdGEgcG9yIDAuOCBtZXRyb3MiLAogICAgICAidGlwbyI6ICJjYW1pbmhvIiwKICAgICAgIm5vX29yaWdlbV9pZCI6IDIsCiAgICAgICJub19kZXN0aW5vX2lkIjogMSwKICAgICAgInBpc29fb3JpZ2VtX2lkIjogMSwKICAgICAgInBpc29fZGVzdGlub19pZCI6IDEsCiAgICAgICJkaXN0YW5jaWFfbWV0cm9zIjogMC44LAogICAgICAicmVmZXJlbmNpYSI6ICJSZWZlcsOqbmNpYSBuZXN0ZSB0cmVjaG86IEFESURBUyIsCiAgICAgICJyZWZlcmVuY2lhX25vX2lkIjogMQogICAgfSwKICAgIHsKICAgICAgInRleHRvIjogIlZvY8OqIGNoZWdvdSBhbyBkZXN0aW5vOiBBRElEQVMiLAogICAgICAidGlwbyI6ICJjaGVnYWRhIiwKICAgICAgIm5vX29yaWdlbV9pZCI6IDEsCiAgICAgICJub19kZXN0aW5vX2lkIjogMSwKICAgICAgInBpc29fb3JpZ2VtX2lkIjogMSwKICAgICAgInBpc29fZGVzdGlub19pZCI6IDEsCiAgICAgICJkaXN0YW5jaWFfbWV0cm9zIjogMCwKICAgICAgInJlZmVyZW5jaWEiOiBudWxsLAogICAgICAicmVmZXJlbmNpYV9ub19pZCI6IG51bGwKICAgIH0KICBdLAogICJyZXN1bW8iOiB7CiAgICAibWV0cm9zX2NvcnJlZG9yIjogMTQuNSwKICAgICJlbGV2YWRvcmVzIjogMCwKICAgICJlc2NhZGFzIjogMCwKICAgICJtaW51dG9zX2VzdGltYWRvcyI6IDEKICB9LAogICJyZXZpc2FvIjogIjVjMWY4ZmQ1MDljMjRhY2MwZjcxMDgzMzI1YzQ0MTg4YjNiMjMwNzIzMTgzNzUxMTlhMTNkMTRlZTA5MjAzNmMiCn0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3aa4c5b91f4bbc99f382-109f2631f3e6ca0b2638",
+          "file": "scene.spec.ts",
+          "line": 5,
+          "column": 1
+        },
+        {
+          "title": "Mini Shopping: elevador acessível, mudança de piso e bloqueio",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 16829,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-29T00:02:03.572Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "accessible-route",
+                      "contentType": "application/json",
+                      "body": "ewogICJzdWNlc3NvIjogdHJ1ZSwKICAibm9zIjogWwogICAgewogICAgICAiaWQiOiA0NSwKICAgICAgImNvb3JkX3giOiAwLjUsCiAgICAgICJjb29yZF95IjogMC4wMjUsCiAgICAgICJ0aXBvIjogImVudHJhZGEiLAogICAgICAibm9tZSI6ICJFbnRyYWRhIHByaW5jaXBhbCIsCiAgICAgICJwaXNvX2lkIjogMQogICAgfSwKICAgIHsKICAgICAgImlkIjogNDYsCiAgICAgICJjb29yZF94IjogMC40MTMzMzMsCiAgICAgICJjb29yZF95IjogMC4wMjUsCiAgICAgICJ0aXBvIjogImNvcnJlZG9yIiwKICAgICAgIm5vbWUiOiAiVF9DT1JfRV8wMTUwMCIsCiAgICAgICJwaXNvX2lkIjogMQogICAgfSwKICAgIHsKICAgICAgImlkIjogMiwKICAgICAgImNvb3JkX3giOiAwLjQxMzMzMywKICAgICAgImNvb3JkX3kiOiAwLjIxLAogICAgICAidGlwbyI6ICJjb3JyZWRvciIsCiAgICAgICJub21lIjogIlRfQ09SX0VfMTI2MDAiLAogICAgICAicGlzb19pZCI6IDEKICAgIH0sCiAgICB7CiAgICAgICJpZCI6IDQsCiAgICAgICJjb29yZF94IjogMC40MTMzMzMsCiAgICAgICJjb29yZF95IjogMC4zMTQxNjcsCiAgICAgICJ0aXBvIjogImNvcnJlZG9yIiwKICAgICAgIm5vbWUiOiAiVF9DT1JfRV8xODg1MCIsCiAgICAgICJwaXNvX2lkIjogMQogICAgfSwKICAgIHsKICAgICAgImlkIjogNDgsCiAgICAgICJjb29yZF94IjogMC40MTMzMzMsCiAgICAgICJjb29yZF95IjogMC4zOTUsCiAgICAgICJ0aXBvIjogImNvcnJlZG9yIiwKICAgICAgIm5vbWUiOiAiVF9DT1JfRV8yMzcwMCIsCiAgICAgICJwaXNvX2lkIjogMQogICAgfSwKICAgIHsKICAgICAgImlkIjogNiwKICAgICAgImNvb3JkX3giOiAwLjQxMzMzMywKICAgICAgImNvb3JkX3kiOiAwLjM5ODMzMywKICAgICAgInRpcG8iOiAiY29ycmVkb3IiLAogICAgICAibm9tZSI6ICJUX0NPUl9FXzIzOTAwIiwKICAgICAgInBpc29faWQiOiAxCiAgICB9LAogICAgewogICAgICAiaWQiOiA4LAogICAgICAiY29vcmRfeCI6IDAuNDEzMzMzLAogICAgICAiY29vcmRfeSI6IDAuNDc4MzMzLAogICAgICAidGlwbyI6ICJjb3JyZWRvciIsCiAgICAgICJub21lIjogIlRfQ09SX0VfMjg3MDAiLAogICAgICAicGlzb19pZCI6IDEKICAgIH0sCiAgICB7CiAgICAgICJpZCI6IDEwLAogICAgICAiY29vcmRfeCI6IDAuNDEzMzMzLAogICAgICAiY29vcmRfeSI6IDAuNTcyNSwKICAgICAgInRpcG8iOiAiY29ycmVkb3IiLAogICAgICAibm9tZSI6ICJUX0NPUl9FXzM0MzUwIiwKICAgICAgInBpc29faWQiOiAxCiAgICB9LAogICAgewogICAgICAiaWQiOiA1MCwKICAgICAgImNvb3JkX3giOiAwLjQxMzMzMywKICAgICAgImNvb3JkX3kiOiAwLjYwODMzMywKICAgICAgInRpcG8iOiAiY29ycmVkb3IiLAogICAgICAibm9tZSI6ICJUX0NPUl9FXzM2NTAwIiwKICAgICAgInBpc29faWQiOiAxCiAgICB9LAogICAgewogICAgICAiaWQiOiA3OCwKICAgICAgImNvb3JkX3giOiAwLjUsCiAgICAgICJjb29yZF95IjogMC42MDgzMzMsCiAgICAgICJ0aXBvIjogImVsZXZhZG9yIiwKICAgICAgIm5vbWUiOiAiRWxldmFkb3Ig4oCUIHTDqXJyZW8iLAogICAgICAicGlzb19pZCI6IDEKICAgIH0sCiAgICB7CiAgICAgICJpZCI6IDc5LAogICAgICAiY29vcmRfeCI6IDAuNSwKICAgICAgImNvb3JkX3kiOiAwLjYwODMzMywKICAgICAgInRpcG8iOiAiZWxldmFkb3IiLAogICAgICAibm9tZSI6ICJFbGV2YWRvciDigJQgbWV6YW5pbm8iLAogICAgICAicGlzb19pZCI6IDIKICAgIH0sCiAgICB7CiAgICAgICJpZCI6IDU2LAogICAgICAiY29vcmRfeCI6IDAuMzkxNjY3LAogICAgICAiY29vcmRfeSI6IDAuNjA4MzMzLAogICAgICAidGlwbyI6ICJjb3JyZWRvciIsCiAgICAgICJub21lIjogIk1fQ09SX0VfMzY1MDAiLAogICAgICAicGlzb19pZCI6IDIKICAgIH0sCiAgICB7CiAgICAgICJpZCI6IDM0LAogICAgICAiY29vcmRfeCI6IDAuMzkxNjY3LAogICAgICAiY29vcmRfeSI6IDAuNTU5MTY3LAogICAgICAidGlwbyI6ICJjb3JyZWRvciIsCiAgICAgICJub21lIjogIk1fQ09SX0VfMzM1NTAiLAogICAgICAicGlzb19pZCI6IDIKICAgIH0sCiAgICB7CiAgICAgICJpZCI6IDMyLAogICAgICAiY29vcmRfeCI6IDAuMzkxNjY3LAogICAgICAiY29vcmRfeSI6IDAuNDY1LAogICAgICAidGlwbyI6ICJjb3JyZWRvciIsCiAgICAgICJub21lIjogIk1fQ09SX0VfMjc5MDAiLAogICAgICAicGlzb19pZCI6IDIKICAgIH0sCiAgICB7CiAgICAgICJpZCI6IDMwLAogICAgICAiY29vcmRfeCI6IDAuMzkxNjY3LAogICAgICAiY29vcmRfeSI6IDAuMzczMzMzLAogICAgICAidGlwbyI6ICJjb3JyZWRvciIsCiAgICAgICJub21lIjogIk1fQ09SX0VfMjI0MDAiLAogICAgICAicGlzb19pZCI6IDIKICAgIH0sCiAgICB7CiAgICAgICJpZCI6IDI4LAogICAgICAiY29vcmRfeCI6IDAuMzkxNjY3LAogICAgICAiY29vcmRfeSI6IDAuMzA2NjY3LAogICAgICAidGlwbyI6ICJjb3JyZWRvciIsCiAgICAgICJub21lIjogIk1fQ09SX0VfMTg0MDAiLAogICAgICAicGlzb19pZCI6IDIKICAgIH0sCiAgICB7CiAgICAgICJpZCI6IDI2LAogICAgICAiY29vcmRfeCI6IDAuMzkxNjY3LAogICAgICAiY29vcmRfeSI6IDAuMjEyNSwKICAgICAgInRpcG8iOiAiY29ycmVkb3IiLAogICAgICAibm9tZSI6ICJNX0NPUl9FXzEyNzUwIiwKICAgICAgInBpc29faWQiOiAyCiAgICB9LAogICAgewogICAgICAiaWQiOiAyNSwKICAgICAgImNvb3JkX3giOiAwLjM4NjY2NywKICAgICAgImNvb3JkX3kiOiAwLjIxMjUsCiAgICAgICJ0aXBvIjogImxvamEiLAogICAgICAibm9tZSI6ICJCVVJHRVIgS0lORyIsCiAgICAgICJwaXNvX2lkIjogMgogICAgfQogIF0sCiAgImRpc3RhbmNpYV90b3RhbF9tZXRyb3MiOiA3Mi4wNSwKICAiaW5zdHJ1Y29lcyI6IFsKICAgICJQYXJ0aW5kbyBkZSBFbnRyYWRhIHByaW5jaXBhbCAocG9udG8gZGUgb3JpZ2VtKSIsCiAgICAiU2lnYSBlbSBmcmVudGUgcG9yIDIuNiBtZXRyb3MiLAogICAgIlZpcmUgw6AgZXNxdWVyZGEgcG9yIDExLjEgbWV0cm9zIiwKICAgICJTaWdhIGVtIGZyZW50ZSBwb3IgNi4yIG1ldHJvcyIsCiAgICAiU2lnYSBlbSBmcmVudGUgcG9yIDQuOCBtZXRyb3MiLAogICAgIlNpZ2EgZW0gZnJlbnRlIHBvciAwLjIgbWV0cm9zIiwKICAgICJTaWdhIGVtIGZyZW50ZSBwb3IgNC44IG1ldHJvcyIsCiAgICAiU2lnYSBlbSBmcmVudGUgcG9yIDUuNyBtZXRyb3MiLAogICAgIlNpZ2EgZW0gZnJlbnRlIHBvciAyLjEgbWV0cm9zIiwKICAgICJWaXJlIMOgIGVzcXVlcmRhIHBvciAyLjYgbWV0cm9zIiwKICAgICJVc2UgbyBlbGV2YWRvciBwYXJhIG8gcGlzbyBNZXphbmlubyIsCiAgICAiU2lnYSBlbSBmcmVudGUgcG9yIDMuMiBtZXRyb3MiLAogICAgIlZpcmUgw6AgZGlyZWl0YSBwb3IgMy4wIG1ldHJvcyIsCiAgICAiU2lnYSBlbSBmcmVudGUgcG9yIDUuNyBtZXRyb3MiLAogICAgIlNpZ2EgZW0gZnJlbnRlIHBvciA1LjUgbWV0cm9zIiwKICAgICJTaWdhIGVtIGZyZW50ZSBwb3IgNC4wIG1ldHJvcyIsCiAgICAiU2lnYSBlbSBmcmVudGUgcG9yIDUuNyBtZXRyb3MiLAogICAgIlZpcmUgw6AgZXNxdWVyZGEgcG9yIDAuMSBtZXRyb3MiLAogICAgIlZvY8OqIGNoZWdvdSBhbyBkZXN0aW5vOiBCVVJHRVIgS0lORyIKICBdLAogICJldGFwYXMiOiBbCiAgICB7CiAgICAgICJ0ZXh0byI6ICJQYXJ0aW5kbyBkZSBFbnRyYWRhIHByaW5jaXBhbCAocG9udG8gZGUgb3JpZ2VtKSIsCiAgICAgICJ0aXBvIjogImluaWNpbyIsCiAgICAgICJub19vcmlnZW1faWQiOiA0NSwKICAgICAgIm5vX2Rlc3Rpbm9faWQiOiA0NSwKICAgICAgInBpc29fb3JpZ2VtX2lkIjogMSwKICAgICAgInBpc29fZGVzdGlub19pZCI6IDEsCiAgICAgICJkaXN0YW5jaWFfbWV0cm9zIjogMCwKICAgICAgInJlZmVyZW5jaWEiOiBudWxsLAogICAgICAicmVmZXJlbmNpYV9ub19pZCI6IG51bGwKICAgIH0sCiAgICB7CiAgICAgICJ0ZXh0byI6ICJTaWdhIGVtIGZyZW50ZSBwb3IgMi42IG1ldHJvcyIsCiAgICAgICJ0aXBvIjogImNhbWluaG8iLAogICAgICAibm9fb3JpZ2VtX2lkIjogNDUsCiAgICAgICJub19kZXN0aW5vX2lkIjogNDYsCiAgICAgICJwaXNvX29yaWdlbV9pZCI6IDEsCiAgICAgICJwaXNvX2Rlc3Rpbm9faWQiOiAxLAogICAgICAiZGlzdGFuY2lhX21ldHJvcyI6IDIuNiwKICAgICAgInJlZmVyZW5jaWEiOiAiUmVmZXLDqm5jaWEgbmVzdGUgdHJlY2hvOiBFbnRyYWRhIHByaW5jaXBhbCIsCiAgICAgICJyZWZlcmVuY2lhX25vX2lkIjogNDUKICAgIH0sCiAgICB7CiAgICAgICJ0ZXh0byI6ICJWaXJlIMOgIGVzcXVlcmRhIHBvciAxMS4xIG1ldHJvcyIsCiAgICAgICJ0aXBvIjogImNhbWluaG8iLAogICAgICAibm9fb3JpZ2VtX2lkIjogNDYsCiAgICAgICJub19kZXN0aW5vX2lkIjogMiwKICAgICAgInBpc29fb3JpZ2VtX2lkIjogMSwKICAgICAgInBpc29fZGVzdGlub19pZCI6IDEsCiAgICAgICJkaXN0YW5jaWFfbWV0cm9zIjogMTEuMSwKICAgICAgInJlZmVyZW5jaWEiOiAiUmVmZXLDqm5jaWEgbmVzdGUgdHJlY2hvOiBFbnRyYWRhIHByaW5jaXBhbCIsCiAgICAgICJyZWZlcmVuY2lhX25vX2lkIjogNDUKICAgIH0sCiAgICB7CiAgICAgICJ0ZXh0byI6ICJTaWdhIGVtIGZyZW50ZSBwb3IgNi4yIG1ldHJvcyIsCiAgICAgICJ0aXBvIjogImNhbWluaG8iLAogICAgICAibm9fb3JpZ2VtX2lkIjogMiwKICAgICAgIm5vX2Rlc3Rpbm9faWQiOiA0LAogICAgICAicGlzb19vcmlnZW1faWQiOiAxLAogICAgICAicGlzb19kZXN0aW5vX2lkIjogMSwKICAgICAgImRpc3RhbmNpYV9tZXRyb3MiOiA2LjIsCiAgICAgICJyZWZlcmVuY2lhIjogIlJlZmVyw6puY2lhIG5lc3RlIHRyZWNobzogQURJREFTIiwKICAgICAgInJlZmVyZW5jaWFfbm9faWQiOiAxCiAgICB9LAogICAgewogICAgICAidGV4dG8iOiAiU2lnYSBlbSBmcmVudGUgcG9yIDQuOCBtZXRyb3MiLAogICAgICAidGlwbyI6ICJjYW1pbmhvIiwKICAgICAgIm5vX29yaWdlbV9pZCI6IDQsCiAgICAgICJub19kZXN0aW5vX2lkIjogNDgsCiAgICAgICJwaXNvX29yaWdlbV9pZCI6IDEsCiAgICAgICJwaXNvX2Rlc3Rpbm9faWQiOiAxLAogICAgICAiZGlzdGFuY2lhX21ldHJvcyI6IDQuOCwKICAgICAgInJlZmVyZW5jaWEiOiAiUmVmZXLDqm5jaWEgbmVzdGUgdHJlY2hvOiBBUkVaWk8iLAogICAgICAicmVmZXJlbmNpYV9ub19pZCI6IDMKICAgIH0sCiAgICB7CiAgICAgICJ0ZXh0byI6ICJTaWdhIGVtIGZyZW50ZSBwb3IgMC4yIG1ldHJvcyIsCiAgICAgICJ0aXBvIjogImNhbWluaG8iLAogICAgICAibm9fb3JpZ2VtX2lkIjogNDgsCiAgICAgICJub19kZXN0aW5vX2lkIjogNiwKICAgICAgInBpc29fb3JpZ2VtX2lkIjogMSwKICAgICAgInBpc29fZGVzdGlub19pZCI6IDEsCiAgICAgICJkaXN0YW5jaWFfbWV0cm9zIjogMC4yLAogICAgICAicmVmZXJlbmNpYSI6IG51bGwsCiAgICAgICJyZWZlcmVuY2lhX25vX2lkIjogbnVsbAogICAgfSwKICAgIHsKICAgICAgInRleHRvIjogIlNpZ2EgZW0gZnJlbnRlIHBvciA0LjggbWV0cm9zIiwKICAgICAgInRpcG8iOiAiY2FtaW5obyIsCiAgICAgICJub19vcmlnZW1faWQiOiA2LAogICAgICAibm9fZGVzdGlub19pZCI6IDgsCiAgICAgICJwaXNvX29yaWdlbV9pZCI6IDEsCiAgICAgICJwaXNvX2Rlc3Rpbm9faWQiOiAxLAogICAgICAiZGlzdGFuY2lhX21ldHJvcyI6IDQuOCwKICAgICAgInJlZmVyZW5jaWEiOiAiUmVmZXLDqm5jaWEgbmVzdGUgdHJlY2hvOiBDQUxWSU4gS0xFSU4iLAogICAgICAicmVmZXJlbmNpYV9ub19pZCI6IDUKICAgIH0sCiAgICB7CiAgICAgICJ0ZXh0byI6ICJTaWdhIGVtIGZyZW50ZSBwb3IgNS43IG1ldHJvcyIsCiAgICAgICJ0aXBvIjogImNhbWluaG8iLAogICAgICAibm9fb3JpZ2VtX2lkIjogOCwKICAgICAgIm5vX2Rlc3Rpbm9faWQiOiAxMCwKICAgICAgInBpc29fb3JpZ2VtX2lkIjogMSwKICAgICAgInBpc29fZGVzdGlub19pZCI6IDEsCiAgICAgICJkaXN0YW5jaWFfbWV0cm9zIjogNS43LAogICAgICAicmVmZXJlbmNpYSI6ICJSZWZlcsOqbmNpYSBuZXN0ZSB0cmVjaG86IE5BVFVSQSIsCiAgICAgICJyZWZlcmVuY2lhX25vX2lkIjogNwogICAgfSwKICAgIHsKICAgICAgInRleHRvIjogIlNpZ2EgZW0gZnJlbnRlIHBvciAyLjEgbWV0cm9zIiwKICAgICAgInRpcG8iOiAiY2FtaW5obyIsCiAgICAgICJub19vcmlnZW1faWQiOiAxMCwKICAgICAgIm5vX2Rlc3Rpbm9faWQiOiA1MCwKICAgICAgInBpc29fb3JpZ2VtX2lkIjogMSwKICAgICAgInBpc29fZGVzdGlub19pZCI6IDEsCiAgICAgICJkaXN0YW5jaWFfbWV0cm9zIjogMi4xLAogICAgICAicmVmZXJlbmNpYSI6ICJSZWZlcsOqbmNpYSBuZXN0ZSB0cmVjaG86IENFTlRBVVJPIiwKICAgICAgInJlZmVyZW5jaWFfbm9faWQiOiA5CiAgICB9LAogICAgewogICAgICAidGV4dG8iOiAiVmlyZSDDoCBlc3F1ZXJkYSBwb3IgMi42IG1ldHJvcyIsCiAgICAgICJ0aXBvIjogImNhbWluaG8iLAogICAgICAibm9fb3JpZ2VtX2lkIjogNTAsCiAgICAgICJub19kZXN0aW5vX2lkIjogNzgsCiAgICAgICJwaXNvX29yaWdlbV9pZCI6IDEsCiAgICAgICJwaXNvX2Rlc3Rpbm9faWQiOiAxLAogICAgICAiZGlzdGFuY2lhX21ldHJvcyI6IDIuNiwKICAgICAgInJlZmVyZW5jaWEiOiAiUmVmZXLDqm5jaWEgbmVzdGUgdHJlY2hvOiBFbGV2YWRvciDigJQgdMOpcnJlbyIsCiAgICAgICJyZWZlcmVuY2lhX25vX2lkIjogNzgKICAgIH0sCiAgICB7CiAgICAgICJ0ZXh0byI6ICJVc2UgbyBlbGV2YWRvciBwYXJhIG8gcGlzbyBNZXphbmlubyIsCiAgICAgICJ0aXBvIjogInRyb2NhX3Bpc28iLAogICAgICAibm9fb3JpZ2VtX2lkIjogNzgsCiAgICAgICJub19kZXN0aW5vX2lkIjogNzksCiAgICAgICJwaXNvX29yaWdlbV9pZCI6IDEsCiAgICAgICJwaXNvX2Rlc3Rpbm9faWQiOiAyLAogICAgICAiZGlzdGFuY2lhX21ldHJvcyI6IDQuNywKICAgICAgInJlZmVyZW5jaWEiOiAiUmVmZXLDqm5jaWEgbmVzdGUgdHJlY2hvOiBFbGV2YWRvciDigJQgdMOpcnJlbyIsCiAgICAgICJyZWZlcmVuY2lhX25vX2lkIjogNzgKICAgIH0sCiAgICB7CiAgICAgICJ0ZXh0byI6ICJTaWdhIGVtIGZyZW50ZSBwb3IgMy4yIG1ldHJvcyIsCiAgICAgICJ0aXBvIjogImNhbWluaG8iLAogICAgICAibm9fb3JpZ2VtX2lkIjogNzksCiAgICAgICJub19kZXN0aW5vX2lkIjogNTYsCiAgICAgICJwaXNvX29yaWdlbV9pZCI6IDIsCiAgICAgICJwaXNvX2Rlc3Rpbm9faWQiOiAyLAogICAgICAiZGlzdGFuY2lhX21ldHJvcyI6IDMuMiwKICAgICAgInJlZmVyZW5jaWEiOiAiUmVmZXLDqm5jaWEgbmVzdGUgdHJlY2hvOiBFbGV2YWRvciDigJQgbWV6YW5pbm8iLAogICAgICAicmVmZXJlbmNpYV9ub19pZCI6IDc5CiAgICB9LAogICAgewogICAgICAidGV4dG8iOiAiVmlyZSDDoCBkaXJlaXRhIHBvciAzLjAgbWV0cm9zIiwKICAgICAgInRpcG8iOiAiY2FtaW5obyIsCiAgICAgICJub19vcmlnZW1faWQiOiA1NiwKICAgICAgIm5vX2Rlc3Rpbm9faWQiOiAzNCwKICAgICAgInBpc29fb3JpZ2VtX2lkIjogMiwKICAgICAgInBpc29fZGVzdGlub19pZCI6IDIsCiAgICAgICJkaXN0YW5jaWFfbWV0cm9zIjogMywKICAgICAgInJlZmVyZW5jaWEiOiAiUmVmZXLDqm5jaWEgbmVzdGUgdHJlY2hvOiBFbGV2YWRvciDigJQgbWV6YW5pbm8iLAogICAgICAicmVmZXJlbmNpYV9ub19pZCI6IDc5CiAgICB9LAogICAgewogICAgICAidGV4dG8iOiAiU2lnYSBlbSBmcmVudGUgcG9yIDUuNyBtZXRyb3MiLAogICAgICAidGlwbyI6ICJjYW1pbmhvIiwKICAgICAgIm5vX29yaWdlbV9pZCI6IDM0LAogICAgICAibm9fZGVzdGlub19pZCI6IDMyLAogICAgICAicGlzb19vcmlnZW1faWQiOiAyLAogICAgICAicGlzb19kZXN0aW5vX2lkIjogMiwKICAgICAgImRpc3RhbmNpYV9tZXRyb3MiOiA1LjcsCiAgICAgICJyZWZlcmVuY2lhIjogIlJlZmVyw6puY2lhIG5lc3RlIHRyZWNobzogWU9VQ09NIiwKICAgICAgInJlZmVyZW5jaWFfbm9faWQiOiAzMwogICAgfSwKICAgIHsKICAgICAgInRleHRvIjogIlNpZ2EgZW0gZnJlbnRlIHBvciA1LjUgbWV0cm9zIiwKICAgICAgInRpcG8iOiAiY2FtaW5obyIsCiAgICAgICJub19vcmlnZW1faWQiOiAzMiwKICAgICAgIm5vX2Rlc3Rpbm9faWQiOiAzMCwKICAgICAgInBpc29fb3JpZ2VtX2lkIjogMiwKICAgICAgInBpc29fZGVzdGlub19pZCI6IDIsCiAgICAgICJkaXN0YW5jaWFfbWV0cm9zIjogNS41LAogICAgICAicmVmZXJlbmNpYSI6ICJSZWZlcsOqbmNpYSBuZXN0ZSB0cmVjaG86IFNNQVJUIEZJVCIsCiAgICAgICJyZWZlcmVuY2lhX25vX2lkIjogMzEKICAgIH0sCiAgICB7CiAgICAgICJ0ZXh0byI6ICJTaWdhIGVtIGZyZW50ZSBwb3IgNC4wIG1ldHJvcyIsCiAgICAgICJ0aXBvIjogImNhbWluaG8iLAogICAgICAibm9fb3JpZ2VtX2lkIjogMzAsCiAgICAgICJub19kZXN0aW5vX2lkIjogMjgsCiAgICAgICJwaXNvX29yaWdlbV9pZCI6IDIsCiAgICAgICJwaXNvX2Rlc3Rpbm9faWQiOiAyLAogICAgICAiZGlzdGFuY2lhX21ldHJvcyI6IDQsCiAgICAgICJyZWZlcmVuY2lhIjogIlJlZmVyw6puY2lhIG5lc3RlIHRyZWNobzogQkFDSU8gREkgTEFUVEUiLAogICAgICAicmVmZXJlbmNpYV9ub19pZCI6IDI5CiAgICB9LAogICAgewogICAgICAidGV4dG8iOiAiU2lnYSBlbSBmcmVudGUgcG9yIDUuNyBtZXRyb3MiLAogICAgICAidGlwbyI6ICJjYW1pbmhvIiwKICAgICAgIm5vX29yaWdlbV9pZCI6IDI4LAogICAgICAibm9fZGVzdGlub19pZCI6IDI2LAogICAgICAicGlzb19vcmlnZW1faWQiOiAyLAogICAgICAicGlzb19kZXN0aW5vX2lkIjogMiwKICAgICAgImRpc3RhbmNpYV9tZXRyb3MiOiA1LjcsCiAgICAgICJyZWZlcmVuY2lhIjogIlJlZmVyw6puY2lhIG5lc3RlIHRyZWNobzogQ0FDQVUgU0hPVyIsCiAgICAgICJyZWZlcmVuY2lhX25vX2lkIjogMjcKICAgIH0sCiAgICB7CiAgICAgICJ0ZXh0byI6ICJWaXJlIMOgIGVzcXVlcmRhIHBvciAwLjEgbWV0cm9zIiwKICAgICAgInRpcG8iOiAiY2FtaW5obyIsCiAgICAgICJub19vcmlnZW1faWQiOiAyNiwKICAgICAgIm5vX2Rlc3Rpbm9faWQiOiAyNSwKICAgICAgInBpc29fb3JpZ2VtX2lkIjogMiwKICAgICAgInBpc29fZGVzdGlub19pZCI6IDIsCiAgICAgICJkaXN0YW5jaWFfbWV0cm9zIjogMC4xLAogICAgICAicmVmZXJlbmNpYSI6ICJSZWZlcsOqbmNpYSBuZXN0ZSB0cmVjaG86IEJVUkdFUiBLSU5HIiwKICAgICAgInJlZmVyZW5jaWFfbm9faWQiOiAyNQogICAgfSwKICAgIHsKICAgICAgInRleHRvIjogIlZvY8OqIGNoZWdvdSBhbyBkZXN0aW5vOiBCVVJHRVIgS0lORyIsCiAgICAgICJ0aXBvIjogImNoZWdhZGEiLAogICAgICAibm9fb3JpZ2VtX2lkIjogMjUsCiAgICAgICJub19kZXN0aW5vX2lkIjogMjUsCiAgICAgICJwaXNvX29yaWdlbV9pZCI6IDIsCiAgICAgICJwaXNvX2Rlc3Rpbm9faWQiOiAyLAogICAgICAiZGlzdGFuY2lhX21ldHJvcyI6IDAsCiAgICAgICJyZWZlcmVuY2lhIjogbnVsbCwKICAgICAgInJlZmVyZW5jaWFfbm9faWQiOiBudWxsCiAgICB9CiAgXSwKICAicmVzdW1vIjogewogICAgIm1ldHJvc19jb3JyZWRvciI6IDY3LjMsCiAgICAiZWxldmFkb3JlcyI6IDEsCiAgICAiZXNjYWRhcyI6IDAsCiAgICAibWludXRvc19lc3RpbWFkb3MiOiAyCiAgfSwKICAicmV2aXNhbyI6ICI1YzFmOGZkNTA5YzI0YWNjMGY3MTA4MzMyNWM0NDE4OGIzYjIzMDcyMzE4Mzc1MTE5YTEzZDE0ZWUwOTIwMzZjIgp9"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3aa4c5b91f4bbc99f382-87eb99f0b6ebce647d5c",
+          "file": "scene.spec.ts",
+          "line": 31,
+          "column": 1
+        },
+        {
+          "title": "Falha do GLB preserva mapa 2D, destino e instruções; tentativa manual recupera",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2753,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-29T00:02:20.442Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3aa4c5b91f4bbc99f382-d97f31ef46fc4d2c530f",
+          "file": "scene.spec.ts",
+          "line": 64,
+          "column": 1
+        },
+        {
+          "title": "Painel mostra inventário da cena e links dos pisos",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1659,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-29T00:02:23.236Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3aa4c5b91f4bbc99f382-33d4e48437f2917500b7",
+          "file": "scene.spec.ts",
+          "line": 80,
+          "column": 1
+        },
+        {
+          "title": "Clique na loja visível do térreo abre o POI correto sem selecionar o piso oculto",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6284,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-29T00:02:24.914Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3aa4c5b91f4bbc99f382-c1851a36577ba820cc97",
+          "file": "scene.spec.ts",
+          "line": 90,
+          "column": 1
+        },
+        {
+          "title": "Sem WebGL o visitante mantém QR e mapa 2D",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 869,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-29T00:02:31.227Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3aa4c5b91f4bbc99f382-261570515e61da1bb1a8",
+          "file": "scene.spec.ts",
+          "line": 105,
+          "column": 1
+        },
+        {
+          "title": "GLB sem resposta atinge o limite de carregamento e libera o mapa 2D",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 20663,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-29T00:02:32.131Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3aa4c5b91f4bbc99f382-cd52e7732a82076ef4d6",
+          "file": "scene.spec.ts",
+          "line": 118,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "visitor-experience.spec.ts",
+      "file": "visitor-experience.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Ajuda lembra dispensa e pode ser reaberta pelo teclado",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2137,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-29T00:02:52.845Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "31f8b141317877a86365-583d9df7c68980baf665",
+          "file": "visitor-experience.spec.ts",
+          "line": 15,
+          "column": 1
+        },
+        {
+          "title": "Favoritos e recentes persistem; a posição precisa ser confirmada novamente",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7485,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-29T00:02:54.994Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "31f8b141317877a86365-a73e1cb1be298b86a2db",
+          "file": "visitor-experience.spec.ts",
+          "line": 31,
+          "column": 1
+        },
+        {
+          "title": "Explorar busca e ordena pelo percurso da API",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5862,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-29T00:03:02.492Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "31f8b141317877a86365-2ec15e71873c725f7c62",
+          "file": "visitor-experience.spec.ts",
+          "line": 56,
+          "column": 1
+        },
+        {
+          "title": "Serviços sem loja recebem rotas e permitem voltar à entrada",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 10517,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-29T00:03:08.369Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "31f8b141317877a86365-48a532fa901dc8834431",
+          "file": "visitor-experience.spec.ts",
+          "line": 78,
+          "column": 1
+        },
+        {
+          "title": "Avançar instruções e visualizar outro piso não altera a posição",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 15412,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-29T00:03:18.900Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "31f8b141317877a86365-51fd5a3280bf55a4ef93",
+          "file": "visitor-experience.spec.ts",
+          "line": 100,
+          "column": 1
+        },
+        {
+          "title": "Recálculo mantém mapa, sinaliza falha e recupera sem perder a origem",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 13193,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-29T00:03:34.324Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "31f8b141317877a86365-da4cb6ce3fb4926efa3b",
+          "file": "visitor-experience.spec.ts",
+          "line": 118,
+          "column": 1
+        },
+        {
+          "title": "Explorar recupera erro de carregamento e mantém alvos legíveis no celular",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5971,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-29T00:03:47.529Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "31f8b141317877a86365-8526a19c7fce0c94227d",
+          "file": "visitor-experience.spec.ts",
+          "line": 138,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "visitor-journey.spec.ts",
+      "file": "visitor-journey.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Chegada à NATURA atualiza a origem; próxima rota parte dela e cancelar preserva a posição",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 12613,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-29T00:03:53.568Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e3234888b8dc7f2d4d84-7f2e60607297fa75abfd",
+          "file": "visitor-journey.spec.ts",
+          "line": 18,
+          "column": 1
+        },
+        {
+          "title": "Chegada no mezanino abre o piso e a navegação pelo Explorar usa a nova origem",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 14167,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-29T00:04:06.203Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e3234888b8dc7f2d4d84-ddfbd224d01dadacf160",
+          "file": "visitor-journey.spec.ts",
+          "line": 41,
+          "column": 1
+        },
+        {
+          "title": "Instruções têm uma única lista e a opção acessível explica o trajeto",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9823,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-29T00:04:20.390Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e3234888b8dc7f2d4d84-5048338776f6f88b5729",
+          "file": "visitor-journey.spec.ts",
+          "line": 66,
+          "column": 1
+        },
+        {
+          "title": "Explorar combina filtros, abre detalhes e mantém layout legível no celular e desktop",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 12186,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-29T00:04:30.526Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e3234888b8dc7f2d4d84-ae1962f3d7618e096521",
+          "file": "visitor-journey.spec.ts",
+          "line": 87,
+          "column": 1
+        },
+        {
+          "title": "Falha ao buscar piso da chegada mantém a origem e permite confirmar novamente",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 11836,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-29T00:04:42.759Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e3234888b8dc7f2d4d84-54747f0a581870025230",
+          "file": "visitor-journey.spec.ts",
+          "line": 116,
+          "column": 1
+        },
+        {
+          "title": "Cancelar durante a confirmação impede que uma resposta atrasada altere a localização",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 11354,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-29T00:04:54.626Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e3234888b8dc7f2d4d84-f519ce28837db510a034",
+          "file": "visitor-journey.spec.ts",
+          "line": 131,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "wayfinding.spec.ts",
+      "file": "wayfinding.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Diretório liga índice, categorias e seleção à planta e mantém busca no celular",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1207,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-29T00:05:06.034Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8adbe3a54fd8fc3e7ad7-70de44887293e06e97c9",
+          "file": "wayfinding.spec.ts",
+          "line": 10,
+          "column": 1
+        },
+        {
+          "title": "Reconhecer um lugar exige confirmação e Estou perdido recalcula mantendo destino",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 11787,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-29T00:05:07.254Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8adbe3a54fd8fc3e7ad7-5a230b391793f6e07bc4",
+          "file": "wayfinding.spec.ts",
+          "line": 30,
+          "column": 1
+        },
+        {
+          "title": "Prévia 3D muda a câmera do trecho sem alterar a origem",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8716,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-29T00:05:19.059Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8adbe3a54fd8fc3e7ad7-c6500eb9171e5338fd79",
+          "file": "wayfinding.spec.ts",
+          "line": 55,
+          "column": 1
+        },
+        {
+          "title": "Passeio entre favoritos usa cada chegada como origem da próxima parada",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 13654,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-09-29T00:05:27.799Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8adbe3a54fd8fc3e7ad7-1535c0c63b74d80a13dd",
+          "file": "wayfinding.spec.ts",
+          "line": 73,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-09-28T23:59:23.046Z",
+    "duration": 379583.322,
+    "expected": 37,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

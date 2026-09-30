@@ -29,8 +29,8 @@ export default function ScanScreen() {
     setError(null);
     try {
       const result = await resolveQrCode(data);
-      await nav.setOriginNode(result.no);
-      router.replace("/(tabs)/");
+      await nav.setOriginNode(result.no, "qr");
+      router.replace("/map");
     } catch (err) {
       setError(err instanceof Error ? err.message : "QR Code não reconhecido.");
     } finally {
@@ -40,8 +40,8 @@ export default function ScanScreen() {
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.screen} keyboardShouldPersistTaps="handled">
-      <Text style={styles.title}>Encontre sua posição</Text>
+    <ScrollView role="main" accessibilityLabel="Ler QR Code e definir localização" contentContainerStyle={styles.screen} keyboardShouldPersistTaps="handled">
+      <Text accessibilityRole="header" style={styles.title}>Encontre sua posição</Text>
       <Text style={styles.text}>Aponte a câmera para um QR Code do shopping ou informe o código da placa.</Text>
       {focused && permission?.granted && !cameraError ? (
         <CameraView style={styles.camera} facing="back" barcodeScannerSettings={{ barcodeTypes: ["qr"] }}
@@ -50,6 +50,8 @@ export default function ScanScreen() {
       ) : (
         <View style={styles.card}>
           <Text style={styles.text}>{cameraError || "A câmera precisa de permissão. Em navegador, use HTTPS ou abra o link pela câmera do celular."}</Text>
+          {permission?.canAskAgain === false && <Text style={styles.text}>Abra as configurações do navegador ou do aplicativo, procure Permissões e permita o uso da câmera. Você também pode digitar o código abaixo ou definir sua localização no mapa.</Text>}
+          {cameraError && <TouchableOpacity accessibilityRole="button" onPress={() => setCameraError(null)} style={styles.button}><Text style={styles.buttonText}>Tentar câmera novamente</Text></TouchableOpacity>}
           {!cameraError && !permission?.granted && permission?.canAskAgain !== false && (
             <TouchableOpacity accessibilityRole="button" style={styles.button}
               onPress={() => void requestPermission().catch(() => setCameraError("Não foi possível acessar a câmera."))}>
@@ -69,7 +71,7 @@ export default function ScanScreen() {
       {busy && <ActivityIndicator accessibilityLabel="Consultando QR Code" />}
       {error && <View style={styles.card} accessibilityRole="alert">
         <Text style={styles.error}>{error}</Text>
-        <TouchableOpacity accessibilityRole="button" onPress={() => { locked.current = false; setError(null); }}>
+        <TouchableOpacity accessibilityRole="button" style={{ minHeight: 44, justifyContent: "center" }} onPress={() => { locked.current = false; setError(null); }}>
           <Text style={styles.link}>Tentar novamente</Text>
         </TouchableOpacity>
       </View>}

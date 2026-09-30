@@ -3,6 +3,9 @@ import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationProvider } from "@/context/NavigationContext";
+import { VisitorPreferencesProvider } from "@/context/VisitorPreferences";
+import { FocusStyles } from "@/components/FocusStyles";
+import { VisitPlanProvider } from "@/context/VisitPlan";
 
 /**
  * Layout raiz da aplicação.
@@ -12,12 +15,13 @@ import { NavigationProvider } from "@/context/NavigationContext";
 export default function RootLayout() {
   return (
     <SafeAreaProvider>
-      <NavigationProvider>
-        <StatusBar style="light" />
+      <FocusStyles />
+      <VisitorPreferencesProvider><NavigationProvider><VisitPlanProvider>
+        <StatusBar style="dark" />
         <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name="(tabs)" />
         </Stack>
-      </NavigationProvider>
+      </VisitPlanProvider></NavigationProvider></VisitorPreferencesProvider>
     </SafeAreaProvider>
   );
 }

@@ -2,7 +2,8 @@ from app.codes import Code, new_code
 from enum import Enum
 from typing import Optional
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, computed_field, field_validator
+from app.services.opening_hours import opening_summary, open_now
 from datetime import datetime
 
 
@@ -77,3 +78,13 @@ class LojaResponse(BaseModel):
     categoria_nome: Optional[str] = None
 
     model_config = ConfigDict(from_attributes=True)
+
+    @computed_field
+    @property
+    def horario_resumo(self) -> Optional[str]:
+        return opening_summary(self.status_operacional.value, self.horario_funcionamento)
+
+    @computed_field
+    @property
+    def aberto_agora(self) -> Optional[bool]:
+        return open_now(self.status_operacional.value, self.horario_funcionamento)

@@ -93,6 +93,9 @@ def test_upload_planta_piso(client, sample_data, api_key_header):
     assert data["imagem_planta_url"].startswith("/static/plantas/piso_")
 
 def test_admin_static_mount(client):
+    redirect = client.get("/admin", follow_redirects=False)
+    assert redirect.status_code == 307
+    assert redirect.headers["location"] == "/admin/"
     response = client.get("/admin/")
     assert response.status_code == 200
     assert "<div id=\"root\">" in response.text

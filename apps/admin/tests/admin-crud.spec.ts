@@ -3,13 +3,14 @@ import { test, expect } from "@playwright/test";
 test("Administrador cadastra um piso navegável, edita e remove seus registros", async ({ page, request, browser }, info) => {
   test.setTimeout(90000);
   info.annotations.push({ type: "browser-version", description: `${info.project.name} ${browser.version()} (${process.platform})` });
-  const headers = { "X-API-Key": "audit-local-only" };
+  const headers = { "X-API-Key": "audit-local-only", "X-Audit-Reason": "Validacao automatizada" };
   const suffix = `${info.project.name}-${Date.now()}`;
   const mallName = `Galeria ${suffix}`;
   const floorName = `Piso ${suffix}`;
   const categoryName = `Categoria ${suffix}`;
   const storeName = `Loja ${suffix}`;
   const created: { path: string; id: number }[] = [];
+  page.on("dialog", (d) => d.accept(d.type() === "prompt" ? "Validacao automatizada" : ""));
   const dialog = page.getByRole("dialog");
   const row = (name: string) => page.locator("tbody tr").filter({ has: page.getByText(name, { exact: true }) });
   async function save(path: string, method: string, button: string) {
@@ -23,7 +24,6 @@ test("Administrador cadastra um piso navegável, edita e remove seus registros",
     return data;
   }
   async function remove(path: string, id: number, target: ReturnType<typeof row>) {
-    page.once("dialog", (d) => d.accept());
     const pending = page.waitForResponse((r) => new URL(r.url()).pathname === `/api/admin/${path}/${id}` && r.request().method() === "DELETE");
     await target.getByRole("button", { name: "Excluir", exact: true }).click();
     expect((await pending).status()).toBe(204);
@@ -103,7 +103,9 @@ test("Administrador cadastra um piso navegável, edita e remove seus registros",
     await dialog.getByLabel("Token Personalizado", { exact: false }).fill(`QR-${suffix}-EDITADO`);
     const updatedQr = await save(`qr-codes/${qr.id}`, "PUT", "Salvar QR Code");
     expect((await (await request.get(`/api/qr-codes/${updatedQr.token}`)).json()).no.id).toBe(nodes[0].id);
-    const route = await request.post("/api/routes", { data: { origem_no_id: nodes[0].id, destino_no_id: nodes[1].id } });
+    const unconfirmed = await request.post("/api/routes", { data: { origem_no_id: nodes[0].id, destino_no_id: nodes[1].id } });
+    expect(unconfirmed.status()).toBe(409);
+    const route = await request.post("/api/routes", { data: { origem_no_id: nodes[0].id, destino_no_id: nodes[1].id, confirmar_indisponivel: true } });
     expect(route.ok()).toBeTruthy();
     expect((await route.json()).distancia_total_metros).toBe(70);
     await page.goto(`/admin/validacao?piso=${floor.id}`);

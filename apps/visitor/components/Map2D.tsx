@@ -6,9 +6,10 @@ import { MapGestureSurface } from "./MapGestureSurface";
 import { MapLegend, MapToolbar } from "./MapToolbar";
 import { clampView, framePoints, INITIAL_VIEW, zoomAt } from "./mapViewport";
 
-export function Map2D({ width, height, floor, graph, routeNodes, origin, destination, onNodePress, onLocate, locateRequest }: {
+export function Map2D({ width, height, floor, graph, routeNodes, origin, destination, highlight, pins, onNodePress, onLocate, locateRequest }: {
   width: number; height: number; floor: Piso; graph: GraphResponse; routeNodes: NoRota[];
   origin: No | null; destination?: number; onNodePress: (node: No) => void; onLocate: () => void; locateRequest: number;
+  highlight?: number; pins?: number[];
 }) {
   const bounds = useMemo(() => {
     const ratio = (floor.altura_metros || 60) / (floor.largura_metros || 100);
@@ -24,7 +25,7 @@ export function Map2D({ width, height, floor, graph, routeNodes, origin, destina
   const scaledWidth = bounds.mapWidth * view.zoom, scaledHeight = bounds.mapHeight * view.zoom;
   const scaleMeters = view.zoom >= 3 ? 2 : 5;
   const scaleWidth = scaleMeters * scaledWidth / (floor.largura_metros || 100);
-  return <View testID="floor-map" style={{ borderRadius: 16, overflow: "hidden", borderWidth: 1, borderColor: "#dbe3ed", width: width + 2, maxWidth: "100%" }}>
+  return <View testID="floor-map" style={{ borderRadius: 2, overflow: "hidden", borderWidth: 1, borderColor: "#dbe3ed", width: width + 2, maxWidth: "100%" }}>
     <MapToolbar zoom={view.zoom} onZoom={(factor) => setView((v) => zoomAt(v, v.zoom * factor, bounds))}
       onReset={() => setView(INITIAL_VIEW)} onLocate={origin ? onLocate : undefined}
       onRoute={routeNodes.length ? () => setView(framePoints(routeNodes.filter((n) => n.piso_id === floor.id), bounds)) : undefined} />
@@ -33,6 +34,7 @@ export function Map2D({ width, height, floor, graph, routeNodes, origin, destina
         <View style={{ position: "absolute", left: (width - scaledWidth) / 2 + view.x, top: (height - scaledHeight) / 2 + view.y }}>
           <FloorMap width={scaledWidth} height={scaledHeight} floorId={floor.id} imagemPlantaUrl={floor.imagem_planta_url}
             nodes={graph.nos} routeNodes={routeNodes} originNodeId={origin?.id} destinationNodeId={destination}
+            highlightNodeId={highlight} pinnedNodeIds={pins}
             detailZoom={view.zoom} onNodePress={(node) => { if (Date.now() > ignoreClickUntil.current) onNodePress(node); }} />
         </View>
       </MapGestureSurface>

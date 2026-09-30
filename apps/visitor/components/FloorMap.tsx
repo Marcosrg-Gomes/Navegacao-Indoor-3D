@@ -3,6 +3,7 @@ import Svg, {
   G,
   Image as SvgImage,
   Line,
+  Path,
   Rect,
   Text as SvgText,
 } from "react-native-svg";
@@ -20,6 +21,7 @@ type FloorMapProps = {
   originNodeId?: number | null;
   destinationNodeId?: number | null;
   highlightNodeId?: number | null;
+  pinnedNodeIds?: number[];
   /** URL externa ou caminho relativo retornado pelo upload (`/static/...`). */
   imagemPlantaUrl?: string | null;
   floorId?: number;
@@ -36,6 +38,7 @@ export function FloorMap({
   originNodeId,
   destinationNodeId,
   highlightNodeId,
+  pinnedNodeIds = [],
   imagemPlantaUrl,
   floorId,
   onNodePress,
@@ -146,7 +149,9 @@ export function FloorMap({
             : TIPO_NO_COR[node.tipo] ?? "#64748b";
 
         const transition = transitions.includes(node.tipo);
-        const label = isOrigin ? "Você está aqui" : isDestination ? "Destino" : node.tipo === "banheiro" ? "WC" : transition ? node.tipo === "elevador" ? "Elevador" : "Escada" : detailZoom >= 1.6 ? node.nome : null;
+        const pinned = pinnedNodeIds.includes(node.id);
+        const code = node.codigo.replace(/^(T|M)_LOJA_/, "");
+        const label = isOrigin ? "Você está aqui" : isDestination || isHighlight ? node.nome || "Destino" : pinned ? "★ " + node.nome : node.tipo === "banheiro" ? "WC" : transition ? node.tipo === "elevador" ? "↕ Elevador" : "↗ Escada" : detailZoom >= 1.6 ? node.nome : node.tipo === "loja" ? code : null;
         const labelWidth = Math.min(174, (label?.length || 0) * 6.5 + 16);
         const labelX = Math.max(labelWidth / 2 + 4, Math.min(width - labelWidth / 2 - 4, toX(node.coord_x) + (isOrigin || isDestination ? 0 : node.coord_x < .5 ? -labelWidth / 2 - 12 : labelWidth / 2 + 12)));
         const preferredY = toY(node.coord_y) - (isOrigin || isDestination ? 23 : 0);
@@ -156,8 +161,11 @@ export function FloorMap({
         if (label && labelY !== undefined) occupiedLabels.push({ x: labelX, y: labelY, width: labelWidth });
         return <G key={node.id} onPress={() => onNodePress?.(node)} accessibilityLabel={node.nome || node.tipo}>
           {label && labelY !== undefined && Math.abs(labelY - preferredY) > 2 && <Line x1={toX(node.coord_x)} y1={toY(node.coord_y)} x2={labelX} y2={labelY} stroke="#94a3b8" strokeWidth={1} />}
-          <Circle cx={toX(node.coord_x)} cy={toY(node.coord_y)} r={16} fill={fill} opacity={isOrigin || isDestination ? .18 : 0.01} />
-          <Circle cx={toX(node.coord_x)} cy={toY(node.coord_y)} r={radius} fill={transition && !isOrigin && !isDestination ? "#7c3aed" : fill} stroke="#ffffff" strokeWidth={2} />
+          <Circle cx={toX(node.coord_x)} cy={toY(node.coord_y)} r={22} fill={fill} opacity={isOrigin || isDestination ? .18 : 0.01} />
+          {(isHighlight || pinned) && <Rect x={toX(node.coord_x) - 14} y={toY(node.coord_y) - 14} width={28} height={28} fill="none" stroke="#9c4426" strokeWidth={3} strokeDasharray={pinned ? "4 3" : undefined} />}
+          {isOrigin && (() => { const index = routeNodes.findIndex((point) => point.id === node.id); const next = index >= 0 ? routeNodes[index + 1] : undefined; if (!next || next.piso_id !== node.piso_id) return null; const dx = toX(next.coord_x) - toX(node.coord_x), dy = toY(next.coord_y) - toY(node.coord_y); if (Math.hypot(dx, dy) < 1) return null; return <Path d="M 15 -6 L 23 0 L 15 6" transform={`translate(${toX(node.coord_x)}, ${toY(node.coord_y)}) rotate(${Math.atan2(dy, dx) * 180 / Math.PI})`} fill="none" stroke="#166534" strokeWidth={3} accessibilityLabel="Sentido inicial do percurso, não orientação do aparelho" />; })()}
+          {isDestination ? <Rect testID="destination-marker" x={toX(node.coord_x) - radius} y={toY(node.coord_y) - radius} width={radius * 2} height={radius * 2} fill={fill} stroke="#ffffff" strokeWidth={2} />
+            : <Circle cx={toX(node.coord_x)} cy={toY(node.coord_y)} r={radius} fill={transition && !isOrigin ? "#7c3aed" : fill} stroke="#ffffff" strokeWidth={2} />}
           {label && labelY !== undefined && <G>
             <Rect x={labelX - labelWidth / 2} y={labelY - 11} width={labelWidth} height={22} rx={6} fill={isOrigin ? "#166534" : isDestination ? "#be123c" : "#fff"} stroke={isOrigin || isDestination ? "#fff" : "#cbd5e1"} strokeWidth={1} />
             <SvgText x={labelX} y={labelY + 4} fontSize={11} fontFamily="sans-serif" fontWeight="600" textAnchor="middle" fill={isOrigin || isDestination ? "#fff" : "#334155"}>{label.length > 25 ? label.slice(0, 23) + "…" : label}</SvgText>

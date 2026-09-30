@@ -15,6 +15,7 @@ import {
   type Loja,
 } from "@/types";
 import { colors } from "@/constants/colors";
+import { WayfindingIcon } from "./WayfindingIcon";
 
 type SearchBarProps = {
   /** Chamado quando o usuário seleciona um POI da lista de sugestões. */
@@ -31,7 +32,7 @@ type SearchBarProps = {
 export function SearchBar({
   onSelect,
   shoppingId,
-  placeholder = "Buscar loja, serviço ou categoria…",
+  placeholder = "Buscar loja ou serviço",
 }: SearchBarProps) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<Loja[]>([]);
@@ -113,9 +114,7 @@ export function SearchBar({
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
-        <Text accessible={false} style={styles.icon}>
-          🔍
-        </Text>
+        <View style={{ marginRight: 8 }}><WayfindingIcon name="search" size={20} color={colors.textMuted} /></View>
         <TextInput
           style={styles.input}
           value={query}
@@ -130,11 +129,12 @@ export function SearchBar({
         {query.length > 0 && (
           <TouchableOpacity
             onPress={clearSearch}
+            style={styles.touchTarget}
             hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
             accessibilityRole="button"
             accessibilityLabel="Limpar busca"
           >
-            <Text style={styles.clearIcon}>✕</Text>
+            <WayfindingIcon name="close" size={18} color={colors.textMuted} />
           </TouchableOpacity>
         )}
       </View>
@@ -152,6 +152,7 @@ export function SearchBar({
               <Text style={styles.errorText}>{error}</Text>
               <TouchableOpacity
                 onPress={() => void search(query)}
+                style={styles.touchTarget}
                 accessibilityRole="button"
                 accessibilityLabel="Tentar buscar novamente"
               >
@@ -183,7 +184,7 @@ export function SearchBar({
                     accessibilityHint="Seleciona este destino para calcular a rota"
                   >
                     <View style={styles.resultRow}>
-                      <Text style={styles.resultName} numberOfLines={1}>
+                      <Text style={styles.resultName}>
                         {item.nome}
                       </Text>
                       {status !== "aberto" && (
@@ -232,31 +233,18 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: colors.surface,
-    borderRadius: 12,
+    borderRadius: 10,
     paddingHorizontal: 14,
-    height: 48,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.08,
-    shadowRadius: 8,
-    elevation: 3,
+    minHeight: 56,
     borderWidth: 1,
     borderColor: colors.border,
   },
-  icon: {
-    fontSize: 16,
-    marginRight: 8,
-  },
+  touchTarget: { minWidth: 44, minHeight: 44, alignItems: "center", justifyContent: "center" },
   input: {
     flex: 1,
-    fontSize: 15,
+    fontSize: 17,
     color: colors.text,
-    paddingVertical: 0,
-  },
-  clearIcon: {
-    fontSize: 16,
-    color: colors.textMuted,
-    paddingLeft: 8,
+    paddingVertical: 10,
   },
   loadingBar: {
     minHeight: 28,
@@ -266,19 +254,14 @@ const styles = StyleSheet.create({
   },
   resultsContainer: {
     backgroundColor: colors.surface,
-    borderRadius: 12,
+    borderRadius: 10,
     marginTop: 4,
     maxHeight: 220,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.12,
-    shadowRadius: 12,
-    elevation: 5,
     borderWidth: 1,
     borderColor: colors.border,
   },
   resultsList: {
-    borderRadius: 12,
+    borderRadius: 2,
   },
   resultItem: {
     paddingHorizontal: 16,

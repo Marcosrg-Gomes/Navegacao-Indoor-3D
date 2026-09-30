@@ -8,6 +8,7 @@ from app.models.aresta import Aresta
 from app.models.loja import Loja
 from app.models.categoria import Categoria
 from app.models.qr_code import QRCode
+from app.models.auditoria import Auditoria, Diagnostico
 
 __all__ = [
     "Shopping",
@@ -17,4 +18,6 @@ __all__ = [
     "Loja",
     "Categoria",
     "QRCode",
+    "Auditoria",
+    "Diagnostico",
 ]

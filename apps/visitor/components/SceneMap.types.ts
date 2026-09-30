@@ -1,8 +1,11 @@
 import type { ReactNode } from "react";
-import type { NoRota } from "../types";
+import type { EtapaRota, NoRota } from "../types";
 
 export type SceneMapProps = {
+  initialMode?: "auto" | "3d" | "2d";
+  previewStep?: EtapaRota | null;
   shoppingId?: number;
+  navigationRevision?: string | null;
   floorId: number;
   routeNodes: NoRota[];
   originNodeId?: number;

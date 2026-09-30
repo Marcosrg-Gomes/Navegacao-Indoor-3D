@@ -4,8 +4,9 @@ import { Mesh, MeshStandardMaterial, Object3D } from "three";
 import type { Scene, SceneFloor } from "../types/scene";
 import { sceneTransform } from "./sceneTransform";
 
-export function ScenePois({ model, scene, floor, origin, destination, onPoiPress }: {
+export function ScenePois({ model, scene, floor, origin, destination, highlight, onPoiPress }: {
   model: Object3D; scene: Scene; floor: SceneFloor; origin?: number; destination?: number; onPoiPress: (id: number) => void;
+  highlight?: number;
 }) {
   const invalidate = useThree((state) => state.invalidate);
   useEffect(() => {
@@ -23,11 +24,12 @@ export function ScenePois({ model, scene, floor, origin, destination, onPoiPress
         material.depthWrite = !otherFloor;
         material.emissive.copy(original.emissive);
         if (poi && destination !== undefined && poi.anchor_node_id === destination) { material.emissive.set("#f43f5e"); material.emissiveIntensity = .65; }
+        else if (poi && poi.anchor_node_id === highlight) { material.emissive.set("#d28b33"); material.emissiveIntensity = .6; }
         else material.emissiveIntensity = 1;
       }
     });
     invalidate();
-  }, [model, scene, floor.codigo, destination, invalidate]);
+  }, [model, scene, floor.codigo, destination, highlight, invalidate]);
   function select(event: ThreeEvent<MouseEvent>) {
     if (event.delta > 4) return;
     // Raycasting can intersect meshes hidden for the other floor/cutaway.
@@ -40,7 +42,7 @@ export function ScenePois({ model, scene, floor, origin, destination, onPoiPress
     {scene.anchors.filter((a) => a.piso_id === floor.piso_id && (a.node_id === origin || a.node_id === destination || a.type === "elevador" || a.type === "escada_rolante")).map((anchor) => {
       const position = sceneTransform(floor, anchor.coord_x, anchor.coord_y); position[1] += .3;
       return <mesh key={anchor.node_id} position={position} renderOrder={11} name={anchor.codigo}>
-        {anchor.type === "elevador" ? <boxGeometry args={[.5, .45, .5]} /> : <sphereGeometry args={[.25, 12, 8]} />}
+        {(anchor.node_id === destination && anchor.node_id !== origin) || (anchor.type === "elevador" && anchor.node_id !== origin) ? <boxGeometry args={[.5, .45, .5]} /> : <sphereGeometry args={[.25, 12, 8]} />}
         <meshBasicMaterial depthTest={false} color={anchor.node_id === origin ? "#16a34a" : anchor.node_id === destination ? "#e11d48" : "#7c3aed"} />
       </mesh>;
     })}

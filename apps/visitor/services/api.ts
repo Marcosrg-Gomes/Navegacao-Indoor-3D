@@ -14,7 +14,8 @@ const REQUEST_TIMEOUT_MS = 10_000;
 export class ApiError extends Error {
   constructor(
     message: string,
-    public readonly status?: number
+    public readonly status?: number,
+    public readonly code?: string
   ) {
     super(message);
     this.name = "ApiError";
@@ -43,6 +44,39 @@ function normalizarBaseUrl(value: string): string {
 }
 
 const BASE_URL = getBaseUrl();
+
+type FailureType = "rota" | "qr" | "mapa_2d" | "mapa_3d";
+type FailureCode = "rede" | "timeout" | "resposta_invalida" | "indisponivel" | "sem_rota";
+const pendingDiagnostics = new Map<string, { tipo: FailureType; codigo: FailureCode }>();
+const lastDiagnostic = new Map<string, number>();
+let sendingDiagnostics = false;
+
+async function flushDiagnostics() {
+  if (sendingDiagnostics || pendingDiagnostics.size === 0) return;
+  sendingDiagnostics = true;
+  try {
+    for (const [key, event] of pendingDiagnostics) {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 3000);
+      try {
+        const response = await fetch(`${BASE_URL}/api/diagnostics/events`, {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(event), signal: controller.signal,
+        });
+        if (!response.ok) break;
+        pendingDiagnostics.delete(key);
+      } catch { break; } finally { clearTimeout(timeout); }
+    }
+  } finally { sendingDiagnostics = false; }
+}
+
+export function reportDiagnostic(tipo: FailureType, codigo: FailureCode) {
+  const key = `${tipo}:${codigo}`;
+  if (Date.now() - (lastDiagnostic.get(key) || 0) < 30_000) return;
+  lastDiagnostic.set(key, Date.now());
+  pendingDiagnostics.set(key, { tipo, codigo });
+  void flushDiagnostics();
+}
 
 function detailMessage(detail: unknown, fallback: string): string {
   if (typeof detail === "string") return detail;
@@ -92,16 +126,21 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
           : undefined;
       throw new ApiError(
         detailMessage(detail, res.statusText || "Erro na API"),
-        res.status
+        res.status,
+        res.headers.get("X-Error-Code") || undefined
       );
     }
 
     if (data === null && res.status !== 204) {
-      throw new ApiError("A API retornou uma resposta inválida.", res.status);
+      throw new ApiError("A API retornou uma resposta inválida.", res.status, "RESPOSTA_INVALIDA");
     }
 
+    void flushDiagnostics();
     return data as T;
   } catch (error) {
+    const tipo: FailureType = path.startsWith("/qr-codes/") ? "qr" : path.startsWith("/routes") ? "rota" : path.endsWith("/scene") ? "mapa_3d" : "mapa_2d";
+    if (!(error instanceof ApiError)) reportDiagnostic(tipo, controller.signal.aborted ? "timeout" : "rede");
+    else if (error.code === "RESPOSTA_INVALIDA") reportDiagnostic(tipo, "resposta_invalida");
     if (error instanceof ApiError) throw error;
     if (controller.signal.aborted) {
       throw new ApiError(
@@ -196,17 +235,26 @@ export function resolveQrCode(scannedValue: string) {
   return request<QRCodeResolveResponse>(`/qr-codes/${encodeURIComponent(token)}`);
 }
 
-export function calculateRoute(origemNoId: number, destinoNoId: number, acessivel = false) {
+export function calculateRoute(origemNoId: number, destinoNoId: number, acessivel = false, confirmarIndisponivel = false) {
   return request<RotaResponse>("/routes", {
     method: "POST",
     body: JSON.stringify({
       origem_no_id: origemNoId,
       destino_no_id: destinoNoId,
       acessivel,
+      confirmar_indisponivel: confirmarIndisponivel,
     }),
   });
 }
 
 export function getScene(shoppingId: number) {
   return request<import("../types/scene").Scene>(`/shoppings/${shoppingId}/scene`);
+}
+
+export function getRouteDistances(originId: number, acessivel: boolean) {
+  return request<Record<string, number>>(`/routes/distances?origem_no_id=${originId}&acessivel=${acessivel}`);
+}
+
+export function getNavigationState(shoppingId: number) {
+  return request<{ revisao: string; ativo: boolean }>(`/shoppings/${shoppingId}/navigation-state`);
 }

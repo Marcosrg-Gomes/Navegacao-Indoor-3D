@@ -1,46 +1,57 @@
 import React from "react";
 import { Tabs } from "expo-router";
-import { Text, StyleSheet } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
+import { WayfindingIcon } from "@/components/WayfindingIcon";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { colors } from "@/constants/colors";
+import { useNavigation } from "@/context/NavigationContext";
+import { VisitorTabBar } from "@/components/VisitorTabBar";
 
-/**
- * Layout de abas com 3 tabs: Mapa, Scan e Explorar.
- */
+/** Quatro destinos estáveis, com rótulos legíveis e área segura no celular. */
 export default function TabsLayout() {
+  const insets = useSafeAreaInsets();
+  const { shopping, floor } = useNavigation();
   return (
     <Tabs
+      tabBar={(props) => <VisitorTabBar {...props} />}
       screenOptions={{
+        header: () => <View style={[styles.brand, { paddingTop: insets.top + 10 }]}><View style={styles.brandMark} /><Text style={styles.brandName}>{shopping?.nome || "Guia do shopping"}</Text><Text style={styles.brandCaption}>{floor?.nome || "Bem-vindo"}</Text></View>,
         headerStyle: {
-          backgroundColor: "#1a2332",
+          backgroundColor: colors.primaryDark,
         },
         headerTintColor: "#ffffff",
         headerTitleStyle: {
-          fontWeight: "700",
+          fontWeight: "500",
           fontSize: 17,
         },
-        tabBarStyle: styles.tabBar,
-        tabBarActiveTintColor: colors.primary,
-        tabBarInactiveTintColor: colors.textMuted,
-        tabBarLabelStyle: styles.tabLabel,
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
-          title: "Mapa",
+          title: "Início",
           headerTitle: "Navegação Indoor",
           tabBarIcon: ({ color }) => (
-            <Text style={[styles.tabIcon, { color }]}>🗺️</Text>
+            <WayfindingIcon name="home" color={color} size={24} />
           ),
+        }}
+      />
+      <Tabs.Screen
+        name="map"
+        options={{
+          title: "Mapa",
+          headerTitle: "Mapa do shopping",
+          tabBarIcon: ({ color }) => <WayfindingIcon name="map" color={color} size={24} />,
         }}
       />
       <Tabs.Screen
         name="scan"
         options={{
-          title: "Scan",
+          title: "Ler QR",
+          tabBarAccessibilityLabel: "Ler QR Code",
           headerTitle: "Escanear QR Code",
           tabBarIcon: ({ color }) => (
-            <Text style={[styles.tabIcon, { color }]}>📷</Text>
+            <WayfindingIcon name="scan" color={color} size={24} />
           ),
         }}
       />
@@ -48,9 +59,9 @@ export default function TabsLayout() {
         name="explore"
         options={{
           title: "Explorar",
-          headerTitle: "Pontos de Interesse",
+          headerTitle: "Explorar o shopping",
           tabBarIcon: ({ color }) => (
-            <Text style={[styles.tabIcon, { color }]}>📋</Text>
+            <WayfindingIcon name="explore" color={color} size={24} />
           ),
         }}
       />
@@ -59,19 +70,8 @@ export default function TabsLayout() {
 }
 
 const styles = StyleSheet.create({
-  tabBar: {
-    backgroundColor: "#ffffff",
-    borderTopWidth: 1,
-    borderTopColor: colors.border,
-    height: 60,
-    paddingBottom: 6,
-    paddingTop: 6,
-  },
-  tabLabel: {
-    fontSize: 11,
-    fontWeight: "600",
-  },
-  tabIcon: {
-    fontSize: 22,
-  },
+  brand: { minHeight: 54, paddingHorizontal: 18, paddingBottom: 10, flexDirection: "row", alignItems: "center", gap: 10, backgroundColor: colors.bg, borderBottomWidth: 1, borderBottomColor: colors.border },
+  brandMark: { width: 8, height: 25, borderRadius: 4, backgroundColor: colors.sun },
+  brandName: { color: colors.text, fontSize: 17, fontWeight: "700", flex: 1 },
+  brandCaption: { color: colors.textMuted, fontSize: 14, fontWeight: "600" },
 });

@@ -6,6 +6,7 @@ import os
 test_database_url = os.environ.get("TEST_DATABASE_URL")
 os.environ["DATABASE_URL"] = test_database_url or "sqlite:///:memory:"
 os.environ["ADMIN_API_KEY"] = "test-api-key"
+os.environ["ADMIN_API_KEYS"] = "{}"
 os.environ["SECRET_KEY"] = "test-secret-key"
 os.environ["DEBUG"] = "true"
 
@@ -63,7 +64,7 @@ def client(db_session):
 @pytest.fixture
 def api_key_header():
     settings = get_settings()
-    return {"X-API-Key": settings.ADMIN_API_KEY}
+    return {"X-API-Key": settings.ADMIN_API_KEY, "X-Audit-Reason": "Validacao automatizada"}
 
 
 @pytest.fixture

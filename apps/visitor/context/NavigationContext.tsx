@@ -15,7 +15,10 @@ import {
   listShoppings,
   listPois,
   getPoi,
+  getNavigationState,
 } from "@/services/api";
+import { AppState } from "react-native";
+import { getStatusOperacional } from "@/types";
 import type {
   GraphResponse,
   Loja,
@@ -24,6 +27,9 @@ import type {
   RotaResponse,
   Shopping,
 } from "@/types";
+import { useVisitorPreferences } from "./VisitorPreferences";
+
+export type LocationSource = "qr" | "manual" | "arrival";
 
 type NavigationContextValue = {
   loading: boolean;
@@ -35,17 +41,28 @@ type NavigationContextValue = {
   floor: Piso | null;
   originNode: No | null;
   destinationLoja: Loja | null;
+  destinationNode: No | null;
+  destinationNodeId: number | undefined;
+  destinationName: string | undefined;
+  originUpdate: { source: LocationSource; at: number } | null;
+  routeError: string | null;
+  routeStale: boolean;
+  mapError: string | null;
+  navigationRevision: string | null;
   route: RotaResponse | null;
   routeLoading: boolean;
+  arrivalLoading: boolean;
   acessivel: boolean;
   hasArrived: boolean;
   setAcessivel: (value: boolean) => void;
   selectShopping: (id: number) => Promise<void>;
   selectFloor: (id: number) => Promise<void>;
   /** Ajusta automaticamente shopping, piso e grafo para a origem lida/selecionada. */
-  setOriginNode: (node: No | null) => Promise<void>;
+  setOriginNode: (node: No | null, source?: LocationSource) => Promise<void>;
   setDestinationLoja: (loja: Loja | null) => Promise<void>;
-  completeNavigation: () => void;
+  setDestinationNode: (node: No) => Promise<void>;
+  returnToEntry: () => Promise<void>;
+  completeNavigation: () => Promise<void>;
   clearRoute: () => void;
   clearError: () => void;
   refresh: () => Promise<void>;
@@ -59,6 +76,7 @@ function errorMessage(error: unknown, fallback: string): string {
 }
 
 export function NavigationProvider({ children }: { children: ReactNode }) {
+  const { remember } = useVisitorPreferences();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [shoppings, setShoppings] = useState<Shopping[]>([]);
@@ -71,7 +89,18 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
     null
   );
   const [route, setRoute] = useState<RotaResponse | null>(null);
+  const [destinationNode, setDestinationNodeState] = useState<No | null>(null);
+  const [originUpdate, setOriginUpdate] = useState<{ source: LocationSource; at: number } | null>(null);
+  const [entryNode, setEntryNode] = useState<No | null>(null);
+  const [routeError, setRouteError] = useState<string | null>(null);
+  const [routeStale, setRouteStale] = useState(false);
+  const [mapError, setMapError] = useState<string | null>(null);
+  const [navigationRevision, setNavigationRevision] = useState<string | null>(null);
+  const [confirmedUnavailable, setConfirmedUnavailable] = useState(false);
+  const destinationNodeId = destinationLoja?.no_id ?? destinationNode?.id;
+  const destinationName = destinationLoja?.nome ?? destinationNode?.nome ?? undefined;
   const [routeLoading, setRouteLoading] = useState(false);
+  const [arrivalLoading, setArrivalLoading] = useState(false);
   const [acessivel, setAcessivel] = useState(false);
   const [hasArrived, setHasArrived] = useState(false);
   const routeRequest = useRef(0);
@@ -91,6 +120,7 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
     const request = ++graphRequest.current;
     const data = await getFloorGraph(id);
     if (request === graphRequest.current) setGraph(data);
+    return data;
   }, []);
 
   const loadFloors = useCallback(
@@ -145,29 +175,31 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const computeRoute = useCallback(
-    async (origem: No, destinoNoId: number) => {
+    async (origem: No, destinoNoId: number, preserve = false, allowUnavailable = confirmedUnavailable) => {
       const request = ++routeRequest.current;
       setRouteLoading(true);
-      setRoute(null);
-      setError(null);
+      if (!preserve) setRoute(null);
+      setRouteError(null);
+      setRouteStale(preserve);
       try {
-        const result = await calculateRoute(origem.id, destinoNoId, acessivel);
+        const result = await calculateRoute(origem.id, destinoNoId, acessivel, allowUnavailable);
         if (request !== routeRequest.current) return;
         if (!result.sucesso) {
-          setRoute(null);
-          setError("Não foi possível encontrar uma rota para este destino.");
+          setRouteError("Não foi possível encontrar uma rota para este destino.");
+          setRouteStale(true);
           return;
         }
         setRoute(result);
+        setRouteStale(false);
       } catch (err) {
         if (request !== routeRequest.current) return;
-        setRoute(null);
-        setError(errorMessage(err, "Não foi possível calcular a rota."));
+        setRouteStale(true);
+        setRouteError(errorMessage(err, "Não foi possível calcular a rota."));
       } finally {
         if (request === routeRequest.current) setRouteLoading(false);
       }
     },
-    [acessivel]
+    [acessivel, confirmedUnavailable]
   );
 
   /**
@@ -176,7 +208,7 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
    * anterior depois de uma leitura válida.
    */
   const activateFloorForNode = useCallback(
-    async (node: No): Promise<Piso> => {
+    async (node: No): Promise<{ floor: Piso; node: No }> => {
       let knownShoppings = shoppings;
       if (knownShoppings.length === 0) {
         knownShoppings = await listShoppings();
@@ -212,8 +244,10 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
       }
 
       setFloorId(matchedFloor.id);
-      await loadGraph(matchedFloor.id);
-      return matchedFloor;
+      const data = await loadGraph(matchedFloor.id);
+      const current = data.nos.find((item) => item.id === node.id);
+      if (!current) throw new Error("Este ponto de partida não está mais disponível. Leia outro QR Code ou selecione um ponto ativo.");
+      return { floor: matchedFloor, node: current };
     },
     [floors, loadGraph, shoppings]
   );
@@ -223,10 +257,17 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
       setLoading(true);
       routeRequest.current += 1;
       setRouteLoading(false);
+      setArrivalLoading(false);
       setError(null);
       setShoppingId(id);
+      setNavigationRevision(null);
       setOriginNodeState(null);
+      setOriginUpdate(null);
+      setEntryNode(null);
       setDestinationLojaState(null);
+      setDestinationNodeState(null);
+      setRouteError(null);
+      setMapError(null);
       setRoute(null);
       setHasArrived(false);
       try {
@@ -242,24 +283,28 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
 
   const selectFloor = useCallback(
     async (id: number) => {
-      setError(null);
+      setMapError(null);
       setFloorId(id);
       setGraph(null);
       try {
         await loadGraph(id);
       } catch (err) {
-        setError(errorMessage(err, "Não foi possível carregar o mapa deste piso."));
+        setMapError(errorMessage(err, "Não foi possível carregar o mapa deste piso."));
       }
     },
     [loadGraph]
   );
 
   const setOriginNode = useCallback(
-    async (node: No | null) => {
-      routeRequest.current += 1;
+    async (node: No | null, source: LocationSource = "manual") => {
+      const request = ++routeRequest.current;
+      setRouteError(null);
+      setRouteStale(false);
       setRouteLoading(false);
+      setArrivalLoading(false);
       if (!node) {
         setOriginNodeState(null);
+        setOriginUpdate(null);
         setRoute(null);
         setHasArrived(false);
         return;
@@ -267,112 +312,291 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
 
       setError(null);
       try {
-        const targetFloor = await activateFloorForNode(node);
+        const active = await activateFloorForNode(node);
+        const targetFloor = active.floor;
+        node = active.node;
+        if (request !== routeRequest.current) return;
         const shoppingChanged =
           shoppingId !== null && shoppingId !== targetFloor.shopping_id;
 
         setOriginNodeState(node);
+        setOriginUpdate({ source, at: Date.now() });
+        if (node.tipo === "entrada") setEntryNode(node);
         if (shoppingChanged) {
           // Um destino de outro shopping viola RN04 e não deve ser reutilizado.
           setDestinationLojaState(null);
+          setDestinationNodeState(null);
+          if (node.tipo !== "entrada") setEntryNode(null);
           setRoute(null);
           setHasArrived(false);
           return;
         }
 
-        if (destinationLoja?.no_id === node.id) {
+        if (destinationNodeId === node.id) {
+          setRoute(null);
           setHasArrived(true);
           return;
         }
 
         setHasArrived(false);
-        if (destinationLoja) {
-          await computeRoute(node, destinationLoja.no_id);
+        if (destinationNodeId) {
+          await computeRoute(node, destinationNodeId);
         } else {
           setRoute(null);
         }
       } catch (err) {
+        if (request !== routeRequest.current) return;
         const message = errorMessage(err, "Não foi possível definir a origem.");
         setError(message);
         throw new Error(message);
       }
     },
-    [activateFloorForNode, computeRoute, destinationLoja, shoppingId]
+    [activateFloorForNode, computeRoute, destinationNodeId, shoppingId]
   );
 
   const setDestinationLoja = useCallback(
     async (loja: Loja | null) => {
+      const allowUnavailable = !!loja && getStatusOperacional(loja) !== "aberto";
+      setConfirmedUnavailable(allowUnavailable);
       setError(null);
-      routeRequest.current += 1;
+      const request = ++routeRequest.current;
       setRouteLoading(false);
+      setArrivalLoading(false);
       setRoute(null);
       setHasArrived(false);
+      setRouteError(null);
+      setRouteStale(false);
       if (loja && shoppingId !== null) {
         try {
           const destinationId = loja.id;
           const registered = await listPois({ shopping_id: shoppingId });
+          if (request !== routeRequest.current) return;
           const current = registered.find((item) => item.id === destinationId);
           if (!current) throw new Error("Este destino não está disponível no shopping da sua origem.");
           loja = current;
         } catch (err) {
+          if (request !== routeRequest.current) return;
           setError(errorMessage(err, "Falha ao verificar o destino."));
           return;
         }
       }
       setDestinationLojaState(loja);
+      setDestinationNodeState(null);
+      if (loja && shopping) remember(shopping.codigo, `poi:${loja.codigo}`);
       if (!loja || !originNode) return;
 
       if (originNode.id === loja.no_id) {
         setHasArrived(true);
         return;
       }
-      await computeRoute(originNode, loja.no_id);
+      await computeRoute(originNode, loja.no_id, false, allowUnavailable);
     },
-    [computeRoute, originNode, shoppingId]
+    [computeRoute, originNode, shoppingId, shopping, remember]
   );
+
+  const setDestinationNode = useCallback(async (candidate: No) => {
+    const request = ++routeRequest.current;
+    setRouteLoading(false);
+    setArrivalLoading(false);
+    setRoute(null);
+    setRouteError(null);
+    setRouteStale(false);
+    setError(null);
+    setConfirmedUnavailable(false);
+    try {
+      if (!shopping) throw new Error("Escolha um shopping.");
+      const activeFloors = await listFloors(shopping.id);
+      if (!activeFloors.some((item) => item.id === candidate.piso_id)) throw new Error("Este ponto não pertence ao shopping selecionado.");
+      const [data, pois] = await Promise.all([getFloorGraph(candidate.piso_id), listPois({ shopping_id: shopping.id })]);
+      if (request !== routeRequest.current) return;
+      const node = data.nos.find((item) => item.id === candidate.id);
+      if (!node) throw new Error("Este ponto não está mais disponível.");
+      setDestinationLojaState(null);
+      setDestinationNodeState(node);
+      setHasArrived(originNode?.id === node.id);
+      const poi = pois.find((item) => item.no_id === node.id);
+      remember(shopping.codigo, poi ? `poi:${poi.codigo}` : `node:${node.codigo}`);
+      if (originNode && originNode.id !== node.id) await computeRoute(originNode, node.id, false, false);
+    } catch (err) {
+      if (request === routeRequest.current) setError(errorMessage(err, "Não foi possível verificar o destino."));
+    }
+  }, [originNode, shopping, remember, computeRoute]);
+
+  const returnToEntry = useCallback(async () => {
+    const request = routeRequest.current;
+    try {
+      if (!shoppingId) throw new Error("Escolha um shopping para consultar as entradas.");
+      const activeFloors = await listFloors(shoppingId);
+      const graphs = await Promise.all(activeFloors.map((item) => getFloorGraph(item.id)));
+      if (request !== routeRequest.current) return;
+      const entries = graphs.flatMap((item) => item.nos.filter((node) => node.tipo === "entrada").sort((a, b) => a.id - b.id));
+      const entry = entries.find((node) => node.id === entryNode?.id) || entries[0];
+      if (!entry) throw new Error("Nenhuma entrada ativa foi cadastrada neste shopping.");
+      await setDestinationNode(entry);
+    } catch (err) { if (request === routeRequest.current) setError(errorMessage(err, "Não foi possível consultar a entrada.")); }
+  }, [entryNode, shoppingId, setDestinationNode]);
 
   const clearRoute = useCallback(() => {
     routeRequest.current += 1;
     setRouteLoading(false);
+    setArrivalLoading(false);
     setDestinationLojaState(null);
+    setDestinationNodeState(null);
     setRoute(null);
+    setRouteError(null);
+    setRouteStale(false);
     setHasArrived(false);
     setError(null);
   }, []);
 
-  const completeNavigation = useCallback(() => {
-    if (destinationLoja && route && !routeLoading) {
+  const completeNavigation = useCallback(async () => {
+    if (!shoppingId || !destinationNodeId || !route || routeLoading || arrivalLoading || routeStale) return;
+    const endpoint = route.nos[route.nos.length - 1];
+    if (!endpoint || endpoint.id !== destinationNodeId) return;
+
+    const request = ++routeRequest.current;
+    setArrivalLoading(true);
+    setError(null);
+    try {
+      const state = await getNavigationState(shoppingId);
+      if (request !== routeRequest.current) return;
+      if (!state.ativo || state.revisao !== route.revisao) {
+        setRouteStale(true);
+        setRouteError("O mapa mudou. Recalcule o trajeto antes de confirmar a chegada.");
+        return;
+      }
+      // Use o nó cadastrado pela API, inclusive quando o destino está em outro piso.
+      const destinationGraph = graph?.piso_id === endpoint.piso_id
+        ? graph : await getFloorGraph(endpoint.piso_id);
+      if (request !== routeRequest.current) return;
+      const destinationNode = destinationGraph.nos.find((node) => node.id === endpoint.id);
+      if (!destinationNode) throw new Error("O destino não está disponível no mapa. Leia um QR Code para atualizar sua posição.");
+      graphRequest.current += 1;
+      setGraph(destinationGraph);
+      setFloorId(destinationNode.piso_id);
+      setOriginNodeState(destinationNode);
+      setOriginUpdate({ source: "arrival", at: Date.now() });
+      setRoute(null);
       setHasArrived(true);
-      setError(null);
+    } catch (err) {
+      if (request === routeRequest.current) setError(errorMessage(err, "Não foi possível confirmar a chegada. Tente novamente."));
+    } finally {
+      if (request === routeRequest.current) setArrivalLoading(false);
     }
-  }, [destinationLoja, route, routeLoading]);
+  }, [shoppingId, destinationNodeId, route, routeLoading, arrivalLoading, graph, routeStale]);
 
   const recalculate = useCallback(async () => {
-    if (!originNode || !destinationLoja) return;
+    if (!originNode || !destinationNodeId || arrivalLoading) return;
+    const request = ++routeRequest.current;
+    setRouteLoading(true);
+    setRouteError(null);
+    setRouteStale(true);
     setHasArrived(false);
     try {
-      const current = await getPoi(destinationLoja.id);
+      const [current, activeFloors] = await Promise.all([
+        destinationLoja ? getPoi(destinationLoja.id) : Promise.resolve(null),
+        shoppingId ? listFloors(shoppingId) : Promise.resolve([]),
+      ]);
+      if (request !== routeRequest.current) return;
       setDestinationLojaState(current);
-      if (floorId) await loadGraph(floorId);
-      await computeRoute(originNode, current.no_id);
+      setFloors(activeFloors);
+      const currentFloor = activeFloors.find((item) => item.id === floorId) || activeFloors[0];
+      setFloorId(currentFloor?.id ?? null);
+      if (currentFloor) {
+        try { await loadGraph(currentFloor.id); setMapError(null); }
+        catch (err) { setMapError(errorMessage(err, "Não foi possível atualizar o mapa.")); }
+      }
+      if (request !== routeRequest.current) return;
+      await computeRoute(originNode, current?.no_id ?? destinationNodeId, true);
     } catch (err) {
-      setRoute(null);
-      setError(errorMessage(err, "Falha ao atualizar a rota."));
+      if (request !== routeRequest.current) return;
+      setRouteLoading(false);
+      setRouteError(errorMessage(err, "Falha ao atualizar a rota."));
     }
-  }, [originNode, destinationLoja, floorId, loadGraph, computeRoute]);
+  }, [originNode, destinationLoja, destinationNodeId, floorId, loadGraph, computeRoute, arrivalLoading, shoppingId]);
+
+  const liveNavigation = useRef({ route, routeLoading, arrivalLoading, originNode, destinationNodeId, hasArrived, floorId, loading, recalculate });
+  liveNavigation.current = { route, routeLoading, arrivalLoading, originNode, destinationNodeId, hasArrived, floorId, loading, recalculate };
+  useEffect(() => {
+    if (!shoppingId) return;
+    let live = true, inFlight = false, pending = false, disconnected = false;
+    let revision: string | undefined, lastAutoRevision: string | undefined;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    async function check() {
+      if (!live || inFlight) return;
+      clearTimeout(timer);
+      if (AppState.currentState !== "active" || liveNavigation.current.loading) {
+        timer = setTimeout(check, 2000); return;
+      }
+      inFlight = true;
+      try {
+        const state = await getNavigationState(shoppingId!);
+        if (!live) return;
+        const changed = revision !== undefined && revision !== state.revisao;
+        revision = state.revisao;
+        setNavigationRevision(state.revisao);
+        const current = liveNavigation.current;
+        if (!state.ativo) {
+          setRouteStale(true);
+          setRouteError("Este shopping está indisponível. Leia um QR Code de um shopping ativo para continuar.");
+          setRoute(null); setGraph(null); setFloorId(null); setFloors([]);
+          setOriginNodeState(null); setOriginUpdate(null); setEntryNode(null); setHasArrived(false);
+          return;
+        }
+        pending = pending || changed || disconnected ||
+          (!!current.route && current.route.revisao !== state.revisao && lastAutoRevision !== state.revisao);
+        disconnected = false;
+        if (pending && !current.routeLoading && !current.arrivalLoading) {
+          pending = false; lastAutoRevision = state.revisao;
+          if (current.originNode && current.destinationNodeId && !current.hasArrived) {
+            setRouteStale(true);
+            await current.recalculate();
+          } else {
+            const graphVersion = ++graphRequest.current;
+            const activeFloors = await listFloors(shoppingId!);
+            const selected = activeFloors.find((item) => item.id === current.floorId) || activeFloors[0];
+            const data = selected ? await getFloorGraph(selected.id) : null;
+            const originGraph = current.originNode && current.originNode.piso_id !== selected?.id && activeFloors.some((item) => item.id === current.originNode!.piso_id)
+              ? await getFloorGraph(current.originNode.piso_id) : data;
+            if (!live || graphVersion !== graphRequest.current) return;
+            setFloors(activeFloors); setFloorId(selected?.id ?? null); setGraph(data);
+            if (current.originNode && (!activeFloors.some((item) => item.id === current.originNode!.piso_id) ||
+                (originGraph?.piso_id === current.originNode.piso_id && !originGraph.nos.some((item) => item.id === current.originNode!.id)))) {
+              setOriginNodeState(null); setOriginUpdate(null); setHasArrived(false);
+              setError("Seu ponto de partida está indisponível. Leia outro QR Code ou selecione uma origem ativa.");
+            }
+          }
+        }
+      } catch {
+        if (live) {
+          disconnected = true;
+          if (liveNavigation.current.route && !liveNavigation.current.arrivalLoading) {
+            setRouteStale(true);
+            setRouteError("Não foi possível verificar mudanças no mapa. Aguardando conexão para atualizar a rota.");
+          }
+        }
+      } finally {
+        inFlight = false;
+        if (live) timer = setTimeout(check, 2000);
+      }
+    }
+    void check();
+    const subscription = AppState.addEventListener("change", (state) => { if (state === "active") void check(); });
+    return () => { live = false; clearTimeout(timer); subscription.remove(); };
+  }, [shoppingId]);
 
   const clearError = useCallback(() => setError(null), []);
 
   useEffect(() => {
     if (
       !originNode ||
-      !destinationLoja ||
+      !destinationNodeId ||
       hasArrived ||
-      originNode.id === destinationLoja.no_id
+      originNode.id === destinationNodeId
     ) {
       return;
     }
-    void computeRoute(originNode, destinationLoja.no_id);
+    void computeRoute(originNode, destinationNodeId, true);
   }, [acessivel]);
 
   const value = useMemo<NavigationContextValue>(
@@ -386,8 +610,11 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
       floor,
       originNode,
       destinationLoja,
+      destinationNode, destinationNodeId, destinationName, originUpdate, routeError, routeStale, mapError, navigationRevision,
+      setDestinationNode, returnToEntry,
       route,
       routeLoading,
+      arrivalLoading,
       acessivel,
       hasArrived,
       setAcessivel,
@@ -403,10 +630,13 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
     }),
     [
       acessivel,
+      arrivalLoading,
       clearError,
       clearRoute,
       completeNavigation,
       destinationLoja,
+      destinationNode, destinationNodeId, destinationName, originUpdate, routeError, routeStale, mapError, navigationRevision,
+      setDestinationNode, returnToEntry,
       error,
       floor,
       floors,
