@@ -243,7 +243,7 @@ nunca equivale à execução em dispositivo físico.
 - [Validação da chegada e da interface do visitante](docs/validacao-ux-visitante.md)
 - [Roteiro de teste em aparelhos e no local](docs/teste-fisico-visitante.md)
 - [Plano fornecido](docs/plano-integracao.md)
-- [Plano de navegação indoor autônoma](docs/plano-navegacao-autonoma.md)
 - [Plano de implementação da navegação simulada](docs/plano-implementacao-simulacao.md)
+- [Melhorias de front-end e prompts de execução](docs/melhorias-front-end.md)
 - [Requisitos, regras e critérios de aceite](docs/requisitos-e-regras.md)
 - [Validação das regras de negócio](docs/validacao-regras-negocio.md)
