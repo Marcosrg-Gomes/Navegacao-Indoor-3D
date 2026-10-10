@@ -16,22 +16,20 @@ async function destination(page: Page, name: string) {
   await page.getByRole("button", { name: "Traçar rota", exact: true }).click();
   return (await response).json();
 }
-test("Diretório liga índice, categorias e seleção à planta e mantém busca no celular", async ({ page }, info) => {
+test("Explorar mantém pesquisa e filtros separados do mapa no celular", async ({ page }, info) => {
   await page.setViewportSize({ width: 1440, height: 1000 }); await page.goto("/explore");
   await expect(page.getByRole("heading", { name: "Encontre seu lugar." })).toBeVisible();
-  await expect(page.getByTestId("floor-map")).toBeVisible();
+  await expect(page.getByRole("main", { name: "Explorar lojas e serviços" }).getByTestId("floor-map")).toHaveCount(0);
   await page.getByRole("button", { name: "Nomes com N", exact: true }).click();
   await expect(page.getByRole("button", { name: "NATURA, ver detalhes", exact: true })).toBeVisible();
   await expect(page.getByRole("button", { name: "ADIDAS, ver detalhes", exact: true })).toHaveCount(0);
-  await page.getByRole("button", { name: "NATURA, ver detalhes", exact: true }).hover();
-  await expect(page.getByRole("button", { name: "Informações do local", exact: true })).toBeVisible();
   await page.screenshot({ path: info.outputPath("directory-desktop.png") });
   await page.setViewportSize({ width: 390, height: 844 });
   await page.getByLabel("Buscar no Explorar").fill("ADIDAS");
-  await page.getByRole("button", { name: "Ver no mapa ↗", exact: true }).click();
+  await expect(page.getByRole("button", { name: "ADIDAS, ver detalhes", exact: true })).toBeVisible();
+  await page.getByRole("tab", { name: "Mapa", exact: true }).click();
   await expect(page.getByTestId("floor-map")).toBeVisible();
-  await expect(page.getByTestId("directory-selection")).toContainText("ADIDAS");
-  await page.getByRole("button", { name: /Voltar à lista/ }).click();
+  await page.getByRole("tab", { name: "Explorar", exact: true }).click();
   await expect(page.getByLabel("Buscar no Explorar")).toHaveValue("ADIDAS");
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   await page.screenshot({ path: info.outputPath("directory-mobile.png") });

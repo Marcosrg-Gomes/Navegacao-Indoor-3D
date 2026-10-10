@@ -33,6 +33,8 @@ class EtapaRota(BaseModel):
     piso_origem_id: int
     piso_destino_id: int
     distancia_metros: float = 0
+    # Peso usado pelo motor de rotas, sem arredondamento para apresentação.
+    distancia_exata_metros: float = Field(default=0, ge=0, allow_inf_nan=False)
     referencia: Optional[str] = None
     referencia_no_id: Optional[int] = None
 

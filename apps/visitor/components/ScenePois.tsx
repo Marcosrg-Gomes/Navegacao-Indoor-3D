@@ -17,8 +17,13 @@ export function ScenePois({ model, scene, floor, origin, destination, highlight,
       const poi = scene.pois.find((item) => object.name.startsWith(item.object_prefix));
       for (const material of Array.isArray(object.material) ? object.material : [object.material]) {
         if (!(material instanceof MeshStandardMaterial)) continue;
-        if (!material.userData.original) material.userData.original = { opacity: material.opacity, transparent: material.transparent, emissive: material.emissive.clone() };
+        if (!material.userData.original) material.userData.original = { opacity: material.opacity, transparent: material.transparent, emissive: material.emissive.clone(), color: material.color.clone() };
         const original = material.userData.original;
+        material.color.copy(original.color);
+        // O GLB v1 continua íntegro; a leitura do piso recebe o acabamento do
+        // gerador atualizado até que um novo release seja exportado no Blender.
+        if (scene.release === 1 && object.name === "ARQ_PISO_Principal") material.color.set("#d7e8e3");
+        if (scene.release === 1 && object.name.startsWith("ARQ_PISO_Mezanino_Passarela")) material.color.set("#e1eeeb");
         material.opacity = otherFloor ? .12 : original.opacity;
         material.transparent = otherFloor || original.transparent;
         material.depthWrite = !otherFloor;

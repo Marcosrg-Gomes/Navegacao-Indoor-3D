@@ -57,12 +57,12 @@ export function SceneMap(props: SceneMapProps) {
 
   const show3d = mode !== "2d" && !failure;
   return <View style={{ gap: 8 }}>
-    <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8 }} accessibilityLabel="Modo do mapa">
-      {([["auto", "Automático"], ["3d", "Mapa 3D"], ["2d", "Mapa 2D"]] as const).map(([value, label]) =>
-        <TouchableOpacity key={value} accessibilityRole="button" accessibilityState={{ selected: mode === value }}
-          style={{ padding: 12, minHeight: 44, justifyContent: "center", borderRadius: 6, borderWidth: 1,
-            borderColor: mode === value ? colors.primary : colors.border, backgroundColor: mode === value ? colors.primarySoft : colors.surface }}
-          onPress={() => { setMode(value); if (value !== "2d") setHasUsed3d(true); if (value !== "2d" && failure) setAttempt((n) => n + 1); }}><Text style={{ color: colors.text, fontWeight: mode === value ? "600" : "400" }}>{label}</Text></TouchableOpacity>)}
+    <View style={props.compact ? { position: "absolute", top: props.controlsTop ?? 8, left: 8, zIndex: 3, flexDirection: "row", gap: 4, padding: 3, backgroundColor: "#ffffffed", borderRadius: 24 } : { flexDirection: "row", flexWrap: "wrap", gap: 8 }} accessibilityLabel="Modo do mapa">
+      {(props.compact ? [["2d", "Mapa 2D"], ["3d", "Mapa 3D"]] as const : [["auto", "Automático"], ["3d", "Mapa 3D"], ["2d", "Mapa 2D"]] as const).map(([value, label]) =>
+        <TouchableOpacity key={value} accessibilityRole="button" accessibilityLabel={label} accessibilityState={{ selected: mode === value }}
+          style={{ paddingHorizontal: props.compact ? 12 : 12, minHeight: 44, justifyContent: "center", borderRadius: props.compact ? 22 : 6, borderWidth: 1,
+            borderColor: mode === value ? "#168bd6" : colors.border, backgroundColor: mode === value ? "#e2f4ff" : colors.surface }}
+          onPress={() => { setMode(value); if (value !== "2d") setHasUsed3d(true); if (value !== "2d" && failure) setAttempt((n) => n + 1); }}><Text style={{ color: colors.text, fontWeight: mode === value ? "800" : "600" }}>{props.compact ? value.toUpperCase() : label}</Text></TouchableOpacity>)}
     </View>
     {failure && mode !== "2d" && <View accessibilityRole="alert" testID="scene-fallback" style={{ padding: 12, backgroundColor: "#fef3c7" }}>
       <Text>{failure} O mapa 2D e as instruções continuam disponíveis.</Text>

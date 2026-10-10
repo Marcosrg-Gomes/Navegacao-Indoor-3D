@@ -13,7 +13,7 @@ import bpy
 from config import CONFIG, DERIVED, get_navigation_layout
 from utils.geometry import create_box
 from utils.helpers import link_to_collection, apply_material_by_name
-from utils.logging import log_info, log_object_created, log_section, log_section_end
+from utils.logging import log_object_created, log_section, log_section_end
 from materials import MatNames
 
 
@@ -39,6 +39,27 @@ def create_main_floor(collection: bpy.types.Collection) -> bpy.types.Object:
     apply_material_by_name(obj, MatNames.PISO_SHOPPING)
     log_object_created("ARQ_PISO_Principal", "Piso Principal")
     return obj
+
+
+def create_wayfinding_edges(collection: bpy.types.Collection) -> list:
+    """Faixas discretas nas bordas da circulação, sem alterar a área caminhável."""
+    s = CONFIG["shopping"]
+    length = s["length"] - 2 * s["wall_thickness"] - 2.0
+    corridor_edge = CONFIG["corridor"]["width"] / 2 - 0.45
+    mezzanine_centers = (DERIVED["mz_left_center_x"], DERIVED["mz_right_center_x"])
+    bands = [("Terreo_Esq", -corridor_edge, 0.012),
+             ("Terreo_Dir", corridor_edge, 0.012)]
+    bands.extend((f"Mezanino_{side}", x, CONFIG["mezzanine"]["floor_z"] + 0.013)
+                 for side, x in zip(("Esq", "Dir"), mezzanine_centers))
+    objects = []
+    for name, x, z in bands:
+        obj = create_box(name=f"ARQ_ORIENTACAO_{name}", width=0.10, depth=length,
+                         height=0.008, location=(x, 0.0, z), centered_xy=True,
+                         base_at_zero=True)
+        link_to_collection(obj, collection)
+        apply_material_by_name(obj, MatNames.FAIXA_ORIENTACAO)
+        objects.append(obj)
+    return objects
 
 
 def create_mezzanine_slab(collection: bpy.types.Collection) -> list:
@@ -235,6 +256,7 @@ def build_floors(collections: dict) -> dict:
 
     # Piso principal térreo
     result["main"] = create_main_floor(col_pisos)
+    result["wayfinding"] = create_wayfinding_edges(col_pisos)
 
     # Laje do Mezanino e passarelas
     if CONFIG["features"].get("mezzanine", True):
@@ -252,6 +274,6 @@ def build_floors(collections: dict) -> dict:
     else:
         result["stores"] = []
 
-    total = 1 + len(result["mezzanine"]) + 1 + len(result["stores"])
+    total = 1 + len(result["wayfinding"]) + len(result["mezzanine"]) + 1 + len(result["stores"])
     log_section_end(f"Pisos e Lajes ({total} elementos)")
     return result

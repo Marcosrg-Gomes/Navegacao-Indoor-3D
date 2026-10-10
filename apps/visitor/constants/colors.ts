@@ -16,7 +16,7 @@ export const colors = {
   warningSoft: "#fff1cf",
   danger: "#a3332c",
   dangerSoft: "#fbece8",
-  route: "#2d7dd2",
+  route: "#6842d8",
   origin: "#22c55e",
   destination: "#ef4444",
 };

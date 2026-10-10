@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
-  ActivityIndicator, ScrollView, StyleSheet,
+  ActivityIndicator, Platform, ScrollView, StyleSheet,
   Text, TouchableOpacity, useWindowDimensions, View,
 } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { AccessibleSheet } from "@/components/AccessibleSheet";
 import { SceneMap } from "@/components/SceneMap";
 import { Map2D } from "@/components/Map2D";
@@ -11,6 +13,7 @@ import { SearchBar } from "@/components/SearchBar";
 import { PoiDetails } from "@/components/PoiDetails";
 import { WayfindingIcon } from "@/components/WayfindingIcon";
 import { RouteGuide } from "@/components/RouteGuide";
+import { WazeManeuverBanner, WazeNavigationPanel } from "@/components/WazeNavigationPanel";
 import { FirstVisitHelp, MapHelp } from "@/components/MapHelp";
 import { useNavigation } from "@/context/NavigationContext";
 import { getPoi, listPois, resolveQrCode } from "@/services/api";
@@ -19,6 +22,7 @@ import { colors } from "@/constants/colors";
 import { useIsFocused } from "@react-navigation/native";
 import { useDirectory } from "@/hooks/useDirectory";
 import { IntentHome } from "@/components/IntentHome";
+import { FloorSwitcher } from "@/components/FloorSwitcher";
 import { OrientationPicker } from "@/components/OrientationPicker";
 import { SavedPlacesSheet } from "@/components/SavedPlacesSheet";
 import { directoryStyles as d, paper, ink } from "@/components/directoryDesign";
@@ -37,6 +41,8 @@ export default function MapScreen() {
   const guideOffset = useRef(0);
   const goToMap = () => scroll.current?.scrollTo({ y: mapOffset.current, animated: false });
   const [fullMap, setFullMap] = useState(false);
+  const [following, setFollowing] = useState(true);
+  const [mobileMapSpace, setMobileMapSpace] = useState(0);
   const [lost, setLost] = useState(false);
   const [savedOpen, setSavedOpen] = useState(false);
   const [preview, setPreview] = useState<EtapaRota | null>(null);
@@ -48,12 +54,17 @@ export default function MapScreen() {
 
   const params = useLocalSearchParams<{ qr?: string; token?: string; manualOrigin?: string; shopping?: string; floor?: string; locate?: string }>();
   const { width, height } = useWindowDimensions();
+  const insets = useSafeAreaInsets();
+  const mobileJourney = width < 600;
+  const mobileMapHeight = Math.max(280, height - 190);
   const viewportWidth = Math.max(240, Math.min(width - 34, 1080));
   const mapHeight = Math.min(600, Math.max(420, height * .64));
   const [locateRequest, setLocateRequest] = useState(0);
   function locate() {
+    setFollowing(true);
     setLocateRequest((value) => value + 1);
-    if (nav.originNode && nav.originNode.piso_id !== nav.floor?.id) void nav.selectFloor(nav.originNode.piso_id);
+    const floorId = nav.positionEstimate?.floorId ?? nav.originNode?.piso_id;
+    if (floorId && floorId !== nav.floor?.id) void nav.selectFloor(floorId);
   }
   const [manual, setManual] = useState(false);
   const [help, setHelp] = useState(false);
@@ -67,6 +78,11 @@ export default function MapScreen() {
   useEffect(() => {
     if (nav.hasArrived) setLocateRequest((value) => value + 1);
   }, [nav.hasArrived]);
+  useEffect(() => {
+    if (following && nav.simulationStatus !== "idle" && nav.positionEstimate?.floorId && nav.floor?.id !== nav.positionEstimate.floorId)
+      void nav.selectFloor(nav.positionEstimate.floorId);
+  }, [following, nav.simulationStatus, nav.positionEstimate?.floorId, nav.floor?.id]);
+  useEffect(() => { if (nav.simulationStatus === "running" && nav.simulationProgress?.traveledMeters === 0) setFollowing(true); }, [nav.simulationStatus]);
   useEffect(() => {
     if (params.locate === "1" && !nav.loading && nav.originNode) { setFullMap(true); locate(); router.setParams({ locate: "" }); }
   }, [params.locate, nav.loading, nav.originNode?.id]);
@@ -113,9 +129,41 @@ export default function MapScreen() {
 
   const error = localError || nav.error;
   const status = nav.destinationLoja ? getStatusOperacional(nav.destinationLoja) : null;
+  const renderMap = (surfaceHeight: number, compact: boolean) => nav.floor ? <SceneMap
+    initialMode={compact ? "2d" : "auto"} compact={compact} controlsTop={compact ? activeRoute ? 90 : 75 : undefined}
+    navigationRevision={nav.navigationRevision} previewStep={preview}
+    shoppingId={nav.shopping?.id} floorId={nav.floor.id} width={compact ? width : viewportWidth} height={surfaceHeight}
+    routeNodes={nav.routeDisplayNodes} originNodeId={nav.originNode?.id} position={nav.positionEstimate}
+    following={following && nav.simulationStatus !== "idle"} onExplore={() => setFollowing(false)}
+    destinationNodeId={nav.hasArrived ? undefined : nav.destinationNodeId} onLocate={locate} locateRequest={locateRequest} hasOrigin={!!nav.originNode}
+    onPoiPress={(id) => { void getPoi(id).then(setPoi).catch((cause) => setLocalError(cause.message)); }}
+    fallback={nav.graph?.piso_id === nav.floor.id ? <Map2D key={nav.floor.id} compact={compact} controlsTop={compact ? activeRoute ? 90 : 75 : undefined} width={compact ? width : viewportWidth} height={surfaceHeight}
+      floor={nav.floor} graph={nav.graph} routeNodes={nav.routeDisplayNodes} origin={nav.originNode} position={nav.positionEstimate}
+      following={following && nav.simulationStatus !== "idle"} onExplore={() => setFollowing(false)}
+      destination={nav.hasArrived ? undefined : nav.destinationNodeId} onNodePress={(node) => void inspectNode(node)}
+      onLocate={locate} locateRequest={locateRequest} highlight={preview?.referencia_no_id ?? preview?.no_destino_id} />
+      : <ActivityIndicator accessibilityLabel="Carregando piso" />} /> : <ActivityIndicator accessibilityLabel="Carregando piso" />;
   return (
     <View style={styles.screen} role="main" accessibilityLabel="Mapa e instruções de navegação">
-      <ScrollView ref={scroll} contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
+      {mobileJourney ? <View style={[styles.mobileJourney, { paddingTop: insets.top, backgroundColor: activeRoute ? "#141a20" : "#e6eeec" }]}>
+        <StatusBar style={activeRoute ? "light" : "dark"} backgroundColor={activeRoute ? "#141a20" : "#e6eeec"} />
+        <View style={styles.mobileMap} onLayout={(event) => setMobileMapSpace(Math.floor(event.nativeEvent.layout.height))}>
+          {renderMap(mobileMapSpace || mobileMapHeight, true)}
+          {activeRoute ? <View style={styles.mobileTop}><WazeManeuverBanner /></View> : <View style={styles.mobileTop}>
+            <View style={styles.mobileSearchRow}><TouchableOpacity accessibilityRole="button" accessibilityLabel="Pesquisar destinos" style={styles.mobileSearch} onPress={() => router.push("/explore")}><WayfindingIcon name="search" color="#223246" /><Text style={styles.mobileSearchText} numberOfLines={1}>Para onde você vai?</Text></TouchableOpacity><TouchableOpacity accessibilityRole="button" accessibilityLabel="Ajuda" style={styles.mobileHelp} onPress={() => setHelp(true)}><WayfindingIcon name="help" color="#223246" /></TouchableOpacity></View>
+          </View>}
+          <FloorSwitcher floors={nav.floors} currentId={nav.floor?.id} top={Platform.OS === "web" ? activeRoute ? 155 : 136 : activeRoute ? 90 : 76}
+            onSelect={(floorId) => { setFollowing(false); void nav.selectFloor(floorId); }} />
+          {(nav.mapError || error) && <View style={styles.mobileError} accessibilityRole="alert"><Text style={styles.errorText}>{error || nav.mapError}</Text><TouchableOpacity accessibilityRole="button" onPress={() => { setLocalError(null); nav.clearError(); void nav.refresh(); }}><Text style={styles.link}>Tentar novamente</Text></TouchableOpacity></View>}
+        </View>
+        {activeRoute ? <WazeNavigationPanel onChooseDestination={() => router.push("/explore")} onCorrectPosition={() => setLost(true)} onHelp={() => setHelp(true)} /> : nav.hasArrived ? <View testID="arrival-notice" style={styles.mobileBottom} accessibilityRole="alert">
+          <Text accessibilityRole="header" style={styles.mobileBottomTitle}>Você chegou a <Text testID="origin-label">{nav.originNode?.nome || nav.destinationName}</Text></Text><Text testID="location-update" style={styles.mobileBottomMeta}>{nav.floor?.nome} · Posição atualizada. A próxima rota começa daqui.</Text>
+          <TouchableOpacity accessibilityRole="button" accessibilityLabel="Iniciar outra navegação" style={styles.mobilePrimary} onPress={() => { nav.clearRoute(); router.push("/explore"); }}><Text style={styles.mobilePrimaryText}>Escolher outro destino</Text></TouchableOpacity>
+        </View> : <View style={styles.mobileBottom}>
+          <View style={styles.mobileBottomRow}><View style={{ flex: 1, minWidth: 0 }}><Text testID="origin-label" style={styles.mobileBottomTitle} numberOfLines={1}>{nav.originNode ? nav.originNode.nome : "Onde você está?"}</Text><Text testID="location-update" style={styles.mobileBottomMeta} numberOfLines={1}>{nav.floor?.nome || "Shopping"} · {nav.originNode ? nav.originUpdate?.source === "qr" ? "Posição por QR" : "Posição definida" : "Defina a posição para navegar"}</Text></View><TouchableOpacity accessibilityRole="button" accessibilityLabel={nav.originNode ? "Corrigir minha posição" : "Definir minha posição"} style={styles.mobilePin} onPress={() => setManual(true)}><WayfindingIcon name="pin" color="#223246" /></TouchableOpacity></View>
+          <TouchableOpacity accessibilityRole="button" style={styles.mobilePrimary} onPress={() => router.push("/explore")}><Text style={styles.mobilePrimaryText}>Explorar destinos</Text><Text style={styles.mobilePrimaryText}>→</Text></TouchableOpacity>
+        </View>}
+      </View> : <ScrollView ref={scroll} contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
         {(nav.loading || qrBusy) && <View style={styles.row}><ActivityIndicator /><Text>Carregando mapa e localização…</Text></View>}
         {error && <View style={styles.error} accessibilityRole="alert">
           <Text style={styles.errorText}>{error}</Text>
@@ -196,17 +244,7 @@ export default function MapScreen() {
           {!nav.originNode && <Text style={styles.small}>Leia um QR Code ou selecione a origem para se localizar.</Text>}
         </View>
         {nav.mapError && <View style={styles.error} accessibilityRole="alert"><Text style={styles.errorText}>{nav.mapError}</Text><TouchableOpacity accessibilityRole="button" style={styles.helpButton} onPress={() => nav.floor && void nav.selectFloor(nav.floor.id)}><Text style={styles.link}>Tentar mapa novamente</Text></TouchableOpacity></View>}
-        {nav.floor && <SceneMap
-          navigationRevision={nav.navigationRevision}
-          previewStep={preview}
-          shoppingId={nav.shopping?.id} floorId={nav.floor.id} width={viewportWidth} height={mapHeight}
-          routeNodes={nav.route?.nos || []} originNodeId={nav.originNode?.id}
-          destinationNodeId={nav.hasArrived ? undefined : nav.destinationNodeId} onLocate={locate} locateRequest={locateRequest} hasOrigin={!!nav.originNode}
-          onPoiPress={(id) => { void getPoi(id).then(setPoi).catch((error) => setLocalError(error.message)); }}
-          fallback={nav.graph?.piso_id === nav.floor.id ? <Map2D key={nav.floor.id} width={viewportWidth} height={mapHeight}
-            floor={nav.floor} graph={nav.graph} routeNodes={nav.route?.nos || []} origin={nav.originNode}
-            destination={nav.hasArrived ? undefined : nav.destinationNodeId} onNodePress={(node) => void inspectNode(node)}
-            onLocate={locate} locateRequest={locateRequest} highlight={preview?.referencia_no_id ?? preview?.no_destino_id} /> : <ActivityIndicator accessibilityLabel="Carregando piso" />} />}
+        {nav.floor && renderMap(mapHeight, false)}
 
         {nav.destinationLoja && !nav.hasArrived && <TouchableOpacity accessibilityRole="button" style={styles.card} onPress={() => setPoi(nav.destinationLoja)}>
           <Text style={styles.location}>Destino: {nav.destinationLoja.nome}</Text>
@@ -216,7 +254,7 @@ export default function MapScreen() {
 
 
         </View>}
-      </ScrollView>
+      </ScrollView>}
       <MapHelp visible={help} onClose={() => setHelp(false)} />
       <AccessibleSheet visible={!!reference} title={reference?.nome || "Ponto de referência"} onClose={() => setReference(null)}>
         <Text style={styles.small}>{reference && TIPO_NO_LABEL[reference.tipo]} · {nav.floors.find((f) => f.id === reference?.piso_id)?.nome}</Text>
@@ -232,6 +270,21 @@ export default function MapScreen() {
 
 const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: paper },
+  mobileJourney: { flex: 1, backgroundColor: "#e6eeec" },
+  mobileTop: { position: "absolute", top: 0, left: 0, right: 0, zIndex: 5 },
+  mobileSearchRow: { flexDirection: "row", alignItems: "center", gap: 8, paddingHorizontal: 12 },
+  mobileSearch: { flex: 1, minWidth: 0, minHeight: 54, marginTop: 10, borderRadius: 28, flexDirection: "row", gap: 10, alignItems: "center", paddingHorizontal: 16, backgroundColor: "#fff", shadowColor: "#102234", shadowOpacity: .18, shadowRadius: 9, elevation: 6 },
+  mobileSearchText: { flex: 1, color: "#263744", fontSize: 16, fontWeight: "700" },
+  mobileHelp: { width: 48, height: 48, marginTop: 10, borderRadius: 24, backgroundColor: "#fff", alignItems: "center", justifyContent: "center", shadowColor: "#102234", shadowOpacity: .14, shadowRadius: 7, elevation: 5 },
+  mobileError: { position: "absolute", bottom: 14, left: 12, right: 12, zIndex: 6, backgroundColor: "#fff", padding: 10, borderRadius: 12 },
+  mobileBottom: { backgroundColor: "#fff", paddingHorizontal: 16, paddingTop: 10, paddingBottom: 12, gap: 8, borderTopWidth: 1, borderTopColor: "#dfe5e9" },
+  mobileBottomRow: { flexDirection: "row", alignItems: "center", gap: 12 },
+  mobileBottomTitle: { color: "#172536", fontSize: 17, lineHeight: 22, fontWeight: "800" },
+  mobileBottomMeta: { color: "#61727b", fontSize: 12, lineHeight: 17 },
+  mobilePin: { width: 44, height: 44, borderRadius: 22, alignItems: "center", justifyContent: "center", backgroundColor: "#eaf2f5" },
+  mobilePrimary: { minHeight: 48, borderRadius: 15, flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingHorizontal: 17, backgroundColor: "#168bd6" },
+  mobilePrimaryText: { color: "#fff", fontSize: 16, fontWeight: "800" },
+  mobileMap: { flex: 1, minHeight: 100, overflow: "hidden" },
   topLine: { flexDirection: "row", alignItems: "flex-start", gap: 8 },
   iconButton: { minWidth: 44, minHeight: 48, alignItems: "center", justifyContent: "center" },
   content: { padding: 16, gap: 12, paddingBottom: 24, width: "100%", maxWidth: 1120, alignSelf: "center" },

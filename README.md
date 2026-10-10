@@ -57,9 +57,10 @@ acessíveis, evita escadas e escadas rolantes e usa elevador entre pisos. Pode
 produzir um caminho mais longo; se não houver alternativa disponível, informa
 que não encontrou rota. **O que é acessível?** explica a opção dentro do app.
 
-Na tela inicial, informe sua posição pelo QR Code ou por escolha manual e busque
-uma loja ou serviço. Os quatro atalhos grandes abrem diretamente banheiros,
-alimentação, elevadores e lojas. Em **Explorar**, a busca, as categorias mais
+No celular, a tela **Mapa** abre diretamente a planta do shopping. Informe sua
+posição pelo QR Code ou por escolha manual e toque em **Pesquisar destinos**
+ou **Explorar destinos** para buscar uma loja ou serviço. Em **Explorar**, sem mapa,
+a busca, as categorias mais
 usadas e a ação **Ir** ficam visíveis; **Filtros** permite combinar piso/categoria e ordenar por nome,
 categoria ou distância de percurso calculada pela API. A distância considera
 corredores, bloqueios e a opção sem escadas; requer uma origem definida.
@@ -67,12 +68,23 @@ Toque no nome para abrir detalhes e em **Ir** para iniciar a navegação,
 inclusive para pontos de referência sem loja cadastrada.
 Locais fechados ou em manutenção exigem confirmar o aviso antes de traçar a rota.
 
-No celular, o rodapé tem quatro destinos fixos: **Início** para buscar um lugar,
-**Mapa** para abrir diretamente a planta, **Ler QR** para atualizar sua posição
-e **Explorar** para consultar o diretório. O mapa começa em 2D nas telas web
-estreitas; o botão **Mapa 3D** continua disponível. Após ler um QR pelo app,
-o mapa abre com a posição atualizada. Uma rota ativa mostra no mapa um atalho
-de volta às instruções, sem perder o trajeto.
+No celular, a planta ocupa a maior parte da tela. O controle **Piso do mapa**
+mostra o andar atual e abre a escolha entre térreo e mezanino; trocar de piso
+interrompe o acompanhamento para permitir explorar livremente. Com uma rota definida, a
+próxima manobra aparece em uma faixa escura no alto e o destino e a distância
+restante ficam no rodapé compacto. Toque em **Iniciar navegação** para a simulação:
+o marcador percorre a rota e o mapa o acompanha. **Pausar**, **Continuar** e
+**Novo destino** ficam no rodapé; **•••** reúne
+rota sem escadas, recálculo, desvio simulado, correção de posição, ajuda e encerramento. Arrastar
+o mapa suspende o acompanhamento até tocar em **Minha posição**. A chegada da
+simulação permite traçar outro percurso a partir da loja alcançada.
+
+Essa navegação é uma **simulação** do percurso: o deslocamento do marcador não
+mede a posição física da pessoa. O app identifica a posição simulada na tela;
+QR, escolha manual e confirmação de chegada continuam sendo as formas de
+registrar uma posição física. Sem rota ativa, o mapa permanece explorável.
+O rodapé do celular mantém **Mapa**, **Ler QR** e **Explorar**. No celular, o mapa
+começa em 2D; na web, **Mapa 3D** abre a maquete. Android/iOS usam 2D.
 
 A estrela salva favoritos; **Recentes** mostra os últimos oito destinos.
 **Voltar para a entrada** usa a entrada registrada nesta sessão ou a primeira
@@ -85,9 +97,27 @@ Para explorar os mapas, arraste com um dedo ou com o botão esquerdo do mouse.
 Use pinça, roda do mouse ou os botões **+ / −** para aproximar; no 2D, o zoom
 acompanha o ponto sob o cursor ou os dedos. É possível mover a planta mesmo em
 1×, e a visualização escolhida permanece ao soltar o gesto ou recalcular a rota.
-**Ver piso inteiro** restaura o enquadramento; **Minha posição** retorna ao piso
-da origem e destaca o ponto registrado; **Centralizar rota** enquadra seu trecho
-no piso selecionado. A posição não acompanha o deslocamento da pessoa em tempo real.
+No celular, o 2D abre perto da posição conhecida para mostrar os corredores e
+lojas em tamanho legível. **Ver piso inteiro** restaura o enquadramento;
+**Minha posição** volta a acompanhar a posição simulada ou centraliza a última
+posição confirmada; a bússola **N** restaura a orientação da planta.
+**Centralizar rota** enquadra seu trecho
+no piso selecionado. Durante a simulação, o mapa acompanha o marcador até o
+usuário arrastar ou ampliar a planta. O app não mede deslocamento real.
+A seta azul é o equivalente indoor do marcador do Waze: fica encaixada na
+aresta atual do grafo e gira para o rumo do próximo trecho. Ao usar **Estou
+fora da rota**, o sistema preserva a posição simulada, encontra uma ligação
+válida no grafo e recalcula o caminho até o mesmo destino.
+Durante o acompanhamento, o 2D gira o caminho à frente para cima e desloca a
+seta para mostrar a próxima curva. A linha da rota encolhe conforme a posição
+simulada avança, tanto no 2D quanto no 3D. A planta 2D usa os corredores
+cadastrados para destacar as áreas caminháveis e limita os rótulos de lojas
+próximas; a busca mostra todos os destinos. O 3D mantém a planta na orientação indicada
+pela bússola e enquadra o trecho seguinte como vista geral; seus controles
+permitem zoom, retorno à posição e vista do piso inteiro. Arrastar ou ampliar
+suspende o acompanhamento até tocar em
+**Minha posição**. Nos acessos
+verticais, mantém o último rumo horizontal até a troca de piso terminar.
 
 No 3D, abra **Mais controles** e use **Vista superior / Vista inclinada** para enxergar os espaços de cima,
 e as setas de rotação ou o botão direito do mouse para mudar o ângulo. Nomes dos
@@ -122,13 +152,11 @@ selecionar uma API acessível pela rede; o arquivo de exemplo documenta a variá
 
 ### Interface e acessibilidade do visitante
 
-O visitante começa por **Onde você quer ir?**, com busca, QR ou escolha do ponto
-de partida, quatro categorias de acesso rápido e serviços próximos à posição
-confirmada. **Explorar** usa um diretório
+O visitante começa no mapa, com acesso direto à pesquisa em **Explorar**, à
+leitura de QR e à escolha do ponto de partida. **Explorar** usa um diretório
 alfabético ou por categoria: código do espaço, nome, piso, funcionamento e
-distância calculada pela API. No desktop, a lista destaca os locais na planta
-ao receber foco ou passar o mouse; no celular, lista e mapa alternam preservando
-os filtros. **Filtros** reúne perguntas sobre piso, tipo de local,
+distância calculada pela API. A lista mantém os filtros durante a pesquisa,
+sem duplicar a planta nesta tela. **Filtros** reúne perguntas sobre piso, tipo de local,
 funcionamento e necessidade de evitar escadas. Os critérios podem ser removidos.
 
 Logotipos cadastrados em `logo_url` aparecem na lista e nos detalhes. Sem imagem,

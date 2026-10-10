@@ -17,11 +17,11 @@ test("Mini Shopping: QR, GLB real, loja térrea, rota idêntica em 2D/3D e chega
   const route = await (await response).json();
   await expect(page.getByTestId("scene-map")).toHaveAttribute("data-destination-code", "E01");
   await expect(page.getByTestId("scene-map")).toHaveAttribute("data-route-node-ids", route.nos.map((n: { id: number }) => n.id).join(","));
-  await page.getByTestId("scene-map").screenshot({ path: "../../evidence/visitor-ground-route.png" });
+  await page.getByTestId("scene-map").screenshot({ path: info.outputPath("visitor-ground-route.png") });
   await page.getByRole("button", { name: "Mapa 2D", exact: true }).click();
   await expect(page.getByTestId("floor-map")).toBeVisible();
-  const points = await page.locator("svg polyline").first().getAttribute("points");
-  expect(points?.trim().split(/\s+/).length).toBe(route.nos.length);
+  const visibleEdges = route.nos.slice(1).filter((node: { piso_id: number }, index: number) => node.piso_id === route.nos[index].piso_id).length;
+  await expect(page.locator('svg polyline[stroke="#6842d8"]')).toHaveCount(visibleEdges);
   await page.getByRole("button", { name: "Cheguei ao destino", exact: true }).click();
   await expect(page.getByTestId("arrival-notice")).toBeVisible();
   expect(errors).toEqual([]);
@@ -32,20 +32,24 @@ test("Mini Shopping: elevador acessível, mudança de piso e bloqueio", async ({
   await page.setViewportSize({ width: 414, height: 896 });
   await page.goto("/?qr=MINI-ENTRADA-PRINCIPAL");
   await expect(page.getByTestId("origin-label")).toContainText("Entrada principal");
-  await page.getByRole("switch", { name: "Rota acessível" }).click();
-  await page.getByLabel("Buscar destinos", { exact: true }).fill("BURGER");
-  await page.getByRole("button", { name: "BURGER KING, Aberto" }).click();
+  await page.getByRole("button", { name: "Pesquisar destinos" }).click();
+  await page.getByRole("button", { name: "Filtrar e ordenar" }).click();
+  await page.getByRole("button", { name: "Com rota sem escadas" }).click();
+  await page.getByRole("button", { name: "Mostrar resultados" }).click();
+  await page.getByLabel("Buscar no Explorar").fill("BURGER");
   const response = page.waitForResponse((r) => r.url().endsWith("/api/routes") && r.request().method() === "POST");
-  await page.getByRole("button", { name: "Traçar rota", exact: true }).click();
+  await page.getByRole("button", { name: "Como chegar a BURGER KING" }).click();
   const route = await (await response).json();
   expect(route.nos.some((n: { tipo: string }) => n.tipo === "elevador")).toBeTruthy();
   expect(route.nos.some((n: { tipo: string }) => n.tipo.includes("escada"))).toBeFalsy();
   const floorId = route.nos.at(-1).piso_id;
-  await page.getByRole("button", { name: /^Mezanino/ }).click();
-  await expect(page.getByRole("button", { name: "Centralizar rota", exact: true })).toBeVisible();
+  await page.getByTestId("floor-switch").click();
+  await page.getByRole("button", { name: "Mezanino", exact: true }).click();
+  await page.getByRole("button", { name: "Mapa 3D", exact: true }).click();
+  await expect(page.getByRole("button", { name: "Minha posição", exact: true })).toBeVisible();
   await expect(page.getByTestId("scene-map")).toHaveAttribute("data-floor-id", String(floorId));
   await expect(page.getByTestId("scene-map")).toHaveAttribute("data-route-node-ids", route.nos.filter((n: { piso_id: number }) => n.piso_id === floorId).map((n: { id: number }) => n.id).join(","));
-  await page.getByTestId("scene-map").screenshot({ path: "../../evidence/visitor-upper-accessible.png" });
+  await page.getByTestId("scene-map").screenshot({ path: info.outputPath("visitor-upper-accessible.png") });
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy();
   const edges = await (await request.get("/api/admin/edges", { headers: auth })).json();
   const lift = route.nos.filter((n: { tipo: string }) => n.tipo === "elevador");
@@ -53,7 +57,8 @@ test("Mini Shopping: elevador acessível, mudança de piso e bloqueio", async ({
   expect(edge).toBeTruthy();
   try {
     expect((await request.put(`/api/admin/edges/${edge.id}`, { headers: auth, data: { ativa: false } })).ok()).toBeTruthy();
-    await page.getByRole("button", { name: "Recalcular", exact: true }).click();
+    await page.getByRole("button", { name: "Mais opções", exact: true }).click();
+    await page.getByRole("button", { name: "Recalcular rota", exact: true }).click();
     await expect(page.getByText("Não foi possível encontrar uma rota entre os nós especificados.", { exact: true })).toBeVisible();
   } finally {
     await request.put(`/api/admin/edges/${edge.id}`, { headers: auth, data: { ativa: true } });

@@ -8,7 +8,7 @@ de reflexo, 100% procedurais sem dependência de imagens externas.
 
 import bpy
 from typing import Optional, Tuple
-from utils.logging import log_info, log_material_created, log_section, log_section_end, log_warning
+from utils.logging import log_material_created, log_section, log_section_end
 
 
 # =============================================================================
@@ -236,18 +236,18 @@ def create_all_materials(config: dict) -> dict:
     # 1. Pisos procedurais com paginação e rejunte
     registry[MatNames.PISO_SHOPPING] = create_tile_floor_material(
         name=MatNames.PISO_SHOPPING,
-        tile_color_1=(0.78, 0.74, 0.66, 1.0),
-        tile_color_2=(0.72, 0.68, 0.60, 1.0),
-        mortar_color=(0.32, 0.32, 0.32, 1.0),
+        tile_color_1=(0.84, 0.91, 0.89, 1.0),
+        tile_color_2=(0.79, 0.87, 0.85, 1.0),
+        mortar_color=(0.47, 0.55, 0.53, 1.0),
         scale=1.2, # Placas grandes de porcelanato
         roughness_base=0.22,
     )
 
     registry[MatNames.PISO_MEZANINO] = create_tile_floor_material(
         name=MatNames.PISO_MEZANINO,
-        tile_color_1=(0.82, 0.78, 0.70, 1.0),
-        tile_color_2=(0.76, 0.72, 0.64, 1.0),
-        mortar_color=(0.30, 0.30, 0.30, 1.0),
+        tile_color_1=(0.87, 0.92, 0.91, 1.0),
+        tile_color_2=(0.82, 0.88, 0.87, 1.0),
+        mortar_color=(0.50, 0.56, 0.55, 1.0),
         scale=1.2,
         roughness_base=0.20,
     )
@@ -311,6 +311,7 @@ def create_all_materials(config: dict) -> dict:
 
 
 class MatNames:
+    FAIXA_ORIENTACAO = "MAT_Faixa_Orientacao"
     ESPELHO        = "MAT_Espelho"
     PISO_SHOPPING   = "MAT_Piso_Shopping"
     PISO_LOJA       = "MAT_Piso_Loja"

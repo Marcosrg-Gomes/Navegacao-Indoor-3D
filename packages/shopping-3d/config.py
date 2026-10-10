@@ -281,13 +281,18 @@ CONFIG = {
     # Materiais — Cores base em RGB linear (0.0–1.0)
     # -------------------------------------------------------------------------
     "materials": {
+        "MAT_Faixa_Orientacao": {
+            "color": (0.08, 0.43, 0.46, 1.0),
+            "roughness": 0.8,
+            "metallic": 0.0,
+        },
         "MAT_Espelho": {
             "color": (0.95, 0.95, 0.95, 1.0),
             "roughness": 0.03,
             "metallic": 1.0,
         },
         "MAT_Piso_Shopping": {
-            "color": (0.76, 0.72, 0.63, 1.0),  # Bege claro
+            "color": (0.84, 0.91, 0.89, 1.0),
             "roughness": 0.3,
             "metallic": 0.0,
             "specular": 0.5,
@@ -305,7 +310,7 @@ CONFIG = {
             "specular": 0.1,
         },
         "MAT_Piso_Mezanino": {
-            "color": (0.82, 0.78, 0.70, 1.0),  # Bege mais claro para o mezanino
+            "color": (0.87, 0.92, 0.91, 1.0),
             "roughness": 0.25,
             "metallic": 0.0,
             "specular": 0.55,

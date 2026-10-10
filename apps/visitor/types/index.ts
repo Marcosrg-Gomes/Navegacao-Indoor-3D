@@ -133,6 +133,8 @@ export type RotaResponse = {
 };
 
 export type EtapaRota = {
+  /** Peso da aresta usado pela API. Obrigatório para simular, opcional em respostas antigas. */
+  distancia_exata_metros?: number;
   distancia_metros?: number;
   referencia?: string | null;
   referencia_no_id?: number | null;

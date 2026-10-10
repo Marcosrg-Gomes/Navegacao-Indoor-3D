@@ -100,6 +100,27 @@ def test_calcular_distancia():
 
 
 @pytest.mark.parametrize("acessivel", [False, True])
+def test_distancias_exatas_das_etapas_preservam_pesos_do_grafo(client, db_session, sample_data, acessivel):
+    edge = sample_data["edges"][0]
+    edge.distancia = 0.01
+    db_session.commit()
+    source = sample_data["nodes"]["n1"].id
+    target = sample_data["nodes"]["n5"].id
+    response = client.post("/api/routes", json={"origem_no_id": source, "destino_no_id": target, "acessivel": acessivel})
+    assert response.status_code == 200
+    route = response.json()
+    graph = NavigationEngine(db_session)._build_graph(acessivel, sample_data["shopping"].id)
+    assert route["etapas"][0]["distancia_exata_metros"] == 0
+    assert route["etapas"][-1]["distancia_exata_metros"] == 0
+    for step, a, b in zip(route["etapas"][1:-1], route["nos"], route["nos"][1:]):
+        weight = min(weight for node, weight in graph[a["id"]] if node == b["id"])
+        assert step["distancia_exata_metros"] == weight
+        assert step["distancia_metros"] == round(weight, 1)
+    assert any(step["distancia_exata_metros"] == .01 and step["distancia_metros"] == 0 for step in route["etapas"])
+    assert round(sum(step["distancia_exata_metros"] for step in route["etapas"]), 2) == route["distancia_total_metros"]
+
+
+@pytest.mark.parametrize("acessivel", [False, True])
 def test_distancias_correspondem_as_rotas_e_bloqueios(client, db_session, sample_data, acessivel):
     origem = sample_data["nodes"]["n1"]
     nav = NavigationEngine(db_session)
@@ -151,3 +172,4 @@ def test_etapas_identificam_troca_de_piso(client, db_session, sample_data):
     assert transition["piso_destino_id"] == piso.id
     assert transition["no_destino_id"] == destino.id
     assert "elevador" in transition["texto"].lower()
+    assert transition["distancia_exata_metros"] == 4

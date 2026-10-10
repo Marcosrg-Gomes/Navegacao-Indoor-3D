@@ -21,8 +21,8 @@ export function MapToolbar({ zoom, onZoom, onReset, onLocate, onRoute, children 
   </View>;
 }
 
-export function MapLegend() {
-  return <View style={styles.legend}>{[["#166534", "Você está aqui", "●"], ["#be123c", "Destino", "■"], ["#2563eb", "Rota", "━"], ["#6d28d9", "Acesso entre pisos", "↕"]].map(([color, label, symbol]) =>
+export function MapLegend({ simulated = false }: { simulated?: boolean }) {
+  return <View style={styles.legend}>{[["#17473f", simulated ? "Posição simulada" : "Posição confirmada", "◆"], ["#166534", simulated ? "Origem confirmada" : "Origem", "●"], ["#be123c", "Destino", "■"], ["#2563eb", "Rota", "━"], ["#6d28d9", "Acesso entre pisos", "↕"]].map(([color, label, symbol]) =>
     <View key={label} style={styles.item}><Text accessible={false} style={{ color, fontSize: 17 }}>{symbol}</Text><Text style={{ color: colors.textMuted, fontSize: 14 }}>{label}</Text></View>)}</View>;
 }
 const styles = StyleSheet.create({

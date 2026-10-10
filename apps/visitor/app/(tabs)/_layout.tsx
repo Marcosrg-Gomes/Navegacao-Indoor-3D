@@ -1,15 +1,16 @@
 import React from "react";
 import { Tabs } from "expo-router";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, useWindowDimensions, View } from "react-native";
 import { WayfindingIcon } from "@/components/WayfindingIcon";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { colors } from "@/constants/colors";
 import { useNavigation } from "@/context/NavigationContext";
 import { VisitorTabBar } from "@/components/VisitorTabBar";
 
-/** Quatro destinos estáveis, com rótulos legíveis e área segura no celular. */
+/** O mapa é a tela principal no celular. */
 export default function TabsLayout() {
   const insets = useSafeAreaInsets();
+  const mobile = useWindowDimensions().width < 600;
   const { shopping, floor } = useNavigation();
   return (
     <Tabs
@@ -29,7 +30,8 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Início",
+          title: mobile ? "Mapa" : "Início",
+          headerShown: mobile ? false : undefined,
           headerTitle: "Navegação Indoor",
           tabBarIcon: ({ color }) => (
             <WayfindingIcon name="home" color={color} size={24} />

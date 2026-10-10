@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
-import { Material, Mesh, Object3D } from "three";
+import { Material, Mesh, Object3D, Shape } from "three";
 import { Text, TouchableOpacity, View } from "react-native";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
@@ -13,15 +13,23 @@ import { SceneControls, type CameraCommand, type CameraView } from "./SceneContr
 import { SceneLabels } from "./SceneLabels.web";
 import { MapLegend, MapToolbar } from "./MapToolbar";
 import { WalkCamera } from "./WalkCamera.web";
+import { sceneHeadingDirection, sceneTransform } from "./sceneTransform";
 
 type Props = SceneMapProps & { scene: Scene; onReady: () => void; onProgress: (value: number) => void; onError: (message: string) => void };
+
+const navigationArrow = new Shape();
+navigationArrow.moveTo(0, 1.05);
+navigationArrow.lineTo(.62, -.62);
+navigationArrow.lineTo(0, -.3);
+navigationArrow.lineTo(-.62, -.62);
+navigationArrow.closePath();
 
 function dispose(model: Object3D) {
   model.traverse((object) => { if (object instanceof Mesh) { object.geometry.dispose(); (Array.isArray(object.material) ? object.material : [object.material]).forEach((m: Material) => m.dispose()); } });
 }
 
 function Viewport({ model, props, command, onView, previewNext }: { model: Object3D; props: Props; command: CameraCommand | null; onView: (view: CameraView) => void; previewNext: boolean }) {
-  const { gl } = useThree();
+  const { gl, invalidate } = useThree();
   const floor = props.scene.floors.find((item) => item.piso_id === props.floorId);
   const callbacks = useRef(props); callbacks.current = props;
   useEffect(() => {
@@ -30,17 +38,33 @@ function Viewport({ model, props, command, onView, previewNext }: { model: Objec
     return () => gl.domElement.removeEventListener("webglcontextlost", lost);
   }, [gl]);
   useEffect(() => { if (floor) callbacks.current.onReady(); else callbacks.current.onError("Piso ausente no catálogo 3D."); }, [floor, model]);
+  useEffect(() => { invalidate(); }, [props.position?.x, props.position?.y, props.position?.floorId, invalidate]);
   if (!floor) return null;
+  const [headingX, , headingZ] = sceneHeadingDirection(floor, props.position?.heading ?? 0);
+  const markerYaw = Math.atan2(-headingX, -headingZ);
   return <>
     <color attach="background" args={["#e9eef2"]} />
     <ambientLight intensity={1.7} /><directionalLight position={[15, 45, 20]} intensity={2.2} />
     <ScenePois model={model} scene={props.scene} floor={floor} origin={props.originNodeId} destination={props.destinationNodeId} highlight={props.previewStep?.referencia_no_id ?? undefined} onPoiPress={props.onPoiPress} />
-    <SceneRoute nodes={props.routeNodes} floor={floor} />
+    <SceneRoute nodes={props.routeNodes} floor={floor} position={props.position} />
+    {props.position?.floorId === floor.piso_id && <group name="NAV_POSITION" position={sceneTransform(floor, props.position.x, props.position.y)}
+      rotation={[0, markerYaw, 0]}>
+      <mesh position={[0, .11, 0]} rotation={[-Math.PI / 2, 0, 0]} renderOrder={19}>
+        <circleGeometry args={[1.25, 32]} /><meshBasicMaterial color="#168bd6" transparent opacity={.2} depthTest={false} />
+      </mesh>
+      <mesh position={[0, .26, 0]} rotation={[-Math.PI / 2, 0, 0]} scale={[1.12, 1.12, 1]} renderOrder={20}>
+        <shapeGeometry args={[navigationArrow]} /><meshBasicMaterial color="#fff" depthTest={false} />
+      </mesh>
+      <mesh position={[0, .28, 0]} rotation={[-Math.PI / 2, 0, 0]} renderOrder={21}>
+        <shapeGeometry args={[navigationArrow]} /><meshBasicMaterial color="#168bd6" depthTest={false} />
+      </mesh>
+    </group>}
     {props.previewStep ? <WalkCamera floor={floor} scene={props.scene} step={props.previewStep} nodes={props.routeNodes} next={previewNext} onView={onView} /> : <SceneControls floor={floor} scene={props.scene} props={props} command={command} onView={onView} />}
   </>;
 }
 
 export default function SceneCanvas(props: Props) {
+  const compactButton = { width: 44, height: 44, border: 0, borderRadius: 12, background: "#fff", color: "#17473f", fontWeight: 800, fontSize: 22 } as const;
   const [model, setModel] = useState<Object3D | null>(null);
   const [view, setView] = useState<CameraView>({ zoom: 1, northAngle: 0, target: [], position: [], labels: {} });
   const [command, setCommand] = useState<CameraCommand | null>(null);
@@ -84,7 +108,7 @@ export default function SceneCanvas(props: Props) {
   useEffect(() => { setTopView(false); }, [props.floorId]);
   return <View style={{ borderRadius: 2, overflow: "hidden", borderWidth: 1, borderColor: "#dbe3ed", width: props.width + 2, maxWidth: "100%" }}>
     {props.previewStep && <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8, padding: 12 }}>{[false, true].map((next) => <TouchableOpacity key={String(next)} accessibilityRole="button" accessibilityState={{ selected: previewNext === next }} style={{ padding: 12, minHeight: 44, borderBottomWidth: previewNext === next ? 3 : 1 }} onPress={() => setPreviewNext(next)}><Text>{next ? "Próxima referência" : "Vista atual do trecho"}</Text></TouchableOpacity>)}</View>}
-    {model && !props.previewStep && <MapToolbar zoom={view.zoom} onZoom={(factor) => send(factor > 1 ? "in" : "out")}
+    {model && !props.previewStep && !props.compact && <MapToolbar zoom={view.zoom} onZoom={(factor) => send(factor > 1 ? "in" : "out")}
       onReset={() => { send("reset"); setTopView(false); }} onLocate={props.hasOrigin ? props.onLocate : undefined} onRoute={() => send("route")}>
       <TouchableOpacity accessibilityRole="button" onPress={() => { send(topView ? "angle" : "top"); setTopView(!topView); }} style={{ minHeight: 44, justifyContent: "center", padding: 12, borderRadius: 8, backgroundColor: "#eef2ff" }}><Text style={{ color: "#3730a3", fontSize: 13 }}>{topView ? "Vista inclinada" : "Vista superior"}</Text></TouchableOpacity>
       <TouchableOpacity accessibilityRole="button" accessibilityLabel="Girar mapa para a esquerda" onPress={() => send("left")} style={{ minHeight: 44, minWidth: 44, justifyContent: "center", padding: 12 }}><Text>↶ 45°</Text></TouchableOpacity>
@@ -97,10 +121,17 @@ export default function SceneCanvas(props: Props) {
       {model && <Canvas key={props.previewStep ? "walk" : "map"} orthographic={!props.previewStep} frameloop="demand" dpr={[1, 1.5]} camera={{ near: .1, far: 400, fov: 65 }} gl={{ antialias: true }}>
         <Viewport model={model} props={props} command={command} onView={setView} previewNext={previewNext} />
       </Canvas>}
-      {model && floor && <SceneLabels scene={props.scene} floor={floor} origin={props.originNodeId} destination={props.destinationNodeId} view={view} width={props.width} height={props.height} onPoiPress={props.onPoiPress} />}
-      {!props.previewStep && <div aria-label="Norte do mapa" style={{ position: "absolute", top: 12, right: 12, pointerEvents: "none", background: "#ffffffed", borderRadius: 10, padding: 10, color: "#334155", textAlign: "center", font: "700 12px system-ui" }}>N<div style={{ fontSize: 22, transform: `rotate(${view.northAngle}deg)` }}>↑</div></div>}
+      {model && floor && <SceneLabels scene={props.scene} floor={floor} origin={props.originNodeId} destination={props.destinationNodeId} simulated={props.position?.source === "simulation"} position={props.position} view={view} width={props.width} height={props.height} onPoiPress={props.onPoiPress} />}
+      {props.compact && !props.previewStep && <button aria-label="Ver piso inteiro" title="Ver piso inteiro" onClick={() => { props.onExplore?.(); send("reset"); }} style={{ ...compactButton, position: "absolute", bottom: 10, left: 10, width: 104, fontSize: 12 }}>Piso inteiro</button>}
+      {props.compact && !props.previewStep && <div style={{ position: "absolute", bottom: 10, right: 10, display: "flex", gap: 5 }}>
+        <button aria-label="Diminuir zoom" title="Diminuir zoom" onClick={() => { props.onExplore?.(); send("out"); }} style={compactButton}>−</button>
+        <button aria-label="Aumentar zoom" title="Aumentar zoom" onClick={() => { props.onExplore?.(); send("in"); }} style={compactButton}>+</button>
+        <button aria-label="Minha posição" title="Voltar a acompanhar o percurso" onClick={props.onLocate} style={{ ...compactButton, background: "#f5cc54" }}>◎</button>
+      </div>}
+      {!props.previewStep && <button aria-label="Orientar mapa para norte" title="Orientar mapa para norte" onClick={() => { props.onExplore?.(); send("north"); }} style={{ position: "absolute", top: props.controlsTop ?? 12, right: 12, width: 44, height: 44, border: 0, borderRadius: 22, background: "#ffffffed", color: "#334155", textAlign: "center", font: "700 11px system-ui", cursor: "pointer" }}>N<div style={{ fontSize: 18, lineHeight: "18px", transform: `rotate(${view.northAngle}deg)` }}>↑</div></button>}
+      {props.compact && props.position?.source === "simulation" && !props.following && <View pointerEvents="none" style={{ position: "absolute", bottom: 65, alignSelf: "center", paddingHorizontal: 12, paddingVertical: 7, borderRadius: 16, backgroundColor: "#14212de8" }}><Text style={{ color: "#fff", fontSize: 12, fontWeight: "700" }}>Mapa livre · toque em ◎ para acompanhar</Text></View>}
     </div>
-    <Text style={{ backgroundColor: "#fff", color: "#64748b", paddingHorizontal: 12, paddingTop: 10, fontSize: 12 }}>{props.previewStep ? "Simulação orientada pelo trecho. Alterne entre a vista atual e a próxima referência." : "Arraste para explorar · roda ou pinça para aproximar · botão direito para girar"}</Text>
-    <MapLegend />
+    {!props.compact && <Text style={{ backgroundColor: "#fff", color: "#64748b", paddingHorizontal: 12, paddingTop: 10, fontSize: 12 }}>{props.previewStep ? "Simulação orientada pelo trecho. Alterne entre a vista atual e a próxima referência." : "Arraste para explorar · roda ou pinça para aproximar · botão direito para girar"}</Text>}
+    {!props.compact && <MapLegend simulated={props.position?.source === "simulation"} />}
   </View>;
 }

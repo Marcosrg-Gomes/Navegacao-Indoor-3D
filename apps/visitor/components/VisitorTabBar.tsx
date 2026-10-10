@@ -13,13 +13,16 @@ const tabs = {
 
 export function VisitorTabBar({ state, navigation }: BottomTabBarProps) {
   const insets = useSafeAreaInsets();
-  const largeText = useWindowDimensions().fontScale >= 1.4;
+  const { fontScale, width } = useWindowDimensions();
+  const largeText = fontScale >= 1.4;
+  const mobile = width < 600;
   return <View style={[styles.bar, { paddingBottom: Math.max(6, insets.bottom) }]} accessibilityRole="tablist">
     {state.routes.map((route, index) => {
       const tab = tabs[route.name as keyof typeof tabs];
-      if (!tab) return null;
+      if (!tab || mobile && route.name === "map") return null;
+      const label = mobile && route.name === "index" ? "Mapa" : tab.label;
       const selected = state.index === index;
-      return <Pressable key={route.key} accessibilityRole="tab" accessibilityLabel={tab.accessible}
+      return <Pressable key={route.key} accessibilityRole="tab" accessibilityLabel={label === "Ler QR" ? "Ler QR Code" : label}
         accessibilityState={{ selected }} aria-selected={selected}
         style={({ pressed }) => [styles.tab, largeText && styles.tabLarge, pressed && styles.pressed]}
         onPress={() => {
@@ -28,9 +31,9 @@ export function VisitorTabBar({ state, navigation }: BottomTabBarProps) {
         }}
         onLongPress={() => navigation.emit({ type: "tabLongPress", target: route.key })}>
         <View style={[styles.iconPill, selected && styles.iconPillSelected]}>
-          <WayfindingIcon name={tab.icon} color={selected ? colors.primary : colors.textMuted} size={23} />
+          <WayfindingIcon name={mobile && route.name === "index" ? "map" : tab.icon} color={selected ? "#168bd6" : "#526676"} size={23} />
         </View>
-        <Text style={[styles.label, selected && styles.labelSelected]} numberOfLines={largeText ? 2 : 1}>{tab.label}</Text>
+        <Text style={[styles.label, selected && styles.labelSelected]} numberOfLines={largeText ? 2 : 1}>{label}</Text>
       </Pressable>;
     })}
   </View>;
@@ -44,5 +47,5 @@ const styles = StyleSheet.create({
   iconPill: { width: 44, height: 31, borderRadius: 16, alignItems: "center", justifyContent: "center" },
   iconPillSelected: { backgroundColor: colors.sunSoft },
   label: { color: colors.textMuted, fontSize: 12, lineHeight: 16, fontWeight: "700", textAlign: "center" },
-  labelSelected: { color: colors.primary, fontWeight: "800" },
+  labelSelected: { color: "#087cc3", fontWeight: "800" },
 });

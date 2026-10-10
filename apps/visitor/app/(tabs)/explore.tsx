@@ -14,7 +14,6 @@ import { WayfindingIcon } from "@/components/WayfindingIcon";
 import { colors } from "@/constants/colors";
 import { AccessibleSheet } from "@/components/AccessibleSheet";
 import { PlaceIdentity } from "@/components/PlaceIdentity";
-import { DirectoryMap } from "@/components/DirectoryMap";
 import { directoryStyles as d, ink, paper, rule, accent, mono, placeIdentity } from "@/components/directoryDesign";
 import { SavedPlacesSheet } from "@/components/SavedPlacesSheet";
 
@@ -38,7 +37,6 @@ export default function ExploreScreen() {
   const params = useLocalSearchParams<{ category?: string; status?: string; shortcut?: Shortcut }>();
   const { width, fontScale } = useWindowDimensions();
   const wide = width >= 1000 && fontScale < 1.4;
-  const [mapView, setMapView] = useState(false);
   const [selected, setSelected] = useState<Place | null>(null);
   const [letter, setLetter] = useState("");
   const [grouped, setGrouped] = useState(false);
@@ -139,7 +137,6 @@ export default function ExploreScreen() {
   const connectedNodes = detail ? directory.graphs.find((graph) => graph.piso_id === detail.node.piso_id)?.conexoes_entre_pisos?.[detail.node.id] || [] : [];
   const connectedFloors = [...new Set(directory.places.filter((place) => connectedNodes.includes(place.node.id)).map((place) => floors.find((floor) => floor.id === place.node.piso_id)?.nome).filter(Boolean))];
   const selectedPlace = filtered.find((place) => place.key === selected?.key) || (filtered.length === 1 ? filtered[0] : null);
-  const pinIds = directory.places.filter((place) => favorites.includes(place.key)).map((place) => place.node.id);
   const letters = [...new Set(directory.places.map((place) => normalize(place.name)[0]?.toUpperCase()))].filter(Boolean).sort();
   const groups = grouped ? directory.categories.map((label) => ({ label, places: filtered.filter((place) => place.category === label) })).filter((group) => group.places.length) : [{ label: "Destinos", places: filtered }];
   const directoryHeader = <View style={[styles.directoryHeader, wide && styles.directoryHeaderWide]}>
@@ -149,16 +146,14 @@ export default function ExploreScreen() {
   return <View style={{ flex: 1, backgroundColor: paper }} role="main" accessibilityLabel="Explorar lojas e serviços">
     {wide && directoryHeader}
     <View style={{ flex: 1, flexDirection: "row" }}>
-      {(!mapView || wide) && <ScrollView style={wide ? { width: "46%", flexGrow: 0, flexShrink: 0, borderRightWidth: 1, borderRightColor: rule } : { flex: 1 }} contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 30 }} keyboardShouldPersistTaps="handled">
+      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ width: "100%", maxWidth: 840, alignSelf: "center", paddingHorizontal: 20, paddingBottom: 30 }} keyboardShouldPersistTaps="handled">
         {!wide && directoryHeader}
-        <TouchableOpacity accessibilityRole="button" accessibilityLabel="Ver minha localização no mapa" style={styles.positionBanner} onPress={() => router.push(originNode ? "/map?locate=1" : "/map?manualOrigin=1")}>
+        <TouchableOpacity accessibilityRole="button" accessibilityLabel="Ver minha localização no mapa" style={styles.positionBanner} onPress={() => router.push(originNode ? "/?locate=1" : "/?manualOrigin=1")}>
           <Text style={styles.positionPin} accessible={false}>◎</Text><Text style={styles.positionText}>{originNode ? `Você está em ${originNode.nome} · ${floors.find((floor) => floor.id === originNode.piso_id)?.nome || "Piso"}` : "Onde você está? Defina sua posição"}  ›</Text>
         </TouchableOpacity>
         <View style={styles.searchRow}><WayfindingIcon name="search" color={ink} /><TextInput accessibilityLabel="Buscar no Explorar" placeholder="Buscar por nome ou serviço" placeholderTextColor={colors.textMuted} style={styles.search} value={query} onChangeText={(value) => { setQuery(value); setLetter(""); }} />{!!query && <TouchableOpacity accessibilityRole="button" accessibilityLabel="Limpar busca" style={styles.iconButton} onPress={() => setQuery("")}><WayfindingIcon name="close" /></TouchableOpacity>}</View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.shortcutStrip} accessibilityLabel="Tipos de lugares">{shortcuts.filter(([value]) => ["all", "shops", "food", "wc", "lift"].includes(value)).map(([value, label]) => <TouchableOpacity key={value} accessibilityRole="button" accessibilityLabel={`Mostrar ${label}`} accessibilityState={{ selected: shortcut === value }} aria-pressed={shortcut === value} style={[styles.shortcutChip, shortcut === value && styles.shortcutSelected]} onPress={() => { setShortcut(value); setLetter(""); }}><Text style={[styles.shortcutText, shortcut === value && styles.shortcutTextSelected]}>{label}</Text></TouchableOpacity>)}</ScrollView>
-        <View style={styles.actionBar}><TouchableOpacity accessibilityRole="button" accessibilityLabel="Filtrar e ordenar" style={styles.actionButton} onPress={() => setFilters(true)}><Text style={styles.actionText}>☷  Filtros {activeFilters.length ? `(${activeFilters.length})` : ""}</Text></TouchableOpacity>
-          {!wide && <TouchableOpacity accessibilityRole="button" style={[styles.actionButton, styles.mapButton]} onPress={() => setMapView(true)}><Text style={styles.mapButtonText}>Ver no mapa ↗</Text></TouchableOpacity>}
-        </View>
+        <View style={styles.actionBar}><TouchableOpacity accessibilityRole="button" accessibilityLabel="Filtrar e ordenar" style={styles.actionButton} onPress={() => setFilters(true)}><Text style={styles.actionText}>☷  Filtros {activeFilters.length ? `(${activeFilters.length})` : ""}</Text></TouchableOpacity></View>
         <View style={styles.resultRow}><Text accessibilityLiveRegion="polite" style={d.muted}>{waiting ? "Consultando locais…" : filtered.length + (filtered.length === 1 ? " local" : " locais") + (activeFilters.length ? ` · ${activeFilters.map((filter) => filter.label.toLowerCase()).join(", ")}` : "")}</Text><TouchableOpacity accessibilityRole="button" style={d.link} onPress={() => setGrouped(!grouped)}><Text style={d.linkText}>{grouped ? "Ordem A–Z" : "Por categoria"}</Text></TouchableOpacity></View>
         {!query && ["all", "shops"].includes(shortcut) && <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.alphabetStrip} accessibilityLabel="Índice alfabético">{["", ...letters].map((value) => <TouchableOpacity key={value} accessibilityRole="button" accessibilityLabel={value ? "Nomes com " + value : "Todas as letras"} accessibilityState={{ selected: letter === value }} style={[styles.letter, letter === value && styles.letterSelected]} onPress={() => { setLetter(value); setQuery(""); }}><Text style={[styles.letterText, letter === value && styles.letterTextSelected]}>{value || "A–Z"}</Text></TouchableOpacity>)}</ScrollView>}
         {!!activeFilters.length && <View style={styles.quickFilters}>{activeFilters.map((item) => <TouchableOpacity key={item.key} accessibilityRole="button" accessibilityLabel={"Remover filtro " + item.label} style={d.link} onPress={item.remove}><Text style={d.linkText}>{item.label} ×</Text></TouchableOpacity>)}{activeFilters.length > 1 && <TouchableOpacity accessibilityRole="button" style={d.link} onPress={clearFilters}><Text style={d.linkText}>Limpar filtros</Text></TouchableOpacity>}</View>}
@@ -175,18 +170,13 @@ export default function ExploreScreen() {
                 {item.poi?.horario_funcionamento && !item.poi.horario_resumo && <Text style={d.muted}>{item.poi.horario_funcionamento}</Text>}
               </View>
             </TouchableOpacity>
-            <View style={styles.storeActions}><TouchableOpacity accessibilityRole="button" accessibilityLabel={(here ? "Ver " : "Como chegar a ") + item.name + (here ? " no mapa" : "")} style={styles.goButton} disabled={navigatingKey !== null} onPress={() => here ? router.push("/map?locate=1") : void navigateTo(item)}><Text style={styles.goButtonText}>{here ? "Ver" : "Ir"} →</Text></TouchableOpacity>
+            <View style={styles.storeActions}><TouchableOpacity accessibilityRole="button" accessibilityLabel={(here ? "Ver " : "Como chegar a ") + item.name + (here ? " no mapa" : "")} style={styles.goButton} disabled={navigatingKey !== null} onPress={() => here ? router.push("/?locate=1") : void navigateTo(item)}><Text style={styles.goButtonText}>{here ? "Ver" : "Ir"} →</Text></TouchableOpacity>
               <TouchableOpacity accessibilityRole="button" accessibilityLabel={favorite ? "Remover " + item.name + " dos favoritos" : "Salvar " + item.name + " nos favoritos"} accessibilityState={{ selected: favorite, disabled: !saved.ready }} disabled={!saved.ready} onPress={() => shopping && saved.toggleFavorite(shopping.codigo, item.key)} style={d.link}><Text style={styles.saveText}>{favorite ? "Salvo ✓" : "Salvar"}</Text></TouchableOpacity>
             </View>
           </View>;
         })}</View>)}
         {originNode && <TouchableOpacity accessibilityRole="button" style={d.link} onPress={() => void nav.returnToEntry().then(() => router.replace("/(tabs)/"))}><Text style={d.linkText}>Voltar para a entrada</Text></TouchableOpacity>}
-      </ScrollView>}
-      {(wide || mapView) && <ScrollView style={{ flex: 1, backgroundColor: "#ecf3ef" }} contentContainerStyle={{ padding: wide ? 24 : 16, gap: 12 }}>
-        {!wide && <TouchableOpacity accessibilityRole="button" style={styles.backToList} onPress={() => setMapView(false)}><Text style={styles.backToListText}>← Voltar à lista ({filtered.length})</Text></TouchableOpacity>}
-        <DirectoryMap floors={floors} graphs={directory.graphs} selected={selectedPlace?.node || null} origin={originNode} pins={pinIds} onSelect={(node) => { const place = directory.places.find((item) => item.node.id === node.id); if (place) setSelected(place); }} />
-        {selectedPlace && <View style={d.row}><TouchableOpacity accessibilityRole="button" style={d.button} onPress={() => void navigateTo(selectedPlace)}><Text style={d.buttonText}>Traçar rota ↗</Text></TouchableOpacity><TouchableOpacity accessibilityRole="button" style={d.link} onPress={() => setDetail(selectedPlace)}><Text style={d.linkText}>Informações do local</Text></TouchableOpacity></View>}
-      </ScrollView>}
+      </ScrollView>
     </View>
     <PoiDetails poi={detail?.poi ?? null} onClose={() => setDetail(null)} onNavigate={() => detail && void navigateTo(detail, true)} />
     <AccessibleSheet visible={!!detail && !detail.poi} title={detail?.name || "Detalhes do local"} onClose={() => setDetail(null)}>

@@ -24,7 +24,7 @@ export function MapGestureSurface(props: MapGestureProps) {
       if (!start.current || current.count !== start.current.count) { start.current = { ...current, view: live.current.view }; return; }
       const from = start.current, { bounds, onChange, onDrag } = live.current;
       const view = current.distance && from.distance ? zoomAt(from.view, from.view.zoom * current.distance / from.distance, bounds, from) : from.view;
-      onDrag();
+      onDrag(current.distance && from.distance ? "zoom" : "pan");
       onChange(clampView({ ...view, x: view.x + current.x - from.x, y: view.y + current.y - from.y }, bounds));
     },
     onPanResponderTerminationRequest: () => false,

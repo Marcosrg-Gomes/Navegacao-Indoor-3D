@@ -4,5 +4,5 @@ import type { MapBounds, MapView } from "./mapViewport";
 export type MapGestureProps = {
   bounds: MapBounds; view: MapView; children: ReactNode;
   onChange: (view: MapView) => void;
-  onDrag: () => void;
+  onDrag: (gesture?: "pan" | "zoom") => void;
 };

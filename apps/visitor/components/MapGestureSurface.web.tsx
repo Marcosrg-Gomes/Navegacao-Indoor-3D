@@ -25,7 +25,8 @@ export function MapGestureSurface(props: MapGestureProps) {
     const surface = element.current!;
     const wheel = (event: WheelEvent) => {
       event.preventDefault();
-      const { view, bounds, onChange } = live.current;
+      const { view, bounds, onChange, onDrag } = live.current;
+      onDrag("zoom");
       const rect = surface.getBoundingClientRect();
       const delta = event.deltaY * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? bounds.height : 1);
       onChange(zoomAt(view, view.zoom * Math.exp(-delta * .002), bounds, { x: event.clientX - rect.left, y: event.clientY - rect.top }));
@@ -33,8 +34,8 @@ export function MapGestureSurface(props: MapGestureProps) {
     surface.addEventListener("wheel", wheel, { passive: false });
     return () => surface.removeEventListener("wheel", wheel);
   }, []);
-  return <div ref={element} tabIndex={0} aria-label="Explorar mapa 2D: arraste para mover, use a roda ou os botões para aproximar"
-    data-testid="map-2d-viewport" data-zoom={props.view.zoom.toFixed(3)} data-pan-x={props.view.x.toFixed(2)} data-pan-y={props.view.y.toFixed(2)}
+  return <div ref={element} tabIndex={0} aria-label="Explorar mapa 2D: arraste para mover, use a roda ou os botões para aproximar. A bússola restaura a orientação original."
+    data-testid="map-2d-viewport" data-zoom={props.view.zoom.toFixed(3)} data-pan-x={props.view.x.toFixed(2)} data-pan-y={props.view.y.toFixed(2)} data-rotation={props.view.rotation.toFixed(2)}
     style={{ width: props.bounds.width, height: props.bounds.height, overflow: "hidden", position: "relative", touchAction: "none", cursor: pointers.current.size ? "grabbing" : "grab", outlineOffset: -3 }}
     onPointerDown={(event) => {
       if (event.button !== 0) return;
@@ -49,7 +50,7 @@ export function MapGestureSurface(props: MapGestureProps) {
       const dx = current.x - start.x, dy = current.y - start.y;
       if (Math.abs(dx) + Math.abs(dy) < 4 && !current.distance) return;
       event.currentTarget.setPointerCapture(event.pointerId);
-      live.current.onDrag();
+      live.current.onDrag("pan");
       const view = start.distance && current.distance ? zoomAt(start.view, start.view.zoom * current.distance / start.distance, live.current.bounds, start) : start.view;
       live.current.onChange(clampView({ ...view, x: view.x + dx, y: view.y + dy }, live.current.bounds));
     }}
@@ -59,11 +60,11 @@ export function MapGestureSurface(props: MapGestureProps) {
       // this surface must not terminate the drag when the child's loss bubbles.
       if (event.target === event.currentTarget) end(event);
     }}
-    onDoubleClick={(event) => { props.onChange(zoomAt(props.view, props.view.zoom * 1.5, props.bounds, point(event as unknown as PointerEvent))); }}
+    onDoubleClick={(event) => { props.onDrag("zoom"); props.onChange(zoomAt(props.view, props.view.zoom * 1.5, props.bounds, point(event as unknown as PointerEvent))); }}
     onKeyDown={(event) => {
       const moves: Record<string, [number, number]> = { ArrowLeft: [60, 0], ArrowRight: [-60, 0], ArrowUp: [0, 60], ArrowDown: [0, -60] };
       const move = moves[event.key];
-      if (move) { event.preventDefault(); props.onChange(clampView({ ...props.view, x: props.view.x + move[0], y: props.view.y + move[1] }, props.bounds)); }
-      if (["+", "=", "-"].includes(event.key)) { event.preventDefault(); props.onChange(zoomAt(props.view, props.view.zoom * (event.key === "-" ? 1 / 1.5 : 1.5), props.bounds)); }
+      if (move) { event.preventDefault(); props.onDrag("pan"); props.onChange(clampView({ ...props.view, x: props.view.x + move[0], y: props.view.y + move[1] }, props.bounds)); }
+      if (["+", "=", "-"].includes(event.key)) { event.preventDefault(); props.onDrag("zoom"); props.onChange(zoomAt(props.view, props.view.zoom * (event.key === "-" ? 1 / 1.5 : 1.5), props.bounds)); }
     }}>{props.children}</div>;
 }

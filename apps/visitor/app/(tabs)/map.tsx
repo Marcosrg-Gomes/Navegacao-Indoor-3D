@@ -31,7 +31,8 @@ export default function ShoppingMapScreen() {
   function locate() {
     if (!nav.originNode) { setManual(true); return; }
     setLocateRequest((value) => value + 1);
-    if (nav.originNode.piso_id !== nav.floor?.id) void nav.selectFloor(nav.originNode.piso_id);
+    const floorId = nav.positionEstimate?.floorId ?? nav.originNode.piso_id;
+    if (floorId !== nav.floor?.id) void nav.selectFloor(floorId);
   }
   useEffect(() => {
     if (params.manualOrigin === "1") { setManual(true); router.setParams({ manualOrigin: "" }); }
@@ -77,12 +78,12 @@ export default function ShoppingMapScreen() {
       {nav.floor && <SceneMap
         initialMode={width < 600 ? "2d" : "auto"}
         navigationRevision={nav.navigationRevision} shoppingId={nav.shopping?.id} floorId={nav.floor.id}
-        width={mapWidth} height={mapHeight} routeNodes={nav.route?.nos || []}
+        width={mapWidth} height={mapHeight} routeNodes={nav.routeDisplayNodes} position={nav.positionEstimate}
         originNodeId={nav.originNode?.id} destinationNodeId={nav.hasArrived ? undefined : nav.destinationNodeId}
         onLocate={locate} locateRequest={locateRequest} hasOrigin={!!nav.originNode}
         onPoiPress={(id) => { void getPoi(id).then(setPoi).catch((cause) => setError(cause.message)); }}
         fallback={nav.graph?.piso_id === nav.floor.id ? <Map2D key={nav.floor.id} width={mapWidth} height={mapHeight}
-          floor={nav.floor} graph={nav.graph} routeNodes={nav.route?.nos || []}
+          floor={nav.floor} graph={nav.graph} routeNodes={nav.routeDisplayNodes} position={nav.positionEstimate}
           origin={nav.originNode} destination={nav.hasArrived ? undefined : nav.destinationNodeId}
           onNodePress={(node) => void inspectNode(node)} onLocate={locate} locateRequest={locateRequest} /> : <ActivityIndicator accessibilityLabel="Carregando piso" />} />}
       <View style={styles.bottomActions}>

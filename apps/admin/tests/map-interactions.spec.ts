@@ -43,7 +43,7 @@ test("2D mantém arrastes sucessivos em 1×, alteração de preferências e troc
   expect(await view2d(map)).toEqual({ x: 0, y: 0, zoom: 1 });
 });
 
-test("2D aproxima sob o cursor, mantém pontos clicáveis e enquadra origem e rota", async ({ page }) => {
+test("2D aproxima sob o cursor, mantém pontos clicáveis e enquadra origem e rota", async ({ page }, info) => {
   const map = await openMap(page, "2D");
   await map.scrollIntoViewIfNeeded();
   const box = (await map.boundingBox())!;
@@ -65,10 +65,10 @@ test("2D aproxima sob o cursor, mantém pontos clicáveis e enquadra origem e ro
   await page.getByRole("button", { name: /Minha posição/ }).click();
   await expect(page.getByText("Mapa: Térreo", { exact: true })).toBeVisible();
   await expect.poll(async () => (await view2d(map)).zoom).toBeGreaterThan(1);
-  await map.screenshot({ path: "../../evidence/map-2d-location.png" });
+  await map.screenshot({ path: info.outputPath("map-2d-location.png") });
 });
 
-test("3D mantém câmera após arraste, oferece zoom, rotação, vista superior e localização", async ({ page }) => {
+test("3D mantém câmera após arraste, oferece zoom, rotação, vista superior e localização", async ({ page }, info) => {
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
   const map = await openMap(page, "3D");
@@ -95,14 +95,14 @@ test("3D mantém câmera após arraste, oferece zoom, rotação, vista superior 
   await page.getByRole("button", { name: "Girar mapa para a direita", exact: true }).click();
   await expect(map).not.toHaveAttribute("data-camera-position", position!);
   await page.getByRole("button", { name: "Ver piso inteiro", exact: true }).click();
-  await expect(map).toHaveAttribute("data-camera-target", initial!);
+  await expect(map).toHaveAttribute("data-camera-target", "0.000,0.000,0.000");
   await expect(map).toHaveAttribute("data-zoom", "1.000");
   await page.getByRole("button", { name: /^Mezanino/ }).click();
   await page.getByRole("button", { name: /Minha posição/ }).click();
   await expect(page.getByText("Mapa: Térreo", { exact: true })).toBeVisible();
   await expect(map).toHaveAttribute("data-zoom", "3.000");
   await expect(map.getByRole("button", { name: "Entrada principal, ver detalhes" })).toBeVisible();
-  await map.screenshot({ path: "../../evidence/map-3d-location.png" });
+  await map.screenshot({ path: info.outputPath("map-3d-location.png") });
   expect(errors).toEqual([]);
 });
 

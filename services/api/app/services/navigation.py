@@ -75,6 +75,7 @@ class NavigationEngine:
         candidatos = {node.id: node for node in self.db.query(No).filter(No.ativo.is_(True), No.nome.is_not(None)).all()}
         for index, etapa in enumerate(etapas):
             etapa["distancia_metros"] = round(segmentos[index - 1], 1) if 0 < index < len(etapas) - 1 else 0
+            etapa["distancia_exata_metros"] = segmentos[index - 1] if 0 < index < len(etapas) - 1 else 0
             origem = candidatos.get(etapa["no_origem_id"])
             destino = candidatos.get(etapa["no_destino_id"])
             if etapa["tipo"] in {"inicio", "chegada"} or not origem or not destino:

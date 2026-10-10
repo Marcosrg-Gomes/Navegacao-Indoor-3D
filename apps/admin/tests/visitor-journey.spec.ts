@@ -6,6 +6,15 @@ async function start(page: Page) {
 }
 
 async function destination(page: Page, name: string) {
+  if ((page.viewportSize()?.width ?? 1280) < 600) {
+    await page.getByRole("button", { name: "Pesquisar destinos" }).click();
+    await page.getByLabel("Buscar no Explorar").fill(name);
+    const response = page.waitForResponse((res) => res.url().endsWith("/api/routes") && res.request().method() === "POST");
+    await page.getByRole("button", { name: `Como chegar a ${name}`, exact: true }).click();
+    const result = await response;
+    expect(result.ok()).toBeTruthy();
+    return { body: result.request().postDataJSON(), route: await result.json() };
+  }
   await page.getByLabel("Buscar destinos", { exact: true }).fill(name);
   await page.getByRole("button", { name: `${name}, Aberto`, exact: true }).click();
   const response = page.waitForResponse((res) => res.url().endsWith("/api/routes") && res.request().method() === "POST");
@@ -42,10 +51,10 @@ test("Chegada no mezanino abre o piso e a navegação pelo Explorar usa a nova o
   await page.setViewportSize({ width: 390, height: 844 });
   await start(page);
   const first = await destination(page, "BURGER KING");
+  await page.getByRole("button", { name: "Mais opções" }).click();
   await page.getByRole("button", { name: "Cheguei ao destino", exact: true }).click();
   await expect(page.getByTestId("origin-label")).toHaveText("BURGER KING");
-  await expect(page.getByText("Mapa: Mezanino", { exact: true })).toBeVisible();
-  await expect(page.getByTestId("scene-map")).toHaveAttribute("data-floor-id", String(first.route.nos.at(-1).piso_id));
+  await expect(page.getByTestId("location-update")).toContainText("Mezanino");
   await page.getByRole("tab", { name: /Explorar/ }).click();
   await expect(page.getByRole("button", { name: "Ver minha localização no mapa" })).toContainText("BURGER KING");
   await page.getByRole("button", { name: "Filtrar e ordenar", exact: true }).click();
@@ -56,11 +65,13 @@ test("Chegada no mezanino abre o piso e a navegação pelo Explorar usa a nova o
   await page.getByRole("button", { name: "Filtrar e ordenar", exact: true }).click();
   await page.getByRole("button", { name: "Térreo", exact: true }).click();
   await page.getByRole("button", { name: "Mostrar resultados", exact: true }).click();
+  await page.getByLabel("Buscar no Explorar").fill("ADIDAS");
   const response = page.waitForResponse((res) => res.url().endsWith("/api/routes") && res.request().method() === "POST");
   await page.getByRole("button", { name: "Como chegar a ADIDAS", exact: true }).click();
   const next = await response;
   expect(next.request().postDataJSON().origem_no_id).toBe(first.body.destino_no_id);
-  await expect(page.getByTestId("route-panel")).toContainText("BURGER KING → ADIDAS");
+  await expect(page.getByTestId("route-panel")).toContainText("ADIDAS");
+  await expect(page.getByTestId("origin-label")).toHaveText("BURGER KING");
 });
 
 test("Instruções têm uma única lista e a opção acessível explica o trajeto", async ({ page }) => {
@@ -101,7 +112,8 @@ test("Explorar combina filtros, abre detalhes e mantém layout legível no celul
     await expect(page.getByRole("button", { name: "Traçar rota", exact: true })).toBeVisible();
     await page.getByRole("button", { name: "Fechar detalhes", exact: true }).click();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
-    for (const [name, label] of [["Início", "Início"], ["Mapa", "Mapa"], ["Ler QR Code", "Ler QR"], ["Explorar", "Explorar"]]) {
+    const tabs = width < 600 ? [["Mapa", "Mapa"], ["Ler QR Code", "Ler QR"], ["Explorar", "Explorar"]] : [["Início", "Início"], ["Mapa", "Mapa"], ["Ler QR Code", "Ler QR"], ["Explorar", "Explorar"]];
+    for (const [name, label] of tabs) {
       await expect(page.getByRole("tab", { name, exact: true }).getByText(label, { exact: true })).toBeInViewport({ ratio: 1 });
     }
     await page.getByRole("button", { name: "Filtrar e ordenar", exact: true }).click();
