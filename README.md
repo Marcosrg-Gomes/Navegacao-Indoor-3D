@@ -128,7 +128,8 @@ uma escala em metros. As setas do teclado também movem o mapa quando ele tem fo
 ## Banco persistente e desenvolvimento
 
 Em `services/api`, copie `.env.example` para `.env` e configure `DATABASE_URL`,
-`ADMIN_API_KEY` e `SECRET_KEY` com valores próprios. Nunca versione esse arquivo.
+`ADMIN_API_KEY` e `SECRET_KEY` com valores próprios e não vazios. A API recusa
+valores de exemplo inseguros conhecidos. Nunca versione esse arquivo.
 Execute, nessa pasta:
 
 ```powershell
@@ -226,6 +227,10 @@ trajeto ou token. Falhas de rede no visitante ficam em memória e são enviadas 
 a conexão retorna; fechar a sessão descarta os eventos pendentes. Esses contadores
 são indicativos, não uma contagem de visitantes. Logs HTTP do servidor/proxy têm
 configuração independente e devem seguir a política de retenção do ambiente.
+O envio público de diagnósticos aceita até 60 requisições a cada 60 segundos por
+endereço da conexão direta, em cada processo da API. Os valores podem ser ajustados
+por `DIAGNOSTICS_RATE_LIMIT` e `DIAGNOSTICS_RATE_WINDOW_SECONDS`; a implementação
+não confia em `X-Forwarded-For` e não oferece limite global entre múltiplas instâncias.
 
 Consulte a [matriz de requisitos e regras](docs/requisitos-e-regras.md) para os
 critérios verificáveis e as limitações de validação em aparelhos físicos.

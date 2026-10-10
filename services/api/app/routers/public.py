@@ -1,5 +1,5 @@
 from typing import List, Optional, Literal
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query, Request
 from sqlalchemy.orm import Session, joinedload
 from sqlalchemy import or_
 from pydantic import BaseModel, ConfigDict, Field
@@ -16,9 +16,16 @@ from app.schemas.rota import RotaRequest, RotaResponse
 from app.services.navigation import NavigationEngine
 from app.services.navigation_state import navigation_state
 from app.services.diagnostics import record_failure
+from app.services.diagnostics import SlidingWindowRateLimiter
 from app.services.opening_hours import open_now
+from app.config import get_settings
 
 router = APIRouter(tags=["Público"])
+settings = get_settings()
+diagnostics_rate_limiter = SlidingWindowRateLimiter(
+    settings.DIAGNOSTICS_RATE_LIMIT,
+    settings.DIAGNOSTICS_RATE_WINDOW_SECONDS,
+)
 
 
 class DiagnosticEvent(BaseModel):
@@ -28,7 +35,10 @@ class DiagnosticEvent(BaseModel):
 
 
 @router.post("/diagnostics/events", status_code=204)
-def registrar_diagnostico(event: DiagnosticEvent, db: Session = Depends(get_db)):
+def registrar_diagnostico(request: Request, event: DiagnosticEvent, db: Session = Depends(get_db)):
+    client_key = request.client.host if request.client else "unknown"
+    if not diagnostics_rate_limiter.allow(client_key):
+        raise HTTPException(status_code=429, detail="Limite de diagnósticos excedido")
     record_failure(db, event.tipo, event.codigo)
 
 

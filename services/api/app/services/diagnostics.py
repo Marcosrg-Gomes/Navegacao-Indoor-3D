@@ -1,6 +1,32 @@
+from collections import defaultdict, deque
 from datetime import datetime, timezone
+from threading import Lock
+from time import monotonic
 
 from app.models import Diagnostico
+
+
+class SlidingWindowRateLimiter:
+    def __init__(self, limit: int, window_seconds: int):
+        self.limit = limit
+        self.window_seconds = window_seconds
+        self.requests = defaultdict(deque)
+        self.lock = Lock()
+
+    def allow(self, client_key: str) -> bool:
+        now = monotonic()
+        threshold = now - self.window_seconds
+        with self.lock:
+            for key, timestamps in list(self.requests.items()):
+                while timestamps and timestamps[0] <= threshold:
+                    timestamps.popleft()
+                if not timestamps:
+                    del self.requests[key]
+            requests = self.requests[client_key]
+            if len(requests) >= self.limit:
+                return False
+            requests.append(now)
+            return True
 
 
 def record_failure(db, tipo, codigo):
