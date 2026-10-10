@@ -14,29 +14,48 @@ export default function ScanScreen() {
   const [busy, setBusy] = useState(false);
   const [cameraError, setCameraError] = useState<string | null>(null);
   const locked = useRef(false);
+  const resolving = useRef(false);
   const focused = useIsFocused();
+  const focusedRef = useRef(focused);
+  const mounted = useRef(true);
+  focusedRef.current = focused;
   const nav = useNavigation();
   const router = useRouter();
 
   useEffect(() => {
-    if (focused) locked.current = false;
+    if (focused && !resolving.current) locked.current = false;
   }, [focused]);
 
+  useEffect(() => {
+    mounted.current = true;
+    return () => { mounted.current = false; focusedRef.current = false; };
+  }, []);
+
   async function scan(data: string) {
-    if (locked.current || !data.trim()) return;
+    if (resolving.current || locked.current || !data.trim()) return;
+    resolving.current = true;
     locked.current = true;
     setBusy(true);
     setError(null);
     try {
       const result = await resolveQrCode(data);
+      if (!mounted.current || !focusedRef.current) return;
       await nav.setOriginNode(result.no, "qr");
+      if (!mounted.current || !focusedRef.current) return;
       router.replace("/map");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "QR Code não reconhecido.");
+      if (mounted.current) setError(err instanceof Error ? err.message : "QR Code não reconhecido.");
     } finally {
-      setBusy(false);
+      resolving.current = false;
+      if (mounted.current) setBusy(false);
       // A leitura repetida pela câmera fica pausada após erro até uma ação do usuário.
     }
+  }
+
+  function submitManualToken() {
+    if (resolving.current) return;
+    locked.current = false;
+    void scan(token);
   }
 
   return (
@@ -45,7 +64,7 @@ export default function ScanScreen() {
       <Text style={styles.text}>Aponte a câmera para um QR Code do shopping ou informe o código da placa.</Text>
       {focused && permission?.granted && !cameraError ? (
         <CameraView style={styles.camera} facing="back" barcodeScannerSettings={{ barcodeTypes: ["qr"] }}
-          onBarcodeScanned={({ data }) => void scan(data)}
+          onBarcodeScanned={busy ? undefined : ({ data }) => void scan(data)}
           onMountError={({ message }) => setCameraError(message)} />
       ) : (
         <View style={styles.card}>
@@ -62,10 +81,10 @@ export default function ScanScreen() {
       )}
       <Text style={styles.text}>Código ou link do QR</Text>
       <TextInput accessibilityLabel="Código ou link do QR" style={styles.input} value={token} autoCapitalize="none"
-        onChangeText={(value) => { locked.current = false; setToken(value); }} placeholder="ENTRADA-PRINCIPAL"
-        onSubmitEditing={() => void scan(token)} />
+        onChangeText={setToken} placeholder="ENTRADA-PRINCIPAL"
+        onSubmitEditing={submitManualToken} />
       <TouchableOpacity accessibilityRole="button" style={styles.button} disabled={busy || !token.trim()}
-        onPress={() => { locked.current = false; void scan(token); }}>
+        onPress={submitManualToken}>
         <Text style={styles.buttonText}>Usar código</Text>
       </TouchableOpacity>
       {busy && <ActivityIndicator accessibilityLabel="Consultando QR Code" />}
