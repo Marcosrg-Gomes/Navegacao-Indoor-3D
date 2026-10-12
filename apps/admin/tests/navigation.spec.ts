@@ -1,6 +1,8 @@
 import { test, expect } from "@playwright/test";
+import { join } from "node:path";
 
 const auth = { "X-API-Key": "audit-local-admin-key-with-32-characters", "X-Audit-Reason": "Validacao automatizada" };
+const screenshotsDir = process.env.AUDIT_SCREENSHOTS_DIR || "../../evidence";
 
 test.beforeEach(async ({ browser }, info) => {
   info.annotations.push({ type: "browser-version", description: `${info.project.name} ${browser.version()} (${process.platform})` });
@@ -59,7 +61,7 @@ test("QR → mapa → busca → rota → chegada; bloqueio administrativo muda a
     await expect(page.getByTestId("arrival-notice")).toContainText("Você chegou a TechStore");
     await expect(page.getByTestId("origin-label")).toHaveText("TechStore");
     await expect(page.getByTestId("location-update")).toContainText("Posição atualizada");
-    await page.screenshot({ path: `../../evidence/${process.env.AUDIT_PHASE || "final"}-${info.project.name}-arrival-360.png`, fullPage: true });
+    await page.screenshot({ path: join(screenshotsDir, `${process.env.AUDIT_PHASE || "final"}-${info.project.name}-arrival-360.png`), fullPage: true });
   } finally {
     const cleanup = await request.put("/api/admin/edges/4", { headers: auth, data: { ativa: edge.ativa } });
     expect(cleanup.ok()).toBeTruthy();
@@ -119,7 +121,7 @@ test("Mapa entre pisos e layout sem overflow em 360 e 414 pixels", async ({ page
     const zoomBefore = Number(await map.getAttribute("data-zoom"));
     await page.getByRole("button", { name: "Aumentar zoom" }).click();
     await expect.poll(async () => Number(await map.getAttribute("data-zoom"))).toBeGreaterThan(zoomBefore);
-    await page.screenshot({ path: `../../evidence/${process.env.AUDIT_PHASE || "final"}-${info.project.name}-map-${width}.png`, fullPage: true });
+    await page.screenshot({ path: join(screenshotsDir, `${process.env.AUDIT_PHASE || "final"}-${info.project.name}-map-${width}.png`), fullPage: true });
   }
 });
 
