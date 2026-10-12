@@ -41,7 +41,10 @@ export function SceneMap(props: SceneMapProps) {
     if (!props.shoppingId || !props.navigationRevision || !scene) return;
     let active = true;
     void getScene(props.shoppingId).then((value) => {
-      if (active) { setScene(value); setFailure(null); }
+      if (active) {
+        setScene(value);
+        setFailure((current) => current === "O modelo 3D não corresponde ao cadastro atual do mapa." ? null : current);
+      }
     }).catch((error) => {
       if (active) setFailure(error instanceof ApiError && error.status === 409
         ? "O modelo 3D não corresponde ao cadastro atual do mapa."

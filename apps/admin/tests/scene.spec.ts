@@ -46,7 +46,12 @@ test("Mini Shopping: elevador acessível, mudança de piso e bloqueio", async ({
   await page.getByTestId("floor-switch").click();
   await page.getByRole("button", { name: "Mezanino", exact: true }).click();
   await page.getByRole("button", { name: "Mapa 3D", exact: true }).click();
-  await expect(page.getByRole("button", { name: "Minha posição", exact: true })).toBeVisible();
+  await expect(
+    page.getByTestId("scene-map").getByRole("button", {
+      name: "Minha posição",
+      exact: true,
+    })
+  ).toBeVisible();
   await expect(page.getByTestId("scene-map")).toHaveAttribute("data-floor-id", String(floorId));
   await expect(page.getByTestId("scene-map")).toHaveAttribute("data-route-node-ids", route.nos.filter((n: { piso_id: number }) => n.piso_id === floorId).map((n: { id: number }) => n.id).join(","));
   await page.getByTestId("scene-map").screenshot({ path: info.outputPath("visitor-upper-accessible.png") });
@@ -76,8 +81,12 @@ test("Falha do GLB preserva mapa 2D, destino e instruções; tentativa manual re
   await page.getByRole("button", { name: "Traçar rota", exact: true }).click();
   await page.getByRole("button", { name: "Ver instruções", exact: true }).click();
   await expect(page.getByTestId("route-panel")).toContainText("Você chegou ao destino: ADIDAS");
+  await expect(page.getByTestId("scene-fallback")).toBeVisible();
+  await expect(page.getByRole("button", { name: "Tentar 3D novamente", exact: true })).toBeVisible();
+  const recoveredModel = page.waitForResponse((response) => /mini-shopping-v\d+\.glb$/.test(response.url()) && response.ok());
   await page.unroute("**/mini-shopping-v*.glb");
   await page.getByRole("button", { name: "Tentar 3D novamente", exact: true }).click();
+  expect((await recoveredModel).ok()).toBeTruthy();
   await expect(page.getByRole("button", { name: "Centralizar rota", exact: true })).toBeVisible();
   await expect(page.getByTestId("scene-map")).toHaveAttribute("data-destination-code", "E01");
 });
@@ -92,16 +101,17 @@ test("Painel mostra inventário da cena e links dos pisos", async ({ page }) => 
   await page.screenshot({ path: "../../evidence/admin-scene-validation.png", fullPage: true });
 });
 
-test("Clique na loja visível do térreo abre o POI correto sem selecionar o piso oculto", async ({ page }) => {
+test("Botão acessível da loja visível do térreo abre o POI correto", async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/?qr=MINI-ENTRADA-PRINCIPAL");
   await expect(page.getByRole("button", { name: "Centralizar rota", exact: true })).toBeVisible();
   const scene = page.getByTestId("scene-map");
   await scene.scrollIntoViewIfNeeded();
-  // Use the projected E01 label as reference, then click the actual storefront
-  // below/left of its entrance. This still raycasts the GLB, not the label.
-  const label = (await scene.getByRole("button", { name: "ADIDAS, ver detalhes" }).boundingBox())!;
-  await page.mouse.click(label.x + label.width / 2 - 20, label.y + label.height / 2 + 26);
+  const poiResponse = page.waitForResponse((response) => /\/api\/pois\/\d+$/.test(response.url()) && response.request().method() === "GET");
+  await scene.getByRole("button", { name: "ADIDAS, ver detalhes" }).click();
+  const poi = await poiResponse;
+  expect(poi.ok()).toBeTruthy();
+  expect((await poi.json()).codigo).toBe("E01");
   await expect(page.getByText("ADIDAS", { exact: true })).toBeVisible();
   await expect(page.getByText("BURGER KING", { exact: true })).toHaveCount(0);
   await expect(page.getByRole("button", { name: "Traçar rota", exact: true })).toBeVisible();
