@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-const auth = { "X-API-Key": "audit-local-only", "X-Audit-Reason": "Validacao automatizada" };
+const auth = { "X-API-Key": "audit-local-admin-key-with-32-characters", "X-Audit-Reason": "Validacao automatizada" };
 
 test("Mini Shopping: QR, GLB real, loja térrea, rota idêntica em 2D/3D e chegada", async ({ page, request }, info) => {
   const errors: string[] = [];
@@ -93,7 +93,7 @@ test("Falha do GLB preserva mapa 2D, destino e instruções; tentativa manual re
 
 test("Painel mostra inventário da cena e links dos pisos", async ({ page }) => {
   await page.goto("/admin/cena-3d");
-  await page.getByLabel("API key", { exact: true }).fill("audit-local-only");
+  await page.getByLabel("API key", { exact: true }).fill("audit-local-admin-key-with-32-characters");
   await page.getByRole("button", { name: "Entrar", exact: true }).click();
   await expect(page.getByText("Catálogo consistente", { exact: true })).toBeVisible();
   await expect(page.getByRole("row").filter({ has: page.getByRole("cell", { name: "Lojas", exact: true }) })).toContainText("22");

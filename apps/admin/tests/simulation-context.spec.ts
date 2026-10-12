@@ -121,7 +121,7 @@ test("Contexto: falha de recálculo congela posição e permite nova tentativa",
 test("Contexto: bloqueio real pausa no ponto ocupado, sem recálculo em loop; desbloqueio permite continuar", async ({ page, request }) => {
   await start(page);
   const snapshot = await paused(page);
-  const headers = { "X-API-Key": "audit-local-only", "X-Audit-Reason": "Teste isolado de simulacao" };
+  const headers = { "X-API-Key": "audit-local-admin-key-with-32-characters", "X-Audit-Reason": "Teste isolado de simulacao" };
   const edges = await (await request.get("/api/admin/edges", { headers })).json();
   const { fromNodeId, toNodeId } = snapshot.position;
   const occupied = edges.filter((edge: any) => edge.ativa &&

@@ -33,6 +33,8 @@ class Settings(BaseSettings):
             raise ValueError(f"Configure {info.field_name} com um valor não vazio")
         if value in INSECURE_EXAMPLE_VALUES[info.field_name]:
             raise ValueError(f"Configure {info.field_name} com um valor próprio e seguro")
+        if info.field_name == "ADMIN_API_KEY" and len(value) < 32:
+            raise ValueError("Configure ADMIN_API_KEY com ao menos 32 caracteres")
         return value
 
     @field_validator("ADMIN_API_KEYS")

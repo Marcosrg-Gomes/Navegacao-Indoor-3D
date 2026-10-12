@@ -17,7 +17,7 @@ def main():
     database = args.database.resolve() if args.database else Path(tempfile.mkdtemp(prefix="indoor-audit-")) / "demo.db"
     database.parent.mkdir(parents=True, exist_ok=True)
     os.environ["DATABASE_URL"] = "sqlite:///" + database.as_posix()
-    os.environ["ADMIN_API_KEY"] = "audit-local-only"
+    os.environ["ADMIN_API_KEY"] = "audit-local-admin-key-with-32-characters"
     os.environ["ADMIN_API_KEYS"] = "{}"
     os.environ["SECRET_KEY"] = "audit-local-only"
     from app.database import Base, engine, SessionLocal
@@ -51,7 +51,7 @@ def main():
             db.add(QRCode(no_id=dest.id, token="DESTINO-SUPERIOR", ativo=True))
             db.commit()
     import uvicorn
-    uvicorn.run("app.main:app", host="0.0.0.0", port=args.port)
+    uvicorn.run("app.main:app", host="127.0.0.1", port=args.port)
 
 
 if __name__ == "__main__":

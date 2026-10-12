@@ -40,6 +40,21 @@ def test_settings_aceita_credenciais_proprias():
     assert settings.ADMIN_API_KEY == "credencial-administrativa-de-teste"
 
 
+def test_settings_rejeita_admin_api_key_curta():
+    values = valid_settings()
+    values["ADMIN_API_KEY"] = "curta"
+
+    with pytest.raises(ValidationError, match="ADMIN_API_KEY"):
+        Settings(**values)
+
+
+def test_settings_aceita_admin_api_key_com_32_caracteres():
+    values = valid_settings()
+    values["ADMIN_API_KEY"] = "a" * 32
+
+    assert Settings(**values).ADMIN_API_KEY == values["ADMIN_API_KEY"]
+
+
 def test_autenticacao_administrativa_aceita_credencial_valida(monkeypatch):
     settings = Settings(**valid_settings())
     monkeypatch.setattr("app.auth.get_settings", lambda: settings)

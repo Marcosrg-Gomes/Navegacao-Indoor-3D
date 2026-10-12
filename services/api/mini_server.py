@@ -10,7 +10,7 @@ def main():
     parser.add_argument("--port", type=int, default=8766)
     args = parser.parse_args()
     database = Path(tempfile.mkdtemp(prefix="mini-shopping-")) / "demo.db"
-    os.environ.update(DATABASE_URL="sqlite:///" + database.as_posix(), ADMIN_API_KEY="audit-local-only", SECRET_KEY="audit-local-only")
+    os.environ.update(DATABASE_URL="sqlite:///" + database.as_posix(), ADMIN_API_KEY="audit-local-admin-key-with-32-characters", SECRET_KEY="audit-local-only")
     os.environ["ADMIN_API_KEYS"] = "{}"
     from app.database import Base, SessionLocal, engine
     from app.migrations import upgrade_schema

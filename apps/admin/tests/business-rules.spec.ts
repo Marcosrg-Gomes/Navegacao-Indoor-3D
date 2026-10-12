@@ -1,6 +1,6 @@
 import { expect, test, type Page } from "@playwright/test";
 
-const headers = { "X-API-Key": "audit-local-only", "X-Audit-Reason": "Teste das regras de negocio" };
+const headers = { "X-API-Key": "audit-local-admin-key-with-32-characters", "X-Audit-Reason": "Teste das regras de negocio" };
 
 test("Alteração espacial incompatível retira o 3D até o cadastro ser corrigido", async ({ page, request }) => {
   await start(page);
@@ -96,7 +96,7 @@ test("Histórico mostra motivo, restaura uma edição e apresenta falhas agregad
     expect((await request.put(`/api/admin/categories/${created.id}`, { headers, data: { nome: "Categoria alterada" } })).ok()).toBeTruthy();
     await request.get("/api/qr-codes/CODIGO-INEXISTENTE-PARA-TESTE");
     await page.goto("/admin/auditoria");
-    await page.getByLabel("API key", { exact: true }).fill("audit-local-only");
+    await page.getByLabel("API key", { exact: true }).fill("audit-local-admin-key-with-32-characters");
     await page.getByRole("button", { name: "Entrar", exact: true }).click();
     await expect(page.getByRole("heading", { name: "Histórico e falhas", exact: true })).toBeVisible();
     await expect(page.getByText(/qr · indisponivel:/)).toBeVisible();

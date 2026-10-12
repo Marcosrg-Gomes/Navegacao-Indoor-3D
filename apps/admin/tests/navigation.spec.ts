@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-const auth = { "X-API-Key": "audit-local-only", "X-Audit-Reason": "Validacao automatizada" };
+const auth = { "X-API-Key": "audit-local-admin-key-with-32-characters", "X-Audit-Reason": "Validacao automatizada" };
 
 test.beforeEach(async ({ browser }, info) => {
   info.annotations.push({ type: "browser-version", description: `${info.project.name} ${browser.version()} (${process.platform})` });
@@ -35,7 +35,7 @@ test("QR → mapa → busca → rota → chegada; bloqueio administrativo muda a
   const admin = await context.newPage();
   admin.on("dialog", (d) => d.accept("Validacao automatizada"));
   await admin.goto("/admin/arestas");
-  await admin.getByLabel("API key", { exact: true }).fill("audit-local-only");
+  await admin.getByLabel("API key", { exact: true }).fill("audit-local-admin-key-with-32-characters");
   await admin.getByRole("button", { name: "Entrar", exact: true }).click();
   const edgeRow = admin.locator("tbody tr").filter({ has: admin.locator("td:first-child", { hasText: /^#4$/ }) });
   try {
@@ -131,7 +131,7 @@ test("Falhas de rede têm mensagem e permitem repetir a busca", async ({ page })
 
 test("Painel responsivo, refresh de rota e edição de QR disponíveis", async ({ page }) => {
   await page.goto("/admin/qr");
-  await page.getByLabel("API key", { exact: true }).fill("audit-local-only");
+  await page.getByLabel("API key", { exact: true }).fill("audit-local-admin-key-with-32-characters");
   await page.getByRole("button", { name: "Entrar", exact: true }).click();
   await expect(page.locator("canvas").first()).toBeVisible();
   for (const width of [360, 414]) {

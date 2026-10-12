@@ -34,7 +34,7 @@ npm run build --prefix apps/admin
 
 Abra [o visitante com QR da entrada](http://127.0.0.1:8766/?qr=MINI-ENTRADA-PRINCIPAL)
 ou [o painel](http://127.0.0.1:8766/admin/). Na demonstração isolada, a chave do
-painel é `audit-local-only`. O servidor escuta apenas no computador local.
+painel é `audit-local-admin-key-with-32-characters`. O servidor escuta apenas no computador local.
 Cada execução usa um banco novo; não utiliza `.env` nem modifica bancos existentes.
 
 O Mini Shopping contém 22 lojas, quatro banheiros e entrada principal, distribuídos
@@ -129,7 +129,8 @@ uma escala em metros. As setas do teclado também movem o mapa quando ele tem fo
 
 Em `services/api`, copie `.env.example` para `.env` e configure `DATABASE_URL`,
 `ADMIN_API_KEY` e `SECRET_KEY` com valores próprios e não vazios. A API recusa
-valores de exemplo inseguros conhecidos. Nunca versione esse arquivo.
+valores de exemplo inseguros conhecidos e exige ao menos 32 caracteres para
+`ADMIN_API_KEY`. Nunca versione esse arquivo.
 Execute, nessa pasta:
 
 ```powershell
@@ -217,7 +218,8 @@ exigem recriação pelo cadastro; tokens de QR são omitidos e não são restaur
 
 Para identificar administradores individualmente, configure `ADMIN_API_KEYS` no
 `.env` da API como um objeto JSON que associa identificadores a chaves diferentes
-de pelo menos 16 caracteres. A chave legada `ADMIN_API_KEY` continua aceita e aparece
+de pelo menos 16 caracteres. A chave legada `ADMIN_API_KEY` exige pelo menos 32
+caracteres, continua aceita e aparece
 como `administrador-compartilhado`, sem atribuição a uma pessoa. Reinicie a API ao
 alterar credenciais. Nunca coloque valores reais na documentação ou no Git.
 As tabelas aditivas `auditoria` e `diagnosticos` são criadas na inicialização da API.

@@ -5,7 +5,7 @@ import os
 # isolated MySQL database through TEST_DATABASE_URL.
 test_database_url = os.environ.get("TEST_DATABASE_URL")
 os.environ["DATABASE_URL"] = test_database_url or "sqlite:///:memory:"
-os.environ["ADMIN_API_KEY"] = "test-api-key"
+os.environ["ADMIN_API_KEY"] = "test-local-admin-key-with-32-characters"
 os.environ["ADMIN_API_KEYS"] = "{}"
 os.environ["SECRET_KEY"] = "test-secret-key"
 os.environ["DEBUG"] = "true"
