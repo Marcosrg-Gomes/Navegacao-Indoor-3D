@@ -1,5 +1,6 @@
 from collections import defaultdict, deque
 from datetime import datetime, timezone
+from math import ceil
 from threading import Lock
 from time import monotonic
 
@@ -14,6 +15,10 @@ class SlidingWindowRateLimiter:
         self.lock = Lock()
 
     def allow(self, client_key: str) -> bool:
+        allowed, _ = self.check(client_key)
+        return allowed
+
+    def check(self, client_key: str) -> tuple[bool, int]:
         now = monotonic()
         threshold = now - self.window_seconds
         with self.lock:
@@ -24,9 +29,10 @@ class SlidingWindowRateLimiter:
                     del self.requests[key]
             requests = self.requests[client_key]
             if len(requests) >= self.limit:
-                return False
+                retry_after = max(1, ceil(requests[0] + self.window_seconds - now))
+                return False, retry_after
             requests.append(now)
-            return True
+            return True, 0
 
 
 def record_failure(db, tipo, codigo):

@@ -233,6 +233,12 @@ O envio público de diagnósticos aceita até 60 requisições a cada 60 segundo
 endereço da conexão direta, em cada processo da API. Os valores podem ser ajustados
 por `DIAGNOSTICS_RATE_LIMIT` e `DIAGNOSTICS_RATE_WINDOW_SECONDS`; a implementação
 não confia em `X-Forwarded-For` e não oferece limite global entre múltiplas instâncias.
+O cálculo público de rotas e de distâncias possui cotas independentes, também por
+endereço da conexão direta e por processo: 30 e 20 requisições por 60 segundos,
+respectivamente. Ajuste-as por `ROUTES_RATE_LIMIT`, `ROUTES_RATE_WINDOW_SECONDS`,
+`ROUTE_DISTANCES_RATE_LIMIT` e `ROUTE_DISTANCES_RATE_WINDOW_SECONDS`. Requisições
+excedentes recebem `429` com `Retry-After`. Esses limites em memória não são uma
+cota global entre múltiplos workers ou instâncias.
 
 Consulte a [matriz de requisitos e regras](docs/requisitos-e-regras.md) para os
 critérios verificáveis e as limitações de validação em aparelhos físicos.

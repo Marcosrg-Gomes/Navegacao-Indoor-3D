@@ -20,6 +20,10 @@ class Settings(BaseSettings):
     DEBUG: bool = True
     DIAGNOSTICS_RATE_LIMIT: int = Field(default=60, ge=1, le=600)
     DIAGNOSTICS_RATE_WINDOW_SECONDS: int = Field(default=60, ge=1, le=3600)
+    ROUTES_RATE_LIMIT: int = Field(default=30, ge=1, le=600)
+    ROUTES_RATE_WINDOW_SECONDS: int = Field(default=60, ge=1, le=3600)
+    ROUTE_DISTANCES_RATE_LIMIT: int = Field(default=20, ge=1, le=600)
+    ROUTE_DISTANCES_RATE_WINDOW_SECONDS: int = Field(default=60, ge=1, le=3600)
     APP_TITLE: str = "API Navegação Indoor"
     APP_VERSION: str = "1.0.0"
 

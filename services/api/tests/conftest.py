@@ -49,6 +49,18 @@ def db_session():
 
 @pytest.fixture(scope="function")
 def client(db_session):
+    from app.routers import public
+    from app.services.diagnostics import SlidingWindowRateLimiter
+
+    settings = get_settings()
+    public.routes_rate_limiter = SlidingWindowRateLimiter(
+        settings.ROUTES_RATE_LIMIT, settings.ROUTES_RATE_WINDOW_SECONDS
+    )
+    public.route_distances_rate_limiter = SlidingWindowRateLimiter(
+        settings.ROUTE_DISTANCES_RATE_LIMIT,
+        settings.ROUTE_DISTANCES_RATE_WINDOW_SECONDS,
+    )
+
     def override_get_db():
         try:
             yield db_session

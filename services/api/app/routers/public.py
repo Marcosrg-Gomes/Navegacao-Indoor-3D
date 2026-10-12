@@ -26,6 +26,25 @@ diagnostics_rate_limiter = SlidingWindowRateLimiter(
     settings.DIAGNOSTICS_RATE_LIMIT,
     settings.DIAGNOSTICS_RATE_WINDOW_SECONDS,
 )
+routes_rate_limiter = SlidingWindowRateLimiter(
+    settings.ROUTES_RATE_LIMIT,
+    settings.ROUTES_RATE_WINDOW_SECONDS,
+)
+route_distances_rate_limiter = SlidingWindowRateLimiter(
+    settings.ROUTE_DISTANCES_RATE_LIMIT,
+    settings.ROUTE_DISTANCES_RATE_WINDOW_SECONDS,
+)
+
+
+def enforce_rate_limit(request: Request, limiter: SlidingWindowRateLimiter):
+    client_key = request.client.host if request.client else "unknown"
+    allowed, retry_after = limiter.check(client_key)
+    if not allowed:
+        raise HTTPException(
+            status_code=429,
+            detail="Limite de requisições excedido",
+            headers={"Retry-After": str(retry_after)},
+        )
 
 
 class DiagnosticEvent(BaseModel):
@@ -130,17 +149,18 @@ def obter_grafo_piso(piso_id: int, db: Session = Depends(get_db)):
     )
 
 @router.post("/routes", response_model=RotaResponse)
-def calcular_rota(request: RotaRequest, db: Session = Depends(get_db)):
+def calcular_rota(route_request: RotaRequest, request: Request, db: Session = Depends(get_db)):
     """Calcula a melhor rota entre dois pontos."""
+    enforce_rate_limit(request, routes_rate_limiter)
     engine = NavigationEngine(db)
-    origem = engine._obter_no_navegavel(request.origem_no_id)
+    origem = engine._obter_no_navegavel(route_request.origem_no_id)
     revisao = navigation_state(db, origem.piso.shopping_id)["revisao"] if origem else "ausente"
-    destino = db.query(Loja).filter_by(no_id=request.destino_no_id).first()
-    if destino and (not destino.ativo or (open_now(destino.status_operacional, destino.horario_funcionamento) is False and not request.confirmar_indisponivel)):
+    destino = db.query(Loja).filter_by(no_id=route_request.destino_no_id).first()
+    if destino and (not destino.ativo or (open_now(destino.status_operacional, destino.horario_funcionamento) is False and not route_request.confirmar_indisponivel)):
         record_failure(db, "rota", "indisponivel")
         raise HTTPException(409, "Destino indisponível. Abra suas informações e confirme o aviso para consultar o trajeto." if destino.ativo else "Destino não publicado ou inativo.",
                             headers={"X-Error-Code": "DESTINO_INDISPONIVEL"})
-    result = engine.calcular_rota(request.origem_no_id, request.destino_no_id, request.acessivel)
+    result = engine.calcular_rota(route_request.origem_no_id, route_request.destino_no_id, route_request.acessivel)
     
     if not result.get("sucesso"):
         record_failure(db, "rota", "sem_rota" if result.get("codigo") == "SEM_ROTA" else "indisponivel")
@@ -154,11 +174,13 @@ def calcular_rota(request: RotaRequest, db: Session = Depends(get_db)):
 
 @router.get("/routes/distances", response_model=dict[int, float])
 def distancias_da_origem(
+    request: Request,
     origem_no_id: int = Query(..., gt=0),
     acessivel: bool = False,
     db: Session = Depends(get_db),
 ):
     """Distâncias pelos caminhos atuais, somente no shopping da origem."""
+    enforce_rate_limit(request, route_distances_rate_limiter)
     result = NavigationEngine(db).calcular_distancias(origem_no_id, acessivel)
     if result is None:
         raise HTTPException(status_code=404, detail="Origem não encontrada ou inativa")

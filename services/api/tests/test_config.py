@@ -55,6 +55,42 @@ def test_settings_aceita_admin_api_key_com_32_caracteres():
     assert Settings(**values).ADMIN_API_KEY == values["ADMIN_API_KEY"]
 
 
+@pytest.mark.parametrize(
+    "field,value",
+    [
+        ("ROUTES_RATE_LIMIT", 0),
+        ("ROUTES_RATE_LIMIT", 601),
+        ("ROUTES_RATE_WINDOW_SECONDS", 0),
+        ("ROUTES_RATE_WINDOW_SECONDS", 3601),
+        ("ROUTE_DISTANCES_RATE_LIMIT", 0),
+        ("ROUTE_DISTANCES_RATE_LIMIT", 601),
+        ("ROUTE_DISTANCES_RATE_WINDOW_SECONDS", 0),
+        ("ROUTE_DISTANCES_RATE_WINDOW_SECONDS", 3601),
+    ],
+)
+def test_settings_rejeita_limites_publicos_invalidos(field, value):
+    values = valid_settings()
+    values[field] = value
+
+    with pytest.raises(ValidationError, match=field):
+        Settings(**values)
+
+
+def test_settings_aceita_limites_publicos_configuraveis():
+    settings = Settings(
+        **valid_settings(),
+        ROUTES_RATE_LIMIT=31,
+        ROUTES_RATE_WINDOW_SECONDS=61,
+        ROUTE_DISTANCES_RATE_LIMIT=21,
+        ROUTE_DISTANCES_RATE_WINDOW_SECONDS=62,
+    )
+
+    assert settings.ROUTES_RATE_LIMIT == 31
+    assert settings.ROUTES_RATE_WINDOW_SECONDS == 61
+    assert settings.ROUTE_DISTANCES_RATE_LIMIT == 21
+    assert settings.ROUTE_DISTANCES_RATE_WINDOW_SECONDS == 62
+
+
 def test_autenticacao_administrativa_aceita_credencial_valida(monkeypatch):
     settings = Settings(**valid_settings())
     monkeypatch.setattr("app.auth.get_settings", lambda: settings)
