@@ -78,6 +78,61 @@ def test_resolver_qr_code(client, sample_data):
     assert response.status_code == 200
     assert response.json()["qr_code"]["token"] == token
 
+def test_estado_navegacao_shopping_ativo(client, sample_data):
+    shopping_id = sample_data["shopping"].id
+    response = client.get(f"/api/shoppings/{shopping_id}/navigation-state")
+    assert response.status_code == 200
+    data = response.json()
+    assert "revisao" in data
+    assert "ativo" in data
+    assert data["ativo"] is True
+    assert isinstance(data["revisao"], str)
+    assert len(data["revisao"]) > 0
+
+def test_estado_navegacao_shopping_inexistente(client):
+    response = client.get("/api/shoppings/99999/navigation-state")
+    assert response.status_code == 200
+    data = response.json()
+    assert data["revisao"] == "ausente"
+    assert data["ativo"] is False
+
+def test_estado_navegacao_shopping_inativo(client, db_session, sample_data):
+    shopping = sample_data["shopping"]
+    shopping.ativo = False
+    db_session.commit()
+    response = client.get(f"/api/shoppings/{shopping.id}/navigation-state")
+    assert response.status_code == 200
+    data = response.json()
+    assert data["ativo"] is False
+
+def test_estado_navegacao_revisao_muda_quando_dados_mudam(client, db_session, sample_data):
+    shopping_id = sample_data["shopping"].id
+    response1 = client.get(f"/api/shoppings/{shopping_id}/navigation-state")
+    revisao1 = response1.json()["revisao"]
+
+    node = sample_data["nodes"]["n1"]
+    node.nome = "Entrada Atualizada"
+    db_session.commit()
+
+    response2 = client.get(f"/api/shoppings/{shopping_id}/navigation-state")
+    revisao2 = response2.json()["revisao"]
+    assert revisao1 != revisao2
+
+def test_estado_navegacao_revisao_deterministica(client, sample_data):
+    shopping_id = sample_data["shopping"].id
+    response1 = client.get(f"/api/shoppings/{shopping_id}/navigation-state")
+    response2 = client.get(f"/api/shoppings/{shopping_id}/navigation-state")
+    assert response1.json()["revisao"] == response2.json()["revisao"]
+
+def test_estado_navegacao_estrutura_resposta(client, sample_data):
+    shopping_id = sample_data["shopping"].id
+    response = client.get(f"/api/shoppings/{shopping_id}/navigation-state")
+    assert response.status_code == 200
+    data = response.json()
+    assert set(data.keys()) == {"revisao", "ativo"}
+    assert isinstance(data["revisao"], str)
+    assert isinstance(data["ativo"], bool)
+
 import io
 
 def test_upload_planta_piso(client, sample_data, api_key_header):

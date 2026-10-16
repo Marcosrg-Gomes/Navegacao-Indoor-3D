@@ -1,5 +1,6 @@
 .work/
 .venv/
+.venv312/
 node_modules/
 __pycache__/
 *.py[cod]

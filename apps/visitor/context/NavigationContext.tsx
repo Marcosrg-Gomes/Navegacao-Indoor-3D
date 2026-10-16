@@ -465,6 +465,7 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
           setDestinationLojaState(null);
           setDestinationNodeState(null);
           if (node.tipo !== "entrada") setEntryNode(null);
+          setError("Destino de outro shopping foi descartado. Escolha um novo destino no shopping atual.");
           setRoute(null);
           setHasArrived(false);
           return;
@@ -670,8 +671,8 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
     }
   }, [originNode, destinationLoja, destinationNodeId, floorId, loadGraph, computeRoute, arrivalLoading, shoppingId, pauseSimulation]);
 
-  const liveNavigation = useRef({ route, routeLoading, arrivalLoading, originNode, destinationNodeId, hasArrived, floorId, loading, recalculate });
-  liveNavigation.current = { route, routeLoading, arrivalLoading, originNode, destinationNodeId, hasArrived, floorId, loading, recalculate };
+  const liveNavigation = useRef({ route, routeLoading, arrivalLoading, originNode, destinationNodeId, hasArrived, floorId, loading, recalculate, simulated: false });
+  liveNavigation.current = { route, routeLoading, arrivalLoading, originNode, destinationNodeId, hasArrived, floorId, loading, recalculate, simulated: positionSession.simulated !== null };
   useEffect(() => {
     if (!shoppingId) return;
     let live = true, inFlight = false, pending = false, disconnected = false;
@@ -706,6 +707,7 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
         if (pending && !current.routeLoading && !current.arrivalLoading) {
           pending = false; lastAutoRevision = state.revisao;
           if (current.originNode && current.destinationNodeId && !current.hasArrived) {
+            if (current.simulated) dispatchPosition({ type: "pause" });
             setRouteStale(true);
             await current.recalculate();
           } else {

@@ -101,58 +101,116 @@ function parseJson(text: string): unknown {
   }
 }
 
+/**
+ * Classifica apenas falhas transitórias de rede reconhecidas como candidatos a retry.
+ * Erros de programação (TypeError de acesso a propriedade indefinida, ReferenceError, etc.)
+ * NÃO são considerados falhas de rede e não devem ser repetidos.
+ *
+ * @param signalAborted - verdadeiro quando o AbortController interno foi abortado por timeout (10s).
+ */
+function isTransientNetworkError(error: unknown, signalAborted: boolean): boolean {
+  // Timeout interno do AbortController — falha transitória reconhecida.
+  if (signalAborted) return true;
+
+  if (error instanceof TypeError) {
+    const message = (error as Error).message?.toLowerCase() ?? "";
+    // Padrões de erro de rede do fetch em navegadores e React Native:
+    // "Failed to fetch", "Network request failed", "net::ERR_INTERNET_DISCONNECTED", etc.
+    return (
+      message.includes("failed to fetch") ||
+      message.includes("network") ||
+      message.includes("net::") ||
+      message.includes("connection")
+    );
+  }
+
+  // Outros erros (programação, parse, etc.) não são falhas transitórias de rede.
+  return false;
+}
+
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const headers = new Headers(init?.headers);
   if (!headers.has("Content-Type") && init?.body) {
     headers.set("Content-Type", "application/json");
   }
 
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+  const isGet = !init?.method || init.method === "GET";
+  const maxRetries = isGet ? 2 : 0;
+  const retryDelays = [1000, 2000];
 
-  try {
-    const res = await fetch(`${BASE_URL}/api${path}`, {
-      ...init,
-      headers,
-      signal: controller.signal,
-    });
-    const text = await res.text();
-    const data = parseJson(text);
+  let lastError: unknown = null;
 
-    if (!res.ok) {
-      const detail =
-        typeof data === "object" && data !== null && "detail" in data
-          ? (data as { detail?: unknown }).detail
-          : undefined;
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    if (attempt > 0) {
+      await new Promise((resolve) => setTimeout(resolve, retryDelays[attempt - 1]));
+    }
+
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+
+    try {
+      const res = await fetch(`${BASE_URL}/api${path}`, {
+        ...init,
+        headers,
+        signal: controller.signal,
+      });
+      clearTimeout(timeout);
+      const text = await res.text();
+      const data = parseJson(text);
+
+      if (!res.ok) {
+        const detail =
+          typeof data === "object" && data !== null && "detail" in data
+            ? (data as { detail?: unknown }).detail
+            : undefined;
+        throw new ApiError(
+          detailMessage(detail, res.statusText || "Erro na API"),
+          res.status,
+          res.headers.get("X-Error-Code") || undefined
+        );
+      }
+
+      if (data === null && res.status !== 204) {
+        throw new ApiError("A API retornou uma resposta inválida.", res.status, "RESPOSTA_INVALIDA");
+      }
+
+      void flushDiagnostics();
+      return data as T;
+    } catch (error) {
+      clearTimeout(timeout);
+      lastError = error;
+
+      const isTransient = isTransientNetworkError(error, controller.signal.aborted);
+
+      // Repete apenas requisições GET idempotentes em falha de rede ou timeout.
+      // Não repete erros HTTP (4xx/5xx) nem operações com efeitos colaterais.
+      if (attempt < maxRetries && isGet && isTransient) {
+        continue;
+      }
+
+      const tipo: FailureType = path.startsWith("/qr-codes/") ? "qr" : path.startsWith("/routes") ? "rota" : path.endsWith("/scene") ? "mapa_3d" : "mapa_2d";
+      if (!(error instanceof ApiError)) {
+        if (isTransient) {
+          reportDiagnostic(tipo, controller.signal.aborted ? "timeout" : "rede");
+        }
+      } else if (error.code === "RESPOSTA_INVALIDA") {
+        reportDiagnostic(tipo, "resposta_invalida");
+      }
+      if (error instanceof ApiError) throw error;
+      if (controller.signal.aborted) {
+        throw new ApiError(
+          "A conexão demorou demais. Verifique a rede e tente novamente."
+        );
+      }
       throw new ApiError(
-        detailMessage(detail, res.statusText || "Erro na API"),
-        res.status,
-        res.headers.get("X-Error-Code") || undefined
+        "Não foi possível conectar ao servidor. Verifique a rede e tente novamente."
       );
+    } finally {
+      clearTimeout(timeout);
     }
-
-    if (data === null && res.status !== 204) {
-      throw new ApiError("A API retornou uma resposta inválida.", res.status, "RESPOSTA_INVALIDA");
-    }
-
-    void flushDiagnostics();
-    return data as T;
-  } catch (error) {
-    const tipo: FailureType = path.startsWith("/qr-codes/") ? "qr" : path.startsWith("/routes") ? "rota" : path.endsWith("/scene") ? "mapa_3d" : "mapa_2d";
-    if (!(error instanceof ApiError)) reportDiagnostic(tipo, controller.signal.aborted ? "timeout" : "rede");
-    else if (error.code === "RESPOSTA_INVALIDA") reportDiagnostic(tipo, "resposta_invalida");
-    if (error instanceof ApiError) throw error;
-    if (controller.signal.aborted) {
-      throw new ApiError(
-        "A conexão demorou demais. Verifique a rede e tente novamente."
-      );
-    }
-    throw new ApiError(
-      "Não foi possível conectar ao servidor. Verifique a rede e tente novamente."
-    );
-  } finally {
-    clearTimeout(timeout);
   }
+
+  throw lastError;
 }
 
 export function getApiBaseUrl(): string {
