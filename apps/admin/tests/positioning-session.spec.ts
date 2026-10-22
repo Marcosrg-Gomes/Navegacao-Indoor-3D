@@ -1,7 +1,10 @@
 import { expect, test } from "@playwright/test";
-import { currentPosition, initialPositionSession, positionSessionReducer as reduce } from "../../visitor/positioning/session";
 import type { PositionEvent } from "../../visitor/positioning/session";
 import { entry, destination, makeRoute } from "./fixtures/simulation";
+import { loadVisitorModule } from "./visitorModules";
+
+const { currentPosition, initialPositionSession, positionSessionReducer: reduce } =
+  loadVisitorModule<typeof import("../../visitor/positioning/session")>("../../visitor/positioning/session");
 
 const route = makeRoute();
 const confirm = (node = entry, source: "qr" | "manual" | "arrival" = "qr"): PositionEvent => ({

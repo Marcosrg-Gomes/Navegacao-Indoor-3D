@@ -99,6 +99,7 @@ jobs:
           npm run build:web
           npm run build:native
       - name: Admin build and browser
+        id: admin-build
         working-directory: apps/admin
         run: |
           npm ci
@@ -116,7 +117,10 @@ jobs:
           for attempt in $(seq 1 30); do curl --fail --silent http://127.0.0.1:8765/health && break; sleep 1; done
           curl --fail --silent http://127.0.0.1:8765/health
           npm run test:e2e -- --project=chromium tests/navigation.spec.ts tests/scanner.spec.ts tests/admin-crud.spec.ts tests/multiuser.spec.ts
+      # Não usa continue-on-error: a suíte roda mesmo se a legada falhar, mas o
+      # job termina falho se qualquer uma das duas falhar.
       - name: Integrated 3D E2E
+        if: always() && steps.admin-build.outcome == 'success'
         working-directory: apps/admin
         env:
           AUDIT_URL: http://127.0.0.1:8766
@@ -129,6 +133,29 @@ jobs:
           for attempt in $(seq 1 30); do curl --fail --silent http://127.0.0.1:8766/health && break; sleep 1; done
           curl --fail --silent http://127.0.0.1:8766/health
           npm run test:e2e -- --project=chromium tests/scene.spec.ts tests/map-interactions.spec.ts tests/visitor-journey.spec.ts tests/visitor-experience.spec.ts tests/business-rules.spec.ts tests/layout-accessibility.spec.ts tests/wayfinding.spec.ts tests/waze-navigation.spec.ts tests/simulation-engine.spec.ts tests/simulation-rerouting.spec.ts
+      # A auditoria do catálogo calcula 104 rotas (26 destinos × 2 modos × 2
+      # sentidos). O limite de produção continua 30/60 s; a cota maior vale
+      # apenas para este processo isolado, em porta própria.
+      - name: Catalog E2E with isolated route quota
+        if: always() && steps.admin-build.outcome == 'success'
+        working-directory: apps/admin
+        env:
+          AUDIT_URL: http://127.0.0.1:8767
+          AUDIT_REPORT: ../../evidence/catalog-browser-tests.json
+          AUDIT_ARTIFACTS: ../../evidence/catalog-browser-artifacts
+        run: |
+          mkdir -p ../../evidence
+          ROUTES_RATE_LIMIT=200 python ../../services/api/mini_server.py --port 8767 > ../../evidence/catalog-server.log 2>&1 &
+          server_pid=$!
+          trap 'kill $server_pid' EXIT
+          for attempt in $(seq 1 30); do curl --fail --silent http://127.0.0.1:8767/health && break; sleep 1; done
+          curl --fail --silent http://127.0.0.1:8767/health
+          set +e
+          npm run test:e2e -- --project=chromium tests/simulation-catalog.spec.ts
+          status=$?
+          set -e
+          echo "simulation-catalog exit code: $status"
+          exit $status
       - uses: actions/upload-artifact@v4
         if: always()
         with:

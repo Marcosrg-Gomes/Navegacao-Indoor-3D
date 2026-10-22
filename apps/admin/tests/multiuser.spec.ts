@@ -12,12 +12,31 @@ test("RNF03: cinco visitantes simultâneos carregam mapa e calculam rota", async
       await expect(page.getByTestId("floor-map")).toBeVisible();
       await expect(page.getByTestId("origin-label")).toContainText("Entrada Principal");
       const mapMs = performance.now() - startedAt;
-      await page.getByLabel("Buscar destinos", { exact: true }).fill("Tech");
-      await page.getByRole("button", { name: "TechStore, Aberto" }).click();
+      await page.getByRole("button", { name: "Pesquisar destinos", exact: true }).click();
+      await page.getByLabel("Buscar no Explorar", { exact: true }).fill("Tech");
       const routeStartedAt = performance.now();
-      await page.getByRole("button", { name: "Traçar rota", exact: true }).click();
+      const routeResponse = page.waitForResponse(
+        (response) => response.url().endsWith("/api/routes") && response.request().method() === "POST"
+      );
+      await page.getByRole("button", { name: "Como chegar a TechStore", exact: true }).click();
       await expect(page.getByTestId("route-panel")).toBeVisible();
-      return { visitor: index + 1, mapMs: Math.round(mapMs), routeMs: Math.round(performance.now() - routeStartedAt) };
+      const routeMs = Math.round(performance.now() - routeStartedAt);
+
+      const response = await routeResponse;
+      expect(response.ok()).toBeTruthy();
+      const route = await response.json();
+      const { destino_no_id } = response.request().postDataJSON();
+      expect(route.sucesso).toBe(true);
+      expect(Array.isArray(route.nos)).toBe(true);
+      expect(route.nos.length).toBeGreaterThan(1);
+      expect(route.nos[route.nos.length - 1].id).toBe(destino_no_id);
+      expect(Number.isFinite(route.distancia_total_metros)).toBe(true);
+      expect(route.distancia_total_metros).toBeGreaterThan(0);
+      await expect(page.getByTestId("remaining-distance"))
+        .toHaveText(String(Math.round(route.distancia_total_metros)));
+
+      return { visitor: index + 1, mapMs: Math.round(mapMs), routeMs,
+        distance: route.distancia_total_metros, nodes: route.nos.length };
     } finally {
       await context.close();
     }

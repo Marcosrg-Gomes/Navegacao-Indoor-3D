@@ -1,11 +1,20 @@
 import { expect, test } from "@playwright/test";
-import { buildSimulationTrack, sampleSimulation } from "../../visitor/positioning/routeProgress";
-import { advanceSimulation, createSimulationMotion } from "../../visitor/positioning/simulation";
-import { SimulationClock, type SimulationScheduler } from "../../visitor/positioning/providers/Simulation";
-import { initialPositionSession, positionSessionReducer as reduce } from "../../visitor/positioning/session";
+import type { SimulationScheduler } from "../../visitor/positioning/providers/Simulation";
 import { entry, destination, makeRoute, floorRoute } from "./fixtures/simulation";
-import { centerOnPosition, followPosition, INITIAL_VIEW, nearbyView } from "../../visitor/components/mapViewport";
-import { remainingRouteEdges } from "../../visitor/components/remainingRoute";
+import { loadVisitorModule } from "./visitorModules";
+
+const { buildSimulationTrack, sampleSimulation } =
+  loadVisitorModule<typeof import("../../visitor/positioning/routeProgress")>("../../visitor/positioning/routeProgress");
+const { advanceSimulation, createSimulationMotion } =
+  loadVisitorModule<typeof import("../../visitor/positioning/simulation")>("../../visitor/positioning/simulation");
+const { SimulationClock } =
+  loadVisitorModule<typeof import("../../visitor/positioning/providers/Simulation")>("../../visitor/positioning/providers/Simulation");
+const { initialPositionSession, positionSessionReducer: reduce } =
+  loadVisitorModule<typeof import("../../visitor/positioning/session")>("../../visitor/positioning/session");
+const { centerOnPosition, followPosition, INITIAL_VIEW, nearbyView } =
+  loadVisitorModule<typeof import("../../visitor/components/mapViewport")>("../../visitor/components/mapViewport");
+const { remainingRouteEdges } =
+  loadVisitorModule<typeof import("../../visitor/components/remainingRoute")>("../../visitor/components/remainingRoute");
 
 test("Movimento independe de FPS e velocidade não altera a geometria", () => {
   const track = buildSimulationTrack(makeRoute(), "TESTE");
@@ -47,8 +56,8 @@ test("Câmera 2D orienta o trecho à frente e mantém a seta abaixo do centro", 
     expect(view.rotation).toBe(-heading);
     expect(view.zoom).toBe(2.5);
     expect(view.x).toBeCloseTo(0);
-    expect(bounds.height / 2 + view.y).toBeGreaterThan(bounds.height * .62);
-    expect(bounds.height / 2 + view.y).toBeLessThan(bounds.height * .76);
+    // Sem nextTurn, o deslocamento fixo posiciona a seta a 60% da altura.
+    expect(bounds.height / 2 + view.y).toBeCloseTo(bounds.height * .6, 6);
   }
   const thinFloor = { width: 390, height: 400, mapWidth: 150, mapHeight: 300 };
   const nearby = nearbyView(thinFloor, { x: .5, y: .1 });

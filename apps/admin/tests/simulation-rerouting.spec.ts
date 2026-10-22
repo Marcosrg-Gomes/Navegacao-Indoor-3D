@@ -1,9 +1,15 @@
 import { expect, test } from "@playwright/test";
-import { requestSimulationRoute, simulationConnections, type SimulationRouteApi } from "../../visitor/positioning/rerouting";
-import { initialPositionSession, positionSessionReducer as reduce } from "../../visitor/positioning/session";
-import { sampleSimulation } from "../../visitor/positioning/routeProgress";
+import type { SimulationRouteApi } from "../../visitor/positioning/rerouting";
 import type { GraphResponse, No } from "../../visitor/types";
 import { entry, destination, makeRoute } from "./fixtures/simulation";
+import { loadVisitorModule } from "./visitorModules";
+
+const { requestSimulationRoute, simulationConnections } =
+  loadVisitorModule<typeof import("../../visitor/positioning/rerouting")>("../../visitor/positioning/rerouting");
+const { initialPositionSession, positionSessionReducer: reduce } =
+  loadVisitorModule<typeof import("../../visitor/positioning/session")>("../../visitor/positioning/session");
+const { sampleSimulation } =
+  loadVisitorModule<typeof import("../../visitor/positioning/routeProgress")>("../../visitor/positioning/routeProgress");
 
 const shopping = { id: 1, codigo: "TESTE", nome: "Teste", ativo: true };
 const next: No = { ...destination, id: 3, codigo: "PROXIMA", coord_x: .8 };

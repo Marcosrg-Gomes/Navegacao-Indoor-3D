@@ -1,6 +1,9 @@
 import { expect, test } from "@playwright/test";
-import { buildSimulationTrack, sampleSimulation } from "../../visitor/positioning/routeProgress";
 import type { GraphResponse, Piso, RotaResponse, Shopping } from "../../visitor/types";
+import { loadVisitorModule } from "./visitorModules";
+
+const { buildSimulationTrack, sampleSimulation } =
+  loadVisitorModule<typeof import("../../visitor/positioning/routeProgress")>("../../visitor/positioning/routeProgress");
 
 test("Motor percorre todos os destinos publicados, nos dois sentidos e modos, com arestas autorizadas", async ({ request }) => {
   test.setTimeout(120000);
