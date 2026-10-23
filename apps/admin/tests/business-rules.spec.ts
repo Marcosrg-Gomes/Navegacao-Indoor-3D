@@ -57,20 +57,31 @@ test("Bloqueio e desbloqueio atualizam a rota automaticamente sem alterar a posi
 
 test("Chegada verifica a revisão mesmo antes da próxima atualização automática", async ({ page, request }) => {
   await start(page); await natura(page);
-  let allowCheck = false;
+  // Retém as respostas de navigation-state até o clique ser despachado, para que o
+  // polling não desabilite "Cheguei ao destino" antes da confirmação da chegada.
+  let releaseChecks!: () => void;
+  const checksGate = new Promise<void>((resolve) => { releaseChecks = resolve; });
+  let released = false;
+  const release = () => { if (!released) { released = true; releaseChecks(); } };
   await page.route("**/navigation-state", async (route) => {
-    if (allowCheck) await route.continue(); else await new Promise<void>((resolve) => setTimeout(resolve, 6000)).then(() => route.continue()).catch(() => {});
+    await checksGate;
+    await route.continue();
   });
   const pois = await (await request.get("/api/pois")).json();
   const poi = pois.find((item: any) => item.nome === "NATURA");
   try {
     expect((await request.put(`/api/admin/stores/${poi.id}`, { headers, data: { status_operacional: "fechado" } })).ok()).toBeTruthy();
-    allowCheck = true;
-    await page.getByRole("button", { name: "Cheguei ao destino", exact: true }).click();
+    const arrival = page.getByRole("button", { name: "Cheguei ao destino", exact: true });
+    await expect(arrival).toBeEnabled();
+    await arrival.click();
+    release();
     await expect(page.getByTestId("origin-label")).toContainText("Entrada principal");
     await expect(page.getByTestId("arrival-notice")).toHaveCount(0);
     await expect(page.getByTestId("route-panel")).toContainText(/mapa mudou|confirme|indisponível|fechado/i);
-  } finally { await request.put(`/api/admin/stores/${poi.id}`, { headers, data: { status_operacional: "aberto" } }); }
+  } finally {
+    release();
+    await request.put(`/api/admin/stores/${poi.id}`, { headers, data: { status_operacional: "aberto" } });
+  }
 });
 
 test("Explorar filtra funcionamento e consulta percursos acessíveis na API", async ({ page, request }) => {
