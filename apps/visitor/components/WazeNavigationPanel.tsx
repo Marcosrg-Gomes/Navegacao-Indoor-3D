@@ -22,11 +22,13 @@ export function WazeManeuverBanner() {
   const index = current ? steps.findIndex((item) => item.no_origem_id === current.no_origem_id && item.no_destino_id === current.no_destino_id) : -1;
   const next = index >= 0 ? steps[index + 1] : undefined;
   const arrived = nav.simulationStatus === "arrived";
-  return <View style={styles.maneuver} accessibilityLiveRegion="polite">
-    <Text style={styles.maneuverArrow} accessible={false}>{direction(current)}</Text>
+  const failed = !nav.route && !!nav.routeError;
+  const loading = !nav.route && nav.routeLoading;
+  return <View testID="maneuver-banner" style={styles.maneuver} accessibilityLiveRegion="polite">
+    <Text style={[styles.maneuverArrow, failed && styles.maneuverArrowError]} accessible={false}>{failed ? "!" : direction(current)}</Text>
     <View style={{ flex: 1, minWidth: 0 }}>
-      <Text style={styles.maneuverEyebrow}>{arrived ? "VOCÊ CHEGOU" : moving ? "NAVEGAÇÃO SIMULADA" : "CAMINHO PREPARADO"}</Text>
-      <Text testID="current-instruction" style={styles.maneuverInstruction} numberOfLines={2}>{arrived ? nav.destinationName : current?.texto || (nav.routeLoading ? "Calculando caminho…" : "Rota pronta para começar")}</Text>
+      <Text style={[styles.maneuverEyebrow, failed && styles.maneuverEyebrowError]}>{arrived ? "VOCÊ CHEGOU" : moving ? "NAVEGAÇÃO SIMULADA" : failed ? "ROTA NÃO DISPONÍVEL" : loading ? "CALCULANDO CAMINHO" : "CAMINHO PREPARADO"}</Text>
+      <Text testID="current-instruction" style={styles.maneuverInstruction} numberOfLines={2}>{arrived ? nav.destinationName : failed ? nav.routeError : current?.texto || (nav.routeLoading ? "Calculando caminho…" : "Rota pronta para começar")}</Text>
       {!!next && !arrived && <Text style={styles.maneuverNext} numberOfLines={1}>Depois: {next.texto}</Text>}
     </View>
   </View>;
@@ -96,7 +98,9 @@ export function WazeNavigationPanel({ onChooseDestination, onCorrectPosition, on
 const styles = StyleSheet.create({
   maneuver: { backgroundColor: "#141a20", flexDirection: "row", alignItems: "center", gap: 16, paddingHorizontal: 18, paddingVertical: 12, minHeight: 82, shadowColor: "#000", shadowOpacity: .22, shadowRadius: 10, elevation: 8 },
   maneuverArrow: { width: 52, color: "#fff", fontSize: 48, lineHeight: 52, fontWeight: "900", textAlign: "center" },
+  maneuverArrowError: { color: "#ffb4ab" },
   maneuverEyebrow: { color: "#8bdcfa", fontSize: 10, lineHeight: 14, letterSpacing: 1, fontWeight: "800" },
+  maneuverEyebrowError: { color: "#ffb4ab" },
   maneuverInstruction: { color: "#fff", fontSize: 19, lineHeight: 23, fontWeight: "800" },
   maneuverNext: { color: "#b9c5ca", fontSize: 12, lineHeight: 17, marginTop: 2 },
   panel: { backgroundColor: "#ffffff", paddingHorizontal: 16, paddingTop: 10, paddingBottom: 12, gap: 8, borderTopWidth: 1, borderTopColor: "#dfe5e9" },

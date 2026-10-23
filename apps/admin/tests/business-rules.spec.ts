@@ -27,6 +27,12 @@ async function natura(page: Page) {
   await page.getByRole("button", { name: "Traçar rota", exact: true }).click();
   return (await response).json();
 }
+async function failRouteRequests(page: Page) {
+  await page.route("**/api/routes", async (route) => {
+    if (route.request().method() !== "POST") return route.continue();
+    await route.fulfill({ status: 503, contentType: "application/json", body: JSON.stringify({ detail: "Falha simulada ao recalcular a rota." }) });
+  });
+}
 
 test("Bloqueio e desbloqueio atualizam a rota automaticamente sem alterar a posição", async ({ page, request }) => {
   await start(page);
@@ -108,4 +114,58 @@ test("Histórico mostra motivo, restaura uma edição e apresenta falhas agregad
     const categories = await (await request.get("/api/admin/categories", { headers })).json();
     expect(categories.find((item: any) => item.id === created.id).nome).toBe("Categoria temporária de auditoria");
   } finally { await request.delete(`/api/admin/categories/${created.id}`, { headers }); }
+});
+
+test("Aba Mapa mostra falha de recálculo após troca de origem por QR", async ({ page }) => {
+  await page.setViewportSize({ width: 900, height: 900 });
+  await start(page);
+  await natura(page);
+  await page.getByRole("tab", { name: "Mapa", exact: true }).click();
+  await expect(page.getByRole("heading", { name: "Mapa do trajeto" })).toBeVisible();
+  await expect(page.getByRole("button", { name: /Destino: NATURA/ })).toBeVisible();
+
+  await page.getByRole("button", { name: "Escanear QR", exact: true }).click();
+  await expect(page.getByLabel("Código ou link do QR")).toBeVisible();
+  await failRouteRequests(page);
+  const failed = page.waitForResponse((r) => r.url().endsWith("/api/routes") && r.request().method() === "POST");
+  await page.getByLabel("Código ou link do QR").fill("MINI-TERREO-CENTRAL");
+  await page.getByRole("button", { name: "Usar código", exact: true }).click();
+  expect((await failed).status()).toBe(503);
+
+  await expect(page).toHaveURL(/\/map$/);
+  const warning = page.getByTestId("route-warning");
+  await expect(warning).toBeVisible();
+  await expect(warning).toContainText("Rota não disponível");
+  await expect(warning).toContainText("Falha simulada ao recalcular a rota.");
+  await expect(page.getByRole("heading", { name: "Mapa do shopping" })).toBeVisible();
+  await expect(page.getByRole("button", { name: /Destino: NATURA/ })).toHaveCount(0);
+  await expect(page.getByText("Rota pronta para começar", { exact: true })).toHaveCount(0);
+
+  await page.unroute("**/api/routes");
+  const retried = page.waitForResponse((r) => r.url().endsWith("/api/routes") && r.request().method() === "POST");
+  await warning.getByRole("button", { name: "Recalcular rota", exact: true }).click();
+  expect((await retried).ok()).toBeTruthy();
+  await expect(page.getByTestId("route-warning")).toHaveCount(0);
+  await expect(page.getByRole("button", { name: /Destino: NATURA/ })).toBeVisible();
+});
+
+test("Aba Mapa sinaliza rota desatualizada após falha de recálculo", async ({ page }) => {
+  await page.setViewportSize({ width: 900, height: 900 });
+  await start(page);
+  await natura(page);
+  await failRouteRequests(page);
+  const failed = page.waitForResponse((r) => r.url().endsWith("/api/routes") && r.request().method() === "POST");
+  await page.getByRole("button", { name: "Recalcular", exact: true }).click();
+  expect((await failed).status()).toBe(503);
+  await expect(page.getByTestId("route-panel")).toContainText("Falha simulada ao recalcular a rota.");
+  await expect(page.getByTestId("route-panel")).toContainText("Este é o trajeto anterior.");
+
+  await page.getByRole("tab", { name: "Mapa", exact: true }).click();
+  const warning = page.getByTestId("route-warning");
+  await expect(warning).toBeVisible();
+  await expect(warning).toContainText("Rota desatualizada");
+  await expect(warning).toContainText("Falha simulada ao recalcular a rota.");
+  await expect(warning).toContainText(/último cálculo/i);
+  await expect(page.getByRole("heading", { name: "Mapa do trajeto" })).toBeVisible();
+  await expect(page.getByRole("button", { name: /Destino: NATURA/ })).toBeVisible();
 });

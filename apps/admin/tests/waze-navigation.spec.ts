@@ -15,13 +15,16 @@ test("navegação mobile mantém o mapa como foco e usa uma ação principal", a
   await page.getByLabel("Buscar no Explorar").fill("NATURA");
   const response = page.waitForResponse((result) => result.url().endsWith("/api/routes") && result.request().method() === "POST");
   await page.getByRole("button", { name: /^Como chegar a NATURA/ }).click();
-  expect((await response).ok()).toBeTruthy();
+  const result = await response;
+  expect(result.ok()).toBeTruthy();
+  const route = await result.json();
 
   const panel = page.getByTestId("route-panel");
   await expect(panel).toBeVisible();
   await expect(panel.getByRole("button", { name: "Iniciar navegação", exact: true })).toBeVisible();
   await expect(page.getByTestId("remaining-distance")).toBeVisible();
-  await expect(page.getByTestId("current-instruction")).toBeVisible();
+  await expect(page.getByTestId("maneuver-banner")).toContainText("CAMINHO PREPARADO");
+  await expect(page.getByTestId("current-instruction")).toHaveText(route.etapas.filter((step: any) => step.tipo !== "inicio")[0].texto);
   await expect(map).toBeVisible();
 
   const initial = Number(await page.getByTestId("remaining-distance").textContent());
@@ -36,6 +39,29 @@ test("navegação mobile mantém o mapa como foco e usa uma ação principal", a
   await expect(panel.getByRole("button", { name: "Continuar", exact: true })).toBeVisible();
 
   await page.screenshot({ path: info.outputPath("navegacao-waze-390.png"), fullPage: true });
+});
+
+test("falha na rota no celular mostra o erro no banner sem anunciar caminho pronto", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/?qr=MINI-ENTRADA-PRINCIPAL");
+  await page.getByRole("button", { name: "Pesquisar destinos" }).click();
+  await page.getByLabel("Buscar no Explorar").fill("NATURA");
+  await page.route("**/api/routes", async (route) => {
+    if (route.request().method() !== "POST") return route.continue();
+    await route.fulfill({ status: 503, contentType: "application/json", body: JSON.stringify({ detail: "Serviço de rotas indisponível no teste." }) });
+  });
+  const failed = page.waitForResponse((result) => result.url().endsWith("/api/routes") && result.request().method() === "POST");
+  await page.getByRole("button", { name: /^Como chegar a NATURA/ }).click();
+  expect((await failed).status()).toBe(503);
+
+  const banner = page.getByTestId("maneuver-banner");
+  await expect(banner).toBeVisible();
+  await expect(banner).toContainText("ROTA NÃO DISPONÍVEL");
+  await expect(page.getByTestId("current-instruction")).toHaveText("Serviço de rotas indisponível no teste.");
+  await expect(page.getByText("CAMINHO PREPARADO", { exact: true })).toHaveCount(0);
+  await expect(page.getByText("Rota pronta para começar", { exact: true })).toHaveCount(0);
+  await expect(page.getByTestId("route-panel")).toContainText("Serviço de rotas indisponível no teste.");
+  await expect(page.getByTestId("route-panel").getByRole("button", { name: "Tentar novamente", exact: true })).toBeVisible();
 });
 
 test("mapa baixo mantém a planta orientada e a posição longe da lateral", async ({ page }, info) => {

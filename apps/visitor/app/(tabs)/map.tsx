@@ -25,6 +25,18 @@ export default function ShoppingMapScreen() {
   const [reference, setReference] = useState<No | null>(null);
   const [error, setError] = useState<string | null>(null);
   const hasRoute = !nav.hasArrived && !!nav.route;
+  const routeWarning = nav.routeError
+    ? {
+        title: nav.route ? "Rota desatualizada" : "Rota não disponível",
+        text: nav.routeError,
+        hint: nav.route
+          ? "O trajeto abaixo é o último cálculo e pode não refletir o mapa atual."
+          : "O destino selecionado foi mantido. Recalcule para tentar novamente.",
+      }
+    : nav.routeStale && nav.route
+      ? { title: "Rota em atualização", text: "O trajeto pode estar desatualizado até o recálculo terminar.", hint: undefined }
+      : null;
+  const routeWarningBusy = nav.routeLoading || nav.arrivalLoading;
   const mapWidth = Math.max(240, Math.min(width - 32, 1080));
   const mapHeight = Math.min(540, Math.max(320, height * .55));
 
@@ -68,6 +80,16 @@ export default function ShoppingMapScreen() {
         <View style={{ flex: 1 }}><Text style={styles.caption}>SUA POSIÇÃO CONFIRMADA</Text><Text testID="origin-label" style={styles.location}>{nav.originNode?.nome || "Posição ainda não definida"}</Text></View>
         <TouchableOpacity accessibilityRole="button" accessibilityLabel={nav.originNode ? "Mostrar minha posição" : "Definir ponto de partida"} style={styles.locateButton} onPress={locate}><Text style={styles.locateText}>{nav.originNode ? "Me localizar" : "Definir local"}</Text></TouchableOpacity>
       </View>
+      {routeWarning && <View testID="route-warning" style={styles.routeWarning} accessibilityRole="alert" accessibilityLiveRegion="polite">
+        <Text style={styles.routeWarningTitle}>{routeWarning.title}</Text>
+        <Text style={styles.routeWarningText}>{routeWarning.text}</Text>
+        {routeWarning.hint && <Text style={styles.routeWarningHint}>{routeWarning.hint}</Text>}
+        {nav.originNode && nav.destinationNodeId && <TouchableOpacity accessibilityRole="button" accessibilityLabel="Recalcular rota"
+          accessibilityState={{ disabled: routeWarningBusy }} disabled={routeWarningBusy}
+          onPress={() => void nav.recalculate()} style={[styles.routeWarningAction, routeWarningBusy && styles.routeWarningActionDisabled]}>
+          <Text style={styles.routeWarningActionText}>{routeWarningBusy ? "Recalculando rota…" : "Recalcular rota"}</Text>
+        </TouchableOpacity>}
+      </View>}
       {hasRoute && <TouchableOpacity accessibilityRole="button" style={styles.routeNotice} onPress={() => router.push("/")}><Text style={styles.routeNoticeText}>Destino: {nav.destinationName}</Text><Text style={styles.routeNoticeLink}>Ver instruções →</Text></TouchableOpacity>}
       {nav.hasArrived && <View style={styles.arrival} accessibilityLiveRegion="polite"><Text style={styles.arrivalText}>Você chegou! Sua posição foi atualizada.</Text><TouchableOpacity accessibilityRole="button" onPress={() => { nav.clearRoute(); router.push("/"); }}><Text style={styles.arrivalLink}>Escolher outro destino →</Text></TouchableOpacity></View>}
       {error && <Text accessibilityRole="alert" style={styles.error}>{error}</Text>}
@@ -115,6 +137,13 @@ const styles = StyleSheet.create({
   location: { color: colors.text, fontSize: 16, lineHeight: 21, fontWeight: "700" },
   locateButton: { minHeight: 44, justifyContent: "center", paddingHorizontal: 10, borderRadius: 8, backgroundColor: "#ffffff" },
   locateText: { color: colors.primary, fontSize: 13, fontWeight: "800" },
+  routeWarning: { borderLeftWidth: 4, borderLeftColor: colors.danger, borderRadius: 8, backgroundColor: colors.dangerSoft, padding: 12, gap: 6 },
+  routeWarningTitle: { color: colors.danger, fontSize: 15, fontWeight: "800" },
+  routeWarningText: { color: colors.text, fontSize: 14, lineHeight: 20 },
+  routeWarningHint: { color: colors.textMuted, fontSize: 13, lineHeight: 19 },
+  routeWarningAction: { alignSelf: "flex-start", minHeight: 44, paddingHorizontal: 14, justifyContent: "center", borderRadius: 9, backgroundColor: colors.primary },
+  routeWarningActionDisabled: { opacity: .55 },
+  routeWarningActionText: { color: "#ffffff", fontSize: 14, fontWeight: "800" },
   routeNotice: { minHeight: 52, borderLeftWidth: 4, borderLeftColor: colors.sun, borderRadius: 8, backgroundColor: colors.primary, padding: 10, flexDirection: "row", alignItems: "center", flexWrap: "wrap", gap: 5 },
   routeNoticeText: { flex: 1, minWidth: 130, color: "#ffffff", fontSize: 14, fontWeight: "700" },
   routeNoticeLink: { color: colors.sun, fontSize: 14, fontWeight: "800" },
