@@ -54,9 +54,16 @@ test("Favoritos e recentes persistem; a posição precisa ser confirmada novamen
 });
 
 test("Explorar busca e ordena pelo percurso da API", async ({ page, request }) => {
-  await start(page);
   const origin = await (await request.get("/api/qr-codes/MINI-ENTRADA-PRINCIPAL")).json();
   const distances = await (await request.get("/api/routes/distances?origem_no_id=" + origin.no.id)).json();
+  // Isola a página da cota compartilhada (20 req/60 s por IP) de
+  // /api/routes/distances: responde localmente com os dados reais já obtidos,
+  // evitando "Distância indisponível" quando outros specs já consumiram o
+  // limite no mesmo worker do CI. Mantém a validação real (≈ 31 m).
+  await page.route(/\/api\/routes\/distances/, (route) =>
+    route.fulfill({ json: distances })
+  );
+  await start(page);
   const pois = await (await request.get("/api/pois")).json();
   const natura = pois.find((p: any) => p.nome === "NATURA");
   await page.getByRole("tab", { name: /Explorar/ }).click();
