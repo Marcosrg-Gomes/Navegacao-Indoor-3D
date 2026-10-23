@@ -1,5 +1,41 @@
 import { expect, test, type Page } from "@playwright/test";
 
+type ScreenFiber = {
+  return: ScreenFiber | null;
+  memoizedProps?: { navigation?: { setParams?: (params: Record<string, string>) => void } };
+};
+
+/**
+ * Reentrega o deep link atualizando os parâmetros da rota na mesma instância da tela.
+ * `page.goto()` e a troca da URL recriam o componente no web e escondem o defeito.
+ */
+async function setRouteParams(page: Page, params: Record<string, string>) {
+  await page.evaluate((next) => {
+    const label = document.querySelector('[data-testid="origin-label"]');
+    if (!label) throw new Error("origin-label não encontrado para localizar a instância da tela.");
+    const fiberKey = Object.keys(label).find((key) => key.startsWith("__reactFiber$"));
+    if (!fiberKey) throw new Error("React Fiber indisponível em origin-label.");
+    let fiber = (label as unknown as Record<string, ScreenFiber | undefined>)[fiberKey];
+    for (let depth = 0; fiber && depth < 200; depth += 1, fiber = fiber.return) {
+      const navigation = fiber.memoizedProps?.navigation;
+      if (navigation && typeof navigation.setParams === "function") {
+        navigation.setParams(next);
+        return;
+      }
+    }
+    throw new Error("navigation.setParams não encontrado na árvore de fibers.");
+  }, params);
+}
+
+function trackQrResolutions(page: Page) {
+  const tokens: string[] = [];
+  page.on("request", (request) => {
+    const match = request.url().match(/\/api\/qr-codes\/([^/?#]+)/);
+    if (match) tokens.push(decodeURIComponent(match[1]));
+  });
+  return tokens;
+}
+
 async function start(page: Page) {
   await page.goto("/?qr=MINI-ENTRADA-PRINCIPAL");
   await expect(page.getByTestId("origin-label")).toContainText("Entrada principal");
@@ -158,4 +194,94 @@ test("Cancelar durante a confirmação impede que uma resposta atrasada altere a
   expect(next.body.origem_no_id).toBe(route.nos[0].id);
   await expect(page.getByTestId("origin-label")).toContainText("Entrada principal");
   await expect(page.getByTestId("arrival-notice")).toHaveCount(0);
+});
+
+test("Reabrir o mesmo QR com a tela montada resolve a origem novamente", async ({ page }) => {
+  const resolutions = trackQrResolutions(page);
+  await start(page);
+  expect(resolutions).toEqual(["MINI-ENTRADA-PRINCIPAL"]);
+  const search = page.getByLabel("Buscar destinos", { exact: true });
+  await search.fill("MARCADOR");
+  await expect(search).toHaveValue("MARCADOR");
+
+  await setRouteParams(page, { qr: "MINI-ENTRADA-PRINCIPAL", token: "" });
+
+  await expect.poll(() => resolutions.length).toBe(2);
+  await expect(page.getByTestId("origin-label")).toHaveText("Entrada principal");
+  expect(resolutions).toEqual(["MINI-ENTRADA-PRINCIPAL", "MINI-ENTRADA-PRINCIPAL"]);
+  // A tela não foi recriada: o texto da busca sobreviveu à reabertura do link.
+  await expect(search).toHaveValue("MARCADOR");
+  // O efeito conclui limpando o parâmetro; com o defeito a URL ficaria presa no token.
+  await expect.poll(() => new URL(page.url()).searchParams.get("qr")).toBe("");
+});
+
+test("Falha na resolução permite repetir o mesmo QR até definir a origem", async ({ page }) => {
+  let attempts = 0;
+  await page.route("**/api/qr-codes/**", async (route) => {
+    attempts += 1;
+    if (attempts === 1) {
+      await route.fulfill({ status: 500, contentType: "application/json", body: JSON.stringify({ detail: "falha simulada" }) });
+      return;
+    }
+    await route.continue();
+  });
+
+  await page.goto("/?qr=MINI-ENTRADA-PRINCIPAL");
+  await expect(page.getByText("falha simulada", { exact: true })).toBeVisible();
+  expect(attempts).toBe(1);
+
+  await setRouteParams(page, { qr: "MINI-ENTRADA-PRINCIPAL", token: "" });
+
+  await expect(page.getByTestId("origin-label")).toHaveText("Entrada principal");
+  expect(attempts).toBe(2);
+  await page.unroute("**/api/qr-codes/**");
+});
+
+test("Reabrir o QR anterior restaura a origem trocada manualmente", async ({ page }) => {
+  const resolutions = trackQrResolutions(page);
+  await start(page);
+
+  await page.getByRole("button", { name: "Alterar origem", exact: true }).click();
+  await page.getByLabel("Lugar que estou vendo").fill("ADIDAS");
+  await page.getByRole("button", { name: "Estou vendo ADIDAS", exact: true }).click();
+  await page.getByRole("button", { name: "Confirmar minha posição em ADIDAS", exact: true }).click();
+  await expect(page.getByTestId("origin-label")).toHaveText("ADIDAS");
+  expect(resolutions).toHaveLength(1);
+
+  await setRouteParams(page, { qr: "MINI-ENTRADA-PRINCIPAL", token: "" });
+
+  await expect(page.getByTestId("origin-label")).toHaveText("Entrada principal");
+  expect(resolutions).toEqual(["MINI-ENTRADA-PRINCIPAL", "MINI-ENTRADA-PRINCIPAL"]);
+});
+
+test("Repetir o mesmo QR durante a requisição mantém uma única resolução", async ({ page }) => {
+  const resolutions = trackQrResolutions(page);
+  let release!: () => void;
+  const hold = new Promise<void>((resolve) => { release = resolve; });
+  await page.route("**/api/qr-codes/**", async (route) => { await hold; await route.continue(); });
+
+  await page.goto("/?qr=MINI-ENTRADA-PRINCIPAL");
+  await expect.poll(() => resolutions.length).toBe(1);
+  await expect(page.getByTestId("origin-label")).not.toHaveText("Entrada principal");
+
+  await setRouteParams(page, { qr: "", token: "" });
+  await setRouteParams(page, { qr: "MINI-ENTRADA-PRINCIPAL", token: "" });
+  await page.waitForTimeout(500);
+  expect(resolutions).toEqual(["MINI-ENTRADA-PRINCIPAL"]);
+
+  release();
+  await expect(page.getByTestId("origin-label")).toHaveText("Entrada principal");
+  expect(resolutions).toEqual(["MINI-ENTRADA-PRINCIPAL"]);
+  await page.unroute("**/api/qr-codes/**");
+});
+
+test("Token diferente continua resolvendo depois de um token repetido", async ({ page, request }) => {
+  const resolutions = trackQrResolutions(page);
+  await start(page);
+  const node = (await (await request.get("/api/qr-codes/MINI-MEZANINO-CENTRAL")).json()).no;
+
+  await setRouteParams(page, { qr: "MINI-MEZANINO-CENTRAL", token: "" });
+
+  await expect(page.getByTestId("origin-label")).toHaveText(node.nome);
+  expect(resolutions).toEqual(["MINI-ENTRADA-PRINCIPAL", "MINI-MEZANINO-CENTRAL"]);
 });

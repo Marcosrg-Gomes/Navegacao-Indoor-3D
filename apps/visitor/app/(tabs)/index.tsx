@@ -98,7 +98,7 @@ export default function MapScreen() {
     setLocalError(null);
     resolveQrCode(token).then((result) => nav.setOriginNode(result.no, "qr"))
       .catch((e) => { setLocalError(e.message); setManual(true); })
-      .finally(() => { setQrBusy(false); router.setParams({ qr: "", token: "" }); });
+      .finally(() => { setQrBusy(false); if (qrRead.current === token) qrRead.current = null; router.setParams({ qr: "", token: "" }); });
   }, [params.qr, params.token, nav.loading, nav.setOriginNode]);
 
   const initialSelection = useRef(false);
