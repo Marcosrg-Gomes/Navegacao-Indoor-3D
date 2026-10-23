@@ -60,6 +60,58 @@ async function destination(page: Page, name: string) {
   return { body: result.request().postDataJSON(), route: await result.json() };
 }
 
+const OUTRO_SHOPPING = {
+  shopping: { id: 999, codigo: "OUTRO_SHOPPING", nome: "Shopping Outro", ativo: true },
+  floor: { id: 9002, codigo: "OUTRO_TERREO", shopping_id: 999, nome: "Térreo Outro", nivel: 0, ativo: true },
+  node: { id: 9001, codigo: "OUTRO_ENTRADA", piso_id: 9002, coord_x: 1, coord_y: 1, tipo: "entrada", nome: "Entrada do Outro Shopping", ativo: true },
+  qrToken: "OUTRO-SHOPPING",
+};
+const DESTINATION_DISCARDED =
+  "Destino de outro shopping foi descartado. Escolha um novo destino no shopping atual.";
+
+/**
+ * O Mini Shopping da suíte tem um único shopping. Acrescenta um segundo shopping
+ * apenas às respostas deste navegador, sem alterar seeds ou dados do servidor.
+ */
+async function mockSecondShopping(page: Page) {
+  // As distâncias não participam destes cenários e o endpoint tem cota por IP;
+  // responder localmente evita consumir a cota compartilhada com as demais suítes.
+  await page.route(/\/api\/routes\/distances/, (route) => route.fulfill({ json: {} }));
+  await page.route("**/api/shoppings", async (route) => {
+    if (route.request().method() !== "GET") return route.continue();
+    const real = await (await route.fetch()).json();
+    await route.fulfill({ json: [...real, OUTRO_SHOPPING.shopping] });
+  });
+  await page.route("**/api/shoppings/999/floors", (route) => route.fulfill({ json: [OUTRO_SHOPPING.floor] }));
+  await page.route("**/api/shoppings/999/navigation-state", (route) => route.fulfill({ json: { revisao: "r999", ativo: true } }));
+  await page.route("**/api/shoppings/999/scene", (route) => route.fulfill({
+    json: {
+      shopping_id: 999,
+      scene_version: "teste",
+      release: 1,
+      model_url: "/static/models/mini-shopping/mini-shopping-v1.glb",
+      floors: [{ piso_id: 9002, codigo: OUTRO_SHOPPING.floor.codigo, origin: [0, 0, 0], axis_x: [1, 0, 0], axis_y: [0, 0, 1] }],
+      pois: [],
+      anchors: [{ node_id: 9001, codigo: OUTRO_SHOPPING.node.codigo, piso_id: 9002, coord_x: 1, coord_y: 1, type: "entrada", name: OUTRO_SHOPPING.node.nome }],
+    },
+  }));
+  await page.route("**/api/floors/9002/graph", (route) => route.fulfill({
+    json: {
+      piso_id: 9002,
+      piso_nome: OUTRO_SHOPPING.floor.nome,
+      nos: [OUTRO_SHOPPING.node],
+      arestas: [],
+      conexoes_entre_pisos: [],
+    },
+  }));
+  await page.route("**/api/qr-codes/OUTRO-SHOPPING", (route) => route.fulfill({
+    json: {
+      qr_code: { id: 900, no_id: 9001, token: OUTRO_SHOPPING.qrToken, ativo: true },
+      no: OUTRO_SHOPPING.node,
+    },
+  }));
+}
+
 test("Chegada à NATURA atualiza a origem; próxima rota parte dela e cancelar preserva a posição", async ({ page }) => {
   await start(page);
   const first = await destination(page, "NATURA");
@@ -284,4 +336,71 @@ test("Token diferente continua resolvendo depois de um token repetido", async ({
 
   await expect(page.getByTestId("origin-label")).toHaveText(node.nome);
   expect(resolutions).toEqual(["MINI-ENTRADA-PRINCIPAL", "MINI-MEZANINO-CENTRAL"]);
+});
+
+test("QR de outro shopping sem destino troca origem e piso sem anunciar descarte", async ({ page }) => {
+  await mockSecondShopping(page);
+  await start(page);
+  await expect(page.getByTestId("origin-label").first()).toHaveText("Entrada principal");
+
+  await setRouteParams(page, { qr: OUTRO_SHOPPING.qrToken, token: "" });
+
+  await expect(page.getByTestId("origin-label").first()).toHaveText("Entrada do Outro Shopping");
+  await expect(page.getByText(OUTRO_SHOPPING.shopping.nome, { exact: true }).first()).toBeVisible();
+  await expect(page.getByText(OUTRO_SHOPPING.floor.nome, { exact: true }).first()).toBeVisible();
+  await expect(page.getByRole("button", { name: "Shopping Outro ✓", exact: true })).toBeVisible();
+  await expect(page.getByText(DESTINATION_DISCARDED, { exact: true })).toHaveCount(0);
+  await expect(page.getByTestId("route-panel")).toHaveCount(0);
+  await expect(page.getByTestId("scene-map")).toHaveAttribute("data-route-node-ids", "");
+});
+
+test("QR de outro shopping com destino de loja descarta destino e rota com um único aviso", async ({ page }) => {
+  await mockSecondShopping(page);
+  await start(page);
+  const { route } = await destination(page, "NATURA");
+  expect(route.nos.length).toBeGreaterThan(0);
+  await expect(page.getByTestId("route-panel")).toContainText("NATURA");
+  await expect(page.getByText("Destino: NATURA", { exact: true })).toBeVisible();
+
+  await setRouteParams(page, { qr: OUTRO_SHOPPING.qrToken, token: "" });
+
+  await expect(page.getByTestId("origin-label").first()).toHaveText("Entrada do Outro Shopping");
+  await expect(page.getByText(DESTINATION_DISCARDED, { exact: true })).toHaveCount(1);
+  await expect(page.getByTestId("route-panel")).toHaveCount(0);
+  await expect(page.getByText(/^Destino: /)).toHaveCount(0);
+  await expect(page.getByTestId("arrival-notice")).toHaveCount(0);
+  await expect(page.getByTestId("scene-map")).toHaveAttribute("data-route-node-ids", "");
+});
+
+test("QR de outro shopping com destino de nó descarta a rota e avisa uma vez", async ({ page }) => {
+  await mockSecondShopping(page);
+  await start(page);
+  await page.getByRole("tab", { name: /Explorar/ }).click();
+  await page.getByLabel("Buscar no Explorar").fill("Elevador");
+  await page.getByRole("button", { name: "Filtrar e ordenar", exact: true }).click();
+  await page.getByRole("button", { name: "Térreo", exact: true }).click();
+  await page.getByRole("button", { name: "Mostrar resultados", exact: true }).click();
+  await expect(page.getByRole("button", { name: /^Como chegar a Elevador/ })).toHaveCount(1);
+  const response = page.waitForResponse((res) => res.url().endsWith("/api/routes") && res.request().method() === "POST");
+  await page.getByRole("button", { name: /^Como chegar a Elevador/ }).click();
+  expect((await response).ok()).toBeTruthy();
+  await expect(page.getByTestId("route-panel")).toContainText(/Elevador/);
+
+  await setRouteParams(page, { qr: OUTRO_SHOPPING.qrToken, token: "" });
+
+  await expect(page.getByText(DESTINATION_DISCARDED, { exact: true })).toHaveCount(1);
+  await expect(page.getByTestId("route-panel")).toHaveCount(0);
+  await expect(page.getByTestId("arrival-notice")).toHaveCount(0);
+  await expect(page.getByTestId("scene-map")).toHaveAttribute("data-route-node-ids", "");
+});
+
+test("Troca explícita de shopping continua sem anunciar descarte de destino", async ({ page }) => {
+  await mockSecondShopping(page);
+  await start(page);
+
+  await page.getByRole("button", { name: "Shopping Outro", exact: true }).click();
+
+  await expect(page.getByRole("button", { name: "Shopping Outro ✓", exact: true })).toBeVisible();
+  await expect(page.getByText(OUTRO_SHOPPING.floor.nome, { exact: true }).first()).toBeVisible();
+  await expect(page.getByText(DESTINATION_DISCARDED, { exact: true })).toHaveCount(0);
 });

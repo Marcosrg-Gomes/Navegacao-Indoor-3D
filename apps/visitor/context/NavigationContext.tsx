@@ -462,10 +462,14 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
         if (node.tipo === "entrada") setEntryNode(node);
         if (shoppingChanged) {
           // Um destino de outro shopping viola RN04 e não deve ser reutilizado.
+          // A mensagem só faz sentido quando existia um destino antes da troca.
+          const hadDestination = destinationNodeId !== undefined;
           setDestinationLojaState(null);
           setDestinationNodeState(null);
           if (node.tipo !== "entrada") setEntryNode(null);
-          setError("Destino de outro shopping foi descartado. Escolha um novo destino no shopping atual.");
+          if (hadDestination) {
+            setError("Destino de outro shopping foi descartado. Escolha um novo destino no shopping atual.");
+          }
           setRoute(null);
           setHasArrived(false);
           return;
