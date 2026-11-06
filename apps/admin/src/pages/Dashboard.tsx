@@ -54,7 +54,7 @@ export default function Dashboard() {
 
   return (
     <div>
-      {error && <p role="alert" className="toast erro">{error} · <button onClick={() => window.location.reload()}>Tentar novamente</button></p>}
+      {error && <p role="alert" className="toast erro">{error} · <button className="ghost" onClick={() => window.location.reload()}>Tentar novamente</button></p>}
       <div className="page-head">
         <div>
           <h1>Dashboard Administrativo</h1>
@@ -65,39 +65,38 @@ export default function Dashboard() {
             <button className="primary">📐 Editor Visual de Nós</button>
           </Link>
           <Link to="/validacao">
-            <button>🩺 Validar Grafo</button>
+            <button className="accent">🩺 Validar Grafo</button>
           </Link>
         </div>
       </div>
 
-      {/* Grid de Cards de Estatísticas */}
       <div className="grid-cards">
         {cards.map(([label, value, icon, to]) => (
           <Link to={to} key={label} style={{ textDecoration: "none", color: "inherit" }}>
-            <div className="stat" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <div>
+            <div className="stat" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <span style={{ fontSize: 20 }}>{icon}</span>
                 <span>{label}</span>
-                <strong>{value}</strong>
               </div>
-              <span style={{ fontSize: 26, opacity: 0.8 }}>{icon}</span>
+              <strong style={{ fontSize: 32 }}>{value}</strong>
             </div>
           </Link>
         ))}
       </div>
 
-      {/* Card de Saúde do Grafo */}
       <div className="card" style={{ marginTop: 24 }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <h3 style={{ margin: 0 }}>Integridade da Malha de Navegação</h3>
+          <h3 style={{ margin: 0, color: "var(--primary)" }}>Integridade da Malha de Navegação</h3>
           {validacao && (
             <span
               style={{
-                padding: "4px 12px",
-                borderRadius: 16,
+                padding: "6px 14px",
+                borderRadius: 20,
                 fontSize: "0.85rem",
                 fontWeight: 700,
-                backgroundColor: validacao.valido ? "#dcfce7" : "#fee2e2",
-                color: validacao.valido ? "#15803d" : "#b91c1c",
+                backgroundColor: validacao.valido ? "var(--success-soft)" : "var(--danger-soft)",
+                color: validacao.valido ? "var(--success)" : "var(--danger)",
+                border: `1px solid ${validacao.valido ? "var(--success)" : "var(--danger)"}`,
               }}
             >
               {validacao.valido ? "Grafo Conexo e Íntegro" : "Inconsistências Detectadas"}
@@ -108,16 +107,16 @@ export default function Dashboard() {
         {!validacao ? (
           <p className="muted" style={{ marginTop: 12 }}>Carregando validação do grafo…</p>
         ) : validacao.valido ? (
-          <p style={{ marginTop: 12, color: "#166534" }}>
+          <p style={{ marginTop: 12, color: "var(--success)", fontWeight: 600 }}>
             ✅ Todos os nós ativos estão conectados e nenhuma referência órfã foi identificada.
           </p>
         ) : (
           <div style={{ marginTop: 12 }}>
-            <p style={{ color: "#991b1b" }}>
-              ⚠️ Foram detectados <strong>{validacao.problemas.length}</strong> tipo(s) de inconsistência no grafo de navegação (ex.: nós isolados ou arestas inválidas).
+            <p style={{ color: "var(--danger)", fontWeight: 600 }}>
+              ⚠️ Foram detectados <strong>{validacao.problemas.length}</strong> tipo(s) de inconsistência no grafo de navegação.
             </p>
             <div style={{ marginTop: 12 }}>
-              <Link to="/validacao" style={{ fontWeight: 600, color: "#2563eb" }}>
+              <Link to="/validacao" style={{ fontWeight: 700, color: "var(--primary)", textDecoration: "underline" }}>
                 Ver relatório detalhado com links de correção →
               </Link>
             </div>

@@ -37,22 +37,23 @@ export default function Audit() {
     finally { setBusy(false); }
   }
   return <div>
-    <div className="page-head"><div><h1>Histórico e falhas</h1><p>{identity}</p></div><button disabled={busy} onClick={() => void load()}>Atualizar histórico</button></div>
-    {error && <p role="alert">{error}</p>}{message && <p role="status">{message}</p>}
-    <section className="card"><h2>Falhas de navegação</h2><p>Contagens agregadas, sem identificação de visitantes, trajetos ou tokens de QR. Falhas de rede são enviadas quando a conexão retorna, enquanto a sessão permanece aberta.</p>
-      {failures.length ? <ul>{failures.map((failure) => <li key={`${failure.tipo}:${failure.codigo}`}>
+    <div className="page-head"><div><h1>Histórico e falhas</h1><p>{identity}</p></div><button disabled={busy} onClick={() => void load()} className="accent">Atualizar histórico</button></div>
+    {error && <p role="alert" className="text-danger">{error}</p>}
+    {message && <p role="status" className="text-success">{message}</p>}
+    <section className="card"><h2 className="text-heading">Falhas de navegação</h2><p className="text-muted">Contagens agregadas, sem identificação de visitantes, trajetos ou tokens de QR. Falhas de rede são enviadas quando a conexão retorna, enquanto a sessão permanece aberta.</p>
+      {failures.length ? <ul className="failure-list">{failures.map((failure) => <li key={`${failure.tipo}:${failure.codigo}`}>
         {failure.tipo} · {failure.codigo}: <strong>{failure.ocorrencias}</strong> — última ocorrência {new Date(failure.atualizado_em).toLocaleString("pt-BR")}
-      </li>)}</ul> : <p>Nenhuma falha registrada.</p>}
+      </li>)}</ul> : <p className="text-muted">Nenhuma falha registrada.</p>}
     </section>
-    <h2>Alterações administrativas</h2><p>Restaurações passam pelas mesmas validações do cadastro. Se o registro mudou depois desta alteração, a restauração é recusada. Tokens não são exibidos nem restaurados; exclusões exigem recriação pelo cadastro.</p>
-    {!entries.length && <p>{busy ? "Carregando…" : "Nenhuma alteração registrada."}</p>}
+    <h2 className="text-heading">Alterações administrativas</h2><p className="text-muted">Restaurações passam pelas mesmas validações do cadastro. Se o registro mudou depois desta alteração, a restauração é recusada. Tokens não são exibidos nem restaurados; exclusões exigem recriação pelo cadastro.</p>
+    {!entries.length && <p className="text-muted">{busy ? "Carregando…" : "Nenhuma alteração registrada."}</p>}
     {entries.map((entry) => <article className="card" key={entry.id} style={{ marginBottom: 16 }}>
-      <h3>#{entry.id} · {entry.entidade} {entry.registro_id} · {entry.acao}</h3>
-      <p><strong>{entry.usuario}</strong> · <time dateTime={entry.criado_em}>{new Date(entry.criado_em).toLocaleString("pt-BR")}</time></p>
-      <p>Motivo: {entry.motivo}</p>
-      <details><summary>Ver alterações</summary><dl>{Array.from(new Set([...Object.keys(entry.antes || {}), ...Object.keys(entry.depois || {})])).filter((key) => JSON.stringify(entry.antes?.[key]) !== JSON.stringify(entry.depois?.[key])).map((key) => <div key={key}><dt><strong>{key}</strong></dt><dd style={{ overflowWrap: "anywhere" }}>{JSON.stringify(entry.antes?.[key] ?? null)} → {JSON.stringify(entry.depois?.[key] ?? null)}</dd></div>)}</dl></details>
+      <h3 className="text-heading">#{entry.id} · {entry.entidade} {entry.registro_id} · {entry.acao}</h3>
+      <p className="entry-meta"><strong>{entry.usuario}</strong> · <time dateTime={entry.criado_em}>{new Date(entry.criado_em).toLocaleString("pt-BR")}</time></p>
+      <p className="entry-meta">Motivo: {entry.motivo}</p>
+      <details><summary className="summary-link">Ver alterações</summary><dl>{Array.from(new Set([...Object.keys(entry.antes || {}), ...Object.keys(entry.depois || {})])).filter((key) => JSON.stringify(entry.antes?.[key]) !== JSON.stringify(entry.depois?.[key])).map((key) => <div key={key}><dt><strong>{key}</strong></dt><dd>{JSON.stringify(entry.antes?.[key] ?? null)} → {JSON.stringify(entry.depois?.[key] ?? null)}</dd></div>)}</dl></details>
       {["editar", "restaurar"].includes(entry.acao) && <button disabled={busy} onClick={() => void restore(entry)}>Restaurar estado anterior à alteração #{entry.id}</button>}
     </article>)}
-    {more && <button disabled={busy} onClick={() => void load(entries[entries.length - 1]?.id)}>Carregar alterações anteriores</button>}
+    {more && <button disabled={busy} onClick={() => void load(entries[entries.length - 1]?.id)} className="accent">Carregar alterações anteriores</button>}
   </div>;
 }

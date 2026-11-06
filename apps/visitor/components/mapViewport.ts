@@ -53,18 +53,69 @@ export function centerOnPosition(view: MapView, position: { x: number; y: number
   return clampView({ ...view, x: -displacement.x, y: -displacement.y }, bounds);
 }
 
-/** Mantém a próxima curva e a posição no campo útil, mesmo com o mapa baixo. */
+/**
+ * Calcula a direção (em graus, 0° = norte) de um ponto para outro no mapa.
+ * 
+ * No sistema de coordenadas do mapa, coord_x cresce para a direita e coord_y
+ * cresce para baixo. Usamos Math.atan2(dx, -dy) para obter o ângulo correto:
+ * 0° = norte (cima), 90° = leste (direita), 180° = sul (baixo), 270° = oeste (esquerda).
+ */
+export function directionFromTo(fromX: number, fromY: number, toX: number, toY: number): number {
+  const dx = toX - fromX;
+  const dy = toY - fromY;
+  let angle = Math.atan2(dx, -dy) * 180 / Math.PI;
+  angle = (angle % 360 + 360) % 360;
+  return angle;
+}
+
+/**
+ * Calcula a diferença angular mínima entre dois headings (em graus).
+ * Retorna um valor entre -180 e 180.
+ */
+function angleDiff(a: number, b: number): number {
+  let diff = ((a - b) % 360 + 360) % 360;
+  if (diff > 180) diff -= 360;
+  return diff;
+}
+
+/**
+ * Calcula a rotação do mapa (0° ou 180°) com base na direção do próximo trecho
+ * da rota em relação ao heading do usuário.
+ * 
+ * O mapa só inverte 180° quando o próximo trecho da rota está "atrás" do
+ * usuário (ou seja, o usuário está caminhando na direção oposta ao trajeto).
+ * Curvas à direita ou esquerda não provocam inversão - apenas o próximo
+ * trecho reto determina a orientação.
+ * 
+ * @param heading - Rumo atual do usuário em graus (0° = norte).
+ * @param nextDirection - Rumo do próximo trecho da rota em graus (0° = norte).
+ * @returns 0° se o trajeto está à frente, 180° se está atrás.
+ */
+export function mapRotationForHeading(heading?: number, nextDirection?: number): number {
+  if (heading === undefined || nextDirection === undefined) return 0;
+  const h = ((heading % 360) + 360) % 360;
+  const d = ((nextDirection % 360) + 360) % 360;
+  // Se o próximo trecho está "atrás" do usuário (diferença > 90°), inverte o mapa
+  // para que o trajeto fique à frente da seta.
+  const diff = angleDiff(d, h);
+  return Math.abs(diff) > 90 ? 180 : 0;
+}
+
+/** Mantém a próxima curva e a posição no campo útil, mesmo com o mapa baixo.
+ * A planta só gira 180° quando o próximo trecho da rota está atrás do
+ * usuário, para que o trajeto fique sempre à frente da seta. */
 export function followPosition(view: MapView, position: { x: number; y: number; heading?: number }, bounds: MapBounds, nextTurn?: { x: number; y: number }): MapView {
-  // A planta é comprida. Virá-la 90° em uma área baixa deixa o shopping de lado;
-  // nesse caso o norte permanece em cima e a seta indica o rumo.
-  const roomForHeadingUp = bounds.height >= bounds.width * .82;
-  const rotation = roomForHeadingUp && position.heading !== undefined && Number.isFinite(position.heading)
-    ? -position.heading : 0;
   const turnAtOne = nextTurn ? rotate((nextTurn.x - position.x) * bounds.mapWidth,
-    (nextTurn.y - position.y) * bounds.mapHeight, rotation) : { x: 0, y: 0 };
+    (nextTurn.y - position.y) * bounds.mapHeight, 0) : { x: 0, y: 0 };
   const zoom = nextTurn ? Math.max(1, Math.min(view.zoom,
     (bounds.width * .72) / Math.max(1, Math.abs(turnAtOne.x)),
     (bounds.height * .64) / Math.max(1, Math.abs(turnAtOne.y)))) : view.zoom;
+  // Calcular a direção do próximo trecho da rota em relação à posição do usuário.
+  let nextDirection: number | undefined;
+  if (nextTurn) {
+    nextDirection = directionFromTo(position.x, position.y, nextTurn.x, nextTurn.y);
+  }
+  const rotation = mapRotationForHeading(position.heading, nextDirection);
   const centered = centerOnPosition({ ...view, zoom, rotation }, position, bounds);
   const upcoming = { x: turnAtOne.x * zoom, y: turnAtOne.y * zoom };
   const offsetX = Math.max(-bounds.width * .12, Math.min(bounds.width * .12, -upcoming.x * .22));

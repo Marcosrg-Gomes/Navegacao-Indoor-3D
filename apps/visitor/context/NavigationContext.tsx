@@ -143,6 +143,12 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
   const [simulationError, setSimulationError] = useState<string | null>(null);
   const [simulationNotice, setSimulationNotice] = useState<string | null>(null);
   const simulationRouteRef = useRef<RotaResponse | null>(null);
+  // Ref sempre atualizada com o valor mais recente de `route`, evitando que
+  // activateSimulation leia uma referência obsoleta capturada pelo useCallback
+  // durante um await assíncrono (ex.: enquanto o liveNavigation chama
+  // recalculate e troca a rota).
+  const routeRef = useRef<RotaResponse | null>(null);
+  routeRef.current = route;
   const simulationProgress = positionSession.motion?.progress ?? null;
   const simulationSpeed = positionSession.motion?.speed ?? 1;
   const simulationTrack = positionSession.motion?.track;
@@ -151,8 +157,12 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
       ? [simulationTrack.segments[0].from, ...simulationTrack.segments.map((segment) => segment.to)]
       : [simulationTrack.destination]
     : route?.nos ?? [], [simulationTrack, route]);
-  const simulationActive = pathname === "/" && !loading && !routeLoading && !arrivalLoading && !routeStale &&
-    !!route && (!positionSession.simulated || simulationRouteRef.current === route);
+  // O clock de simulação não deve ser bloqueado por routeStale nem routeLoading:
+  // o liveNavigation pode defini-los de forma assíncrona. O clock apenas envia
+  // ticks; o reducer já valida geração e status, e o liveNavigation para o
+  // clock se detectar mudança de revisão durante a simulação.
+  const simulationActive = pathname === "/" && !loading && !arrivalLoading &&
+    !!routeRef.current && (!positionSession.simulated || simulationRouteRef.current === routeRef.current);
   const { pause: pauseSimulation, stop: stopSimulationClock, setSpeed: setSimulationSpeed } =
     useSimulationClock(positionSession, dispatchPosition, simulationActive);
 
@@ -168,26 +178,49 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
 
   const activateSimulation = useCallback(async (resume: boolean) => {
     setSimulationError(null);
-    if (!simulationActive || !shopping || !originNode || !route || AppState.currentState !== "active") return;
+    // A ativação manual pelo usuário não deve ser bloqueada por routeStale nem
+    // routeLoading: o liveNavigation pode defini-los de forma assíncrona
+    // (detecção de mudança de revisão) entre o render do botão e o clique.
+    // As condições individuais abaixo já garantem que a rota, a origem, o
+    // shopping e o estado do app são válidos.
+    if (!shopping || !originNode || AppState.currentState !== "active") return;
     const generation = positionSession.generation, request = routeRequest.current;
-    if (positionSession.status !== (resume ? "paused" : "idle")) return;
+    // O status pode ser "idle" (não iniciado) ou "paused" (pausado pelo
+    // liveNavigation durante um recalculate). Ambos permitem iniciar/retomar.
+    // Outros status ("running", "error", "arrived", "rerouting") bloqueiam.
+    if (positionSession.status !== "idle" && positionSession.status !== "paused") return;
+    // Captura a rota antes do await: o liveNavigation pode definir route como
+    // null durante o recalculate enquanto aguardamos a resposta do servidor.
+    const routeAtStart = routeRef.current;
+    if (!routeAtStart) return;
     try {
-      // A preparação informa erros do contrato antes de ligar o relógio.
-      buildSimulationTrack(route, shopping.codigo);
       const current = await getNavigationState(shopping.id);
-      if (request !== routeRequest.current || generation !== simulationSessionRef.current.generation) return;
-      if (!current.ativo || current.revisao !== route.revisao) {
-        throw new Error("O mapa mudou. Recalcule a rota antes de iniciar ou retomar a demonstração.");
+      // Uma resposta antiga não pode sobrescrever uma rota mais recente:
+      // se o liveNavigation fez um recalculate entre o clique e esta resposta,
+      // descarta esta resposta antiga.
+      if (request !== routeRequest.current) return;
+      // A verificação de generation já invalida ticks de sessões anteriores.
+      if (generation !== simulationSessionRef.current.generation) return;
+      if (!current.ativo) {
+        throw new Error("Este shopping está indisponível. Leia um QR Code de um shopping ativo para continuar.");
       }
-      simulationRouteRef.current = route;
-      dispatchPosition(resume ? { type: "resume", revision: current.revisao }
-        : { type: "start", route, revision: current.revisao, at: Date.now() });
+      // Usar a rota capturada antes do await, pois routeRef.current pode ter
+      // sido definido como null pelo recalculate durante o await.
+      simulationRouteRef.current = routeAtStart;
+      // A preparação informa erros do contrato antes de ligar o relógio.
+      buildSimulationTrack(routeAtStart, shopping.codigo);
+      // Se o status era "paused" (alterado pelo liveNavigation durante o await),
+      // retomar em vez de iniciar do zero. O reducer trata "start" apenas quando
+      // status === "idle" e "resume" quando status === "paused".
+      const isPaused = positionSession.status === "paused";
+      dispatchPosition(resume || isPaused ? { type: "resume", revision: current.revisao }
+        : { type: "start", route: routeAtStart, revision: current.revisao, at: Date.now() });
     } catch (cause) {
       if (request === routeRequest.current && generation === simulationSessionRef.current.generation) {
         setSimulationError(errorMessage(cause, "Não foi possível iniciar a demonstração."));
       }
     }
-  }, [simulationActive, shopping, originNode, route, positionSession.generation, positionSession.status]);
+  }, [shopping, originNode, routeRef, positionSession.generation, positionSession.status]);
   const startSimulation = useCallback(() => activateSimulation(false), [activateSimulation]);
   const resumeSimulation = useCallback(() => activateSimulation(true), [activateSimulation]);
 
@@ -705,13 +738,15 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
           setRouteLoading(false); setArrivalLoading(false);
           return;
         }
-        pending = pending || changed || disconnected ||
+        pending = pending || disconnected ||
           (!!current.route && current.route.revisao !== state.revisao && lastAutoRevision !== state.revisao);
         disconnected = false;
         if (pending && !current.routeLoading && !current.arrivalLoading) {
           pending = false; lastAutoRevision = state.revisao;
           if (current.originNode && current.destinationNodeId && !current.hasArrived) {
-            if (current.simulated) dispatchPosition({ type: "pause" });
+            // Não pausar a simulação aqui: o computeRoute já chama
+            // pauseSimulation() internamente quando necessário. Pausar antecipadamente
+            // impediria que uma simulação recém-iniciada avançasse.
             setRouteStale(true);
             await current.recalculate();
           } else {

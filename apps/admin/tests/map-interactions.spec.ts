@@ -92,8 +92,8 @@ test("3D mantém câmera após arraste, oferece zoom, rotação, vista superior 
   await page.getByRole("button", { name: "Vista superior", exact: true }).click();
   await expect(page.getByRole("button", { name: "Vista inclinada", exact: true })).toBeVisible();
   const position = await map.getAttribute("data-camera-position");
-  await page.getByRole("button", { name: "Girar mapa para a direita", exact: true }).click();
-  await expect(map).not.toHaveAttribute("data-camera-position", position!);
+  // O norte permanece fixo: não há botão de rotação horizontal. Apenas
+  // vista superior/inclinada altera a câmera.
   await page.getByRole("button", { name: "Ver piso inteiro", exact: true }).click();
   await expect(map).toHaveAttribute("data-camera-target", "0.000,0.000,0.000");
   await expect(map).toHaveAttribute("data-zoom", "1.000");

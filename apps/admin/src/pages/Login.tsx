@@ -26,12 +26,12 @@ export default function Login({ onOk }: { onOk: () => void }) {
   return (
     <div className="login">
       <form className="login-card" onSubmit={submit}>
-        <small style={{ color: "var(--gold)", letterSpacing: "0.12em", textTransform: "uppercase" }}>
-          Painel administrativo
+        <small style={{ color: "var(--accent)", letterSpacing: "0.12em", textTransform: "uppercase", fontWeight: 700 }}>
+          Painel Administrativo
         </small>
         <h1>Navegação Indoor</h1>
         <p>Informe sua credencial administrativa. As alterações serão registradas com a identificação vinculada a ela.</p>
-        <label htmlFor="admin-key">API key</label>
+        <label htmlFor="admin-key">Chave de acesso</label>
         <input
           id="admin-key"
           type="password"
@@ -39,9 +39,10 @@ export default function Login({ onOk }: { onOk: () => void }) {
           onChange={(e) => setKey(e.target.value)}
           autoFocus
           required
+          placeholder="••••••••"
         />
-        <button className="primary" disabled={busy}>
-          {busy ? "Verificando…" : "Entrar"}
+        <button className="primary accent" disabled={busy}>
+          {busy ? "Verificando…" : "Entrar no painel"}
         </button>
       </form>
     </div>

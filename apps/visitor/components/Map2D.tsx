@@ -6,6 +6,7 @@ import { FloorMap } from "./FloorMap";
 import { MapGestureSurface } from "./MapGestureSurface";
 import { MapLegend, MapToolbar } from "./MapToolbar";
 import { centerOnPosition, clampView, followPosition, framePoints, INITIAL_VIEW, nearbyView, zoomAt } from "./mapViewport";
+import { colors } from "@/constants/colors";
 
 export function Map2D({ width, height, floor, graph, routeNodes, origin, position, following, onExplore, compact, controlsTop, destination, highlight, pins, onNodePress, onLocate, locateRequest }: {
   width: number; height: number; floor: Piso; graph: GraphResponse; routeNodes: NoRota[];
@@ -67,11 +68,11 @@ export function Map2D({ width, height, floor, graph, routeNodes, origin, positio
   const scaledWidth = bounds.mapWidth * view.zoom, scaledHeight = bounds.mapHeight * view.zoom;
   const scaleMeters = view.zoom >= 3 ? 2 : 5;
   const scaleWidth = scaleMeters * scaledWidth / (floor.largura_metros || 100);
-  return <View testID="floor-map" style={{ borderRadius: 2, overflow: "hidden", borderWidth: 1, borderColor: "#dbe3ed", width: width + 2, maxWidth: "100%" }}>
+  return <View testID="floor-map" style={{ borderRadius: 2, overflow: "hidden", borderWidth: 1, borderColor: colors.borderLight, width: width + 2, maxWidth: "100%" }}>
     {!compact && <MapToolbar zoom={view.zoom} onZoom={(factor) => { explore(); setView((v) => zoomAt(v, v.zoom * factor, bounds)); }}
       onReset={() => { explore(); setView(INITIAL_VIEW); }} onLocate={position || origin ? onLocate : undefined}
       onRoute={routeNodes.length ? () => { explore(); setView(framePoints(routeNodes.filter((n) => n.piso_id === floor.id), bounds)); } : undefined} />}
-    <View style={{ backgroundColor: "#eaf0f5" }}>
+    <View style={{ backgroundColor: colors.surfaceElevated }}>
       <MapGestureSurface bounds={bounds} view={view} onChange={setView} onDrag={(gesture) => { explore(); if (gesture !== "zoom") ignoreClickUntil.current = Date.now() + 250; }}>
         <View style={{ position: "absolute", left: (width - scaledWidth) / 2 + view.x, top: (height - scaledHeight) / 2 + view.y, width: scaledWidth, height: scaledHeight, transform: [{ rotate: `${view.rotation}deg` }] }}>
           <FloorMap width={scaledWidth} height={scaledHeight} floorId={floor.id} imagemPlantaUrl={floor.imagem_planta_url}
@@ -80,19 +81,19 @@ export function Map2D({ width, height, floor, graph, routeNodes, origin, positio
             detailZoom={view.zoom} mapRotation={view.rotation} position={position} onNodePress={(node) => { if (Date.now() > ignoreClickUntil.current) onNodePress(node); }} />
         </View>
       </MapGestureSurface>
-      <TouchableOpacity accessibilityRole="button" accessibilityLabel="Orientar mapa para norte" accessibilityHint="Interrompe o acompanhamento e deixa a planta na orientação original" onPress={() => { explore(); setView((current) => centerOnPosition({ ...current, rotation: 0 }, anchor || { x: .5, y: .5 }, bounds)); }} style={{ position: "absolute", right: 12, top: controlsTop ?? 12, width: 44, height: 44, alignItems: "center", justifyContent: "center", borderRadius: 22, backgroundColor: "#ffffffed" }}><Text style={{ color: "#334155", fontSize: 11, fontWeight: "800" }}>N</Text><Text style={{ color: "#334155", fontSize: 18, lineHeight: 18, transform: [{ rotate: `${180 + view.rotation}deg` }] }}>↑</Text></TouchableOpacity>
-      {compact && position?.source === "simulation" && !isFollowing && <TouchableOpacity accessibilityRole="button" accessibilityLabel="Voltar a acompanhar a rota" onPress={onLocate} style={{ position: "absolute", bottom: 65, alignSelf: "center", minHeight: 44, justifyContent: "center", paddingHorizontal: 16, borderRadius: 22, backgroundColor: "#14212d" }}><Text style={{ color: "#fff", fontSize: 13, fontWeight: "700" }}>◎ Acompanhar rota</Text></TouchableOpacity>}
-      {compact && <TouchableOpacity accessibilityRole="button" accessibilityLabel="Ver piso inteiro" onPress={() => { explore(); setView(INITIAL_VIEW); }} style={{ position: "absolute", bottom: 12, left: 12, minWidth: 104, height: 44, paddingHorizontal: 10, justifyContent: "center", alignItems: "center", borderRadius: 12, backgroundColor: "#fff" }}><Text style={{ color: "#17473f", fontSize: 12, fontWeight: "800" }}>Piso inteiro</Text></TouchableOpacity>}
+      <TouchableOpacity accessibilityRole="button" accessibilityLabel="Orientar mapa para norte" accessibilityHint="Interrompe o acompanhamento e deixa a planta na orientação original" onPress={() => { explore(); setView((current) => centerOnPosition({ ...current, rotation: 0 }, anchor || { x: .5, y: .5 }, bounds)); }} style={{ position: "absolute", right: 12, top: controlsTop ?? 12, width: 44, height: 44, alignItems: "center", justifyContent: "center", borderRadius: 22, backgroundColor: `${colors.surface}ed` }}><Text style={{ color: colors.textMuted, fontSize: 11, fontWeight: "800" }}>N</Text><Text style={{ color: colors.textMuted, fontSize: 18, lineHeight: 18, transform: [{ rotate: `${180 + view.rotation}deg` }] }}>↑</Text></TouchableOpacity>
+      {compact && position?.source === "simulation" && !isFollowing && <TouchableOpacity accessibilityRole="button" accessibilityLabel="Voltar a acompanhar a rota" onPress={onLocate} style={{ position: "absolute", bottom: 65, alignSelf: "center", minHeight: 44, justifyContent: "center", paddingHorizontal: 16, borderRadius: 22, backgroundColor: `${colors.primary}e6` }}><Text style={{ color: colors.surface, fontSize: 13, fontWeight: "700" }}>◎ Acompanhar rota</Text></TouchableOpacity>}
+      {compact && <TouchableOpacity accessibilityRole="button" accessibilityLabel="Ver piso inteiro" onPress={() => { explore(); setView(INITIAL_VIEW); }} style={{ position: "absolute", bottom: 12, left: 12, minWidth: 104, height: 44, paddingHorizontal: 10, justifyContent: "center", alignItems: "center", borderRadius: 12, backgroundColor: colors.surface }}><Text style={{ color: colors.primaryDark, fontSize: 12, fontWeight: "800" }}>Piso inteiro</Text></TouchableOpacity>}
       {compact && <View style={{ position: "absolute", bottom: 12, right: 12, flexDirection: "row", gap: 5 }}>
-        <TouchableOpacity accessibilityRole="button" accessibilityLabel="Diminuir zoom" onPress={() => { explore(); setView((v) => zoomAt(v, v.zoom / 1.5, bounds)); }} style={{ backgroundColor: "#ffffff", width: 44, height: 44, alignItems: "center", justifyContent: "center", borderRadius: 12 }}><Text style={{ color: "#17473f", fontSize: 23, fontWeight: "800" }}>−</Text></TouchableOpacity>
-        <TouchableOpacity accessibilityRole="button" accessibilityLabel="Aumentar zoom" onPress={() => { explore(); setView((v) => zoomAt(v, v.zoom * 1.5, bounds)); }} style={{ backgroundColor: "#ffffff", width: 44, height: 44, alignItems: "center", justifyContent: "center", borderRadius: 12 }}><Text style={{ color: "#17473f", fontSize: 23, fontWeight: "800" }}>+</Text></TouchableOpacity>
-        <TouchableOpacity accessibilityRole="button" accessibilityLabel="Minha posição" accessibilityHint="Volta a acompanhar sua posição no percurso" onPress={onLocate} style={{ backgroundColor: "#f5cc54", width: 44, height: 44, alignItems: "center", justifyContent: "center", borderRadius: 12 }}><Text style={{ color: "#17473f", fontSize: 24, fontWeight: "800" }}>◎</Text></TouchableOpacity>
+        <TouchableOpacity accessibilityRole="button" accessibilityLabel="Diminuir zoom" onPress={() => { explore(); setView((v) => zoomAt(v, v.zoom / 1.5, bounds)); }} style={{ backgroundColor: colors.surface, width: 44, height: 44, alignItems: "center", justifyContent: "center", borderRadius: 12 }}><Text style={{ color: colors.primaryDark, fontSize: 23, fontWeight: "800" }}>−</Text></TouchableOpacity>
+        <TouchableOpacity accessibilityRole="button" accessibilityLabel="Aumentar zoom" onPress={() => { explore(); setView((v) => zoomAt(v, v.zoom * 1.5, bounds)); }} style={{ backgroundColor: colors.surface, width: 44, height: 44, alignItems: "center", justifyContent: "center", borderRadius: 12 }}><Text style={{ color: colors.primaryDark, fontSize: 23, fontWeight: "800" }}>+</Text></TouchableOpacity>
+        <TouchableOpacity accessibilityRole="button" accessibilityLabel="Minha posição" accessibilityHint="Volta a acompanhar sua posição no percurso" onPress={onLocate} style={{ backgroundColor: colors.accent, width: 44, height: 44, alignItems: "center", justifyContent: "center", borderRadius: 12 }}><Text style={{ color: colors.primaryDark, fontSize: 24, fontWeight: "800" }}>◎</Text></TouchableOpacity>
       </View>}
-      {!compact && <View pointerEvents="none" style={{ position: "absolute", bottom: 12, left: 12, padding: 8, borderRadius: 8, backgroundColor: "#ffffffed" }}>
-        <View style={{ width: scaleWidth, height: 5, borderBottomWidth: 2, borderLeftWidth: 2, borderRightWidth: 2, borderColor: "#475569" }} /><Text style={{ fontSize: 11, color: "#475569", marginTop: 3 }}>{scaleMeters} m</Text>
+      {!compact && <View pointerEvents="none" style={{ position: "absolute", bottom: 12, left: 12, padding: 8, borderRadius: 8, backgroundColor: `${colors.surface}ed` }}>
+        <View style={{ width: scaleWidth, height: 5, borderBottomWidth: 2, borderLeftWidth: 2, borderRightWidth: 2, borderColor: colors.textMuted }} /><Text style={{ fontSize: 11, color: colors.textMuted, marginTop: 3 }}>{scaleMeters} m</Text>
       </View>}
     </View>
-    {!compact && <Text style={{ backgroundColor: "#fff", color: "#64748b", paddingHorizontal: 12, paddingTop: 10, fontSize: 12 }}>{Platform.OS === "web" ? "Arraste para explorar · roda ou dois dedos para aproximar · clique nos pontos" : "Arraste para explorar · use dois dedos para aproximar · toque nos pontos"}</Text>}
+    {!compact && <Text style={{ backgroundColor: colors.surface, color: colors.textMuted, paddingHorizontal: 12, paddingTop: 10, fontSize: 12 }}>{Platform.OS === "web" ? "Arraste para explorar · roda ou dois dedos para aproximar · clique nos pontos" : "Arraste para explorar · use dois dedos para aproximar · toque nos pontos"}</Text>}
     {!compact && <MapLegend simulated={position?.source === "simulation"} />}
   </View>;
 }

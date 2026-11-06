@@ -97,17 +97,17 @@ export default function Validation() {
             <div
               className="card"
               style={{
-                backgroundColor: "#f0fdf4",
-                border: "1px solid #86efac",
-                color: "#166534",
+                backgroundColor: "var(--success-soft)",
+                border: "1px solid var(--success)",
+                color: "var(--success)",
                 padding: "24px",
               }}
             >
               <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                 <span style={{ fontSize: 32 }}>✅</span>
                 <div>
-                  <h3 style={{ margin: 0, color: "#15803d" }}>Grafo 100% Íntegro e Conexo</h3>
-                  <p style={{ margin: "4px 0 0", color: "#166534" }}>
+                  <h3 style={{ margin: 0, color: "var(--success)" }}>Grafo 100% Íntegro e Conexo</h3>
+                  <p style={{ margin: "4px 0 0", color: "var(--muted)" }}>
                     Não foram detectados nós isolados, arestas órfãs ou componentes desconectados no escopo selecionado.
                   </p>
                 </div>
@@ -118,18 +118,18 @@ export default function Validation() {
               <div
                 className="card"
                 style={{
-                  backgroundColor: "#fef2f2",
-                  border: "1px solid #fca5a5",
+                  backgroundColor: "var(--danger-soft)",
+                  border: "1px solid var(--danger)",
                   padding: "18px 24px",
                 }}
               >
                 <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                   <span style={{ fontSize: 32 }}>⚠️</span>
                   <div>
-                    <h3 style={{ margin: 0, color: "#991b1b" }}>
+                    <h3 style={{ margin: 0, color: "var(--danger)" }}>
                       Atenção: {result.problemas.length} Tipo(s) de Inconsistência Detectado(s)
                     </h3>
-                    <p style={{ margin: "4px 0 0", color: "#b91c1c" }}>
+                    <p style={{ margin: "4px 0 0", color: "var(--muted)" }}>
                       Clique nos links dos elementos abaixo para navegar diretamente à tela de correção.
                     </p>
                   </div>
@@ -139,13 +139,13 @@ export default function Validation() {
               {result.problemas.map((prob) => (
                 <div className="card" key={prob.tipo}>
                   <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between" }}>
-                    <h3 style={{ margin: 0, color: "#dc2626" }}>{prob.tipo}</h3>
+                    <h3 style={{ margin: 0, color: "var(--text)" }}>{prob.tipo}</h3>
                     <span
                       style={{
                         padding: "2px 8px",
                         borderRadius: 12,
-                        backgroundColor: "#fee2e2",
-                        color: "#991b1b",
+                        backgroundColor: "var(--danger-soft)",
+                        color: "var(--danger)",
                         fontSize: "0.85rem",
                         fontWeight: 700,
                       }}
@@ -169,11 +169,11 @@ export default function Validation() {
                             display: "inline-flex",
                             alignItems: "center",
                             padding: "6px 12px",
-                            backgroundColor: "#f8fafc",
-                            border: "1px solid #cbd5e1",
+                            backgroundColor: "var(--panel)",
+                            border: "1px solid var(--line)",
                             borderRadius: 6,
                             textDecoration: "none",
-                            color: "#0f172a",
+                            color: "var(--primary)",
                             fontWeight: 600,
                             fontSize: "0.9rem",
                           }}

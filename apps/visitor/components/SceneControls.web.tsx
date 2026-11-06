@@ -5,8 +5,9 @@ import { MapControls } from "three/examples/jsm/controls/MapControls.js";
 import type { SceneMapProps } from "./SceneMap.types";
 import type { Scene, SceneFloor } from "../types/scene";
 import { sceneHeadingDirection, sceneTransform } from "./sceneTransform";
+import { mapRotationForHeading, directionFromTo } from "./mapViewport";
 
-export type CameraCommand = { id: number; action: "in" | "out" | "reset" | "route" | "top" | "angle" | "left" | "right" | "north" };
+export type CameraCommand = { id: number; action: "in" | "out" | "reset" | "route" | "top" | "angle" | "north" };
 export type CameraView = { zoom: number; northAngle: number; target: number[]; position: number[]; labels: Record<number, [number, number, number]> };
 
 export function SceneControls({ floor, scene, props, command, onView }: {
@@ -54,11 +55,20 @@ export function SceneControls({ floor, scene, props, command, onView }: {
   function followRouteOverview(x: number, y: number, heading: number) {
     const control = controls.current;
     if (!control || !(camera instanceof OrthographicCamera)) return;
-    const direction = new Vector3(...sceneHeadingDirection(floor, heading));
     const position = new Vector3(...sceneTransform(floor, x, y));
     const route = latest.current.props.routeNodes;
     const nextIndex = route.findIndex((node) => node.id === latest.current.props.position?.toNodeId && node.piso_id === floor.piso_id);
     const upcoming = route[nextIndex + 1]?.piso_id === floor.piso_id ? route[nextIndex + 1] : route[nextIndex];
+    // Calcular a direção do próximo trecho em relação à posição do usuário.
+    let nextDirection: number | undefined;
+    if (upcoming) {
+      nextDirection = directionFromTo(x, y, upcoming.coord_x, upcoming.coord_y);
+    }
+    // Calcular o heading efetivo considerando a direção do próximo trecho.
+    // O mapa só inverte 180° quando o próximo trecho está atrás do usuário.
+    const h = ((heading % 360) + 360) % 360;
+    const inverted = nextDirection !== undefined ? mapRotationForHeading(h, nextDirection) === 180 : false;
+    const direction = new Vector3(...sceneHeadingDirection(floor, h));
     const target = position.clone().addScaledVector(direction, 3);
     if (upcoming) {
       const towardTurn = new Vector3(...sceneTransform(floor, upcoming.coord_x, upcoming.coord_y)).sub(position);
@@ -66,9 +76,10 @@ export function SceneControls({ floor, scene, props, command, onView }: {
     }
     control.target.copy(target); control.cursor.copy(target);
     camera.up.set(0, 1, 0);
-    // A câmera acompanha por trás do deslocamento: o próximo trecho aparece
-    // acima da seta, independentemente do lado do shopping para onde se anda.
-    camera.position.copy(target).addScaledVector(direction, -42).add(new Vector3(0, 64, 0));
+    // A câmera fica atrás do usuário, olhando para frente. Quando o mapa está
+    // invertido (usuário caminhando para "baixo"), a câmera fica na frente,
+    // fazendo o trajeto aparecer acima da seta na tela.
+    camera.position.copy(target).addScaledVector(direction, inverted ? 42 : -42).add(new Vector3(0, 64, 0));
     camera.lookAt(target); control.update(); report();
   }
   useEffect(() => {
@@ -146,10 +157,12 @@ export function SceneControls({ floor, scene, props, command, onView }: {
       const route = latest.current.props.routeNodes.filter((n) => n.piso_id === floor.piso_id);
       centerOn(route.length ? route.map((n) => new Vector3(...sceneTransform(floor, n.coord_x, n.coord_y))) : corners());
     } else {
+      // Rotação horizontal do mapa (left/right) foi removida: o norte deve
+      // permanecer sempre fixo para cima. Apenas inclinação/perspectiva
+      // (top/angle/north) são permitidas, sem alterar o rumo do norte.
       const offset = camera.position.clone().sub(control.target);
       if (action === "top") offset.set(0, offset.length(), -.001);
       if (action === "angle" || action === "north") offset.copy(new Vector3(0, 60, -45).normalize().multiplyScalar(offset.length()));
-      if (action === "left" || action === "right") offset.applyAxisAngle(new Vector3(0, 1, 0), (action === "left" ? -1 : 1) * Math.PI / 4);
       camera.position.copy(control.target).add(offset); camera.lookAt(control.target);
     }
     camera.updateProjectionMatrix(); control.update(); report();

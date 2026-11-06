@@ -252,7 +252,7 @@ export default function Nodes() {
         </div>
         <div className="row-actions">
           {pisoId && (
-            <button onClick={() => nav(`/arestas?piso=${pisoId}`)}>
+            <button className="accent" onClick={() => nav(`/arestas?piso=${pisoId}`)}>
               Ver Arestas do Piso →
             </button>
           )}
@@ -321,46 +321,16 @@ export default function Nodes() {
           ref={canvasRef}
           onClick={handleCanvasClick}
           className="floor-canvas"
-          style={{
-            position: "relative",
-            width: "100%",
-            height: 520,
-            backgroundColor: "#f1f5f9",
-            cursor: "crosshair",
-            overflow: "hidden",
-            userSelect: "none",
-          }}
         >
           {/* Imagem da planta baixa ou grid visual padrão */}
           {piso?.imagem_planta_url ? (
             <img
               src={assetUrl(piso.imagem_planta_url)}
               alt={piso.nome}
-              style={{
-                width: "100%",
-                height: "100%",
-                // O mapa e os nós usam o mesmo retângulo normalizado 0..1;
-                // "contain" criaria faixas vazias e deslocaria os marcadores.
-                objectFit: "fill",
-                pointerEvents: "none",
-              }}
+              className="floor-planta-img"
             />
           ) : (
-            <div
-              style={{
-                width: "100%",
-                height: "100%",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                backgroundImage:
-                  "radial-gradient(#cbd5e1 1.5px, transparent 1.5px), radial-gradient(#cbd5e1 1.5px, #f8fafc 1.5px)",
-                backgroundSize: "30px 30px",
-                backgroundPosition: "0 0, 15px 15px",
-                color: "#64748b",
-              }}
-            >
+            <div className="floor-placeholder">
               <span style={{ fontSize: 40, marginBottom: 8 }}>📐</span>
               <strong>Planta baixa não configurada para este piso.</strong>
               <p className="muted" style={{ margin: "4px 0 12px" }}>
@@ -408,8 +378,8 @@ export default function Nodes() {
                     height: isSelected ? 22 : 16,
                     borderRadius: "50%",
                     backgroundColor: cor,
-                    border: isSelected ? "3px solid #0f172a" : "2px solid #ffffff",
-                    boxShadow: "0 2px 6px rgba(0,0,0,0.25)",
+                    border: isSelected ? `3px solid var(--primary)` : `2px solid var(--bg-2)`,
+                    boxShadow: "var(--shadow-light)",
                     transition: "width 0.15s, height 0.15s",
                   }}
                 />
@@ -422,7 +392,7 @@ export default function Nodes() {
                     fontSize: 10,
                     fontWeight: 700,
                     whiteSpace: "nowrap",
-                    backgroundColor: "rgba(15, 23, 42, 0.8)",
+                    backgroundColor: "rgba(20, 51, 46, 0.9)",
                     color: "#ffffff",
                     padding: "1px 5px",
                     borderRadius: 4,
@@ -442,13 +412,14 @@ export default function Nodes() {
           <div
             style={{
               padding: "12px 16px",
-              backgroundColor: "#f8fafc",
-              borderTop: "1px solid #e2e8f0",
+              backgroundColor: "var(--panel)",
+              borderTop: "1px solid var(--line)",
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
               flexWrap: "wrap",
               gap: 8,
+              borderRadius: "0 0 10px 10px",
             }}
           >
             <div>
@@ -457,7 +428,7 @@ export default function Nodes() {
                 {TIPO_NO_LABEL[selectedNo.tipo] || selectedNo.tipo}
               </span>
               ) · Coordenadas: X={selectedNo.coord_x}, Y={selectedNo.coord_y} ·{" "}
-              <span style={{ color: selectedNo.ativo ? "#16a34a" : "#dc2626" }}>
+              <span style={{ color: selectedNo.ativo ? "var(--success)" : "var(--danger)", fontWeight: 600 }}>
                 {selectedNo.ativo ? "Ativo" : "Inativo"}
               </span>
             </div>
@@ -495,7 +466,7 @@ export default function Nodes() {
               {filteredNos.map((node) => (
                 <tr
                   key={node.id}
-                  style={selectedNo?.id === node.id ? { backgroundColor: "#f1f5f9" } : undefined}
+                  style={selectedNo?.id === node.id ? { backgroundColor: "var(--primary-soft)" } : undefined}
                 >
                   <td>#{node.id}</td>
                   <td><strong>{node.nome || "—"}</strong></td>
@@ -504,8 +475,8 @@ export default function Nodes() {
                       style={{
                         padding: "2px 8px",
                         borderRadius: 6,
-                        backgroundColor: (TIPO_NO_COR[node.tipo] || "#64748b") + "25",
-                        color: "#0f172a",
+                        backgroundColor: TIPO_NO_COR[node.tipo] ? TIPO_NO_COR[node.tipo] + "20" : "var(--line)",
+                        color: TIPO_NO_COR[node.tipo] || "var(--muted)",
                         fontWeight: 600,
                         fontSize: "0.85rem",
                       }}
@@ -516,7 +487,7 @@ export default function Nodes() {
                   <td><code>{node.coord_x}</code></td>
                   <td><code>{node.coord_y}</code></td>
                   <td>
-                    <span style={{ color: node.ativo ? "#16a34a" : "#dc2626", fontWeight: 600 }}>
+                    <span style={{ color: node.ativo ? "var(--success)" : "var(--danger)", fontWeight: 600 }}>
                       {node.ativo ? "Ativo" : "Inativo"}
                     </span>
                   </td>

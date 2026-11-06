@@ -146,7 +146,9 @@ test("mapa 3D no celular conserva posição e controles durante a navegação", 
   await expect(page.getByTestId("scene-map")).toBeVisible();
   await expect(page.getByTestId("scene-map").locator("canvas")).toBeVisible();
   await expect(page.getByText(/Carregando mapa 3D/)).toHaveCount(0);
-  await expect(page.getByTestId("scene-map").getByRole("button", { name: "Orientar mapa para norte" })).toBeVisible();
+  // O norte permanece fixo: não há botão de rotação manual. Apenas vista
+  // superior/inclinada e piso inteiro estão disponíveis.
+  await expect(page.getByTestId("scene-map").getByRole("button", { name: "Ver piso inteiro" })).toBeVisible();
   await expect(page.getByTestId("scene-map").getByRole("button", { name: "Ver piso inteiro" })).toBeVisible();
   await page.screenshot({ path: info.outputPath("navegacao-3d-390.png"), fullPage: true });
 });
