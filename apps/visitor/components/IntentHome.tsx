@@ -6,12 +6,13 @@ import type { Loja } from "@/types";
 import { SearchBar } from "./SearchBar";
 import { directoryStyles as d, ink, rule } from "./directoryDesign";
 import { colors } from "@/constants/colors";
+import { DsButton } from "@/components/DesignSystem";
 
 const quickPlaces = [
-  { label: "Banheiros", sign: "WC", shortcut: "wc", tone: "#dcebf3" },
-  { label: "Alimentação", sign: "☕", shortcut: "food", tone: "#ffead6" },
-  { label: "Elevadores", sign: "↕", shortcut: "lift", tone: "#e8e6f5" },
-  { label: "Lojas", sign: "▦", shortcut: "shops", tone: "#e3f1e9" },
+  { label: "Banheiros", sign: "WC", shortcut: "wc", tone: colors.primarySoft },
+  { label: "Alimentação", sign: "☕", shortcut: "food", tone: colors.accentSoft },
+  { label: "Elevadores", sign: "↕", shortcut: "lift", tone: colors.accessibleSoft },
+  { label: "Lojas", sign: "▦", shortcut: "shops", tone: colors.routeSoft },
 ] as const;
 
 export function IntentHome({ directory, onOrigin, onSaved, onMap, onPoi, onHelp }: { directory: ReturnType<typeof useDirectory>; onOrigin: () => void; onSaved: () => void; onMap: () => void; onPoi: (poi: Loja) => void; onHelp: () => void }) {
@@ -30,13 +31,21 @@ export function IntentHome({ directory, onOrigin, onSaved, onMap, onPoi, onHelp 
       <View style={styles.positionHeading}><View style={styles.number}><Text style={styles.numberText}>1</Text></View><View style={{ flex: 1 }}><Text style={d.label}>{nav.originNode ? "SUA POSIÇÃO CONFIRMADA" : "PRIMEIRO, DIGA ONDE ESTÁ"}</Text><Text testID="origin-label" style={styles.positionName}>{nav.originNode?.nome || "Ponto de partida não definido"}</Text></View></View>
       <Text style={d.muted}>{nav.originNode ? `${nav.floors.find((floor) => floor.id === nav.originNode?.piso_id)?.nome || "Piso"} · As distâncias partem daqui.` : "Assim mostramos o caminho certo a partir de você."}</Text>
       <View style={styles.positionActions}>
-        <TouchableOpacity accessibilityRole="button" style={styles.qrButton} onPress={() => router.push("/scan")}><Text style={styles.qrText}>▣  Ler QR Code</Text></TouchableOpacity>
-        <TouchableOpacity accessibilityRole="button" accessibilityLabel={nav.originNode ? "Alterar origem" : "Definir ponto de partida"} style={styles.originButton} onPress={onOrigin}><Text style={styles.originText}>{nav.originNode ? "Mudar local" : "Escolher local"}</Text></TouchableOpacity>
+        <DsButton variant="primary" onPress={() => router.push("/scan")}>
+          ▣  Ler QR Code
+        </DsButton>
+        <DsButton variant="outline" onPress={onOrigin}>
+          {nav.originNode ? "Mudar local" : "Escolher local"}
+        </DsButton>
       </View>
     </View>
 
     <View style={{ gap: 12 }}><Text accessibilityRole="header" aria-level={2} style={d.section}>O que você procura?</Text>
-      <View style={styles.quickGrid}>{quickPlaces.map((item) => <TouchableOpacity key={item.shortcut} accessibilityRole="button" accessibilityLabel={`Explorar ${item.label}`} style={[styles.quick, { backgroundColor: item.tone }]} onPress={() => router.push({ pathname: "/explore", params: { shortcut: item.shortcut } })}><Text style={styles.quickSign} accessible={false}>{item.sign}</Text><Text style={styles.quickLabel}>{item.label}</Text><Text style={styles.quickArrow} accessible={false}>›</Text></TouchableOpacity>)}</View>
+      <View style={styles.quickGrid}>{quickPlaces.map((item) => <DsButton key={item.shortcut} variant="outline" style={[styles.quick, { backgroundColor: item.tone }]} onPress={() => router.push({ pathname: "/explore", params: { shortcut: item.shortcut } })}>
+        <Text style={[styles.quickSign, { color: ink }]} accessible={false}>{item.sign}</Text>
+        <Text style={[styles.quickLabel, { color: ink }]}>{item.label}</Text>
+        <Text style={[styles.quickArrow, { color: ink }]} accessible={false}>›</Text>
+      </DsButton>)}</View>
     </View>
 
     {nav.originNode && <View style={{ gap: 8 }}><Text accessibilityRole="header" aria-level={2} style={d.section}>Perto de você</Text><Text style={d.muted}>Distâncias desde sua última posição confirmada.</Text>
@@ -44,7 +53,9 @@ export function IntentHome({ directory, onOrigin, onSaved, onMap, onPoi, onHelp 
       {directory.distanceError && <Text accessibilityRole="alert" style={d.text}>{directory.distanceError}</Text>}
     </View>}
 
-    <View style={styles.more}><TouchableOpacity accessibilityRole="button" style={d.button} onPress={() => router.push("/explore")}><Text style={d.buttonText}>Ver todos os lugares  →</Text></TouchableOpacity><View style={d.row}><TouchableOpacity accessibilityRole="button" style={d.link} onPress={onSaved}><Text style={d.linkText}>Meus lugares</Text></TouchableOpacity><TouchableOpacity accessibilityRole="button" style={d.link} onPress={onMap}><Text style={d.linkText}>Abrir mapa completo</Text></TouchableOpacity></View></View>
+    <View style={styles.more}><DsButton variant="secondary" onPress={() => router.push("/explore")}>
+      Ver todos os lugares  →
+    </DsButton><View style={d.row}><TouchableOpacity accessibilityRole="button" style={d.link} onPress={onSaved}><Text style={d.linkText}>Meus lugares</Text></TouchableOpacity><TouchableOpacity accessibilityRole="button" style={d.link} onPress={onMap}><Text style={d.linkText}>Abrir mapa completo</Text></TouchableOpacity></View></View>
   </View>;
 }
 
@@ -58,10 +69,6 @@ const styles = StyleSheet.create({
   numberText: { fontSize: 19, fontWeight: "800", color: ink },
   positionName: { color: ink, fontSize: 19, lineHeight: 25, fontWeight: "700", marginTop: 2 },
   positionActions: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
-  qrButton: { minHeight: 50, paddingHorizontal: 16, alignItems: "center", justifyContent: "center", borderRadius: 9, backgroundColor: colors.primary },
-  qrText: { color: "#ffffff", fontSize: 16, fontWeight: "700" },
-  originButton: { minHeight: 50, paddingHorizontal: 16, alignItems: "center", justifyContent: "center", borderRadius: 9, borderWidth: 1, borderColor: colors.primary },
-  originText: { color: colors.primary, fontSize: 16, fontWeight: "700" },
   quickGrid: { flexDirection: "row", flexWrap: "wrap", gap: 10 },
   quick: { flexBasis: "47%", flexGrow: 1, minHeight: 76, paddingHorizontal: 14, paddingVertical: 12, borderRadius: 12, flexDirection: "row", alignItems: "center", gap: 10 },
   quickSign: { fontSize: 21, fontWeight: "800", color: ink },

@@ -1,0 +1,556 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--project=chromium",
+      "tests/scene.spec.ts"
+    ],
+    "configFile": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\playwright.config.ts",
+    "rootDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-visitor-scene-final-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-visitor-scene-final-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-visitor-scene-final-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-visitor-scene-final-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chrome",
+        "name": "chrome",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-visitor-scene-final-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "msedge",
+        "name": "msedge",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "../../evidence/e2e-visitor-scene-final.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "scene.spec.ts",
+      "file": "scene.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Mini Shopping: QR, GLB real, loja térrea, rota idêntica em 2D/3D e chegada",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 7156,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Centralizar rota', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Centralizar rota', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Centralizar rota', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Centralizar rota', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Centralizar rota', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Centralizar rota', exact: true })\u001b[22m\n\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\scene.spec.ts:12:85",
+                    "location": {
+                      "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\scene.spec.ts",
+                      "column": 85,
+                      "line": 12
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 10 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"origin-label\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Entrada principal\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 11 |\u001b[39m   expect((\u001b[36mawait\u001b[39m model)\u001b[33m.\u001b[39mok())\u001b[33m.\u001b[39mtoBeTruthy()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 12 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"Centralizar rota\"\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 13 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByLabel(\u001b[32m\"Buscar destinos\"\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m.\u001b[39mfill(\u001b[32m\"ADIDAS\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 14 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"ADIDAS, Aberto\"\u001b[39m })\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 15 |\u001b[39m   \u001b[36mconst\u001b[39m response \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mwaitForResponse((r) \u001b[33m=>\u001b[39m r\u001b[33m.\u001b[39murl()\u001b[33m.\u001b[39mendsWith(\u001b[32m\"/api/routes\"\u001b[39m) \u001b[33m&&\u001b[39m r\u001b[33m.\u001b[39mrequest()\u001b[33m.\u001b[39mmethod() \u001b[33m===\u001b[39m \u001b[32m\"POST\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\scene.spec.ts",
+                        "column": 85,
+                        "line": 12
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Centralizar rota', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Centralizar rota', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Centralizar rota', exact: true })\u001b[22m\n\n\n  10 |   await expect(page.getByTestId(\"origin-label\")).toContainText(\"Entrada principal\");\n  11 |   expect((await model).ok()).toBeTruthy();\n> 12 |   await expect(page.getByRole(\"button\", { name: \"Centralizar rota\", exact: true })).toBeVisible();\n     |                                                                                     ^\n  13 |   await page.getByLabel(\"Buscar destinos\", { exact: true }).fill(\"ADIDAS\");\n  14 |   await page.getByRole(\"button\", { name: \"ADIDAS, Aberto\" }).click();\n  15 |   const response = page.waitForResponse((r) => r.url().endsWith(\"/api/routes\") && r.request().method() === \"POST\");\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\scene.spec.ts:12:85"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-07T20:46:40.744Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-visitor-scene-final-artifacts\\scene-Mini-Shopping-QR-GLB-9c38b-idêntica-em-2D-3D-e-chegada-chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-visitor-scene-final-artifacts\\scene-Mini-Shopping-QR-GLB-9c38b-idêntica-em-2D-3D-e-chegada-chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\scene.spec.ts",
+                    "column": 85,
+                    "line": 12
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "3aa4c5b91f4bbc99f382-109f2631f3e6ca0b2638",
+          "file": "scene.spec.ts",
+          "line": 5,
+          "column": 1
+        },
+        {
+          "title": "Mini Shopping: elevador acessível, mudança de piso e bloqueio",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 8311,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveAttribute\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByTestId('scene-map')\nExpected: \u001b[32m\"2\"\u001b[39m\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toHaveAttribute\" getByTestId('scene-map') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByTestId('scene-map')\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveAttribute\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByTestId('scene-map')\nExpected: \u001b[32m\"2\"\u001b[39m\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toHaveAttribute\" getByTestId('scene-map') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByTestId('scene-map')\u001b[22m\n\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\scene.spec.ts:55:47",
+                    "location": {
+                      "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\scene.spec.ts",
+                      "column": 47,
+                      "line": 55
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 53 |\u001b[39m     })\n \u001b[90m 54 |\u001b[39m   )\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 55 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"scene-map\"\u001b[39m))\u001b[33m.\u001b[39mtoHaveAttribute(\u001b[32m\"data-floor-id\"\u001b[39m\u001b[33m,\u001b[39m \u001b[33mString\u001b[39m(floorId))\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                               \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 56 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"scene-map\"\u001b[39m))\u001b[33m.\u001b[39mtoHaveAttribute(\u001b[32m\"data-route-node-ids\"\u001b[39m\u001b[33m,\u001b[39m route\u001b[33m.\u001b[39mnos\u001b[33m.\u001b[39mfilter((n\u001b[33m:\u001b[39m { piso_id\u001b[33m:\u001b[39m number }) \u001b[33m=>\u001b[39m n\u001b[33m.\u001b[39mpiso_id \u001b[33m===\u001b[39m floorId)\u001b[33m.\u001b[39mmap((n\u001b[33m:\u001b[39m { id\u001b[33m:\u001b[39m number }) \u001b[33m=>\u001b[39m n\u001b[33m.\u001b[39mid)\u001b[33m.\u001b[39mjoin(\u001b[32m\",\"\u001b[39m))\u001b[33m;\u001b[39m\n \u001b[90m 57 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"scene-map\"\u001b[39m)\u001b[33m.\u001b[39mscreenshot({ path\u001b[33m:\u001b[39m info\u001b[33m.\u001b[39moutputPath(\u001b[32m\"visitor-upper-accessible.png\"\u001b[39m) })\u001b[33m;\u001b[39m\n \u001b[90m 58 |\u001b[39m   expect(\u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mevaluate(() \u001b[33m=>\u001b[39m document\u001b[33m.\u001b[39mdocumentElement\u001b[33m.\u001b[39mscrollWidth \u001b[33m<=\u001b[39m innerWidth))\u001b[33m.\u001b[39mtoBeTruthy()\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\scene.spec.ts",
+                        "column": 47,
+                        "line": 55
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveAttribute\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByTestId('scene-map')\nExpected: \u001b[32m\"2\"\u001b[39m\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toHaveAttribute\" getByTestId('scene-map') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByTestId('scene-map')\u001b[22m\n\n\n  53 |     })\n  54 |   ).toBeVisible();\n> 55 |   await expect(page.getByTestId(\"scene-map\")).toHaveAttribute(\"data-floor-id\", String(floorId));\n     |                                               ^\n  56 |   await expect(page.getByTestId(\"scene-map\")).toHaveAttribute(\"data-route-node-ids\", route.nos.filter((n: { piso_id: number }) => n.piso_id === floorId).map((n: { id: number }) => n.id).join(\",\"));\n  57 |   await page.getByTestId(\"scene-map\").screenshot({ path: info.outputPath(\"visitor-upper-accessible.png\") });\n  58 |   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy();\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\scene.spec.ts:55:47"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-07T20:46:49.019Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-visitor-scene-final-artifacts\\scene-Mini-Shopping-elevad-3326f--mudança-de-piso-e-bloqueio-chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-visitor-scene-final-artifacts\\scene-Mini-Shopping-elevad-3326f--mudança-de-piso-e-bloqueio-chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\scene.spec.ts",
+                    "column": 47,
+                    "line": 55
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "3aa4c5b91f4bbc99f382-87eb99f0b6ebce647d5c",
+          "file": "scene.spec.ts",
+          "line": 31,
+          "column": 1
+        },
+        {
+          "title": "Falha do GLB preserva mapa 2D, destino e instruções; tentativa manual recupera",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 8627,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveAttribute\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByTestId('scene-map')\nExpected: \u001b[32m\"E01\"\u001b[39m\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toHaveAttribute\" getByTestId('scene-map') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByTestId('scene-map')\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveAttribute\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByTestId('scene-map')\nExpected: \u001b[32m\"E01\"\u001b[39m\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toHaveAttribute\" getByTestId('scene-map') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByTestId('scene-map')\u001b[22m\n\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\scene.spec.ts:91:47",
+                    "location": {
+                      "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\scene.spec.ts",
+                      "column": 47,
+                      "line": 91
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 89 |\u001b[39m   expect((\u001b[36mawait\u001b[39m recoveredModel)\u001b[33m.\u001b[39mok())\u001b[33m.\u001b[39mtoBeTruthy()\u001b[33m;\u001b[39m\n \u001b[90m 90 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"Centralizar rota\"\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 91 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"scene-map\"\u001b[39m))\u001b[33m.\u001b[39mtoHaveAttribute(\u001b[32m\"data-destination-code\"\u001b[39m\u001b[33m,\u001b[39m \u001b[32m\"E01\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                               \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 92 |\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 93 |\u001b[39m\n \u001b[90m 94 |\u001b[39m test(\u001b[32m\"Painel mostra inventário da cena e links dos pisos\"\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\scene.spec.ts",
+                        "column": 47,
+                        "line": 91
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveAttribute\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByTestId('scene-map')\nExpected: \u001b[32m\"E01\"\u001b[39m\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toHaveAttribute\" getByTestId('scene-map') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByTestId('scene-map')\u001b[22m\n\n\n  89 |   expect((await recoveredModel).ok()).toBeTruthy();\n  90 |   await expect(page.getByRole(\"button\", { name: \"Centralizar rota\", exact: true })).toBeVisible();\n> 91 |   await expect(page.getByTestId(\"scene-map\")).toHaveAttribute(\"data-destination-code\", \"E01\");\n     |                                               ^\n  92 | });\n  93 |\n  94 | test(\"Painel mostra inventário da cena e links dos pisos\", async ({ page }) => {\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\scene.spec.ts:91:47"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-07T20:46:58.764Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-visitor-scene-final-artifacts\\scene-Falha-do-GLB-preserv-f5fec-s-tentativa-manual-recupera-chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-visitor-scene-final-artifacts\\scene-Falha-do-GLB-preserv-f5fec-s-tentativa-manual-recupera-chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\scene.spec.ts",
+                    "column": 47,
+                    "line": 91
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "3aa4c5b91f4bbc99f382-d97f31ef46fc4d2c530f",
+          "file": "scene.spec.ts",
+          "line": 74,
+          "column": 1
+        },
+        {
+          "title": "Painel mostra inventário da cena e links dos pisos",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "timedOut",
+                  "duration": 45282,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "location": {
+                        "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\scene.spec.ts",
+                        "column": 53,
+                        "line": 96
+                      },
+                      "message": "Error: locator.fill: Test timeout of 45000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByLabel('API key', { exact: true })\u001b[22m\n\n\n  94 | test(\"Painel mostra inventário da cena e links dos pisos\", async ({ page }) => {\n  95 |   await page.goto(\"/admin/cena-3d\");\n> 96 |   await page.getByLabel(\"API key\", { exact: true }).fill(\"audit-local-admin-key-with-32-characters\");\n     |                                                     ^\n  97 |   await page.getByRole(\"button\", { name: \"Entrar\", exact: true }).click();\n  98 |   await expect(page.getByText(\"Catálogo consistente\", { exact: true })).toBeVisible();\n  99 |   await expect(page.getByRole(\"row\").filter({ has: page.getByRole(\"cell\", { name: \"Lojas\", exact: true }) })).toContainText(\"22\");\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\scene.spec.ts:96:53"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-07T20:47:09.010Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-visitor-scene-final-artifacts\\scene-Painel-mostra-inventário-da-cena-e-links-dos-pisos-chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-visitor-scene-final-artifacts\\scene-Painel-mostra-inventário-da-cena-e-links-dos-pisos-chromium\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "3aa4c5b91f4bbc99f382-33d4e48437f2917500b7",
+          "file": "scene.spec.ts",
+          "line": 94,
+          "column": 1
+        },
+        {
+          "title": "Botão acessível da loja visível do térreo abre o POI correto",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 6365,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Centralizar rota', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Centralizar rota', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Centralizar rota', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Centralizar rota', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Centralizar rota', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Centralizar rota', exact: true })\u001b[22m\n\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\scene.spec.ts:107:85",
+                    "location": {
+                      "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\scene.spec.ts",
+                      "column": 85,
+                      "line": 107
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 105 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39msetViewportSize({ width\u001b[33m:\u001b[39m \u001b[35m1280\u001b[39m\u001b[33m,\u001b[39m height\u001b[33m:\u001b[39m \u001b[35m900\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 106 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\"\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 107 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"Centralizar rota\"\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                                                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 108 |\u001b[39m   \u001b[36mconst\u001b[39m scene \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"scene-map\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 109 |\u001b[39m   \u001b[36mawait\u001b[39m scene\u001b[33m.\u001b[39mscrollIntoViewIfNeeded()\u001b[33m;\u001b[39m\n \u001b[90m 110 |\u001b[39m   \u001b[36mconst\u001b[39m poiResponse \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mwaitForResponse((response) \u001b[33m=>\u001b[39m \u001b[35m/\\/api\\/pois\\/\\d+$/\u001b[39m\u001b[33m.\u001b[39mtest(response\u001b[33m.\u001b[39murl()) \u001b[33m&&\u001b[39m response\u001b[33m.\u001b[39mrequest()\u001b[33m.\u001b[39mmethod() \u001b[33m===\u001b[39m \u001b[32m\"GET\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\scene.spec.ts",
+                        "column": 85,
+                        "line": 107
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Centralizar rota', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Centralizar rota', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Centralizar rota', exact: true })\u001b[22m\n\n\n  105 |   await page.setViewportSize({ width: 1280, height: 900 });\n  106 |   await page.goto(\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\");\n> 107 |   await expect(page.getByRole(\"button\", { name: \"Centralizar rota\", exact: true })).toBeVisible();\n      |                                                                                     ^\n  108 |   const scene = page.getByTestId(\"scene-map\");\n  109 |   await scene.scrollIntoViewIfNeeded();\n  110 |   const poiResponse = page.waitForResponse((response) => /\\/api\\/pois\\/\\d+$/.test(response.url()) && response.request().method() === \"GET\");\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\scene.spec.ts:107:85"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-07T20:47:55.312Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-visitor-scene-final-artifacts\\scene-Botão-acessível-da-l-eea5c-o-térreo-abre-o-POI-correto-chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-visitor-scene-final-artifacts\\scene-Botão-acessível-da-l-eea5c-o-térreo-abre-o-POI-correto-chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\scene.spec.ts",
+                    "column": 85,
+                    "line": 107
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "3aa4c5b91f4bbc99f382-a2413531eb1f34112f80",
+          "file": "scene.spec.ts",
+          "line": 104,
+          "column": 1
+        },
+        {
+          "title": "Sem WebGL o visitante mantém QR e mapa 2D",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1723,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-07T20:48:02.752Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3aa4c5b91f4bbc99f382-261570515e61da1bb1a8",
+          "file": "scene.spec.ts",
+          "line": 120,
+          "column": 1
+        },
+        {
+          "title": "GLB sem resposta atinge o limite de carregamento e libera o mapa 2D",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 21627,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-07T20:48:04.616Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3aa4c5b91f4bbc99f382-cd52e7732a82076ef4d6",
+          "file": "scene.spec.ts",
+          "line": 133,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-07T20:46:40.017Z",
+    "duration": 106367.387,
+    "expected": 2,
+    "skipped": 0,
+    "unexpected": 5,
+    "flaky": 0
+  }
+}

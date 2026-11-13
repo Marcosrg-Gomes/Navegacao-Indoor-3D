@@ -32,8 +32,8 @@ test("Administrador cadastra um piso navegável, edita e remove seus registros",
   }
   try {
     await page.goto("/admin/shoppings");
-    await page.getByLabel("API key", { exact: true }).fill("audit-local-admin-key-with-32-characters");
-    await page.getByRole("button", { name: "Entrar", exact: true }).click();
+    await page.getByLabel("Chave de acesso", { exact: true }).fill("audit-local-admin-key-with-32-characters");
+    await page.getByRole("button", { name: "Entrar no painel", exact: true }).click();
     await page.getByRole("button", { name: "Novo shopping", exact: true }).click();
     await dialog.getByLabel("Nome", { exact: true }).fill(mallName);
     const mall = await save("shoppings", "POST", "Salvar");

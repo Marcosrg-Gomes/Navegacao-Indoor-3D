@@ -1,0 +1,225 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--project=chromium",
+      "tests/navigation.spec.ts",
+      "-g",
+      "QR → mapa",
+      "--timeout=90000"
+    ],
+    "configFile": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\playwright.config.ts",
+    "rootDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-nav-main2-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 90000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-nav-main2-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 90000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-nav-main2-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 90000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-nav-main2-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chrome",
+        "name": "chrome",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 90000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-nav-main2-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "msedge",
+        "name": "msedge",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 90000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "../../evidence/e2e-nav-main2.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "navigation.spec.ts",
+      "file": "navigation.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "QR → mapa → busca → rota → chegada; bloqueio administrativo muda a rota",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [
+                {
+                  "type": "browser-version",
+                  "description": "chromium 153.0.8010.12 (win32)"
+                }
+              ],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "timedOut",
+                  "duration": 90363,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 90000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 90000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 90000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "location": {
+                        "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\navigation.spec.ts",
+                        "column": 35,
+                        "line": 64
+                      },
+                      "message": "Error: apiRequestContext.put: Target page, context or browser has been closed\n\n  62 |     await page.screenshot({ path: join(screenshotsDir, `${process.env.AUDIT_PHASE || \"final\"}-${info.project.name}-arrival-360.png`), fullPage: true });\n  63 |   } finally {\n> 64 |     const cleanup = await request.put(\"/api/admin/edges/4\", { headers: auth, data: { ativa: edge.ativa } });\n     |                                   ^\n  65 |     expect(cleanup.ok()).toBeTruthy();\n  66 |     await admin.close();\n  67 |   }\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\navigation.spec.ts:64:35"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-07T21:44:50.269Z",
+                  "annotations": [
+                    {
+                      "type": "browser-version",
+                      "description": "chromium 153.0.8010.12 (win32)"
+                    }
+                  ],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-nav-main2-artifacts\\navigation-QR-→-mapa-→-bus-a2fb9--administrativo-muda-a-rota-chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-nav-main2-artifacts\\navigation-QR-→-mapa-→-bus-a2fb9--administrativo-muda-a-rota-chromium\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "5d2868f7d23420c27cca-e14124b6d818d24ef1de",
+          "file": "navigation.spec.ts",
+          "line": 11,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-07T21:44:48.883Z",
+    "duration": 92614.816,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

@@ -1,0 +1,233 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--project=chromium",
+      "tests/navigation.spec.ts",
+      "-g",
+      "Mapa entre pisos",
+      "--timeout=60000"
+    ],
+    "configFile": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\playwright.config.ts",
+    "rootDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-nav-map2-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-nav-map2-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-nav-map2-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-nav-map2-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chrome",
+        "name": "chrome",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-nav-map2-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "msedge",
+        "name": "msedge",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "../../evidence/e2e-nav-map2.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "navigation.spec.ts",
+      "file": "navigation.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Mapa entre pisos e layout sem overflow em 360 e 414 pixels",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [
+                {
+                  "type": "browser-version",
+                  "description": "chromium 153.0.8010.12 (win32)"
+                }
+              ],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2042,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m\"escada_rolante\"\u001b[39m\nReceived array: \u001b[31m[\"escada\", \"elevador\"]\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m\"escada_rolante\"\u001b[39m\nReceived array: \u001b[31m[\"escada\", \"elevador\"]\u001b[39m\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\navigation.spec.ts:105:38",
+                    "location": {
+                      "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\navigation.spec.ts",
+                      "column": 38,
+                      "line": 105
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 103 |\u001b[39m     expect(transitions\u001b[33m.\u001b[39mlength)\u001b[33m.\u001b[39mtoBeGreaterThan(\u001b[35m0\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 104 |\u001b[39m     \u001b[36mfor\u001b[39m (\u001b[36mconst\u001b[39m [a\u001b[33m,\u001b[39m b] \u001b[36mof\u001b[39m transitions) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 105 |\u001b[39m       expect([\u001b[32m\"escada\"\u001b[39m\u001b[33m,\u001b[39m \u001b[32m\"elevador\"\u001b[39m])\u001b[33m.\u001b[39mtoContain(a\u001b[33m.\u001b[39mtipo)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 106 |\u001b[39m       expect([\u001b[32m\"escada\"\u001b[39m\u001b[33m,\u001b[39m \u001b[32m\"elevador\"\u001b[39m])\u001b[33m.\u001b[39mtoContain(b\u001b[33m.\u001b[39mtipo)\u001b[33m;\u001b[39m\n \u001b[90m 107 |\u001b[39m     }\n \u001b[90m 108 |\u001b[39m     \u001b[36mawait\u001b[39m info\u001b[33m.\u001b[39mattach(\u001b[32m`multi-floor-${width}`\u001b[39m\u001b[33m,\u001b[39m { body\u001b[33m:\u001b[39m \u001b[33mJSON\u001b[39m\u001b[33m.\u001b[39mstringify(route\u001b[33m,\u001b[39m \u001b[36mnull\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m)\u001b[33m,\u001b[39m contentType\u001b[33m:\u001b[39m \u001b[32m\"application/json\"\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\navigation.spec.ts",
+                        "column": 38,
+                        "line": 105
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m\"escada_rolante\"\u001b[39m\nReceived array: \u001b[31m[\"escada\", \"elevador\"]\u001b[39m\n\n  103 |     expect(transitions.length).toBeGreaterThan(0);\n  104 |     for (const [a, b] of transitions) {\n> 105 |       expect([\"escada\", \"elevador\"]).toContain(a.tipo);\n      |                                      ^\n  106 |       expect([\"escada\", \"elevador\"]).toContain(b.tipo);\n  107 |     }\n  108 |     await info.attach(`multi-floor-${width}`, { body: JSON.stringify(route, null, 2), contentType: \"application/json\" });\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\navigation.spec.ts:105:38"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-07T21:41:49.363Z",
+                  "annotations": [
+                    {
+                      "type": "browser-version",
+                      "description": "chromium 153.0.8010.12 (win32)"
+                    }
+                  ],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-nav-map2-artifacts\\navigation-Mapa-entre-piso-44c4c-verflow-em-360-e-414-pixels-chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-nav-map2-artifacts\\navigation-Mapa-entre-piso-44c4c-verflow-em-360-e-414-pixels-chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\navigation.spec.ts",
+                    "column": 38,
+                    "line": 105
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "5d2868f7d23420c27cca-807aab2d81d2a4cf85a4",
+          "file": "navigation.spec.ts",
+          "line": 91,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-07T21:41:48.730Z",
+    "duration": 3007.734,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

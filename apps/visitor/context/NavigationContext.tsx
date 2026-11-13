@@ -326,7 +326,7 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
         const result = await calculateRoute(origem.id, destinoNoId, acessivel, allowUnavailable);
         if (request !== routeRequest.current) return;
         if (!result.sucesso) {
-          setRouteError("Não foi possível encontrar uma rota para este destino.");
+          setRouteError(result.mensagem || "Não foi possível encontrar uma rota para este destino.");
           setRouteStale(true);
           return;
         }
@@ -357,11 +357,14 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
     routeRequest.current += 1;
     stopSimulationClock();
     setSimulationError(null); setSimulationNotice(null); setRouteLoading(false);
-    setRoute(null); setRouteError(null); setRouteStale(false);
-    if (originNode && destinationNodeId && originNode.id !== destinationNodeId) {
-      await computeRoute(originNode, destinationNodeId);
-    } else setHasArrived(!!originNode && originNode.id === destinationNodeId);
-  }, [stopSimulationClock, originNode, destinationNodeId, computeRoute]);
+    // Não limpar a rota: o usuário pode querer confirmar a chegada depois.
+    // A rota é mantida até que o usuário confirme a chegada ou cancele.
+    if (!destinationNodeId) {
+      setRoute(null); setRouteError(null); setRouteStale(false);
+    } else if (originNode && originNode.id === destinationNodeId) {
+      setHasArrived(true);
+    }
+  }, [stopSimulationClock, originNode, destinationNodeId]);
 
   /**
    * Localiza o piso da origem entre os shoppings ativos. O endpoint de QR
@@ -636,7 +639,7 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const completeNavigation = useCallback(async () => {
-    if (!shopping || !destinationNodeId || !route || routeLoading || arrivalLoading || routeStale || positionSession.simulated) return;
+    if (!shopping || !destinationNodeId || !route || routeLoading || arrivalLoading || routeStale || (positionSession.simulated && !hasArrived)) return;
     const endpoint = route.nos[route.nos.length - 1];
     if (!endpoint || endpoint.id !== destinationNodeId) return;
 

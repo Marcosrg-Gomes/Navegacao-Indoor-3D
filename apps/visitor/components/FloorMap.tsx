@@ -12,7 +12,6 @@ import { coordenadaNormalizada, TIPO_NO_COR } from "@/types";
 import { getAssetUrl } from "@/services/api";
 import { RouteOverlay } from "./RouteOverlay";
 import type { PositionEstimate } from "@/positioning/types";
-import { mapRotationForHeading } from "./mapViewport";
 import { colors } from "@/constants/colors";
 
 type FloorMapProps = {
@@ -69,16 +68,6 @@ export function FloorMap({
     .slice(0, compact && position?.source === "simulation" ? 0 : 3).map((node) => node.id));
   const occupiedLabels: { x: number; y: number; width: number }[] = [];
 
-  // Rotação decidida exclusivamente pela direção do próximo trecho da rota,
-  // não pelo heading do usuário (evita inversões em curvas).
-  const resolvedRotation = mapRotationForHeading(position?.heading, position && position.floorId === floorId && routeNodes.length
-    ? (() => {
-        const index = routeNodes.findIndex((node) => node.id === position.toNodeId && node.piso_id === floorId);
-        const next = routeNodes[index + 1]?.piso_id === floorId ? routeNodes[index + 1] : routeNodes[index];
-        return next ? coordenadaNormalizada(next.coord_x) - coordenadaNormalizada(position.x) > 0 ? 90 : 270 : undefined;
-      })()
-    : undefined);
-
   return (
     <Svg
       width={width}
@@ -88,7 +77,7 @@ export function FloorMap({
       accessibilityRole="image"
       accessibilityLabel="Mapa 2D do piso com nós e rota de navegação"
     >
-      <g transform={`rotate(${mapRotation} ${width / 2} ${height / 2})`}>
+      <g>
         <Rect x={0} y={0} width={width} height={height} fill={compact ? colors.primarySoft : colors.bg} />
         {plantaUrl ? (
           <SvgImage
@@ -151,8 +140,7 @@ export function FloorMap({
           if (!from || !to || !edge.ativa) return null;
           return (
             <G key={edge.id}>
-              {compact && <Line x1={toX(from.coord_x)} y1={toY(from.coord_y)} x2={toX(to.coord_x)} y2={toY(to.coord_y)} stroke={colors.border} strokeWidth={12} strokeLinecap="round" />}
-              <Line x1={toX(from.coord_x)} y1={toY(from.coord_y)} x2={toX(to.coord_x)} y2={toY(to.coord_y)} stroke={compact ? colors.surface : colors.textMuted} strokeWidth={compact ? 9 : 1.5} strokeLinecap="round" opacity={compact ? 1 : .4} />
+              <Line x1={toX(from.coord_x)} y1={toY(from.coord_y)} x2={toX(to.coord_x)} y2={toY(to.coord_y)} stroke={compact ? colors.surface : colors.textMuted} strokeWidth={compact ? 10 : 2.5} strokeLinecap="round" opacity={compact ? 1 : .5} />
             </G>
           );
         })}
@@ -196,7 +184,7 @@ export function FloorMap({
         })}
         {position && position.floorId === floorId && <G testID="position-marker" accessibilityLabel={position.source === "simulation" ? "Posição simulada" : "Última posição confirmada"}>
           <Circle cx={toX(position.x)} cy={toY(position.y)} r={18} fill={colors.surface} stroke={colors.primary} strokeWidth={3} opacity={.97} />
-          <Path d={`M ${toX(position.x)} ${toY(position.y) - 11} L ${toX(position.x) + 10} ${toY(position.y) + 8} L ${toX(position.x)} ${toY(position.y) + 5} L ${toX(position.x) - 10} ${toY(position.y) + 8} Z`} transform={`rotate(0 ${toX(position.x)} ${toY(position.y)})`} fill={colors.primary} stroke={colors.primaryDark} strokeWidth={2} />
+          <Path d={`M ${toX(position.x)} ${toY(position.y) - 11} L ${toX(position.x) + 10} ${toY(position.y) + 8} L ${toX(position.x)} ${toY(position.y) + 5} L ${toX(position.x) - 10} ${toY(position.y) + 8} Z`} transform={`rotate(${-((position.heading ?? 0) % 360 + 360) % 360} ${toX(position.x)} ${toY(position.y)})`} fill={colors.primary} stroke={colors.primaryDark} strokeWidth={2} />
         </G>}
       </g>
     </Svg>

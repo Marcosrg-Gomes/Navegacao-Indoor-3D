@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 
 test("navegação mobile mantém o mapa como foco e usa uma ação principal", async ({ page }, info) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/?qr=MINI-ENTRADA-PRINCIPAL");
+  await page.goto("http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL");
   await expect(page.getByTestId("origin-label")).toContainText("Entrada principal");
 
   const map = page.getByTestId("floor-map");
@@ -43,7 +43,7 @@ test("navegação mobile mantém o mapa como foco e usa uma ação principal", a
 
 test("falha na rota no celular mostra o erro no banner sem anunciar caminho pronto", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/?qr=MINI-ENTRADA-PRINCIPAL");
+  await page.goto("http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL");
   await page.getByRole("button", { name: "Pesquisar destinos" }).click();
   await page.getByLabel("Buscar no Explorar").fill("NATURA");
   await page.route("**/api/routes", async (route) => {
@@ -66,7 +66,7 @@ test("falha na rota no celular mostra o erro no banner sem anunciar caminho pron
 
 test("mapa baixo mantém a planta orientada e a posição longe da lateral", async ({ page }, info) => {
   await page.setViewportSize({ width: 520, height: 585 });
-  await page.goto("/?qr=MINI-ENTRADA-PRINCIPAL");
+  await page.goto("http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL");
   await page.getByRole("button", { name: "Pesquisar destinos" }).click();
   await page.getByLabel("Buscar no Explorar").fill("AREZZO");
   await page.getByRole("button", { name: /^Como chegar a AREZZO/ }).click();
@@ -88,7 +88,7 @@ test("mapa baixo mantém a planta orientada e a posição longe da lateral", asy
 test("início continua legível nos principais tamanhos de celular", async ({ page }, info) => {
   for (const width of [320, 360, 390, 430]) {
     await page.setViewportSize({ width, height: 760 });
-    await page.goto("/?qr=MINI-ENTRADA-PRINCIPAL");
+    await page.goto("http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL");
     await expect(page.getByTestId("floor-map")).toBeVisible();
     await expect(page.getByRole("button", { name: "Pesquisar destinos" })).toBeVisible();
     await expect(page.getByRole("tab", { name: "Mapa", exact: true })).toBeInViewport({ ratio: 1 });
@@ -100,7 +100,7 @@ test("início continua legível nos principais tamanhos de celular", async ({ pa
 
 test("troca de piso mostra o andar atual e cabe na tela pequena", async ({ page }, info) => {
   await page.setViewportSize({ width: 320, height: 640 });
-  await page.goto("/?qr=MINI-ENTRADA-PRINCIPAL");
+  await page.goto("http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL");
   const switcher = page.getByTestId("floor-switch");
   await expect(switcher).toHaveAttribute("aria-label", /Piso atual: Térreo/);
   await switcher.click();
@@ -115,7 +115,7 @@ test("troca de piso mostra o andar atual e cabe na tela pequena", async ({ page 
 
 test("chegada confirmada mantém o mapa e a próxima rota parte da loja", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/?qr=MINI-ENTRADA-PRINCIPAL");
+  await page.goto("http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL");
   await page.getByRole("button", { name: "Pesquisar destinos" }).click();
   await page.getByLabel("Buscar no Explorar").fill("NATURA");
   const firstResponse = page.waitForResponse((result) => result.url().endsWith("/api/routes") && result.request().method() === "POST");
@@ -137,7 +137,7 @@ test("chegada confirmada mantém o mapa e a próxima rota parte da loja", async 
 
 test("mapa 3D no celular conserva posição e controles durante a navegação", async ({ page }, info) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/?qr=MINI-ENTRADA-PRINCIPAL");
+  await page.goto("http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL");
   await page.getByRole("button", { name: "Pesquisar destinos" }).click();
   await page.getByLabel("Buscar no Explorar").fill("NATURA");
   await page.getByRole("button", { name: /^Como chegar a NATURA/ }).click();

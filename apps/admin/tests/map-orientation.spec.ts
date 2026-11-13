@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 async function startNavigationToNatura(page: any) {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/?qr=MINI-ENTRADA-PRINCIPAL");
+  await page.goto("http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL");
   await expect(page.getByTestId("origin-label")).toContainText("Entrada principal");
   await expect(page.getByRole("button", { name: "Pesquisar destinos" })).toBeVisible();
   await page.getByRole("button", { name: "Pesquisar destinos" }).click();
@@ -12,7 +12,7 @@ async function startNavigationToNatura(page: any) {
 }
 
 test("alternância 2D/3D preserva norte para cima", async ({ page }) => {
-  await page.goto("/?qr=MINI-ENTRADA-PRINCIPAL");
+  await page.goto("http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL");
   await expect(page.getByTestId("origin-label")).toContainText("Entrada principal");
   await page.getByRole("button", { name: "Mapa 2D", exact: true }).click();
   const map2d = page.getByTestId("map-2d-viewport");
@@ -27,7 +27,7 @@ test("alternância 2D/3D preserva norte para cima", async ({ page }) => {
 });
 
 test("zoom e centralização continuam funcionando no 2D", async ({ page }) => {
-  await page.goto("/?qr=MINI-ENTRADA-PRINCIPAL");
+  await page.goto("http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL");
   await expect(page.getByTestId("origin-label")).toContainText("Entrada principal");
   await page.getByRole("button", { name: "Mapa 2D", exact: true }).click();
   const map = page.getByTestId("map-2d-viewport");
@@ -44,7 +44,7 @@ test("zoom e centralização continuam funcionando no 2D", async ({ page }) => {
 });
 
 test("mudança de piso mantém o mapa 2D orientado para norte", async ({ page }) => {
-  await page.goto("/?qr=MINI-ENTRADA-PRINCIPAL");
+  await page.goto("http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL");
   await expect(page.getByTestId("origin-label")).toContainText("Entrada principal");
   await page.getByRole("button", { name: "Mapa 2D", exact: true }).click();
   const map = page.getByTestId("map-2d-viewport");

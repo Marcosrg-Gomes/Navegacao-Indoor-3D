@@ -5,6 +5,7 @@ import { useNavigation } from "@/context/NavigationContext";
 import { normalize, useDirectory } from "@/hooks/useDirectory";
 import type { No } from "@/types";
 import { AccessibleSheet } from "./AccessibleSheet";
+import { colors } from "@/constants/colors";
 import { DirectoryMap } from "./DirectoryMap";
 import { directoryStyles as d, rule, ink } from "./directoryDesign";
 
@@ -33,7 +34,7 @@ export function OrientationPicker({ visible, lost = false, onClose, onLocate }: 
     {map ? <DirectoryMap floors={nav.floors} graphs={directory.graphs} selected={selected} origin={nav.originNode} onSelect={setSelected} /> : <>
       <TextInput accessibilityLabel="Lugar que estou vendo" value={query} onChangeText={setQuery} placeholder="Digite uma loja ou serviço" style={{ minHeight: 54, padding: 12, borderWidth: 1, borderColor: rule, borderRadius: 10, color: ink, fontSize: 17 }} />
       {query.trim().length < 2 && <Text style={d.muted}>Digite ao menos duas letras. Você também pode escolher uma entrada abaixo.</Text>}
-      {suggestions.map((place) => <TouchableOpacity key={place.key} accessibilityRole="button" accessibilityLabel={"Estou vendo " + place.name} accessibilityState={{ selected: selected?.id === place.node.id }} style={[d.line, { paddingHorizontal: 8, backgroundColor: selected?.id === place.node.id ? "#fff2c8" : "transparent" }]} onPress={() => setSelected(place.node)}><Text style={[d.text, { fontWeight: "700" }]}>{selected?.id === place.node.id ? "✓ " : ""}{place.name}</Text><Text style={d.muted}>{nav.floors.find((floor) => floor.id === place.node.piso_id)?.nome} · {place.category}</Text></TouchableOpacity>)}
+      {suggestions.map((place) => <TouchableOpacity key={place.key} accessibilityRole="button" accessibilityLabel={"Estou vendo " + place.name} accessibilityState={{ selected: selected?.id === place.node.id }} style={[d.line, { paddingHorizontal: 8, backgroundColor: selected?.id === place.node.id ? colors.accentSoft : "transparent" }]} onPress={() => setSelected(place.node)}><Text style={[d.text, { fontWeight: "700" }]}>{selected?.id === place.node.id ? "✓ " : ""}{place.name}</Text><Text style={d.muted}>{nav.floors.find((floor) => floor.id === place.node.piso_id)?.nome} · {place.category}</Text></TouchableOpacity>)}
       {query.trim().length >= 2 && !suggestions.length && !directory.loading && <Text style={d.muted}>Nenhum lugar encontrado. Tente outro nome ou leia um QR Code.</Text>}
     </>}
     {selected && <Text style={d.text}>Nova origem: {selected.nome}. O destino atual será mantido e o trajeto será recalculado.</Text>}

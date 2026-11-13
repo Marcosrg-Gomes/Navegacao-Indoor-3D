@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   ActivityIndicator, Platform, ScrollView, StyleSheet,
   Text, TouchableOpacity, useWindowDimensions, View,
@@ -24,6 +24,7 @@ import { useDirectory } from "@/hooks/useDirectory";
 import { IntentHome } from "@/components/IntentHome";
 import { FloorSwitcher } from "@/components/FloorSwitcher";
 import { OrientationPicker } from "@/components/OrientationPicker";
+import { DsButton, DsError, DsToggle } from "@/components/DesignSystem";
 import { SavedPlacesSheet } from "@/components/SavedPlacesSheet";
 import { directoryStyles as d, paper, ink } from "@/components/directoryDesign";
 import { useVisitPlan } from "@/context/VisitPlan";
@@ -53,6 +54,20 @@ export default function MapScreen() {
   useEffect(() => { setPreview(null); }, [nav.route, nav.hasArrived]);
 
   const params = useLocalSearchParams<{ qr?: string; token?: string; manualOrigin?: string; shopping?: string; floor?: string; locate?: string }>();
+  // Ler parâmetros QR diretamente da URL do navegador.
+  // Expo Router web pode não expor query params via useLocalSearchParams;
+  // lê window.location.href diretamente no corpo do componente.
+  let urlQr: string | undefined;
+  let urlToken: string | undefined;
+  if (typeof window !== "undefined" && window.location.search) {
+    const search = new URLSearchParams(window.location.search);
+    const qr = search.get("qr");
+    const token = search.get("token");
+    if (qr) urlQr = qr;
+    if (token) urlToken = token;
+  }
+  const qrParam = urlQr || params.qr;
+  const tokenParam = urlToken || params.token;
   const { width, height } = useWindowDimensions();
   const insets = useSafeAreaInsets();
   const mobileJourney = width < 600;
@@ -90,7 +105,7 @@ export default function MapScreen() {
     if (params.manualOrigin === "1") { setManual(true); router.setParams({ manualOrigin: "" }); }
   }, [params.manualOrigin]);
   useEffect(() => {
-    const token = params.qr || params.token;
+    const token = qrParam || tokenParam;
     if (token) setFullMap(true);
     if (!token || nav.loading || qrRead.current === token) return;
     qrRead.current = token;
@@ -99,7 +114,7 @@ export default function MapScreen() {
     resolveQrCode(token).then((result) => nav.setOriginNode(result.no, "qr"))
       .catch((e) => { setLocalError(e.message); setManual(true); })
       .finally(() => { setQrBusy(false); if (qrRead.current === token) qrRead.current = null; router.setParams({ qr: "", token: "" }); });
-  }, [params.qr, params.token, nav.loading, nav.setOriginNode]);
+  }, [qrParam, tokenParam, nav.loading, nav.setOriginNode]);
 
   const initialSelection = useRef(false);
   useEffect(() => {
@@ -130,7 +145,7 @@ export default function MapScreen() {
   const error = localError || nav.error;
   const status = nav.destinationLoja ? getStatusOperacional(nav.destinationLoja) : null;
   const renderMap = (surfaceHeight: number, compact: boolean) => nav.floor ? <SceneMap
-    initialMode={compact ? "2d" : "auto"} compact={compact} controlsTop={compact ? activeRoute ? 90 : 75 : undefined}
+    initialMode="auto" compact={compact} controlsTop={compact ? activeRoute ? 90 : 75 : undefined}
     navigationRevision={nav.navigationRevision} previewStep={preview}
     shoppingId={nav.shopping?.id} floorId={nav.floor.id} width={compact ? width : viewportWidth} height={surfaceHeight}
     routeNodes={nav.routeDisplayNodes} originNodeId={nav.originNode?.id} position={nav.positionEstimate}
@@ -145,8 +160,8 @@ export default function MapScreen() {
       : <ActivityIndicator accessibilityLabel="Carregando piso" />} /> : <ActivityIndicator accessibilityLabel="Carregando piso" />;
   return (
     <View style={styles.screen} role="main" accessibilityLabel="Mapa e instruções de navegação">
-      {mobileJourney ? <View style={[styles.mobileJourney, { paddingTop: insets.top, backgroundColor: activeRoute ? "#141a20" : "#e6eeec" }]}>
-        <StatusBar style={activeRoute ? "light" : "dark"} backgroundColor={activeRoute ? "#141a20" : "#e6eeec"} />
+      {mobileJourney ? <View style={[styles.mobileJourney, { paddingTop: insets.top, backgroundColor: activeRoute ? colors.primaryDark : colors.bg }]}>
+        <StatusBar style={activeRoute ? "light" : "dark"} backgroundColor={activeRoute ? colors.primaryDark : colors.bg} />
         <View style={styles.mobileMap} onLayout={(event) => setMobileMapSpace(Math.floor(event.nativeEvent.layout.height))}>
           {renderMap(mobileMapSpace || mobileMapHeight, true)}
           {activeRoute ? <View style={styles.mobileTop}><WazeManeuverBanner /></View> : <View style={styles.mobileTop}>
@@ -160,7 +175,7 @@ export default function MapScreen() {
           <Text accessibilityRole="header" style={styles.mobileBottomTitle}>Você chegou a <Text testID="origin-label">{nav.originNode?.nome || nav.destinationName}</Text></Text><Text testID="location-update" style={styles.mobileBottomMeta}>{nav.floor?.nome} · Posição atualizada. A próxima rota começa daqui.</Text>
           <TouchableOpacity accessibilityRole="button" accessibilityLabel="Iniciar outra navegação" style={styles.mobilePrimary} onPress={() => { nav.clearRoute(); router.push("/explore"); }}><Text style={styles.mobilePrimaryText}>Escolher outro destino</Text></TouchableOpacity>
         </View> : <View style={styles.mobileBottom}>
-          <View style={styles.mobileBottomRow}><View style={{ flex: 1, minWidth: 0 }}><Text testID="origin-label" style={styles.mobileBottomTitle} numberOfLines={1}>{nav.originNode ? nav.originNode.nome : "Onde você está?"}</Text><Text testID="location-update" style={styles.mobileBottomMeta} numberOfLines={1}>{nav.floor?.nome || "Shopping"} · {nav.originNode ? nav.originUpdate?.source === "qr" ? "Posição por QR" : "Posição definida" : "Defina a posição para navegar"}</Text></View><TouchableOpacity accessibilityRole="button" accessibilityLabel={nav.originNode ? "Corrigir minha posição" : "Definir minha posição"} style={styles.mobilePin} onPress={() => setManual(true)}><WayfindingIcon name="pin" color="#223246" /></TouchableOpacity></View>
+          <View style={styles.mobileBottomRow}><View style={{ flex: 1, minWidth: 0 }}><Text testID="origin-label" style={styles.mobileBottomTitle} numberOfLines={1}>{nav.originNode ? nav.originNode.nome : "Onde você está?"}</Text><Text testID="location-update" style={styles.mobileBottomMeta} numberOfLines={1}>{nav.floor?.nome || "Shopping"} · {nav.originNode ? nav.originUpdate?.source === "qr" ? "Posição por QR" : "Posição definida" : "Defina a posição para navegar"}</Text></View><TouchableOpacity accessibilityRole="button" accessibilityLabel={nav.originNode ? "Corrigir minha posição" : "Definir minha posição"} style={styles.mobilePin} onPress={() => setManual(true)}><WayfindingIcon name="pin" color={colors.primaryDark} /></TouchableOpacity></View>
           <TouchableOpacity accessibilityRole="button" style={styles.mobilePrimary} onPress={() => router.push("/explore")}><Text style={styles.mobilePrimaryText}>Explorar destinos</Text><Text style={styles.mobilePrimaryText}>→</Text></TouchableOpacity>
         </View>}
       </View> : <ScrollView ref={scroll} contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
@@ -202,20 +217,20 @@ export default function MapScreen() {
           </View>
         </View>
         <View style={styles.row}>
-          <TouchableOpacity accessibilityRole="button" style={styles.button} onPress={() => setManual(true)}>
-            <Text style={styles.buttonText}>{nav.originNode ? "Alterar origem" : "Definir ponto de partida"}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity accessibilityRole="button" style={styles.chip} onPress={() => router.push("/scan")}>
-            <Text>Escanear QR</Text>
-          </TouchableOpacity>
+          <DsButton variant="primary" onPress={() => setManual(true)}>
+            {nav.originNode ? "Alterar origem" : "Definir ponto de partida"}
+          </DsButton>
+          <DsButton variant="outline" onPress={() => router.push("/scan")}>
+            Escanear QR
+          </DsButton>
         </View>
         <View style={styles.accessibility}>
-          <TouchableOpacity accessibilityRole="switch" accessibilityState={{ checked: nav.acessivel, disabled: nav.arrivalLoading }}
-            accessibilityLabel="Rota acessível" accessibilityHint="Evita escadas e usa elevadores para mudar de piso."
-            disabled={nav.arrivalLoading} style={styles.accessibilityToggle} onPress={() => nav.setAcessivel(!nav.acessivel)}>
-            <View style={[styles.switchTrack, nav.acessivel && styles.switchOn]}><View style={[styles.switchThumb, nav.acessivel && { alignSelf: "flex-end" }]} /></View>
-            <Text style={styles.controlText}>Rota sem escadas</Text>
-          </TouchableOpacity>
+          <DsToggle
+            checked={nav.acessivel}
+            disabled={nav.arrivalLoading}
+            label="Rota sem escadas"
+            onPress={() => nav.setAcessivel(!nav.acessivel)}
+          />
           <TouchableOpacity accessibilityRole="button" accessibilityState={{ expanded: accessibilityHelp }} style={styles.helpButton}
             onPress={() => setAccessibilityHelp((value) => !value)}><Text style={styles.link}>O que é acessível?</Text></TouchableOpacity>
         </View>
@@ -226,8 +241,11 @@ export default function MapScreen() {
           <Text style={styles.small}>A opção avalia o caminho cadastrado. Ela não confirma as condições de acessibilidade dentro de cada loja.</Text>
         </View>}
         <TouchableOpacity accessibilityRole="button" accessibilityState={{ expanded: options }} style={styles.helpButton} onPress={() => setOptions((value) => !value)}><Text style={styles.link}>{options ? "Menos opções" : "Mais opções de navegação"}</Text></TouchableOpacity>
-        {options && <View style={styles.row}><TouchableOpacity accessibilityRole="button" style={styles.chip} onPress={() => { void nav.returnToEntry().then(() => { if (!nav.originNode) setManual(true); }); }}><Text style={styles.controlText}>Voltar para a entrada</Text></TouchableOpacity>
-          <TouchableOpacity accessibilityRole="button" style={styles.chip} onPress={() => router.push("/explore")}><Text style={styles.controlText}>Favoritos e recentes</Text></TouchableOpacity></View>}
+        {options && <View style={styles.row}><DsButton variant="outline" onPress={() => { void nav.returnToEntry().then(() => { if (!nav.originNode) setManual(true); }); }}>
+          Voltar para a entrada
+        </DsButton><DsButton variant="outline" onPress={() => router.push("/explore")}>
+          Favoritos e recentes
+        </DsButton></View>}
         </>}
         {activeRoute && <Text testID="origin-label" style={d.muted}>Última posição: {nav.originNode?.nome}</Text>}
         {(activeRoute || nav.hasArrived) && nav.originUpdate && <Text style={d.muted} testID="location-update">{nav.floors.find((f) => f.id === nav.originNode?.piso_id)?.nome} · {({ qr: "QR Code", manual: "Seleção manual", arrival: "Chegada confirmada" })[nav.originUpdate.source]}</Text>}
@@ -273,16 +291,16 @@ const styles = StyleSheet.create({
   mobileJourney: { flex: 1, backgroundColor: "#e6eeec" },
   mobileTop: { position: "absolute", top: 0, left: 0, right: 0, zIndex: 5 },
   mobileSearchRow: { flexDirection: "row", alignItems: "center", gap: 8, paddingHorizontal: 12 },
-  mobileSearch: { flex: 1, minWidth: 0, minHeight: 54, marginTop: 10, borderRadius: 28, flexDirection: "row", gap: 10, alignItems: "center", paddingHorizontal: 16, backgroundColor: "#fff", shadowColor: "#102234", shadowOpacity: .18, shadowRadius: 9, elevation: 6 },
-  mobileSearchText: { flex: 1, color: "#263744", fontSize: 16, fontWeight: "700" },
-  mobileHelp: { width: 48, height: 48, marginTop: 10, borderRadius: 24, backgroundColor: "#fff", alignItems: "center", justifyContent: "center", shadowColor: "#102234", shadowOpacity: .14, shadowRadius: 7, elevation: 5 },
+  mobileSearch: { flex: 1, minWidth: 0, minHeight: 54, marginTop: 10, borderRadius: 28, flexDirection: "row", gap: 10, alignItems: "center", paddingHorizontal: 16, backgroundColor: colors.surface, shadowColor: "#102234", shadowOpacity: .18, shadowRadius: 9, elevation: 6 },
+  mobileSearchText: { flex: 1, color: colors.text, fontSize: 16, fontWeight: "700" },
+  mobileHelp: { width: 48, height: 48, marginTop: 10, borderRadius: 24, backgroundColor: colors.surface, alignItems: "center", justifyContent: "center", shadowColor: "#102234", shadowOpacity: .14, shadowRadius: 7, elevation: 5 },
   mobileError: { position: "absolute", bottom: 14, left: 12, right: 12, zIndex: 6, backgroundColor: "#fff", padding: 10, borderRadius: 12 },
   mobileBottom: { backgroundColor: "#fff", paddingHorizontal: 16, paddingTop: 10, paddingBottom: 12, gap: 8, borderTopWidth: 1, borderTopColor: "#dfe5e9" },
   mobileBottomRow: { flexDirection: "row", alignItems: "center", gap: 12 },
-  mobileBottomTitle: { color: "#172536", fontSize: 17, lineHeight: 22, fontWeight: "800" },
-  mobileBottomMeta: { color: "#61727b", fontSize: 12, lineHeight: 17 },
-  mobilePin: { width: 44, height: 44, borderRadius: 22, alignItems: "center", justifyContent: "center", backgroundColor: "#eaf2f5" },
-  mobilePrimary: { minHeight: 48, borderRadius: 15, flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingHorizontal: 17, backgroundColor: "#168bd6" },
+  mobileBottomTitle: { color: colors.text, fontSize: 17, lineHeight: 22, fontWeight: "800" },
+  mobileBottomMeta: { color: colors.textMuted, fontSize: 12, lineHeight: 17 },
+  mobilePin: { width: 44, height: 44, borderRadius: 22, alignItems: "center", justifyContent: "center", backgroundColor: colors.primarySoft },
+  mobilePrimary: { minHeight: 48, borderRadius: 15, flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingHorizontal: 17, backgroundColor: colors.primary },
   mobilePrimaryText: { color: "#fff", fontSize: 16, fontWeight: "800" },
   mobileMap: { flex: 1, minHeight: 100, overflow: "hidden" },
   topLine: { flexDirection: "row", alignItems: "flex-start", gap: 8 },
@@ -313,8 +331,8 @@ const styles = StyleSheet.create({
   selected: { backgroundColor: colors.primaryDark, borderColor: colors.primaryDark },
   card: { backgroundColor: colors.surface, borderRadius: 8, padding: 18, gap: 12, borderWidth: 1, borderColor: colors.border },
   distance: { fontSize: 24, fontWeight: "700", color: colors.primary },
-  error: { backgroundColor: "#fee2e2", padding: 12, borderRadius: 8, gap: 8 },
-  errorText: { color: "#b91c1c", fontSize: 14 },
+  error: { backgroundColor: colors.dangerSoft, padding: 12, borderRadius: 8, gap: 8 },
+  errorText: { color: colors.danger, fontSize: 14 },
   link: { color: colors.primary, fontWeight: "700", paddingVertical: 6 },
   arrival: { backgroundColor: colors.successSoft, borderLeftWidth: 4, borderLeftColor: colors.success, borderRadius: 6, padding: 18, gap: 10 },
   arrivalActions: { gap: 8, alignItems: "flex-start" },

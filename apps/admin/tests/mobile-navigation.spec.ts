@@ -29,7 +29,7 @@ test("Barra inferior mostra quatro destinos claros em celulares estreitos", asyn
 
 test("Mapa mantém posição e oferece instruções quando há rota ativa", async ({ page }, info) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/?qr=MINI-ENTRADA-PRINCIPAL");
+  await page.goto("http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL");
   await expect(page.getByTestId("origin-label")).toContainText("Entrada principal");
   await page.getByLabel("Buscar destinos", { exact: true }).fill("NATURA");
   await page.getByRole("button", { name: "NATURA, Aberto", exact: true }).click();

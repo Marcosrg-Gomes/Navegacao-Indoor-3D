@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { visitorQrUrl } from "./visitor-url";
 
 test("RNF03: cinco visitantes simultâneos carregam mapa e calculam rota", async ({ browser }, info) => {
   test.skip(info.project.name !== "chromium", "Baseline concorrente mantido em um único motor")
@@ -8,7 +9,7 @@ test("RNF03: cinco visitantes simultâneos carregam mapa e calculam rota", async
     const page = await context.newPage();
     const startedAt = performance.now();
     try {
-      await page.goto("/?qr=ENTRADA-PRINCIPAL");
+      await page.goto(visitorQrUrl("ENTRADA-PRINCIPAL"));
       await expect(page.getByTestId("floor-map")).toBeVisible();
       await expect(page.getByTestId("origin-label")).toContainText("Entrada Principal");
       const mapMs = performance.now() - startedAt;

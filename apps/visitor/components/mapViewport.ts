@@ -79,47 +79,31 @@ function angleDiff(a: number, b: number): number {
 }
 
 /**
- * Calcula a rotação do mapa (0° ou 180°) com base na direção do próximo trecho
- * da rota em relação ao heading do usuário.
+ * Calcula a rotação do mapa com base na direção do próximo trecho da rota.
  * 
- * O mapa só inverte 180° quando o próximo trecho da rota está "atrás" do
- * usuário (ou seja, o usuário está caminhando na direção oposta ao trajeto).
- * Curvas à direita ou esquerda não provocam inversão - apenas o próximo
- * trecho reto determina a orientação.
+ * REGRA DO PROJETO: norte sempre para cima. O mapa NÃO gira horizontalmente,
+ * nem durante curvas, nem quando o próximo trecho está atrás do usuário.
+ * Apenas o indicador de posição (seta) gira para mostrar a direção do usuário.
  * 
- * @param heading - Rumo atual do usuário em graus (0° = norte).
- * @param nextDirection - Rumo do próximo trecho da rota em graus (0° = norte).
- * @returns 0° se o trajeto está à frente, 180° se está atrás.
+ * @returns Sempre 0 (norte fixo para cima).
  */
-export function mapRotationForHeading(heading?: number, nextDirection?: number): number {
-  if (heading === undefined || nextDirection === undefined) return 0;
-  const h = ((heading % 360) + 360) % 360;
-  const d = ((nextDirection % 360) + 360) % 360;
-  // Se o próximo trecho está "atrás" do usuário (diferença > 90°), inverte o mapa
-  // para que o trajeto fique à frente da seta.
-  const diff = angleDiff(d, h);
-  return Math.abs(diff) > 90 ? 180 : 0;
+export function mapRotationForHeading(): number {
+  return 0;
 }
 
 /** Mantém a próxima curva e a posição no campo útil, mesmo com o mapa baixo.
- * A planta só gira 180° quando o próximo trecho da rota está atrás do
- * usuário, para que o trajeto fique sempre à frente da seta. */
+ * A planta NÃO gira: norte sempre fixo para cima. Apenas centraliza e ajusta
+ * o zoom para manter o próximo trecho visível. */
 export function followPosition(view: MapView, position: { x: number; y: number; heading?: number }, bounds: MapBounds, nextTurn?: { x: number; y: number }): MapView {
   const turnAtOne = nextTurn ? rotate((nextTurn.x - position.x) * bounds.mapWidth,
     (nextTurn.y - position.y) * bounds.mapHeight, 0) : { x: 0, y: 0 };
   const zoom = nextTurn ? Math.max(1, Math.min(view.zoom,
     (bounds.width * .72) / Math.max(1, Math.abs(turnAtOne.x)),
     (bounds.height * .64) / Math.max(1, Math.abs(turnAtOne.y)))) : view.zoom;
-  // Calcular a direção do próximo trecho da rota em relação à posição do usuário.
-  let nextDirection: number | undefined;
-  if (nextTurn) {
-    nextDirection = directionFromTo(position.x, position.y, nextTurn.x, nextTurn.y);
-  }
-  const rotation = mapRotationForHeading(position.heading, nextDirection);
-  const centered = centerOnPosition({ ...view, zoom, rotation }, position, bounds);
+  const centered = centerOnPosition({ ...view, zoom, rotation: 0 }, position, bounds);
   const upcoming = { x: turnAtOne.x * zoom, y: turnAtOne.y * zoom };
   const offsetX = Math.max(-bounds.width * .12, Math.min(bounds.width * .12, -upcoming.x * .22));
   const offsetY = Math.max(-bounds.height * .12, Math.min(bounds.height * .15,
     nextTurn ? -upcoming.y * .22 : bounds.height * .1));
-  return clampView({ ...centered, x: centered.x + offsetX, y: centered.y + offsetY }, bounds);
+  return clampView({ ...centered, x: centered.x + offsetX, y: centered.y + offsetY, rotation: 0 }, bounds);
 }

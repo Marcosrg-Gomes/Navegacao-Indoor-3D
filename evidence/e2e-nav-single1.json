@@ -1,0 +1,233 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--project=chromium",
+      "tests/navigation.spec.ts",
+      "-g",
+      "QR → mapa",
+      "--timeout=60000"
+    ],
+    "configFile": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\playwright.config.ts",
+    "rootDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-nav-single1-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-nav-single1-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-nav-single1-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-nav-single1-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chrome",
+        "name": "chrome",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-nav-single1-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "msedge",
+        "name": "msedge",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "../../evidence/e2e-nav-single1.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "navigation.spec.ts",
+      "file": "navigation.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "QR → mapa → busca → rota → chegada; bloqueio administrativo muda a rota",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [
+                {
+                  "type": "browser-version",
+                  "description": "chromium 153.0.8010.12 (win32)"
+                }
+              ],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 6214,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByTestId('origin-label')\nExpected substring: \u001b[32m\"Entrada \u001b[7mP\u001b[27mrincipal\"\u001b[39m\nReceived string:    \u001b[31m\"Entrada \u001b[7mp\u001b[27mrincipal\"\u001b[39m\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" getByTestId('origin-label') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByTestId('origin-label')\u001b[22m\n\u001b[2m    3 × locator resolved to <div dir=\"auto\" data-testid=\"origin-label\" class=\"css-text-146c3p1 r-maxWidth-dnmrzs r-overflow-1udh08x r-textOverflow-1udbk01 r-whiteSpace-3s2u2q r-wordWrap-1iln25a r-color-1d9s9gw r-fontSize-1inkyih r-fontWeight-1vr29t4 r-lineHeight-hbpseb\">Onde você está?</div>\u001b[22m\n\u001b[2m      - unexpected value \"Onde você está?\"\u001b[22m\n\u001b[2m    10 × locator resolved to <div dir=\"auto\" data-testid=\"origin-label\" class=\"css-text-146c3p1 r-maxWidth-dnmrzs r-overflow-1udh08x r-textOverflow-1udbk01 r-whiteSpace-3s2u2q r-wordWrap-1iln25a r-color-1d9s9gw r-fontSize-1inkyih r-fontWeight-1vr29t4 r-lineHeight-hbpseb\">Entrada principal</div>\u001b[22m\n\u001b[2m       - unexpected value \"Entrada principal\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByTestId('origin-label')\nExpected substring: \u001b[32m\"Entrada \u001b[7mP\u001b[27mrincipal\"\u001b[39m\nReceived string:    \u001b[31m\"Entrada \u001b[7mp\u001b[27mrincipal\"\u001b[39m\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" getByTestId('origin-label') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByTestId('origin-label')\u001b[22m\n\u001b[2m    3 × locator resolved to <div dir=\"auto\" data-testid=\"origin-label\" class=\"css-text-146c3p1 r-maxWidth-dnmrzs r-overflow-1udh08x r-textOverflow-1udbk01 r-whiteSpace-3s2u2q r-wordWrap-1iln25a r-color-1d9s9gw r-fontSize-1inkyih r-fontWeight-1vr29t4 r-lineHeight-hbpseb\">Onde você está?</div>\u001b[22m\n\u001b[2m      - unexpected value \"Onde você está?\"\u001b[22m\n\u001b[2m    10 × locator resolved to <div dir=\"auto\" data-testid=\"origin-label\" class=\"css-text-146c3p1 r-maxWidth-dnmrzs r-overflow-1udh08x r-textOverflow-1udbk01 r-whiteSpace-3s2u2q r-wordWrap-1iln25a r-color-1d9s9gw r-fontSize-1inkyih r-fontWeight-1vr29t4 r-lineHeight-hbpseb\">Entrada principal</div>\u001b[22m\n\u001b[2m       - unexpected value \"Entrada principal\"\u001b[22m\n\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\navigation.spec.ts:16:50",
+                    "location": {
+                      "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\navigation.spec.ts",
+                      "column": 50,
+                      "line": 16
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 14 |\u001b[39m   page\u001b[33m.\u001b[39mon(\u001b[32m\"pageerror\"\u001b[39m\u001b[33m,\u001b[39m (error) \u001b[33m=>\u001b[39m errors\u001b[33m.\u001b[39mpush(error\u001b[33m.\u001b[39mmessage))\u001b[33m;\u001b[39m\n \u001b[90m 15 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\"\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 16 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"origin-label\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Entrada Principal\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 17 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"floor-map\"\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 18 |\u001b[39m   \u001b[36mconst\u001b[39m image \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'svg image'\u001b[39m)\u001b[33m.\u001b[39mfirst()\u001b[33m;\u001b[39m\n \u001b[90m 19 |\u001b[39m   \u001b[36mawait\u001b[39m expect(image)\u001b[33m.\u001b[39mtoHaveAttribute(\u001b[32m\"href\"\u001b[39m\u001b[33m,\u001b[39m \u001b[35m/\\/static\\/plantas\\/demo.svg/\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\navigation.spec.ts",
+                        "column": 50,
+                        "line": 16
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByTestId('origin-label')\nExpected substring: \u001b[32m\"Entrada \u001b[7mP\u001b[27mrincipal\"\u001b[39m\nReceived string:    \u001b[31m\"Entrada \u001b[7mp\u001b[27mrincipal\"\u001b[39m\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" getByTestId('origin-label') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByTestId('origin-label')\u001b[22m\n\u001b[2m    3 × locator resolved to <div dir=\"auto\" data-testid=\"origin-label\" class=\"css-text-146c3p1 r-maxWidth-dnmrzs r-overflow-1udh08x r-textOverflow-1udbk01 r-whiteSpace-3s2u2q r-wordWrap-1iln25a r-color-1d9s9gw r-fontSize-1inkyih r-fontWeight-1vr29t4 r-lineHeight-hbpseb\">Onde você está?</div>\u001b[22m\n\u001b[2m      - unexpected value \"Onde você está?\"\u001b[22m\n\u001b[2m    10 × locator resolved to <div dir=\"auto\" data-testid=\"origin-label\" class=\"css-text-146c3p1 r-maxWidth-dnmrzs r-overflow-1udh08x r-textOverflow-1udbk01 r-whiteSpace-3s2u2q r-wordWrap-1iln25a r-color-1d9s9gw r-fontSize-1inkyih r-fontWeight-1vr29t4 r-lineHeight-hbpseb\">Entrada principal</div>\u001b[22m\n\u001b[2m       - unexpected value \"Entrada principal\"\u001b[22m\n\n\n  14 |   page.on(\"pageerror\", (error) => errors.push(error.message));\n  15 |   await page.goto(\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\");\n> 16 |   await expect(page.getByTestId(\"origin-label\")).toContainText(\"Entrada Principal\");\n     |                                                  ^\n  17 |   await expect(page.getByTestId(\"floor-map\")).toBeVisible();\n  18 |   const image = page.locator('svg image').first();\n  19 |   await expect(image).toHaveAttribute(\"href\", /\\/static\\/plantas\\/demo.svg/);\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\navigation.spec.ts:16:50"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-07T21:21:13.996Z",
+                  "annotations": [
+                    {
+                      "type": "browser-version",
+                      "description": "chromium 153.0.8010.12 (win32)"
+                    }
+                  ],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-nav-single1-artifacts\\navigation-QR-→-mapa-→-bus-a2fb9--administrativo-muda-a-rota-chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-nav-single1-artifacts\\navigation-QR-→-mapa-→-bus-a2fb9--administrativo-muda-a-rota-chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\navigation.spec.ts",
+                    "column": 50,
+                    "line": 16
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "5d2868f7d23420c27cca-e14124b6d818d24ef1de",
+          "file": "navigation.spec.ts",
+          "line": 11,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-07T21:21:13.324Z",
+    "duration": 7199.995,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

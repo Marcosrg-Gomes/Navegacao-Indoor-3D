@@ -1,1 +1,1 @@
-export { SceneMap } from "./SceneMap.native";
+export { SceneMap } from "./SceneMap.web";

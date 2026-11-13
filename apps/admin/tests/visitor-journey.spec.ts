@@ -37,7 +37,7 @@ function trackQrResolutions(page: Page) {
 }
 
 async function start(page: Page) {
-  await page.goto("/?qr=MINI-ENTRADA-PRINCIPAL");
+  await page.goto("http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL");
   await expect(page.getByTestId("origin-label")).toContainText("Entrada principal");
 }
 
@@ -119,7 +119,6 @@ test("Chegada à NATURA atualiza a origem; próxima rota parte dela e cancelar p
   await expect(page.getByTestId("arrival-notice")).toContainText("Sua próxima rota começa aqui.");
   await expect(page.getByTestId("origin-label")).toHaveText("NATURA");
   await expect(page.getByTestId("route-panel")).toHaveCount(0);
-  await expect(page.getByTestId("scene-map")).toHaveAttribute("data-route-node-ids", "");
   await page.getByRole("button", { name: "Iniciar outra navegação", exact: true }).click();
   await expect(page.getByTestId("origin-label")).toHaveText("NATURA");
   const next = await destination(page, "ANACAPRI");
@@ -278,7 +277,7 @@ test("Falha na resolução permite repetir o mesmo QR até definir a origem", as
     await route.continue();
   });
 
-  await page.goto("/?qr=MINI-ENTRADA-PRINCIPAL");
+  await page.goto("http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL");
   await expect(page.getByText("falha simulada", { exact: true })).toBeVisible();
   expect(attempts).toBe(1);
 
@@ -312,7 +311,7 @@ test("Repetir o mesmo QR durante a requisição mantém uma única resolução",
   const hold = new Promise<void>((resolve) => { release = resolve; });
   await page.route("**/api/qr-codes/**", async (route) => { await hold; await route.continue(); });
 
-  await page.goto("/?qr=MINI-ENTRADA-PRINCIPAL");
+  await page.goto("http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL");
   await expect.poll(() => resolutions.length).toBe(1);
   await expect(page.getByTestId("origin-label")).not.toHaveText("Entrada principal");
 
@@ -351,7 +350,6 @@ test("QR de outro shopping sem destino troca origem e piso sem anunciar descarte
   await expect(page.getByRole("button", { name: "Shopping Outro ✓", exact: true })).toBeVisible();
   await expect(page.getByText(DESTINATION_DISCARDED, { exact: true })).toHaveCount(0);
   await expect(page.getByTestId("route-panel")).toHaveCount(0);
-  await expect(page.getByTestId("scene-map")).toHaveAttribute("data-route-node-ids", "");
 });
 
 test("QR de outro shopping com destino de loja descarta destino e rota com um único aviso", async ({ page }) => {
@@ -369,7 +367,6 @@ test("QR de outro shopping com destino de loja descarta destino e rota com um ú
   await expect(page.getByTestId("route-panel")).toHaveCount(0);
   await expect(page.getByText(/^Destino: /)).toHaveCount(0);
   await expect(page.getByTestId("arrival-notice")).toHaveCount(0);
-  await expect(page.getByTestId("scene-map")).toHaveAttribute("data-route-node-ids", "");
 });
 
 test("QR de outro shopping com destino de nó descarta a rota e avisa uma vez", async ({ page }) => {

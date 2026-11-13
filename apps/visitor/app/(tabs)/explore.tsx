@@ -16,6 +16,7 @@ import { AccessibleSheet } from "@/components/AccessibleSheet";
 import { PlaceIdentity } from "@/components/PlaceIdentity";
 import { directoryStyles as d, ink, paper, rule, accent, mono, placeIdentity } from "@/components/directoryDesign";
 import { SavedPlacesSheet } from "@/components/SavedPlacesSheet";
+import { DsButton, DsError, DsLabel, DsLoading, DsSearch, DsSection, DsChip } from "@/components/DesignSystem";
 
 const shortcuts = [
   ["all", "Todos"], ["shops", "Lojas"], ["food", "Alimentação"], ["wc", "Banheiros"],
@@ -113,10 +114,9 @@ export default function ExploreScreen() {
   }, [nav.setDestinationLoja, nav.setDestinationNode, router, originNode]);
 
   function filterButton(label: string, selected: boolean, action: () => void, disabled = false) {
-    return <TouchableOpacity key={label} accessibilityRole="button" accessibilityState={{ selected, disabled }} disabled={disabled}
-      style={[styles.filter, selected && styles.filterActive, disabled && styles.disabled]} onPress={action}>
-      <Text style={[styles.filterText, selected && styles.filterTextActive]}>{label}</Text>
-    </TouchableOpacity>;
+    return <DsChip key={label} selected={selected} disabled={disabled} onPress={action}>
+      <Text style={styles.chipText}>{label}</Text>
+    </DsChip>;
   }
 
   const activeFilters = [
@@ -151,15 +151,25 @@ export default function ExploreScreen() {
         <TouchableOpacity accessibilityRole="button" accessibilityLabel="Ver minha localização no mapa" style={styles.positionBanner} onPress={() => router.push(originNode ? "/?locate=1" : "/?manualOrigin=1")}>
           <Text style={styles.positionPin} accessible={false}>◎</Text><Text style={styles.positionText}>{originNode ? `Você está em ${originNode.nome} · ${floors.find((floor) => floor.id === originNode.piso_id)?.nome || "Piso"}` : "Onde você está? Defina sua posição"}  ›</Text>
         </TouchableOpacity>
-        <View style={styles.searchRow}><WayfindingIcon name="search" color={ink} /><TextInput accessibilityLabel="Buscar no Explorar" placeholder="Buscar por nome ou serviço" placeholderTextColor={colors.textMuted} style={styles.search} value={query} onChangeText={(value) => { setQuery(value); setLetter(""); }} />{!!query && <TouchableOpacity accessibilityRole="button" accessibilityLabel="Limpar busca" style={styles.iconButton} onPress={() => setQuery("")}><WayfindingIcon name="close" /></TouchableOpacity>}</View>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.shortcutStrip} accessibilityLabel="Tipos de lugares">{shortcuts.filter(([value]) => ["all", "shops", "food", "wc", "lift"].includes(value)).map(([value, label]) => <TouchableOpacity key={value} accessibilityRole="button" accessibilityLabel={`Mostrar ${label}`} accessibilityState={{ selected: shortcut === value }} aria-pressed={shortcut === value} style={[styles.shortcutChip, shortcut === value && styles.shortcutSelected]} onPress={() => { setShortcut(value); setLetter(""); }}><Text style={[styles.shortcutText, shortcut === value && styles.shortcutTextSelected]}>{label}</Text></TouchableOpacity>)}</ScrollView>
-        <View style={styles.actionBar}><TouchableOpacity accessibilityRole="button" accessibilityLabel="Filtrar e ordenar" style={styles.actionButton} onPress={() => setFilters(true)}><Text style={styles.actionText}>☷  Filtros {activeFilters.length ? `(${activeFilters.length})` : ""}</Text></TouchableOpacity></View>
+        <DsSearch value={query} onChangeText={(value) => { setQuery(value); setLetter(""); }} placeholder="Buscar por nome ou serviço" error={!!actionError} accessibilityLabel="Buscar no Explorar" />
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.shortcutStrip} accessibilityLabel="Tipos de lugares">{shortcuts.filter(([value]) => ["all", "shops", "food", "wc", "lift"].includes(value)).map(([value, label]) => <DsChip key={value} selected={shortcut === value} onPress={() => { setShortcut(value); setLetter(""); }}><Text style={styles.chipText}>{label}</Text></DsChip>)}</ScrollView>
+        <View style={styles.actionBar}><DsButton variant="outline" onPress={() => setFilters(true)} style={styles.actionButton}><Text style={styles.actionText}>☷  Filtros {activeFilters.length ? `(${activeFilters.length})` : ""}</Text></DsButton></View>
         <View style={styles.resultRow}><Text accessibilityLiveRegion="polite" style={d.muted}>{waiting ? "Consultando locais…" : filtered.length + (filtered.length === 1 ? " local" : " locais") + (activeFilters.length ? ` · ${activeFilters.map((filter) => filter.label.toLowerCase()).join(", ")}` : "")}</Text><TouchableOpacity accessibilityRole="button" style={d.link} onPress={() => setGrouped(!grouped)}><Text style={d.linkText}>{grouped ? "Ordem A–Z" : "Por categoria"}</Text></TouchableOpacity></View>
-        {!query && ["all", "shops"].includes(shortcut) && <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.alphabetStrip} accessibilityLabel="Índice alfabético">{["", ...letters].map((value) => <TouchableOpacity key={value} accessibilityRole="button" accessibilityLabel={value ? "Nomes com " + value : "Todas as letras"} accessibilityState={{ selected: letter === value }} style={[styles.letter, letter === value && styles.letterSelected]} onPress={() => { setLetter(value); setQuery(""); }}><Text style={[styles.letterText, letter === value && styles.letterTextSelected]}>{value || "A–Z"}</Text></TouchableOpacity>)}</ScrollView>}
+        {!query && ["all", "shops"].includes(shortcut) && <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.alphabetStrip} accessibilityLabel="Índice alfabético">{["", ...letters].map((value) => <DsChip key={value} selected={letter === value} onPress={() => { setLetter(value); setQuery(""); }}><Text style={styles.chipText}>{value || "A–Z"}</Text></DsChip>)}</ScrollView>}
         {!!activeFilters.length && <View style={styles.quickFilters}>{activeFilters.map((item) => <TouchableOpacity key={item.key} accessibilityRole="button" accessibilityLabel={"Remover filtro " + item.label} style={d.link} onPress={item.remove}><Text style={d.linkText}>{item.label} ×</Text></TouchableOpacity>)}{activeFilters.length > 1 && <TouchableOpacity accessibilityRole="button" style={d.link} onPress={clearFilters}><Text style={d.linkText}>Limpar filtros</Text></TouchableOpacity>}</View>}
-        {(directory.error || actionError || directory.distanceError) && <View accessibilityRole="alert" style={d.line}><Text style={d.text}>{actionError || directory.error || directory.distanceError}</Text><TouchableOpacity accessibilityRole="button" style={d.link} onPress={() => { setActionError(null); directory.reload(); }}><Text style={d.linkText}>Tentar novamente</Text></TouchableOpacity></View>}
-        {waiting && <DirectorySkeleton />}
-        {!waiting && !filtered.length && <View style={d.line}><Text style={d.section}>Nenhum local nesta seleção.</Text><Text style={d.text}>Remova um critério ou experimente outro nome.</Text><TouchableOpacity accessibilityRole="button" style={d.link} onPress={clearFilters}><Text style={d.linkText}>Limpar filtros</Text></TouchableOpacity></View>}
+        {(directory.error || actionError || directory.distanceError) && (
+          <DsError message={(actionError || directory.error || directory.distanceError) || ""} onRetry={() => { setActionError(null); directory.reload(); }} />
+        )}
+        {waiting && <DsLoading message="Consultando locais…" />}
+        {!waiting && !filtered.length && (
+          <View style={styles.emptyContainer}>
+            <Text style={styles.emptyTitle}>Nenhum local nesta seleção.</Text>
+            <Text style={styles.emptyText}>Remova um critério ou experimente outro nome.</Text>
+            <DsButton variant="outline" onPress={clearFilters} style={styles.emptyButton}>
+              Limpar filtros
+            </DsButton>
+          </View>
+        )}
         {groups.map((group) => <View key={group.label}>{grouped && <Text accessibilityRole="header" aria-level={2} style={[d.section, { marginVertical: 16 }]}>{group.label}</Text>}{group.places.map((item) => {
           const here = item.node.id === originNode?.id, identity = placeIdentity(item), distance = directory.distances?.[item.node.id], favorite = favorites.includes(item.key);
           return <View key={item.key} testID={item.poi ? "explore-poi-" + item.poi.id : "explore-node-" + item.node.id} style={[styles.store, { flexDirection: "row", backgroundColor: selectedPlace?.key === item.key ? colors.sunSoft : paper }]} {...(Platform.OS === "web" ? { onMouseEnter: () => setSelected(item) } : {})}>
@@ -186,25 +196,31 @@ export default function ExploreScreen() {
       <TouchableOpacity accessibilityRole="button" style={styles.secondary} onPress={() => setDetail(null)}><Text style={styles.secondaryText}>Fechar detalhes</Text></TouchableOpacity>
     </AccessibleSheet>
     <AccessibleSheet visible={filters} title="Filtros e ordenação" onClose={() => setFilters(false)}
-      footer={<TouchableOpacity accessibilityRole="button" style={styles.primary} onPress={() => setFilters(false)}><Text style={styles.primaryText}>Mostrar resultados</Text></TouchableOpacity>}>
-      <Text style={styles.filterLabel}>O que você procura?</Text><View style={styles.quickFilters}>
+      footer={<DsButton variant="primary" onPress={() => setFilters(false)} style={styles.primarySheet}>Mostrar resultados</DsButton>}>
+      <DsLabel>O que você procura?</DsLabel>
+      <View style={styles.quickFilters}>
         {shortcuts.map(([value, label]) => filterButton(label, shortcut === value, () => setShortcut(value)))}
       </View>
-      <Text style={styles.filterLabel}>Em qual piso?</Text><View style={styles.quickFilters}>
+      <DsLabel>Em qual piso?</DsLabel>
+      <View style={styles.quickFilters}>
         {filterButton("Todos os pisos", floorId === undefined, () => setFloorId(undefined))}
         {floors.map((floor) => filterButton(floor.nome, floorId === floor.id, () => setFloorId(floor.id)))}
       </View>
-      <Text style={styles.filterLabel}>Algum tipo de loja?</Text><View style={styles.quickFilters}>
+      <DsLabel>Algum tipo de loja?</DsLabel>
+      <View style={styles.quickFilters}>
         {filterButton("Todas", category === undefined, () => setCategory(undefined))}
         {directory.categories.map((label) => filterButton(label, category === label, () => setCategory(label)))}
       </View>
-      <Text style={styles.filterLabel}>Qual ordem ajuda você?</Text><View style={styles.quickFilters}>
+      <DsLabel>Qual ordem ajuda você?</DsLabel>
+      <View style={styles.quickFilters}>
         {sorting.map(([value, label]) => filterButton(label, sort === value, () => setSort(value), value === "distance" && !originNode))}
       </View>
-      <Text style={styles.filterLabel}>Está funcionando?</Text><View style={styles.quickFilters}>
+      <DsLabel>Está funcionando?</DsLabel>
+      <View style={styles.quickFilters}>
         {[["all", "Todos os estados"], ["aberto", "Abertos"], ["fechado", "Fechados"], ["manutencao", "Em manutenção"]].map(([value, label]) => filterButton(label, status === value, () => setStatus(value)))}
       </View>
-      <Text style={styles.filterLabel}>Precisa evitar escadas?</Text><View style={styles.quickFilters}>
+      <DsLabel>Precisa evitar escadas?</DsLabel>
+      <View style={styles.quickFilters}>
         {filterButton("Todos os percursos", !accessibleOnly, () => setAccessibleOnly(false))}
         {filterButton("Com rota sem escadas", accessibleOnly, () => { setAccessibleOnly(true); nav.setAcessivel(true); }, !originNode)}
       </View>
@@ -232,16 +248,14 @@ const styles = StyleSheet.create({
   actionBar: { flexDirection: "row", alignItems: "center", gap: 8, paddingVertical: 2 },
   actionButton: { flexGrow: 1, minHeight: 48, alignItems: "center", justifyContent: "center", paddingHorizontal: 12, borderWidth: 1, borderColor: colors.primary, borderRadius: 9, backgroundColor: "#ffffff" },
   actionText: { color: colors.primary, fontSize: 15, fontWeight: "700" },
-  mapButton: { backgroundColor: colors.sun, borderColor: colors.sun },
-  mapButtonText: { color: ink, fontSize: 15, fontWeight: "700" },
+
   resultRow: { minHeight: 44, flexDirection: "row", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 4 },
   alphabetStrip: { gap: 3, paddingVertical: 3, paddingRight: 20 },
   letter: { minWidth: 44, minHeight: 44, paddingHorizontal: 6, alignItems: "center", justifyContent: "center", borderRadius: 8 },
   letterSelected: { backgroundColor: colors.primary },
   letterText: { color: ink, fontFamily: mono, fontSize: 14, fontWeight: "700" },
   letterTextSelected: { color: "#ffffff" },
-  backToList: { minHeight: 48, paddingHorizontal: 14, borderRadius: 9, backgroundColor: "#ffffff", justifyContent: "center" },
-  backToListText: { color: colors.primary, fontSize: 16, fontWeight: "700" },
+
   spaceCode: { minWidth: 48, minHeight: 48, flexShrink: 0, borderRadius: 10, backgroundColor: "#e6eee9", alignItems: "center", justifyContent: "center" },
   spaceCodeText: { fontFamily: mono, fontSize: 18, lineHeight: 24, fontWeight: "700" },
   storeMeta: { color: colors.textMuted, fontSize: 14, lineHeight: 20 },
@@ -259,13 +273,7 @@ const styles = StyleSheet.create({
   intro: { fontSize: 14, lineHeight: 21, color: colors.textMuted, flexShrink: 1 },
   location: { minHeight: 44, flexDirection: "row", alignItems: "center", gap: 9, borderLeftWidth: 3, borderLeftColor: colors.primary, paddingHorizontal: 10, paddingVertical: 6 },
   locationName: { flex: 1, fontSize: 14, lineHeight: 21, color: colors.primary, fontWeight: "500" },
-  searchRow: { flexDirection: "row", alignItems: "center", gap: 8, borderWidth: 1, borderColor: colors.border, borderRadius: 10, backgroundColor: "#ffffff", paddingLeft: 12 },
-  search: { flex: 1, minWidth: 0, minHeight: 52, fontSize: 16, color: colors.text, paddingVertical: 10, paddingRight: 8 },
-  iconButton: { width: 48, minHeight: 48, alignItems: "center", justifyContent: "center" },
   quickFilters: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
-  filter: { minHeight: 44, justifyContent: "center", paddingHorizontal: 8, borderBottomWidth: 2, borderBottomColor: rule },
-  filterActive: { borderBottomColor: colors.primary, backgroundColor: colors.primarySoft },
-  filterText: { color: colors.text, fontSize: 14 }, filterTextActive: { color: colors.primary, fontWeight: "700" },
   filterLabel: { fontSize: 19, lineHeight: 25, fontWeight: "700", color: ink },
   filterSummary: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 10 },
   filterTrigger: { flexDirection: "row", gap: 8, minHeight: 44, alignItems: "center", paddingHorizontal: 10, borderWidth: 1, borderColor: colors.border, backgroundColor: colors.surface },
@@ -288,5 +296,10 @@ const styles = StyleSheet.create({
   secondary: { minHeight: 44, justifyContent: "center", paddingHorizontal: 4 },
   secondaryText: { color: colors.primary, fontSize: 14, fontWeight: "600" },
   disabled: { opacity: .6 }, errorBox: { padding: 14, backgroundColor: colors.dangerSoft, gap: 8 },
-  empty: { paddingVertical: 28, gap: 12 },
+  emptyContainer: { alignItems: "center", paddingVertical: 32, gap: 12 },
+  emptyTitle: { fontSize: 18, fontWeight: "800", color: colors.text },
+  emptyText: { fontSize: 14, color: colors.textMuted, textAlign: "center", paddingHorizontal: 32, lineHeight: 20 },
+  emptyButton: { alignSelf: "center", marginTop: 8 },
+  chipText: { color: colors.text, fontSize: 14, fontWeight: "600" },
+  primarySheet: { alignSelf: "center", marginTop: 8 },
 });

@@ -1,11 +1,27 @@
 import { useEffect, useRef, useState } from "react";
-import { ActivityIndicator, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import {
+  ActivityIndicator,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { CameraView, useCameraPermissions } from "expo-camera";
 import { useIsFocused } from "@react-navigation/native";
 import { useRouter } from "expo-router";
 import { resolveQrCode } from "@/services/api";
 import { useNavigation } from "@/context/NavigationContext";
 import { colors } from "@/constants/colors";
+import {
+  DsButton,
+  DsError,
+  DsLabel,
+  DsLoading,
+  DsSearch,
+} from "@/components/DesignSystem";
 
 export default function ScanScreen() {
   const [permission, requestPermission] = useCameraPermissions();
@@ -48,7 +64,6 @@ export default function ScanScreen() {
     } finally {
       resolving.current = false;
       if (mounted.current) setBusy(false);
-      // A leitura repetida pela câmera fica pausada após erro até uma ação do usuário.
     }
   }
 
@@ -59,58 +74,140 @@ export default function ScanScreen() {
   }
 
   return (
-    <ScrollView role="main" accessibilityLabel="Ler QR Code e definir localização" contentContainerStyle={styles.screen} keyboardShouldPersistTaps="handled">
+    <ScrollView
+      role="main"
+      accessibilityLabel="Ler QR Code e definir localização"
+      contentContainerStyle={styles.screen}
+      keyboardShouldPersistTaps="handled"
+    >
       <Text accessibilityRole="header" style={styles.title}>Encontre sua posição</Text>
-      <Text style={styles.text}>Aponte a câmera para um QR Code do shopping ou informe o código da placa.</Text>
+      <Text style={styles.text}>
+        Aponte a câmera para um QR Code do shopping ou informe o código da placa.
+      </Text>
+
       {focused && permission?.granted && !cameraError ? (
-        <CameraView style={styles.camera} facing="back" barcodeScannerSettings={{ barcodeTypes: ["qr"] }}
+        <CameraView
+          style={styles.camera}
+          facing="back"
+          barcodeScannerSettings={{ barcodeTypes: ["qr"] }}
           onBarcodeScanned={busy ? undefined : ({ data }) => void scan(data)}
-          onMountError={({ message }) => setCameraError(message)} />
+          onMountError={({ message }) => setCameraError(message)}
+        />
       ) : (
-        <View style={styles.card}>
-          <Text style={styles.text}>{cameraError || "A câmera precisa de permissão. Em navegador, use HTTPS ou abra o link pela câmera do celular."}</Text>
-          {permission?.canAskAgain === false && <Text style={styles.text}>Abra as configurações do navegador ou do aplicativo, procure Permissões e permita o uso da câmera. Você também pode digitar o código abaixo ou definir sua localização no mapa.</Text>}
-          {cameraError && <TouchableOpacity accessibilityRole="button" onPress={() => setCameraError(null)} style={styles.button}><Text style={styles.buttonText}>Tentar câmera novamente</Text></TouchableOpacity>}
+        <View style={styles.cameraFallback}>
+          <Text style={styles.textMuted}>
+            {cameraError ||
+              "A câmera precisa de permissão. Em navegador, use HTTPS ou abra o link pela câmera do celular."}
+          </Text>
+          {permission?.canAskAgain === false && (
+            <Text style={styles.textMuted}>
+              Abra as configurações do navegador ou do aplicativo, procure
+              Permissões e permita o uso da câmera. Você também pode digitar o
+              código abaixo ou definir sua localização no mapa.
+            </Text>
+          )}
+          {cameraError && (
+            <DsButton variant="outline" onPress={() => setCameraError(null)} style={styles.retryButton}>
+              Tentar câmera novamente
+            </DsButton>
+          )}
           {!cameraError && !permission?.granted && permission?.canAskAgain !== false && (
-            <TouchableOpacity accessibilityRole="button" style={styles.button}
-              onPress={() => void requestPermission().catch(() => setCameraError("Não foi possível acessar a câmera."))}>
-              <Text style={styles.buttonText}>Permitir acesso à câmera</Text>
-            </TouchableOpacity>
+            <DsButton
+              variant="secondary"
+              onPress={() => void requestPermission().catch(() => setCameraError("Não foi possível acessar a câmera."))}
+              style={styles.permissionButton}
+            >
+              Permitir acesso à câmera
+            </DsButton>
           )}
         </View>
       )}
-      <Text style={styles.text}>Código ou link do QR</Text>
-      <TextInput accessibilityLabel="Código ou link do QR" style={styles.input} value={token} autoCapitalize="none"
-        onChangeText={setToken} placeholder="ENTRADA-PRINCIPAL"
-        onSubmitEditing={submitManualToken} />
-      <TouchableOpacity accessibilityRole="button" style={styles.button} disabled={busy || !token.trim()}
-        onPress={submitManualToken}>
-        <Text style={styles.buttonText}>Usar código</Text>
-      </TouchableOpacity>
-      {busy && <ActivityIndicator accessibilityLabel="Consultando QR Code" />}
-      {error && <View style={styles.card} accessibilityRole="alert">
-        <Text style={styles.error}>{error}</Text>
-        <TouchableOpacity accessibilityRole="button" style={{ minHeight: 44, justifyContent: "center" }} onPress={() => { locked.current = false; setError(null); }}>
-          <Text style={styles.link}>Tentar novamente</Text>
-        </TouchableOpacity>
-      </View>}
-      <TouchableOpacity accessibilityRole="button" style={styles.card}
-        onPress={() => router.replace("/(tabs)/?manualOrigin=1")}>
-        <Text style={styles.link}>Selecionar ponto de partida manualmente</Text>
+
+      <DsLabel>Código ou link do QR</DsLabel>
+      <DsSearch
+        value={token}
+        onChangeText={setToken}
+        placeholder="ENTRADA-PRINCIPAL"
+        accessibilityLabel="Código ou link do QR"
+      />
+      <DsButton
+        variant="primary"
+        disabled={busy || !token.trim()}
+        onPress={submitManualToken}
+        loading={busy}
+      >
+        Usar código
+      </DsButton>
+
+      {busy && <DsLoading message="Consultando QR Code…" />}
+      {error && (
+        <DsError message={error} onRetry={() => { locked.current = false; setError(null); }} />
+      )}
+
+      <TouchableOpacity
+        accessibilityRole="button"
+        style={styles.linkRow}
+        onPress={() => router.replace("/(tabs)/?manualOrigin=1")}
+      >
+        <Text style={styles.linkText}>Selecionar ponto de partida manualmente</Text>
       </TouchableOpacity>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  screen: { flexGrow: 1, padding: 20, gap: 14, backgroundColor: colors.bg, width: "100%", maxWidth: 640, alignSelf: "center" },
-  title: { fontSize: 22, fontWeight: "700", color: colors.text },
-  text: { fontSize: 15, color: colors.text, lineHeight: 22 },
-  camera: { height: 260, borderRadius: 12, overflow: "hidden" },
-  card: { padding: 14, borderRadius: 10, backgroundColor: colors.surface, gap: 12 },
-  button: { backgroundColor: colors.primary, padding: 14, borderRadius: 10, alignItems: "center" },
-  buttonText: { color: "white", fontWeight: "700" },
-  input: { borderWidth: 1, borderColor: colors.border, borderRadius: 10, padding: 14, backgroundColor: colors.surface },
-  error: { color: colors.danger, fontSize: 14 },
-  link: { color: colors.primary, fontWeight: "600", padding: 8 },
+  screen: {
+    flexGrow: 1,
+    padding: 20,
+    gap: 14,
+    backgroundColor: colors.bg,
+    width: "100%",
+    maxWidth: 640,
+    alignSelf: "center",
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: "800",
+    color: colors.text,
+    letterSpacing: 0.4,
+  },
+  text: {
+    fontSize: 15,
+    color: colors.text,
+    lineHeight: 22,
+  },
+  textMuted: {
+    fontSize: 14,
+    color: colors.textMuted,
+    lineHeight: 20,
+  },
+  camera: {
+    height: 260,
+    borderRadius: 12,
+    overflow: "hidden",
+    backgroundColor: "#000000",
+  },
+  cameraFallback: {
+    padding: 16,
+    borderRadius: 12,
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.border,
+    gap: 10,
+  },
+  retryButton: {
+    alignSelf: "flex-start",
+  },
+  permissionButton: {
+    alignSelf: "flex-start",
+    marginTop: 6,
+  },
+  linkRow: {
+    paddingTop: 4,
+  },
+  linkText: {
+    color: colors.primary,
+    fontSize: 14,
+    fontWeight: "600",
+  },
 });

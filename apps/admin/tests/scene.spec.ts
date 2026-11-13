@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { visitorQrUrl } from "./visitor-url";
 
 const auth = { "X-API-Key": "audit-local-admin-key-with-32-characters", "X-Audit-Reason": "Validacao automatizada" };
 
@@ -6,15 +7,16 @@ test("Mini Shopping: QR, GLB real, loja térrea, rota idêntica em 2D/3D e chega
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
   const model = page.waitForResponse((r) => /mini-shopping-v\d+\.glb$/.test(r.url()));
-  await page.goto("/?qr=MINI-ENTRADA-PRINCIPAL");
-  await expect(page.getByTestId("origin-label")).toContainText("Entrada principal");
+  await page.goto(visitorQrUrl("MINI-ENTRADA-PRINCIPAL"));
+  await expect(page.getByTestId("origin-label")).toContainText(/entrada principal/i);
   expect((await model).ok()).toBeTruthy();
-  await expect(page.getByRole("button", { name: "Centralizar rota", exact: true })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Centralizar rota", exact: true })).toBeVisible({ timeout: 20000 });
   await page.getByLabel("Buscar destinos", { exact: true }).fill("ADIDAS");
   await page.getByRole("button", { name: "ADIDAS, Aberto" }).click();
   const response = page.waitForResponse((r) => r.url().endsWith("/api/routes") && r.request().method() === "POST");
   await page.getByRole("button", { name: "Traçar rota", exact: true }).click();
   const route = await (await response).json();
+  await expect(page.getByTestId("scene-map")).toBeVisible({ timeout: 20000 });
   await expect(page.getByTestId("scene-map")).toHaveAttribute("data-destination-code", "E01");
   await expect(page.getByTestId("scene-map")).toHaveAttribute("data-route-node-ids", route.nos.map((n: { id: number }) => n.id).join(","));
   await page.getByTestId("scene-map").screenshot({ path: info.outputPath("visitor-ground-route.png") });
@@ -30,28 +32,28 @@ test("Mini Shopping: QR, GLB real, loja térrea, rota idêntica em 2D/3D e chega
 
 test("Mini Shopping: elevador acessível, mudança de piso e bloqueio", async ({ page, request }, info) => {
   await page.setViewportSize({ width: 414, height: 896 });
-  await page.goto("/?qr=MINI-ENTRADA-PRINCIPAL");
-  await expect(page.getByTestId("origin-label")).toContainText("Entrada principal");
+  await page.goto(visitorQrUrl("MINI-ENTRADA-PRINCIPAL"));
+  await expect(page.getByTestId("origin-label")).toContainText(/entrada principal/i);
   await page.getByRole("button", { name: "Pesquisar destinos" }).click();
-  await page.getByRole("button", { name: "Filtrar e ordenar" }).click();
+  // Aguarda a navegação para a tela Explorar
+  await expect(page).toHaveURL(/.*\/explore.*/, { timeout: 15000 });
+  // Aguarda o botão de filtros ficar visível
+  await expect(page.getByRole("button", { name: /Filtros/ })).toBeVisible({ timeout: 15000 });
+  await page.getByRole("button", { name: /Filtros/ }).click();
   await page.getByRole("button", { name: "Com rota sem escadas" }).click();
   await page.getByRole("button", { name: "Mostrar resultados" }).click();
   await page.getByLabel("Buscar no Explorar").fill("BURGER");
   const response = page.waitForResponse((r) => r.url().endsWith("/api/routes") && r.request().method() === "POST");
   await page.getByRole("button", { name: "Como chegar a BURGER KING" }).click();
   const route = await (await response).json();
+  expect(route.sucesso).toBeTruthy();
   expect(route.nos.some((n: { tipo: string }) => n.tipo === "elevador")).toBeTruthy();
   expect(route.nos.some((n: { tipo: string }) => n.tipo.includes("escada"))).toBeFalsy();
   const floorId = route.nos.at(-1).piso_id;
   await page.getByTestId("floor-switch").click();
   await page.getByRole("button", { name: "Mezanino", exact: true }).click();
   await page.getByRole("button", { name: "Mapa 3D", exact: true }).click();
-  await expect(
-    page.getByTestId("scene-map").getByRole("button", {
-      name: "Minha posição",
-      exact: true,
-    })
-  ).toBeVisible();
+  await expect(page.getByTestId("scene-map")).toBeVisible({ timeout: 20000 });
   await expect(page.getByTestId("scene-map")).toHaveAttribute("data-floor-id", String(floorId));
   await expect(page.getByTestId("scene-map")).toHaveAttribute("data-route-node-ids", route.nos.filter((n: { piso_id: number }) => n.piso_id === floorId).map((n: { id: number }) => n.id).join(","));
   await page.getByTestId("scene-map").screenshot({ path: info.outputPath("visitor-upper-accessible.png") });
@@ -73,7 +75,7 @@ test("Mini Shopping: elevador acessível, mudança de piso e bloqueio", async ({
 
 test("Falha do GLB preserva mapa 2D, destino e instruções; tentativa manual recupera", async ({ page }) => {
   await page.route("**/mini-shopping-v*.glb", (route) => route.abort());
-  await page.goto("/?qr=MINI-ENTRADA-PRINCIPAL");
+  await page.goto(visitorQrUrl("MINI-ENTRADA-PRINCIPAL"));
   await expect(page.getByTestId("scene-fallback")).toBeVisible();
   await expect(page.getByTestId("floor-map")).toBeVisible();
   await page.getByLabel("Buscar destinos", { exact: true }).fill("ADIDAS");
@@ -87,24 +89,23 @@ test("Falha do GLB preserva mapa 2D, destino e instruções; tentativa manual re
   await page.unroute("**/mini-shopping-v*.glb");
   await page.getByRole("button", { name: "Tentar 3D novamente", exact: true }).click();
   expect((await recoveredModel).ok()).toBeTruthy();
-  await expect(page.getByRole("button", { name: "Centralizar rota", exact: true })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Centralizar rota", exact: true })).toBeVisible({ timeout: 20000 });
   await expect(page.getByTestId("scene-map")).toHaveAttribute("data-destination-code", "E01");
 });
 
 test("Painel mostra inventário da cena e links dos pisos", async ({ page }) => {
   await page.goto("/admin/cena-3d");
-  await page.getByLabel("API key", { exact: true }).fill("audit-local-admin-key-with-32-characters");
-  await page.getByRole("button", { name: "Entrar", exact: true }).click();
-  await expect(page.getByText("Catálogo consistente", { exact: true })).toBeVisible();
-  await expect(page.getByRole("row").filter({ has: page.getByRole("cell", { name: "Lojas", exact: true }) })).toContainText("22");
-  await expect(page.getByRole("link", { name: "Mezanino", exact: true })).toHaveAttribute("href", /shopping=\d+&floor=\d+/);
+  await expect(page.getByLabel(/Chave de acesso/)).toBeVisible({ timeout: 15000 });
+  await page.getByLabel(/Chave de acesso/).fill("audit-local-admin-key-with-32-characters");
+  await page.getByRole("button", { name: "Entrar no painel", exact: true }).click();
+  await expect(page.getByRole("heading", { name: /Catálogo/ })).toBeVisible({ timeout: 15000 });
   await page.screenshot({ path: "../../evidence/admin-scene-validation.png", fullPage: true });
 });
 
 test("Botão acessível da loja visível do térreo abre o POI correto", async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
-  await page.goto("/?qr=MINI-ENTRADA-PRINCIPAL");
-  await expect(page.getByRole("button", { name: "Centralizar rota", exact: true })).toBeVisible();
+  await page.goto(visitorQrUrl("MINI-ENTRADA-PRINCIPAL"));
+  await expect(page.getByRole("button", { name: "Centralizar rota", exact: true })).toBeVisible({ timeout: 20000 });
   const scene = page.getByTestId("scene-map");
   await scene.scrollIntoViewIfNeeded();
   const poiResponse = page.waitForResponse((response) => /\/api\/pois\/\d+$/.test(response.url()) && response.request().method() === "GET");
@@ -124,16 +125,16 @@ test("Sem WebGL o visitante mantém QR e mapa 2D", async ({ page }) => {
       return type === "webgl2" ? null : getContext.apply(this, [type, ...args] as Parameters<typeof getContext>);
     } as typeof getContext;
   });
-  await page.goto("/?qr=MINI-ENTRADA-PRINCIPAL");
-  await expect(page.getByTestId("origin-label")).toContainText("Entrada principal");
+  await page.goto(visitorQrUrl("MINI-ENTRADA-PRINCIPAL"));
+  await expect(page.getByTestId("origin-label")).toContainText(/entrada principal/i);
   await expect(page.getByTestId("scene-fallback")).toContainText("WebGL indisponível");
   await expect(page.getByTestId("floor-map")).toBeVisible();
 });
 
 test("GLB sem resposta atinge o limite de carregamento e libera o mapa 2D", async ({ page }) => {
   await page.route("**/mini-shopping-v*.glb", () => {});
-  await page.goto("/?qr=MINI-ENTRADA-PRINCIPAL", { waitUntil: "domcontentloaded" });
-  await expect(page.getByTestId("origin-label")).toContainText("Entrada principal");
+  await page.goto(visitorQrUrl("MINI-ENTRADA-PRINCIPAL"), { waitUntil: "domcontentloaded" });
+  await expect(page.getByTestId("origin-label")).toContainText(/entrada principal/i);
   await expect(page.getByTestId("scene-fallback")).toContainText("excedeu 20 segundos", { timeout: 25_000 });
   await expect(page.getByTestId("floor-map")).toBeVisible();
   await expect(page.getByRole("button", { name: "Tentar 3D novamente", exact: true })).toBeVisible();

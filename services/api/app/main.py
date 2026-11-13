@@ -52,8 +52,15 @@ async def integrity_error_handler(request, exc):
     return JSONResponse(status_code=409, content={"detail": "Código ou vínculo já utilizado. Revise o cadastro."})
 
 # Montagem de arquivos estáticos (plantas baixas e painel admin)
+import mimetypes
 import os
 from fastapi.staticfiles import StaticFiles
+
+# Registra MIME types ausentes no Windows para servir binários 3D corretamente.
+mimetypes.add_type("model/gltf-binary", ".glb")
+mimetypes.add_type("model/gltf+json", ".gltf")
+mimetypes.add_type("image/svg+xml", ".svg")
+mimetypes.add_type("application/wasm", ".wasm")
 
 static_dir = os.path.join(os.path.dirname(__file__), "static")
 plantas_dir = os.path.join(static_dir, "plantas")

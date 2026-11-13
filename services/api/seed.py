@@ -181,6 +181,33 @@ def seed_db():
             qrcodes.append(q)
         db.add_all(qrcodes)
         db.commit()
+
+        # Adiciona piso superior acessível por elevador (necessário para testes multi-piso 2D)
+        upper = db.query(Piso).filter_by(shopping_id=shopping.id, nivel=1).first()
+        if upper is None:
+            upper = Piso(shopping_id=shopping.id, nome="Piso superior", nivel=1,
+                         largura_metros=100.0, altura_metros=60.0,
+                         imagem_planta_url="/static/plantas/demo.svg", ativo=True)
+            db.add(upper)
+            db.flush()
+            e0 = No(piso_id=piso.id, nome="Elevador térreo", tipo="elevador", coord_x=.85, coord_y=.5, ativo=True)
+            e1 = No(piso_id=upper.id, nome="Elevador superior", tipo="elevador", coord_x=.85, coord_y=.5, ativo=True)
+            s1 = No(piso_id=upper.id, nome="Escada superior", tipo="escada", coord_x=.9, coord_y=.3, ativo=True)
+            dest = No(piso_id=upper.id, nome="Livraria Superior", tipo="loja", coord_x=.5, coord_y=.3, ativo=True)
+            db.add_all([e0, e1, s1, dest])
+            db.flush()
+            central = db.query(No).filter(No.nome == "Corredor Central", No.piso_id == piso.id).one()
+            stairs = db.query(No).filter(No.nome == "Escada Piso Superior", No.piso_id == piso.id).one()
+            for a, b, distance, accessible in [(central, e0, 35, True), (e0, e1, 8, True),
+                                               (e1, dest, 35, True), (stairs, s1, 5, False),
+                                               (s1, dest, 40, True)]:
+                db.add(Aresta(no_origem_id=a.id, no_destino_id=b.id, distancia=distance,
+                             acessivel=accessible, bidirecional=True, ativa=True))
+            categoria = cat_map.get("Entretenimento") or categorias[0]
+            db.add(Loja(no_id=dest.id, nome="Livraria Superior", categoria_id=categoria.id,
+                        status_operacional="aberto", descricao="Livros e papelaria no piso superior.", ativo=True))
+            db.add(QRCode(no_id=dest.id, token="DESTINO-SUPERIOR", ativo=True))
+            db.commit()
         
         print("\n=== Resumo ===")
         print(f"Seed concluído! 1 shoppings, 1 pisos, {len(nos)} nós, {len(arestas)} arestas, {len(lojas)} lojas, {len(categorias)} categorias, {len(qrcodes)} QR codes.")

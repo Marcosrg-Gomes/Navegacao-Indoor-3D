@@ -3,6 +3,7 @@ import type { Scene, SceneFloor } from "../types/scene";
 import type { CameraView } from "./SceneControls.web";
 import type { PositionEstimate } from "../positioning/types";
 import { sceneTransform } from "./sceneTransform";
+import { colors } from "@/constants/colors";
 
 export function SceneLabels({ scene, floor, origin, destination, simulated, position, view, width, height, onPoiPress }: {
   scene: Scene; floor: SceneFloor; origin?: number; destination?: number; simulated?: boolean; position?: PositionEstimate | null; view: CameraView; width: number; height: number; onPoiPress: (id: number) => void;
@@ -23,7 +24,7 @@ export function SceneLabels({ scene, floor, origin, destination, simulated, posi
     if (mobile && poi && !primary && !nearbyStoreIds.has(anchor.node_id)) return [];
     if (simulated && (anchor.node_id === origin || (!primary && mobile))) return [];
     const text = anchor.node_id === origin ? "Você está aqui" : anchor.node_id === destination ? anchor.name : anchor.type === "elevador" ? "↕ Elevador" : transition ? "↕ Escada" : anchor.type === "banheiro" ? "WC" : compact ? poi!.codigo : anchor.name;
-    const color = anchor.node_id === origin ? "#166534" : anchor.node_id === destination ? "#be123c" : transition ? "#6d28d9" : "#334155";
+    const color = anchor.node_id === origin ? colors.origin : anchor.node_id === destination ? colors.destination : transition ? colors.accessible : colors.textMuted;
     return [{ anchor, poi, text, color, primary, rank: primary ? 0 : anchor.type === "elevador" ? 1 : transition ? 2 : 3 }];
   }).sort((a, b) => a.rank - b.rank), [scene, floor, origin, destination, simulated, compact, mobile, position?.x, position?.y, view.target[0], view.target[2]]);
   const occupied: { x: number; y: number; w: number }[] = [];

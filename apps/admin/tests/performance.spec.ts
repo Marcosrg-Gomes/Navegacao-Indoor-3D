@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { mkdirSync, writeFileSync } from "node:fs";
+import { visitorQrUrl } from "./visitor-url";
 
 test("RNF03: mapa visível e rota em 4G simulado", async ({ browser }, info) => {
   test.skip(info.project.name !== "chromium", "Throttling CDP disponível no Chromium");
@@ -14,7 +15,7 @@ test("RNF03: mapa visível e rota em 4G simulado", async ({ browser }, info) => 
       offline: false, latency: 80, downloadThroughput: 9 * 1024 * 1024 / 8,
       uploadThroughput: 1024 * 1024 / 8, connectionType: "cellular4g",
     });
-    await page.goto("/?qr=ENTRADA-PRINCIPAL");
+    await page.goto(visitorQrUrl("ENTRADA-PRINCIPAL"));
     await expect(page.getByTestId("floor-map")).toBeVisible();
     await expect(page.getByTestId("origin-label")).toContainText("Entrada Principal");
     const mapMs = await page.evaluate(async () => {

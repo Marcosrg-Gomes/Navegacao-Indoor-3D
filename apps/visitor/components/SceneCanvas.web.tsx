@@ -53,9 +53,10 @@ function Viewport({ model, props, command, onView, previewNext }: { model: Objec
       nextDirection = directionFromTo(props.position.x, props.position.y, nextNode.coord_x, nextNode.coord_y);
     }
   }
-  // O marcador sempre aponta para a parte superior da tela (0° ou 180°),
-  // nunca girando lateralmente com o heading do usuário.
-  const markerYaw = mapRotationForHeading(props.position?.heading, nextDirection) * Math.PI / 180;
+  // O marcador 3D gira com o heading do usuário, apontando para a frente
+  // do deslocamento no plano horizontal do modelo 3D.
+  const direction = sceneHeadingDirection(floor, props.position?.heading ?? 0);
+  const markerYaw = Math.atan2(direction[0], direction[2]);
   return <>
     <color attach="background" args={[colors.bg]} />
     <ambientLight intensity={1.7} /><directionalLight position={[15, 45, 20]} intensity={2.2} />

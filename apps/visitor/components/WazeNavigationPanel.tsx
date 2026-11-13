@@ -110,7 +110,7 @@ export function WazeNavigationPanel({ onChooseDestination, onCorrectPosition, on
       {!arrived && <TouchableOpacity accessibilityRole="button" disabled={busy} onPress={() => void nav.recalculate()} style={styles.secondary}><Text style={styles.secondaryText}>Recalcular rota</Text></TouchableOpacity>}
       <TouchableOpacity accessibilityRole="button" onPress={onCorrectPosition} style={styles.secondary}><Text style={styles.secondaryText}>Corrigir posição</Text></TouchableOpacity>
       <TouchableOpacity accessibilityRole="button" onPress={onHelp} style={styles.secondary}><Text style={styles.secondaryText}>Ajuda</Text></TouchableOpacity>
-      {nav.simulationStatus === "idle" && nav.route && !nav.routeStale && <TouchableOpacity accessibilityRole="button" disabled={busy} onPress={() => void nav.completeNavigation()} style={styles.secondary}><Text style={styles.secondaryText}>Cheguei ao destino</Text></TouchableOpacity>}
+      {(nav.simulationStatus === "idle" || arrived) && nav.route && !nav.routeStale && <TouchableOpacity accessibilityRole="button" disabled={busy} onPress={() => void nav.completeNavigation()} style={styles.secondary}><Text style={styles.secondaryText}>Cheguei ao destino</Text></TouchableOpacity>}
       {moving && <TouchableOpacity accessibilityRole="button" onPress={() => void nav.stopSimulation()} style={styles.stop}><Text style={styles.stopText}>Encerrar</Text></TouchableOpacity>}
       <TouchableOpacity accessibilityRole="button" onPress={nav.clearRoute} style={styles.stop}><Text style={styles.stopText}>Cancelar rota</Text></TouchableOpacity>
     </View>}

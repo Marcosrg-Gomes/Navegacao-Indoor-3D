@@ -17,7 +17,7 @@ test("Alteração espacial incompatível retira o 3D até o cadastro ser corrigi
   } finally { await request.put(`/api/admin/nodes/${node.id}`, { headers, data: { coord_x: node.coord_x } }); }
 });
 async function start(page: Page) {
-  await page.goto("/?qr=MINI-ENTRADA-PRINCIPAL");
+  await page.goto("http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL");
   await expect(page.getByTestId("origin-label")).toContainText("Entrada principal");
 }
 async function natura(page: Page) {

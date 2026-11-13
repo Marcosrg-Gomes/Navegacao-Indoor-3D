@@ -28,7 +28,7 @@ test("Início no celular oferece busca, posição e categorias com ações legí
 
 test("Rota no celular mostra passo atual, mapa, correção de posição e chegada", async ({ page }, info) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/?qr=MINI-ENTRADA-PRINCIPAL");
+  await page.goto("http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL");
   await expect(page.getByTestId("origin-label")).toContainText("Entrada principal");
   const firstVisit = page.getByRole("button", { name: "Entendi", exact: true });
   if (await firstVisit.isVisible()) await firstVisit.click();

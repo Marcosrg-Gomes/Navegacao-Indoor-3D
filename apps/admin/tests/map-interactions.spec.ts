@@ -1,7 +1,7 @@
 import { test, expect, type Locator, type Page } from "@playwright/test";
 
 async function openMap(page: Page, mode: "2D" | "3D") {
-  await page.goto("/?qr=MINI-ENTRADA-PRINCIPAL");
+  await page.goto("http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL");
   await expect(page.getByTestId("origin-label")).toContainText("Entrada principal");
   await page.getByRole("button", { name: `Mapa ${mode}`, exact: true }).click();
   const map = page.getByTestId(mode === "2D" ? "map-2d-viewport" : "scene-map");

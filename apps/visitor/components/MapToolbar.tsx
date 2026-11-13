@@ -14,7 +14,7 @@ export function MapToolbar({ zoom, onZoom, onReset, onLocate, onRoute, children 
       <TouchableOpacity accessibilityRole="button" accessibilityLabel="Aumentar zoom" style={styles.step} onPress={() => onZoom(1.5)}><Text style={styles.symbol}>+</Text></TouchableOpacity>
     </View>
     <TouchableOpacity accessibilityRole="button" accessibilityLabel="Ver piso inteiro" onPress={onReset} style={[styles.button, styles.primary]}><Text style={styles.text}>Piso inteiro</Text></TouchableOpacity>
-    {onLocate && <TouchableOpacity accessibilityRole="button" accessibilityLabel="Minha posição" onPress={onLocate} style={[styles.button, styles.locate]}><Text style={[styles.text, { color: "#14332e" }]}>◎ Minha posição</Text></TouchableOpacity>}
+    {onLocate && <TouchableOpacity accessibilityRole="button" accessibilityLabel="Minha posição" onPress={onLocate} style={[styles.button, styles.locate]}><Text style={[styles.text, { color: colors.primary }]}>◎ Minha posição</Text></TouchableOpacity>}
     {onRoute && <TouchableOpacity accessibilityRole="button" onPress={onRoute} style={[styles.button, styles.secondary]}><Text style={styles.text}>Centralizar rota</Text></TouchableOpacity>}
     {children && <TouchableOpacity accessibilityRole="button" accessibilityState={{ expanded }} onPress={() => setExpanded(!expanded)} style={[styles.button, styles.secondary]}><Text style={styles.text}>{expanded ? "Menos controles" : "Mais controles"}</Text></TouchableOpacity>}
     {expanded && children}

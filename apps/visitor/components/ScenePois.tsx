@@ -3,6 +3,7 @@ import { useThree, type ThreeEvent } from "@react-three/fiber";
 import { Mesh, MeshStandardMaterial, Object3D } from "three";
 import type { Scene, SceneFloor } from "../types/scene";
 import { sceneTransform } from "./sceneTransform";
+import { colors } from "@/constants/colors";
 
 export function ScenePois({ model, scene, floor, origin, destination, highlight, onPoiPress }: {
   model: Object3D; scene: Scene; floor: SceneFloor; origin?: number; destination?: number; onPoiPress: (id: number) => void;
@@ -48,7 +49,7 @@ export function ScenePois({ model, scene, floor, origin, destination, highlight,
       const position = sceneTransform(floor, anchor.coord_x, anchor.coord_y); position[1] += .3;
       return <mesh key={anchor.node_id} position={position} renderOrder={11} name={anchor.codigo}>
         {(anchor.node_id === destination && anchor.node_id !== origin) || (anchor.type === "elevador" && anchor.node_id !== origin) ? <boxGeometry args={[.5, .45, .5]} /> : <sphereGeometry args={[.25, 12, 8]} />}
-        <meshBasicMaterial depthTest={false} color={anchor.node_id === origin ? "#16a34a" : anchor.node_id === destination ? "#e11d48" : "#7c3aed"} />
+        <meshBasicMaterial depthTest={false} color={anchor.node_id === origin ? colors.origin : anchor.node_id === destination ? colors.destination : colors.accessible} />
       </mesh>;
     })}
   </group>;

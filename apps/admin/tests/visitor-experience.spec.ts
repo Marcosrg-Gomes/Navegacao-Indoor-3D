@@ -1,7 +1,7 @@
 import { expect, test, type Page } from "@playwright/test";
 
 async function start(page: Page) {
-  await page.goto("/?qr=MINI-ENTRADA-PRINCIPAL");
+  await page.goto("http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL");
   await expect(page.getByTestId("origin-label")).toContainText("Entrada principal");
 }
 async function destination(page: Page, name = "NATURA") {
