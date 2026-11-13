@@ -1,0 +1,2029 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "tests/layout-accessibility.spec.ts",
+      "../../evidence/e2e-isolated-20261113/layout-accessibility"
+    ],
+    "configFile": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\playwright.config.ts",
+    "rootDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/apps/admin/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/evidence/e2e-isolated-20261113/layout-accessibility/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/evidence/e2e-isolated-20261113/layout-accessibility/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/evidence/e2e-isolated-20261113/layout-accessibility/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/evidence/e2e-isolated-20261113/layout-accessibility/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chrome",
+        "name": "chrome",
+        "testDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/evidence/e2e-isolated-20261113/layout-accessibility/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "msedge",
+        "name": "msedge",
+        "testDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "../../evidence/e2e-isolated-20261113/layout-accessibility/report.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "layout-accessibility.spec.ts",
+      "file": "layout-accessibility.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Explorar tem título único, destinos visíveis e ações sem duplicação",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 7503,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\u001b[22m\n\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts:16:24",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                      "column": 24,
+                      "line": 16
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 14 |\u001b[39m   \u001b[36mawait\u001b[39m loadWithQr(page)\u001b[33m;\u001b[39m\n \u001b[90m 15 |\u001b[39m   \u001b[36mconst\u001b[39m adidas \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"ADIDAS, ver detalhes\"\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 16 |\u001b[39m   \u001b[36mawait\u001b[39m expect(adidas)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 17 |\u001b[39m   \u001b[36mawait\u001b[39m adidas\u001b[33m.\u001b[39mscrollIntoViewIfNeeded()\u001b[33m;\u001b[39m\n \u001b[90m 18 |\u001b[39m   \u001b[36mawait\u001b[39m expect(adidas)\u001b[33m.\u001b[39mtoBeInViewport()\u001b[33m;\u001b[39m\n \u001b[90m 19 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mscreenshot({ path\u001b[33m:\u001b[39m info\u001b[33m.\u001b[39moutputPath(\u001b[32m\"explore-desktop.png\"\u001b[39m) })\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                        "column": 24,
+                        "line": 16
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\u001b[22m\n\n\n  14 |   await loadWithQr(page);\n  15 |   const adidas = page.getByRole(\"button\", { name: \"ADIDAS, ver detalhes\", exact: true });\n> 16 |   await expect(adidas).toBeVisible();\n     |                        ^\n  17 |   await adidas.scrollIntoViewIfNeeded();\n  18 |   await expect(adidas).toBeInViewport();\n  19 |   await page.screenshot({ path: info.outputPath(\"explore-desktop.png\") });\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts:16:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T17:54:59.512Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Explo-ee5b2-veis-e-ações-sem-duplicação-chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Explo-ee5b2-veis-e-ações-sem-duplicação-chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                    "column": 24,
+                    "line": 16
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6c380acd1e3d306227f1-44a9a19f4a60c9e8bb4b",
+          "file": "layout-accessibility.spec.ts",
+          "line": 12,
+          "column": 1
+        },
+        {
+          "title": "Filtros aplicados mostram critérios ativos e permitem remoção",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 17712,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Filtrar e ordenar', exact: true })\nExpected: visible\nTimeout: 15000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Filtrar e ordenar', exact: true }) with timeout 15000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Filtrar e ordenar', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Filtrar e ordenar', exact: true })\nExpected: visible\nTimeout: 15000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Filtrar e ordenar', exact: true }) with timeout 15000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Filtrar e ordenar', exact: true })\u001b[22m\n\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts:31:86",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                      "column": 86,
+                      "line": 31
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 29 |\u001b[39m   \u001b[36mawait\u001b[39m loadWithQr(page)\u001b[33m;\u001b[39m\n \u001b[90m 30 |\u001b[39m   \u001b[90m// Aguarda a tela Explorar montar completamente\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 31 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"Filtrar e ordenar\"\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible({ timeout\u001b[33m:\u001b[39m \u001b[35m15000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                                                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 32 |\u001b[39m   \u001b[36mconst\u001b[39m trigger \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"Filtrar e ordenar\"\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 33 |\u001b[39m   \u001b[36mawait\u001b[39m trigger\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 34 |\u001b[39m   \u001b[36mconst\u001b[39m dialog \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"dialog\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"Filtros e ordenação\"\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                        "column": 86,
+                        "line": 31
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Filtrar e ordenar', exact: true })\nExpected: visible\nTimeout: 15000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Filtrar e ordenar', exact: true }) with timeout 15000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Filtrar e ordenar', exact: true })\u001b[22m\n\n\n  29 |   await loadWithQr(page);\n  30 |   // Aguarda a tela Explorar montar completamente\n> 31 |   await expect(page.getByRole(\"button\", { name: \"Filtrar e ordenar\", exact: true })).toBeVisible({ timeout: 15000 });\n     |                                                                                      ^\n  32 |   const trigger = page.getByRole(\"button\", { name: \"Filtrar e ordenar\", exact: true });\n  33 |   await trigger.click();\n  34 |   const dialog = page.getByRole(\"dialog\", { name: \"Filtros e ordenação\", exact: true });\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts:31:86"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T17:55:09.860Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Filtr-fb5f8-s-ativos-e-permitem-remoção-chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Filtr-fb5f8-s-ativos-e-permitem-remoção-chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                    "column": 86,
+                    "line": 31
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6c380acd1e3d306227f1-306d40c27e751d37d5db",
+          "file": "layout-accessibility.spec.ts",
+          "line": 28,
+          "column": 1
+        },
+        {
+          "title": "Acessibilidade do Modal: fechamento por teclado e retorno do foco",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 17967,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Filtrar e ordenar', exact: true })\nExpected: visible\nTimeout: 15000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Filtrar e ordenar', exact: true }) with timeout 15000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Filtrar e ordenar', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Filtrar e ordenar', exact: true })\nExpected: visible\nTimeout: 15000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Filtrar e ordenar', exact: true }) with timeout 15000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Filtrar e ordenar', exact: true })\u001b[22m\n\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts:48:25",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                      "column": 25,
+                      "line": 48
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 46 |\u001b[39m   \u001b[36mawait\u001b[39m loadWithQr(page)\u001b[33m;\u001b[39m\n \u001b[90m 47 |\u001b[39m   \u001b[36mconst\u001b[39m trigger \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"Filtrar e ordenar\"\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 48 |\u001b[39m   \u001b[36mawait\u001b[39m expect(trigger)\u001b[33m.\u001b[39mtoBeVisible({ timeout\u001b[33m:\u001b[39m \u001b[35m15000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                         \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 49 |\u001b[39m   \u001b[36mawait\u001b[39m trigger\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 50 |\u001b[39m   \u001b[36mconst\u001b[39m dialog \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"dialog\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"Filtros e ordenação\"\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 51 |\u001b[39m   \u001b[36mawait\u001b[39m expect(dialog)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                        "column": 25,
+                        "line": 48
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Filtrar e ordenar', exact: true })\nExpected: visible\nTimeout: 15000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Filtrar e ordenar', exact: true }) with timeout 15000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Filtrar e ordenar', exact: true })\u001b[22m\n\n\n  46 |   await loadWithQr(page);\n  47 |   const trigger = page.getByRole(\"button\", { name: \"Filtrar e ordenar\", exact: true });\n> 48 |   await expect(trigger).toBeVisible({ timeout: 15000 });\n     |                         ^\n  49 |   await trigger.click();\n  50 |   const dialog = page.getByRole(\"dialog\", { name: \"Filtros e ordenação\", exact: true });\n  51 |   await expect(dialog).toBeVisible();\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts:48:25"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T17:55:30.416Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Acess-36b33-r-teclado-e-retorno-do-foco-chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Acess-36b33-r-teclado-e-retorno-do-foco-chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                    "column": 25,
+                    "line": 48
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6c380acd1e3d306227f1-936b7af4128d9a30ecc9",
+          "file": "layout-accessibility.spec.ts",
+          "line": 45,
+          "column": 1
+        },
+        {
+          "title": "Texto ampliado preserva ações e detalhes com movimento reduzido",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 8427,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Como chegar a ADIDAS', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Como chegar a ADIDAS', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Como chegar a ADIDAS', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Como chegar a ADIDAS', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Como chegar a ADIDAS', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Como chegar a ADIDAS', exact: true })\u001b[22m\n\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts:65:23",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                      "column": 23,
+                      "line": 65
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 63 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByLabel(\u001b[32m\"Buscar no Explorar\"\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m\"ADIDAS\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 64 |\u001b[39m   \u001b[36mconst\u001b[39m route \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"Como chegar a ADIDAS\"\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 65 |\u001b[39m   \u001b[36mawait\u001b[39m expect(route)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 66 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mevaluate(() \u001b[33m=>\u001b[39m document\u001b[33m.\u001b[39mquerySelectorAll\u001b[33m<\u001b[39m\u001b[33mHTMLElement\u001b[39m\u001b[33m>\u001b[39m(\u001b[32m\"[role=main] div, [role=main] input, [role=main] h1\"\u001b[39m)\u001b[33m.\u001b[39mforEach((element) \u001b[33m=>\u001b[39m {\n \u001b[90m 67 |\u001b[39m     \u001b[36mif\u001b[39m ((\u001b[33m!\u001b[39melement\u001b[33m.\u001b[39mchildElementCount \u001b[33m&&\u001b[39m element\u001b[33m.\u001b[39mtextContent\u001b[33m?\u001b[39m\u001b[33m.\u001b[39mtrim()) \u001b[33m||\u001b[39m element\u001b[33m.\u001b[39mtagName \u001b[33m===\u001b[39m \u001b[32m\"INPUT\"\u001b[39m) {\n \u001b[90m 68 |\u001b[39m       \u001b[36mconst\u001b[39m size \u001b[33m=\u001b[39m parseFloat(getComputedStyle(element)\u001b[33m.\u001b[39mfontSize)\u001b[33m;\u001b[39m element\u001b[33m.\u001b[39mstyle\u001b[33m.\u001b[39mfontSize \u001b[33m=\u001b[39m size \u001b[33m*\u001b[39m \u001b[35m2\u001b[39m \u001b[33m+\u001b[39m \u001b[32m\"px\"\u001b[39m\u001b[33m;\u001b[39m element\u001b[33m.\u001b[39mstyle\u001b[33m.\u001b[39mlineHeight \u001b[33m=\u001b[39m \u001b[32m\"1.45\"\u001b[39m\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                        "column": 23,
+                        "line": 65
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Como chegar a ADIDAS', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Como chegar a ADIDAS', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Como chegar a ADIDAS', exact: true })\u001b[22m\n\n\n  63 |   await page.getByLabel(\"Buscar no Explorar\").fill(\"ADIDAS\");\n  64 |   const route = page.getByRole(\"button\", { name: \"Como chegar a ADIDAS\", exact: true });\n> 65 |   await expect(route).toBeVisible();\n     |                       ^\n  66 |   await page.evaluate(() => document.querySelectorAll<HTMLElement>(\"[role=main] div, [role=main] input, [role=main] h1\").forEach((element) => {\n  67 |     if ((!element.childElementCount && element.textContent?.trim()) || element.tagName === \"INPUT\") {\n  68 |       const size = parseFloat(getComputedStyle(element).fontSize); element.style.fontSize = size * 2 + \"px\"; element.style.lineHeight = \"1.45\";\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts:65:23"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T17:55:51.095Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Texto-d0828-lhes-com-movimento-reduzido-chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Texto-d0828-lhes-com-movimento-reduzido-chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                    "column": 23,
+                    "line": 65
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6c380acd1e3d306227f1-2f458bde13a12576152a",
+          "file": "layout-accessibility.spec.ts",
+          "line": 59,
+          "column": 1
+        },
+        {
+          "title": "Logotipo cadastrado aparece e falha de carregamento mantém identificação",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 7117,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\u001b[22m\n\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts:89:24",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                      "column": 24,
+                      "line": 89
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 87 |\u001b[39m   \u001b[36mawait\u001b[39m loadWithQr(page)\u001b[33m;\u001b[39m\n \u001b[90m 88 |\u001b[39m   \u001b[36mconst\u001b[39m adidas \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"ADIDAS, ver detalhes\"\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 89 |\u001b[39m   \u001b[36mawait\u001b[39m expect(adidas)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 90 |\u001b[39m   \u001b[36mawait\u001b[39m expect(adidas\u001b[33m.\u001b[39mlocator(\u001b[32m\"img\"\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 91 |\u001b[39m   \u001b[36mawait\u001b[39m expect(adidas\u001b[33m.\u001b[39mgetByText(\u001b[32m\"E01\"\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoHaveCount(\u001b[35m0\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 92 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39munroute(\u001b[32m\"**/marca-teste.svg\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                        "column": 24,
+                        "line": 89
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\u001b[22m\n\n\n  87 |   await loadWithQr(page);\n  88 |   const adidas = page.getByRole(\"button\", { name: \"ADIDAS, ver detalhes\", exact: true });\n> 89 |   await expect(adidas).toBeVisible();\n     |                        ^\n  90 |   await expect(adidas.locator(\"img\")).toBeVisible();\n  91 |   await expect(adidas.getByText(\"E01\", { exact: true })).toHaveCount(0);\n  92 |   await page.unroute(\"**/marca-teste.svg\");\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts:89:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T17:56:02.327Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Logot-67acc-amento-mantém-identificação-chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Logot-67acc-amento-mantém-identificação-chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                    "column": 24,
+                    "line": 89
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6c380acd1e3d306227f1-5ff793b22ebe4d203d2d",
+          "file": "layout-accessibility.spec.ts",
+          "line": 81,
+          "column": 1
+        },
+        {
+          "title": "Textos de resultados e ação principal mantêm contraste de pelo menos 4,5 para 1",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 7826,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\u001b[22m\n\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts:103:24",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                      "column": 24,
+                      "line": 103
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 101 |\u001b[39m   \u001b[36mawait\u001b[39m loadWithQr(page)\u001b[33m;\u001b[39m\n \u001b[90m 102 |\u001b[39m   \u001b[36mconst\u001b[39m adidas \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"ADIDAS, ver detalhes\"\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 103 |\u001b[39m   \u001b[36mawait\u001b[39m expect(adidas)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 104 |\u001b[39m   \u001b[36mfor\u001b[39m (\u001b[36mconst\u001b[39m text \u001b[36mof\u001b[39m [adidas\u001b[33m.\u001b[39mgetByText(\u001b[32m\"ADIDAS\"\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m,\u001b[39m adidas\u001b[33m.\u001b[39mgetByText(\u001b[35m/^Aberto/\u001b[39m)\u001b[33m,\u001b[39m adidas\u001b[33m.\u001b[39mgetByText(\u001b[35m/ESPORTE/\u001b[39m)\u001b[33m,\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"Como chegar a ADIDAS\"\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m.\u001b[39mgetByText(\u001b[32m\"Ir →\"\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })]) {\n \u001b[90m 105 |\u001b[39m     \u001b[36mconst\u001b[39m contrast \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m text\u001b[33m.\u001b[39mevaluate((element) \u001b[33m=>\u001b[39m {\n \u001b[90m 106 |\u001b[39m       \u001b[36mfunction\u001b[39m luminance(color\u001b[33m:\u001b[39m string) {\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                        "column": 24,
+                        "line": 103
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\u001b[22m\n\n\n  101 |   await loadWithQr(page);\n  102 |   const adidas = page.getByRole(\"button\", { name: \"ADIDAS, ver detalhes\", exact: true });\n> 103 |   await expect(adidas).toBeVisible();\n      |                        ^\n  104 |   for (const text of [adidas.getByText(\"ADIDAS\", { exact: true }), adidas.getByText(/^Aberto/), adidas.getByText(/ESPORTE/), page.getByRole(\"button\", { name: \"Como chegar a ADIDAS\", exact: true }).getByText(\"Ir →\", { exact: true })]) {\n  105 |     const contrast = await text.evaluate((element) => {\n  106 |       function luminance(color: string) {\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts:103:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T17:56:12.291Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Texto-cc03b-te-de-pelo-menos-4-5-para-1-chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Texto-cc03b-te-de-pelo-menos-4-5-para-1-chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                    "column": 24,
+                    "line": 103
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6c380acd1e3d306227f1-841bdc8db7beb268c3c4",
+          "file": "layout-accessibility.spec.ts",
+          "line": 100,
+          "column": 1
+        },
+        {
+          "title": "Explorar tem título único, destinos visíveis e ações sem duplicação",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T17:56:22.773Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Explo-ee5b2-veis-e-ações-sem-duplicação-firefox\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Explo-ee5b2-veis-e-ações-sem-duplicação-firefox\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6c380acd1e3d306227f1-71cb09b094f0e55c90e3",
+          "file": "layout-accessibility.spec.ts",
+          "line": 12,
+          "column": 1
+        },
+        {
+          "title": "Filtros aplicados mostram critérios ativos e permitem remoção",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T17:56:24.018Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Filtr-fb5f8-s-ativos-e-permitem-remoção-firefox\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Filtr-fb5f8-s-ativos-e-permitem-remoção-firefox\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6c380acd1e3d306227f1-02a5786c4138d1da7638",
+          "file": "layout-accessibility.spec.ts",
+          "line": 28,
+          "column": 1
+        },
+        {
+          "title": "Acessibilidade do Modal: fechamento por teclado e retorno do foco",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 3,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T17:56:25.334Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Acess-36b33-r-teclado-e-retorno-do-foco-firefox\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Acess-36b33-r-teclado-e-retorno-do-foco-firefox\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6c380acd1e3d306227f1-e2d8ad98d6c3428d94d9",
+          "file": "layout-accessibility.spec.ts",
+          "line": 45,
+          "column": 1
+        },
+        {
+          "title": "Texto ampliado preserva ações e detalhes com movimento reduzido",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T17:56:26.615Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Texto-d0828-lhes-com-movimento-reduzido-firefox\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Texto-d0828-lhes-com-movimento-reduzido-firefox\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6c380acd1e3d306227f1-0acc4e0ee486409cd51c",
+          "file": "layout-accessibility.spec.ts",
+          "line": 59,
+          "column": 1
+        },
+        {
+          "title": "Logotipo cadastrado aparece e falha de carregamento mantém identificação",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 10,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T17:56:27.840Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Logot-67acc-amento-mantém-identificação-firefox\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Logot-67acc-amento-mantém-identificação-firefox\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6c380acd1e3d306227f1-cdb7143a986185965810",
+          "file": "layout-accessibility.spec.ts",
+          "line": 81,
+          "column": 1
+        },
+        {
+          "title": "Textos de resultados e ação principal mantêm contraste de pelo menos 4,5 para 1",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 11,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T17:56:29.070Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Texto-cc03b-te-de-pelo-menos-4-5-para-1-firefox\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Texto-cc03b-te-de-pelo-menos-4-5-para-1-firefox\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6c380acd1e3d306227f1-1752adf578de277697ac",
+          "file": "layout-accessibility.spec.ts",
+          "line": 100,
+          "column": 1
+        },
+        {
+          "title": "Explorar tem título único, destinos visíveis e ações sem duplicação",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 12,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T17:56:30.306Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Explo-ee5b2-veis-e-ações-sem-duplicação-webkit\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Explo-ee5b2-veis-e-ações-sem-duplicação-webkit\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6c380acd1e3d306227f1-89f5017169600cac1906",
+          "file": "layout-accessibility.spec.ts",
+          "line": 12,
+          "column": 1
+        },
+        {
+          "title": "Filtros aplicados mostram critérios ativos e permitem remoção",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 13,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T17:56:31.480Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Filtr-fb5f8-s-ativos-e-permitem-remoção-webkit\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Filtr-fb5f8-s-ativos-e-permitem-remoção-webkit\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6c380acd1e3d306227f1-947ca1ee14ede7411c75",
+          "file": "layout-accessibility.spec.ts",
+          "line": 28,
+          "column": 1
+        },
+        {
+          "title": "Acessibilidade do Modal: fechamento por teclado e retorno do foco",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 14,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T17:56:32.723Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Acess-36b33-r-teclado-e-retorno-do-foco-webkit\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Acess-36b33-r-teclado-e-retorno-do-foco-webkit\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6c380acd1e3d306227f1-ec8c03121d0182f55b5d",
+          "file": "layout-accessibility.spec.ts",
+          "line": 45,
+          "column": 1
+        },
+        {
+          "title": "Texto ampliado preserva ações e detalhes com movimento reduzido",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 15,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T17:56:33.924Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Texto-d0828-lhes-com-movimento-reduzido-webkit\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Texto-d0828-lhes-com-movimento-reduzido-webkit\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6c380acd1e3d306227f1-d55c5e83c5a7b2cae776",
+          "file": "layout-accessibility.spec.ts",
+          "line": 59,
+          "column": 1
+        },
+        {
+          "title": "Logotipo cadastrado aparece e falha de carregamento mantém identificação",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 16,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T17:56:35.132Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Logot-67acc-amento-mantém-identificação-webkit\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Logot-67acc-amento-mantém-identificação-webkit\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6c380acd1e3d306227f1-e8ca9dbf9ae9ed6e91a7",
+          "file": "layout-accessibility.spec.ts",
+          "line": 81,
+          "column": 1
+        },
+        {
+          "title": "Textos de resultados e ação principal mantêm contraste de pelo menos 4,5 para 1",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 17,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 3,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T17:56:36.451Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Texto-cc03b-te-de-pelo-menos-4-5-para-1-webkit\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Texto-cc03b-te-de-pelo-menos-4-5-para-1-webkit\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6c380acd1e3d306227f1-8bd00cd8b37fb6633f9a",
+          "file": "layout-accessibility.spec.ts",
+          "line": 100,
+          "column": 1
+        },
+        {
+          "title": "Explorar tem título único, destinos visíveis e ações sem duplicação",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 18,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 7738,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\u001b[22m\n\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts:16:24",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                      "column": 24,
+                      "line": 16
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 14 |\u001b[39m   \u001b[36mawait\u001b[39m loadWithQr(page)\u001b[33m;\u001b[39m\n \u001b[90m 15 |\u001b[39m   \u001b[36mconst\u001b[39m adidas \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"ADIDAS, ver detalhes\"\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 16 |\u001b[39m   \u001b[36mawait\u001b[39m expect(adidas)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 17 |\u001b[39m   \u001b[36mawait\u001b[39m adidas\u001b[33m.\u001b[39mscrollIntoViewIfNeeded()\u001b[33m;\u001b[39m\n \u001b[90m 18 |\u001b[39m   \u001b[36mawait\u001b[39m expect(adidas)\u001b[33m.\u001b[39mtoBeInViewport()\u001b[33m;\u001b[39m\n \u001b[90m 19 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mscreenshot({ path\u001b[33m:\u001b[39m info\u001b[33m.\u001b[39moutputPath(\u001b[32m\"explore-desktop.png\"\u001b[39m) })\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                        "column": 24,
+                        "line": 16
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\u001b[22m\n\n\n  14 |   await loadWithQr(page);\n  15 |   const adidas = page.getByRole(\"button\", { name: \"ADIDAS, ver detalhes\", exact: true });\n> 16 |   await expect(adidas).toBeVisible();\n     |                        ^\n  17 |   await adidas.scrollIntoViewIfNeeded();\n  18 |   await expect(adidas).toBeInViewport();\n  19 |   await page.screenshot({ path: info.outputPath(\"explore-desktop.png\") });\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts:16:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T17:56:37.702Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Explo-ee5b2-veis-e-ações-sem-duplicação-chrome\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Explo-ee5b2-veis-e-ações-sem-duplicação-chrome\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                    "column": 24,
+                    "line": 16
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6c380acd1e3d306227f1-5af024990023fc641329",
+          "file": "layout-accessibility.spec.ts",
+          "line": 12,
+          "column": 1
+        },
+        {
+          "title": "Filtros aplicados mostram critérios ativos e permitem remoção",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 19,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 18842,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Filtrar e ordenar', exact: true })\nExpected: visible\nTimeout: 15000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Filtrar e ordenar', exact: true }) with timeout 15000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Filtrar e ordenar', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Filtrar e ordenar', exact: true })\nExpected: visible\nTimeout: 15000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Filtrar e ordenar', exact: true }) with timeout 15000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Filtrar e ordenar', exact: true })\u001b[22m\n\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts:31:86",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                      "column": 86,
+                      "line": 31
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 29 |\u001b[39m   \u001b[36mawait\u001b[39m loadWithQr(page)\u001b[33m;\u001b[39m\n \u001b[90m 30 |\u001b[39m   \u001b[90m// Aguarda a tela Explorar montar completamente\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 31 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"Filtrar e ordenar\"\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible({ timeout\u001b[33m:\u001b[39m \u001b[35m15000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                                                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 32 |\u001b[39m   \u001b[36mconst\u001b[39m trigger \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"Filtrar e ordenar\"\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 33 |\u001b[39m   \u001b[36mawait\u001b[39m trigger\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 34 |\u001b[39m   \u001b[36mconst\u001b[39m dialog \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"dialog\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"Filtros e ordenação\"\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                        "column": 86,
+                        "line": 31
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Filtrar e ordenar', exact: true })\nExpected: visible\nTimeout: 15000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Filtrar e ordenar', exact: true }) with timeout 15000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Filtrar e ordenar', exact: true })\u001b[22m\n\n\n  29 |   await loadWithQr(page);\n  30 |   // Aguarda a tela Explorar montar completamente\n> 31 |   await expect(page.getByRole(\"button\", { name: \"Filtrar e ordenar\", exact: true })).toBeVisible({ timeout: 15000 });\n     |                                                                                      ^\n  32 |   const trigger = page.getByRole(\"button\", { name: \"Filtrar e ordenar\", exact: true });\n  33 |   await trigger.click();\n  34 |   const dialog = page.getByRole(\"dialog\", { name: \"Filtros e ordenação\", exact: true });\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts:31:86"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T17:56:49.084Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Filtr-fb5f8-s-ativos-e-permitem-remoção-chrome\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Filtr-fb5f8-s-ativos-e-permitem-remoção-chrome\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                    "column": 86,
+                    "line": 31
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6c380acd1e3d306227f1-5d821bcbdd18d272b2bc",
+          "file": "layout-accessibility.spec.ts",
+          "line": 28,
+          "column": 1
+        },
+        {
+          "title": "Acessibilidade do Modal: fechamento por teclado e retorno do foco",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 20,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 19081,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Filtrar e ordenar', exact: true })\nExpected: visible\nTimeout: 15000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Filtrar e ordenar', exact: true }) with timeout 15000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Filtrar e ordenar', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Filtrar e ordenar', exact: true })\nExpected: visible\nTimeout: 15000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Filtrar e ordenar', exact: true }) with timeout 15000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Filtrar e ordenar', exact: true })\u001b[22m\n\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts:48:25",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                      "column": 25,
+                      "line": 48
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 46 |\u001b[39m   \u001b[36mawait\u001b[39m loadWithQr(page)\u001b[33m;\u001b[39m\n \u001b[90m 47 |\u001b[39m   \u001b[36mconst\u001b[39m trigger \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"Filtrar e ordenar\"\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 48 |\u001b[39m   \u001b[36mawait\u001b[39m expect(trigger)\u001b[33m.\u001b[39mtoBeVisible({ timeout\u001b[33m:\u001b[39m \u001b[35m15000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                         \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 49 |\u001b[39m   \u001b[36mawait\u001b[39m trigger\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 50 |\u001b[39m   \u001b[36mconst\u001b[39m dialog \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"dialog\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"Filtros e ordenação\"\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 51 |\u001b[39m   \u001b[36mawait\u001b[39m expect(dialog)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                        "column": 25,
+                        "line": 48
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Filtrar e ordenar', exact: true })\nExpected: visible\nTimeout: 15000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Filtrar e ordenar', exact: true }) with timeout 15000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Filtrar e ordenar', exact: true })\u001b[22m\n\n\n  46 |   await loadWithQr(page);\n  47 |   const trigger = page.getByRole(\"button\", { name: \"Filtrar e ordenar\", exact: true });\n> 48 |   await expect(trigger).toBeVisible({ timeout: 15000 });\n     |                         ^\n  49 |   await trigger.click();\n  50 |   const dialog = page.getByRole(\"dialog\", { name: \"Filtros e ordenação\", exact: true });\n  51 |   await expect(dialog).toBeVisible();\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts:48:25"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T17:57:11.491Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Acess-36b33-r-teclado-e-retorno-do-foco-chrome\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Acess-36b33-r-teclado-e-retorno-do-foco-chrome\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                    "column": 25,
+                    "line": 48
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6c380acd1e3d306227f1-e375e54c3017eb849e02",
+          "file": "layout-accessibility.spec.ts",
+          "line": 45,
+          "column": 1
+        },
+        {
+          "title": "Texto ampliado preserva ações e detalhes com movimento reduzido",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 21,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 9009,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Como chegar a ADIDAS', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Como chegar a ADIDAS', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Como chegar a ADIDAS', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Como chegar a ADIDAS', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Como chegar a ADIDAS', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Como chegar a ADIDAS', exact: true })\u001b[22m\n\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts:65:23",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                      "column": 23,
+                      "line": 65
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 63 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByLabel(\u001b[32m\"Buscar no Explorar\"\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m\"ADIDAS\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 64 |\u001b[39m   \u001b[36mconst\u001b[39m route \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"Como chegar a ADIDAS\"\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 65 |\u001b[39m   \u001b[36mawait\u001b[39m expect(route)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 66 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mevaluate(() \u001b[33m=>\u001b[39m document\u001b[33m.\u001b[39mquerySelectorAll\u001b[33m<\u001b[39m\u001b[33mHTMLElement\u001b[39m\u001b[33m>\u001b[39m(\u001b[32m\"[role=main] div, [role=main] input, [role=main] h1\"\u001b[39m)\u001b[33m.\u001b[39mforEach((element) \u001b[33m=>\u001b[39m {\n \u001b[90m 67 |\u001b[39m     \u001b[36mif\u001b[39m ((\u001b[33m!\u001b[39melement\u001b[33m.\u001b[39mchildElementCount \u001b[33m&&\u001b[39m element\u001b[33m.\u001b[39mtextContent\u001b[33m?\u001b[39m\u001b[33m.\u001b[39mtrim()) \u001b[33m||\u001b[39m element\u001b[33m.\u001b[39mtagName \u001b[33m===\u001b[39m \u001b[32m\"INPUT\"\u001b[39m) {\n \u001b[90m 68 |\u001b[39m       \u001b[36mconst\u001b[39m size \u001b[33m=\u001b[39m parseFloat(getComputedStyle(element)\u001b[33m.\u001b[39mfontSize)\u001b[33m;\u001b[39m element\u001b[33m.\u001b[39mstyle\u001b[33m.\u001b[39mfontSize \u001b[33m=\u001b[39m size \u001b[33m*\u001b[39m \u001b[35m2\u001b[39m \u001b[33m+\u001b[39m \u001b[32m\"px\"\u001b[39m\u001b[33m;\u001b[39m element\u001b[33m.\u001b[39mstyle\u001b[33m.\u001b[39mlineHeight \u001b[33m=\u001b[39m \u001b[32m\"1.45\"\u001b[39m\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                        "column": 23,
+                        "line": 65
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Como chegar a ADIDAS', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Como chegar a ADIDAS', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Como chegar a ADIDAS', exact: true })\u001b[22m\n\n\n  63 |   await page.getByLabel(\"Buscar no Explorar\").fill(\"ADIDAS\");\n  64 |   const route = page.getByRole(\"button\", { name: \"Como chegar a ADIDAS\", exact: true });\n> 65 |   await expect(route).toBeVisible();\n     |                       ^\n  66 |   await page.evaluate(() => document.querySelectorAll<HTMLElement>(\"[role=main] div, [role=main] input, [role=main] h1\").forEach((element) => {\n  67 |     if ((!element.childElementCount && element.textContent?.trim()) || element.tagName === \"INPUT\") {\n  68 |       const size = parseFloat(getComputedStyle(element).fontSize); element.style.fontSize = size * 2 + \"px\"; element.style.lineHeight = \"1.45\";\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts:65:23"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T17:57:33.853Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Texto-d0828-lhes-com-movimento-reduzido-chrome\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Texto-d0828-lhes-com-movimento-reduzido-chrome\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                    "column": 23,
+                    "line": 65
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6c380acd1e3d306227f1-8dc0704309cc6ce3b2a2",
+          "file": "layout-accessibility.spec.ts",
+          "line": 59,
+          "column": 1
+        },
+        {
+          "title": "Logotipo cadastrado aparece e falha de carregamento mantém identificação",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 22,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 7800,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\u001b[22m\n\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts:89:24",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                      "column": 24,
+                      "line": 89
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 87 |\u001b[39m   \u001b[36mawait\u001b[39m loadWithQr(page)\u001b[33m;\u001b[39m\n \u001b[90m 88 |\u001b[39m   \u001b[36mconst\u001b[39m adidas \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"ADIDAS, ver detalhes\"\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 89 |\u001b[39m   \u001b[36mawait\u001b[39m expect(adidas)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 90 |\u001b[39m   \u001b[36mawait\u001b[39m expect(adidas\u001b[33m.\u001b[39mlocator(\u001b[32m\"img\"\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 91 |\u001b[39m   \u001b[36mawait\u001b[39m expect(adidas\u001b[33m.\u001b[39mgetByText(\u001b[32m\"E01\"\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoHaveCount(\u001b[35m0\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 92 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39munroute(\u001b[32m\"**/marca-teste.svg\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                        "column": 24,
+                        "line": 89
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\u001b[22m\n\n\n  87 |   await loadWithQr(page);\n  88 |   const adidas = page.getByRole(\"button\", { name: \"ADIDAS, ver detalhes\", exact: true });\n> 89 |   await expect(adidas).toBeVisible();\n     |                        ^\n  90 |   await expect(adidas.locator(\"img\")).toBeVisible();\n  91 |   await expect(adidas.getByText(\"E01\", { exact: true })).toHaveCount(0);\n  92 |   await page.unroute(\"**/marca-teste.svg\");\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts:89:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T17:57:46.351Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Logot-67acc-amento-mantém-identificação-chrome\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Logot-67acc-amento-mantém-identificação-chrome\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                    "column": 24,
+                    "line": 89
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6c380acd1e3d306227f1-fa032aa3db15447b098c",
+          "file": "layout-accessibility.spec.ts",
+          "line": 81,
+          "column": 1
+        },
+        {
+          "title": "Textos de resultados e ação principal mantêm contraste de pelo menos 4,5 para 1",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 23,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 7392,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\u001b[22m\n\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts:103:24",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                      "column": 24,
+                      "line": 103
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 101 |\u001b[39m   \u001b[36mawait\u001b[39m loadWithQr(page)\u001b[33m;\u001b[39m\n \u001b[90m 102 |\u001b[39m   \u001b[36mconst\u001b[39m adidas \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"ADIDAS, ver detalhes\"\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 103 |\u001b[39m   \u001b[36mawait\u001b[39m expect(adidas)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 104 |\u001b[39m   \u001b[36mfor\u001b[39m (\u001b[36mconst\u001b[39m text \u001b[36mof\u001b[39m [adidas\u001b[33m.\u001b[39mgetByText(\u001b[32m\"ADIDAS\"\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m,\u001b[39m adidas\u001b[33m.\u001b[39mgetByText(\u001b[35m/^Aberto/\u001b[39m)\u001b[33m,\u001b[39m adidas\u001b[33m.\u001b[39mgetByText(\u001b[35m/ESPORTE/\u001b[39m)\u001b[33m,\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"Como chegar a ADIDAS\"\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m.\u001b[39mgetByText(\u001b[32m\"Ir →\"\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })]) {\n \u001b[90m 105 |\u001b[39m     \u001b[36mconst\u001b[39m contrast \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m text\u001b[33m.\u001b[39mevaluate((element) \u001b[33m=>\u001b[39m {\n \u001b[90m 106 |\u001b[39m       \u001b[36mfunction\u001b[39m luminance(color\u001b[33m:\u001b[39m string) {\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                        "column": 24,
+                        "line": 103
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\u001b[22m\n\n\n  101 |   await loadWithQr(page);\n  102 |   const adidas = page.getByRole(\"button\", { name: \"ADIDAS, ver detalhes\", exact: true });\n> 103 |   await expect(adidas).toBeVisible();\n      |                        ^\n  104 |   for (const text of [adidas.getByText(\"ADIDAS\", { exact: true }), adidas.getByText(/^Aberto/), adidas.getByText(/ESPORTE/), page.getByRole(\"button\", { name: \"Como chegar a ADIDAS\", exact: true }).getByText(\"Ir →\", { exact: true })]) {\n  105 |     const contrast = await text.evaluate((element) => {\n  106 |       function luminance(color: string) {\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts:103:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T17:57:57.587Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Texto-cc03b-te-de-pelo-menos-4-5-para-1-chrome\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Texto-cc03b-te-de-pelo-menos-4-5-para-1-chrome\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                    "column": 24,
+                    "line": 103
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6c380acd1e3d306227f1-209a2198e2c071805d85",
+          "file": "layout-accessibility.spec.ts",
+          "line": 100,
+          "column": 1
+        },
+        {
+          "title": "Explorar tem título único, destinos visíveis e ações sem duplicação",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "msedge",
+              "projectName": "msedge",
+              "results": [
+                {
+                  "workerIndex": 24,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 7729,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\u001b[22m\n\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts:16:24",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                      "column": 24,
+                      "line": 16
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 14 |\u001b[39m   \u001b[36mawait\u001b[39m loadWithQr(page)\u001b[33m;\u001b[39m\n \u001b[90m 15 |\u001b[39m   \u001b[36mconst\u001b[39m adidas \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"ADIDAS, ver detalhes\"\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 16 |\u001b[39m   \u001b[36mawait\u001b[39m expect(adidas)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 17 |\u001b[39m   \u001b[36mawait\u001b[39m adidas\u001b[33m.\u001b[39mscrollIntoViewIfNeeded()\u001b[33m;\u001b[39m\n \u001b[90m 18 |\u001b[39m   \u001b[36mawait\u001b[39m expect(adidas)\u001b[33m.\u001b[39mtoBeInViewport()\u001b[33m;\u001b[39m\n \u001b[90m 19 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mscreenshot({ path\u001b[33m:\u001b[39m info\u001b[33m.\u001b[39moutputPath(\u001b[32m\"explore-desktop.png\"\u001b[39m) })\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                        "column": 24,
+                        "line": 16
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\u001b[22m\n\n\n  14 |   await loadWithQr(page);\n  15 |   const adidas = page.getByRole(\"button\", { name: \"ADIDAS, ver detalhes\", exact: true });\n> 16 |   await expect(adidas).toBeVisible();\n     |                        ^\n  17 |   await adidas.scrollIntoViewIfNeeded();\n  18 |   await expect(adidas).toBeInViewport();\n  19 |   await page.screenshot({ path: info.outputPath(\"explore-desktop.png\") });\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts:16:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T17:58:08.443Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Explo-ee5b2-veis-e-ações-sem-duplicação-msedge\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Explo-ee5b2-veis-e-ações-sem-duplicação-msedge\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                    "column": 24,
+                    "line": 16
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6c380acd1e3d306227f1-f86b7576c3fc50516f71",
+          "file": "layout-accessibility.spec.ts",
+          "line": 12,
+          "column": 1
+        },
+        {
+          "title": "Filtros aplicados mostram critérios ativos e permitem remoção",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "msedge",
+              "projectName": "msedge",
+              "results": [
+                {
+                  "workerIndex": 25,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 18194,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Filtrar e ordenar', exact: true })\nExpected: visible\nTimeout: 15000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Filtrar e ordenar', exact: true }) with timeout 15000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Filtrar e ordenar', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Filtrar e ordenar', exact: true })\nExpected: visible\nTimeout: 15000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Filtrar e ordenar', exact: true }) with timeout 15000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Filtrar e ordenar', exact: true })\u001b[22m\n\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts:31:86",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                      "column": 86,
+                      "line": 31
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 29 |\u001b[39m   \u001b[36mawait\u001b[39m loadWithQr(page)\u001b[33m;\u001b[39m\n \u001b[90m 30 |\u001b[39m   \u001b[90m// Aguarda a tela Explorar montar completamente\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 31 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"Filtrar e ordenar\"\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible({ timeout\u001b[33m:\u001b[39m \u001b[35m15000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                                                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 32 |\u001b[39m   \u001b[36mconst\u001b[39m trigger \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"Filtrar e ordenar\"\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 33 |\u001b[39m   \u001b[36mawait\u001b[39m trigger\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 34 |\u001b[39m   \u001b[36mconst\u001b[39m dialog \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"dialog\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"Filtros e ordenação\"\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                        "column": 86,
+                        "line": 31
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Filtrar e ordenar', exact: true })\nExpected: visible\nTimeout: 15000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Filtrar e ordenar', exact: true }) with timeout 15000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Filtrar e ordenar', exact: true })\u001b[22m\n\n\n  29 |   await loadWithQr(page);\n  30 |   // Aguarda a tela Explorar montar completamente\n> 31 |   await expect(page.getByRole(\"button\", { name: \"Filtrar e ordenar\", exact: true })).toBeVisible({ timeout: 15000 });\n     |                                                                                      ^\n  32 |   const trigger = page.getByRole(\"button\", { name: \"Filtrar e ordenar\", exact: true });\n  33 |   await trigger.click();\n  34 |   const dialog = page.getByRole(\"dialog\", { name: \"Filtros e ordenação\", exact: true });\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts:31:86"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T17:58:20.206Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Filtr-fb5f8-s-ativos-e-permitem-remoção-msedge\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Filtr-fb5f8-s-ativos-e-permitem-remoção-msedge\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                    "column": 86,
+                    "line": 31
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6c380acd1e3d306227f1-3986e479f114ea73c1aa",
+          "file": "layout-accessibility.spec.ts",
+          "line": 28,
+          "column": 1
+        },
+        {
+          "title": "Acessibilidade do Modal: fechamento por teclado e retorno do foco",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "msedge",
+              "projectName": "msedge",
+              "results": [
+                {
+                  "workerIndex": 26,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 17415,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Filtrar e ordenar', exact: true })\nExpected: visible\nTimeout: 15000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Filtrar e ordenar', exact: true }) with timeout 15000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Filtrar e ordenar', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Filtrar e ordenar', exact: true })\nExpected: visible\nTimeout: 15000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Filtrar e ordenar', exact: true }) with timeout 15000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Filtrar e ordenar', exact: true })\u001b[22m\n\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts:48:25",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                      "column": 25,
+                      "line": 48
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 46 |\u001b[39m   \u001b[36mawait\u001b[39m loadWithQr(page)\u001b[33m;\u001b[39m\n \u001b[90m 47 |\u001b[39m   \u001b[36mconst\u001b[39m trigger \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"Filtrar e ordenar\"\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 48 |\u001b[39m   \u001b[36mawait\u001b[39m expect(trigger)\u001b[33m.\u001b[39mtoBeVisible({ timeout\u001b[33m:\u001b[39m \u001b[35m15000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                         \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 49 |\u001b[39m   \u001b[36mawait\u001b[39m trigger\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 50 |\u001b[39m   \u001b[36mconst\u001b[39m dialog \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"dialog\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"Filtros e ordenação\"\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 51 |\u001b[39m   \u001b[36mawait\u001b[39m expect(dialog)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                        "column": 25,
+                        "line": 48
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Filtrar e ordenar', exact: true })\nExpected: visible\nTimeout: 15000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Filtrar e ordenar', exact: true }) with timeout 15000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Filtrar e ordenar', exact: true })\u001b[22m\n\n\n  46 |   await loadWithQr(page);\n  47 |   const trigger = page.getByRole(\"button\", { name: \"Filtrar e ordenar\", exact: true });\n> 48 |   await expect(trigger).toBeVisible({ timeout: 15000 });\n     |                         ^\n  49 |   await trigger.click();\n  50 |   const dialog = page.getByRole(\"dialog\", { name: \"Filtros e ordenação\", exact: true });\n  51 |   await expect(dialog).toBeVisible();\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts:48:25"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T17:58:41.499Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Acess-36b33-r-teclado-e-retorno-do-foco-msedge\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Acess-36b33-r-teclado-e-retorno-do-foco-msedge\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                    "column": 25,
+                    "line": 48
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6c380acd1e3d306227f1-ad3f963a4c4f40c8e7ad",
+          "file": "layout-accessibility.spec.ts",
+          "line": 45,
+          "column": 1
+        },
+        {
+          "title": "Texto ampliado preserva ações e detalhes com movimento reduzido",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "msedge",
+              "projectName": "msedge",
+              "results": [
+                {
+                  "workerIndex": 27,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 8039,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Como chegar a ADIDAS', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Como chegar a ADIDAS', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Como chegar a ADIDAS', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Como chegar a ADIDAS', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Como chegar a ADIDAS', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Como chegar a ADIDAS', exact: true })\u001b[22m\n\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts:65:23",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                      "column": 23,
+                      "line": 65
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 63 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByLabel(\u001b[32m\"Buscar no Explorar\"\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m\"ADIDAS\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 64 |\u001b[39m   \u001b[36mconst\u001b[39m route \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"Como chegar a ADIDAS\"\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 65 |\u001b[39m   \u001b[36mawait\u001b[39m expect(route)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 66 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mevaluate(() \u001b[33m=>\u001b[39m document\u001b[33m.\u001b[39mquerySelectorAll\u001b[33m<\u001b[39m\u001b[33mHTMLElement\u001b[39m\u001b[33m>\u001b[39m(\u001b[32m\"[role=main] div, [role=main] input, [role=main] h1\"\u001b[39m)\u001b[33m.\u001b[39mforEach((element) \u001b[33m=>\u001b[39m {\n \u001b[90m 67 |\u001b[39m     \u001b[36mif\u001b[39m ((\u001b[33m!\u001b[39melement\u001b[33m.\u001b[39mchildElementCount \u001b[33m&&\u001b[39m element\u001b[33m.\u001b[39mtextContent\u001b[33m?\u001b[39m\u001b[33m.\u001b[39mtrim()) \u001b[33m||\u001b[39m element\u001b[33m.\u001b[39mtagName \u001b[33m===\u001b[39m \u001b[32m\"INPUT\"\u001b[39m) {\n \u001b[90m 68 |\u001b[39m       \u001b[36mconst\u001b[39m size \u001b[33m=\u001b[39m parseFloat(getComputedStyle(element)\u001b[33m.\u001b[39mfontSize)\u001b[33m;\u001b[39m element\u001b[33m.\u001b[39mstyle\u001b[33m.\u001b[39mfontSize \u001b[33m=\u001b[39m size \u001b[33m*\u001b[39m \u001b[35m2\u001b[39m \u001b[33m+\u001b[39m \u001b[32m\"px\"\u001b[39m\u001b[33m;\u001b[39m element\u001b[33m.\u001b[39mstyle\u001b[33m.\u001b[39mlineHeight \u001b[33m=\u001b[39m \u001b[32m\"1.45\"\u001b[39m\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                        "column": 23,
+                        "line": 65
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Como chegar a ADIDAS', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'Como chegar a ADIDAS', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Como chegar a ADIDAS', exact: true })\u001b[22m\n\n\n  63 |   await page.getByLabel(\"Buscar no Explorar\").fill(\"ADIDAS\");\n  64 |   const route = page.getByRole(\"button\", { name: \"Como chegar a ADIDAS\", exact: true });\n> 65 |   await expect(route).toBeVisible();\n     |                       ^\n  66 |   await page.evaluate(() => document.querySelectorAll<HTMLElement>(\"[role=main] div, [role=main] input, [role=main] h1\").forEach((element) => {\n  67 |     if ((!element.childElementCount && element.textContent?.trim()) || element.tagName === \"INPUT\") {\n  68 |       const size = parseFloat(getComputedStyle(element).fontSize); element.style.fontSize = size * 2 + \"px\"; element.style.lineHeight = \"1.45\";\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts:65:23"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T17:59:01.851Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Texto-d0828-lhes-com-movimento-reduzido-msedge\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Texto-d0828-lhes-com-movimento-reduzido-msedge\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                    "column": 23,
+                    "line": 65
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6c380acd1e3d306227f1-a658e867c2e012292086",
+          "file": "layout-accessibility.spec.ts",
+          "line": 59,
+          "column": 1
+        },
+        {
+          "title": "Logotipo cadastrado aparece e falha de carregamento mantém identificação",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "msedge",
+              "projectName": "msedge",
+              "results": [
+                {
+                  "workerIndex": 28,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 7427,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\u001b[22m\n\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts:89:24",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                      "column": 24,
+                      "line": 89
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 87 |\u001b[39m   \u001b[36mawait\u001b[39m loadWithQr(page)\u001b[33m;\u001b[39m\n \u001b[90m 88 |\u001b[39m   \u001b[36mconst\u001b[39m adidas \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"ADIDAS, ver detalhes\"\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 89 |\u001b[39m   \u001b[36mawait\u001b[39m expect(adidas)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 90 |\u001b[39m   \u001b[36mawait\u001b[39m expect(adidas\u001b[33m.\u001b[39mlocator(\u001b[32m\"img\"\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m 91 |\u001b[39m   \u001b[36mawait\u001b[39m expect(adidas\u001b[33m.\u001b[39mgetByText(\u001b[32m\"E01\"\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoHaveCount(\u001b[35m0\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 92 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39munroute(\u001b[32m\"**/marca-teste.svg\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                        "column": 24,
+                        "line": 89
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\u001b[22m\n\n\n  87 |   await loadWithQr(page);\n  88 |   const adidas = page.getByRole(\"button\", { name: \"ADIDAS, ver detalhes\", exact: true });\n> 89 |   await expect(adidas).toBeVisible();\n     |                        ^\n  90 |   await expect(adidas.locator(\"img\")).toBeVisible();\n  91 |   await expect(adidas.getByText(\"E01\", { exact: true })).toHaveCount(0);\n  92 |   await page.unroute(\"**/marca-teste.svg\");\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts:89:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T17:59:12.862Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Logot-67acc-amento-mantém-identificação-msedge\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Logot-67acc-amento-mantém-identificação-msedge\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                    "column": 24,
+                    "line": 89
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6c380acd1e3d306227f1-90e5d1a4f44a133f54e7",
+          "file": "layout-accessibility.spec.ts",
+          "line": 81,
+          "column": 1
+        },
+        {
+          "title": "Textos de resultados e ação principal mantêm contraste de pelo menos 4,5 para 1",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "msedge",
+              "projectName": "msedge",
+              "results": [
+                {
+                  "workerIndex": 29,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 7246,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\u001b[22m\n\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts:103:24",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                      "column": 24,
+                      "line": 103
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 101 |\u001b[39m   \u001b[36mawait\u001b[39m loadWithQr(page)\u001b[33m;\u001b[39m\n \u001b[90m 102 |\u001b[39m   \u001b[36mconst\u001b[39m adidas \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"ADIDAS, ver detalhes\"\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 103 |\u001b[39m   \u001b[36mawait\u001b[39m expect(adidas)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 104 |\u001b[39m   \u001b[36mfor\u001b[39m (\u001b[36mconst\u001b[39m text \u001b[36mof\u001b[39m [adidas\u001b[33m.\u001b[39mgetByText(\u001b[32m\"ADIDAS\"\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m,\u001b[39m adidas\u001b[33m.\u001b[39mgetByText(\u001b[35m/^Aberto/\u001b[39m)\u001b[33m,\u001b[39m adidas\u001b[33m.\u001b[39mgetByText(\u001b[35m/ESPORTE/\u001b[39m)\u001b[33m,\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"Como chegar a ADIDAS\"\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m.\u001b[39mgetByText(\u001b[32m\"Ir →\"\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })]) {\n \u001b[90m 105 |\u001b[39m     \u001b[36mconst\u001b[39m contrast \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m text\u001b[33m.\u001b[39mevaluate((element) \u001b[33m=>\u001b[39m {\n \u001b[90m 106 |\u001b[39m       \u001b[36mfunction\u001b[39m luminance(color\u001b[33m:\u001b[39m string) {\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                        "column": 24,
+                        "line": 103
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'ADIDAS, ver detalhes', exact: true })\u001b[22m\n\n\n  101 |   await loadWithQr(page);\n  102 |   const adidas = page.getByRole(\"button\", { name: \"ADIDAS, ver detalhes\", exact: true });\n> 103 |   await expect(adidas).toBeVisible();\n      |                        ^\n  104 |   for (const text of [adidas.getByText(\"ADIDAS\", { exact: true }), adidas.getByText(/^Aberto/), adidas.getByText(/ESPORTE/), page.getByRole(\"button\", { name: \"Como chegar a ADIDAS\", exact: true }).getByText(\"Ir →\", { exact: true })]) {\n  105 |     const contrast = await text.evaluate((element) => {\n  106 |       function luminance(color: string) {\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts:103:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T17:59:23.328Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Texto-cc03b-te-de-pelo-menos-4-5-para-1-msedge\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\layout-accessibility\\artifacts\\layout-accessibility-Texto-cc03b-te-de-pelo-menos-4-5-para-1-msedge\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\layout-accessibility.spec.ts",
+                    "column": 24,
+                    "line": 103
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "6c380acd1e3d306227f1-1604c1a9fa48ddb8bd94",
+          "file": "layout-accessibility.spec.ts",
+          "line": 100,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-13T17:54:58.180Z",
+    "duration": 274287.119,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 30,
+    "flaky": 0
+  }
+}

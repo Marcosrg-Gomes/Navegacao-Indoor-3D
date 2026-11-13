@@ -325,11 +325,6 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
         }
         const result = await calculateRoute(origem.id, destinoNoId, acessivel, allowUnavailable);
         if (request !== routeRequest.current) return;
-        if (!result.sucesso) {
-          setRouteError(result.mensagem || "Não foi possível encontrar uma rota para este destino.");
-          setRouteStale(true);
-          return;
-        }
         setRoute(result);
         setRouteStale(false);
       } catch (err) {

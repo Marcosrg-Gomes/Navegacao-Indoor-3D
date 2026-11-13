@@ -1,0 +1,1561 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "tests/wayfinding.spec.ts",
+      "../../evidence/e2e-recovery-20261113/wayfinding"
+    ],
+    "configFile": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\playwright.config.ts",
+    "rootDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/apps/admin/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/evidence/e2e-recovery-20261113/wayfinding/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/evidence/e2e-recovery-20261113/wayfinding/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/evidence/e2e-recovery-20261113/wayfinding/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/evidence/e2e-recovery-20261113/wayfinding/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chrome",
+        "name": "chrome",
+        "testDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/evidence/e2e-recovery-20261113/wayfinding/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "msedge",
+        "name": "msedge",
+        "testDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "../../evidence/e2e-recovery-20261113/wayfinding/report.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "wayfinding.spec.ts",
+      "file": "wayfinding.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Explorar mantém pesquisa e filtros separados do mapa no celular",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "timedOut",
+                  "duration": 45225,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\wayfinding.spec.ts",
+                        "column": 72,
+                        "line": 23
+                      },
+                      "message": "Error: locator.click: Test timeout of 45000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Nomes com N', exact: true })\u001b[22m\n\n\n  21 |   await expect(page.getByRole(\"heading\", { name: \"Encontre seu lugar.\" })).toBeVisible();\n  22 |   await expect(page.getByRole(\"main\", { name: \"Explorar lojas e serviços\" }).getByTestId(\"floor-map\")).toHaveCount(0);\n> 23 |   await page.getByRole(\"button\", { name: \"Nomes com N\", exact: true }).click();\n     |                                                                        ^\n  24 |   await expect(page.getByRole(\"button\", { name: \"NATURA, ver detalhes\", exact: true })).toBeVisible();\n  25 |   await expect(page.getByRole(\"button\", { name: \"ADIDAS, ver detalhes\", exact: true })).toHaveCount(0);\n  26 |   await page.screenshot({ path: info.outputPath(\"directory-desktop.png\") });\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\wayfinding.spec.ts:23:72"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:45:53.698Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-recovery-20261113\\wayfinding\\artifacts\\wayfinding-Explorar-mantém-a6184-eparados-do-mapa-no-celular-chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-recovery-20261113\\wayfinding\\artifacts\\wayfinding-Explorar-mantém-a6184-eparados-do-mapa-no-celular-chromium\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "8adbe3a54fd8fc3e7ad7-cf1121528e604012fa01",
+          "file": "wayfinding.spec.ts",
+          "line": 19,
+          "column": 1
+        },
+        {
+          "title": "Reconhecer um lugar exige confirmação e Estou perdido recalcula mantendo destino",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "timedOut",
+                  "duration": 45283,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\wayfinding.spec.ts",
+                        "column": 85,
+                        "line": 42
+                      },
+                      "message": "Error: locator.click: Test timeout of 45000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Definir ponto de partida', exact: true })\u001b[22m\n\n\n  40 |   await expect(page.getByRole(\"heading\", { level: 1 })).toContainText(\"Onde você\");\n  41 |   await page.screenshot({ path: info.outputPath(\"intent-home.png\") });\n> 42 |   await page.getByRole(\"button\", { name: \"Definir ponto de partida\", exact: true }).click();\n     |                                                                                     ^\n  43 |   await page.getByLabel(\"Lugar que estou vendo\").fill(\"NATURA\");\n  44 |   await page.getByRole(\"button\", { name: \"Estou vendo NATURA\", exact: true }).click();\n  45 |   await page.getByRole(\"button\", { name: \"Confirmar minha posição em NATURA\", exact: true }).click();\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\wayfinding.spec.ts:42:85"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:46:41.362Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-recovery-20261113\\wayfinding\\artifacts\\wayfinding-Reconhecer-um-l-d72a8--recalcula-mantendo-destino-chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-recovery-20261113\\wayfinding\\artifacts\\wayfinding-Reconhecer-um-l-d72a8--recalcula-mantendo-destino-chromium\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "8adbe3a54fd8fc3e7ad7-5a230b391793f6e07bc4",
+          "file": "wayfinding.spec.ts",
+          "line": 38,
+          "column": 1
+        },
+        {
+          "title": "Prévia 3D muda a câmera do trecho sem alterar a origem (apenas quando cena 3D disponível)",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5615,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:47:29.238Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8adbe3a54fd8fc3e7ad7-d01c2373e18a79f23b95",
+          "file": "wayfinding.spec.ts",
+          "line": 69,
+          "column": 1
+        },
+        {
+          "title": "Passeio entre favoritos usa cada chegada como origem da próxima parada",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 11174,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:47:35.088Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8adbe3a54fd8fc3e7ad7-1535c0c63b74d80a13dd",
+          "file": "wayfinding.spec.ts",
+          "line": 94,
+          "column": 1
+        },
+        {
+          "title": "Local indisponível oferece alternativas abertas da mesma categoria",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1744,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:47:46.286Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8adbe3a54fd8fc3e7ad7-e762bad5bb532ab23b7f",
+          "file": "wayfinding.spec.ts",
+          "line": 116,
+          "column": 1
+        },
+        {
+          "title": "Detalhes do elevador mostram o outro piso servido pela conexão ativa",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1524,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:47:48.065Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8adbe3a54fd8fc3e7ad7-978d36f59c8620184eb3",
+          "file": "wayfinding.spec.ts",
+          "line": 133,
+          "column": 1
+        },
+        {
+          "title": "Explorar mantém pesquisa e filtros separados do mapa no celular",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:47:52.119Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-recovery-20261113\\wayfinding\\artifacts\\wayfinding-Explorar-mantém-a6184-eparados-do-mapa-no-celular-firefox\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-recovery-20261113\\wayfinding\\artifacts\\wayfinding-Explorar-mantém-a6184-eparados-do-mapa-no-celular-firefox\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "8adbe3a54fd8fc3e7ad7-5ff85b0221372de3bcfd",
+          "file": "wayfinding.spec.ts",
+          "line": 19,
+          "column": 1
+        },
+        {
+          "title": "Reconhecer um lugar exige confirmação e Estou perdido recalcula mantendo destino",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:47:53.320Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-recovery-20261113\\wayfinding\\artifacts\\wayfinding-Reconhecer-um-l-d72a8--recalcula-mantendo-destino-firefox\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-recovery-20261113\\wayfinding\\artifacts\\wayfinding-Reconhecer-um-l-d72a8--recalcula-mantendo-destino-firefox\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "8adbe3a54fd8fc3e7ad7-526e8e29a82257b363b8",
+          "file": "wayfinding.spec.ts",
+          "line": 38,
+          "column": 1
+        },
+        {
+          "title": "Prévia 3D muda a câmera do trecho sem alterar a origem (apenas quando cena 3D disponível)",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:47:54.514Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-recovery-20261113\\wayfinding\\artifacts\\wayfinding-Prévia-3D-muda--dbbb0--quando-cena-3D-disponível--firefox\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-recovery-20261113\\wayfinding\\artifacts\\wayfinding-Prévia-3D-muda--dbbb0--quando-cena-3D-disponível--firefox\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "8adbe3a54fd8fc3e7ad7-117da1958a6c84d71c5e",
+          "file": "wayfinding.spec.ts",
+          "line": 69,
+          "column": 1
+        },
+        {
+          "title": "Passeio entre favoritos usa cada chegada como origem da próxima parada",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:47:55.637Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-recovery-20261113\\wayfinding\\artifacts\\wayfinding-Passeio-entre-f-8a30b-mo-origem-da-próxima-parada-firefox\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-recovery-20261113\\wayfinding\\artifacts\\wayfinding-Passeio-entre-f-8a30b-mo-origem-da-próxima-parada-firefox\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "8adbe3a54fd8fc3e7ad7-da3e50e43cd65c5de8d7",
+          "file": "wayfinding.spec.ts",
+          "line": 94,
+          "column": 1
+        },
+        {
+          "title": "Local indisponível oferece alternativas abertas da mesma categoria",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 3,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:47:56.754Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-recovery-20261113\\wayfinding\\artifacts\\wayfinding-Local-indisponí-cc539--abertas-da-mesma-categoria-firefox\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-recovery-20261113\\wayfinding\\artifacts\\wayfinding-Local-indisponí-cc539--abertas-da-mesma-categoria-firefox\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "8adbe3a54fd8fc3e7ad7-950f1cd8bb07233d2ef9",
+          "file": "wayfinding.spec.ts",
+          "line": 116,
+          "column": 1
+        },
+        {
+          "title": "Detalhes do elevador mostram o outro piso servido pela conexão ativa",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:47:57.918Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-recovery-20261113\\wayfinding\\artifacts\\wayfinding-Detalhes-do-ele-69f71--servido-pela-conexão-ativa-firefox\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-recovery-20261113\\wayfinding\\artifacts\\wayfinding-Detalhes-do-ele-69f71--servido-pela-conexão-ativa-firefox\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "8adbe3a54fd8fc3e7ad7-478760cb5f75c3801b35",
+          "file": "wayfinding.spec.ts",
+          "line": 133,
+          "column": 1
+        },
+        {
+          "title": "Explorar mantém pesquisa e filtros separados do mapa no celular",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:47:59.071Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-recovery-20261113\\wayfinding\\artifacts\\wayfinding-Explorar-mantém-a6184-eparados-do-mapa-no-celular-webkit\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-recovery-20261113\\wayfinding\\artifacts\\wayfinding-Explorar-mantém-a6184-eparados-do-mapa-no-celular-webkit\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "8adbe3a54fd8fc3e7ad7-7b97828c6cf275a4acf2",
+          "file": "wayfinding.spec.ts",
+          "line": 19,
+          "column": 1
+        },
+        {
+          "title": "Reconhecer um lugar exige confirmação e Estou perdido recalcula mantendo destino",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 10,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:48:00.200Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-recovery-20261113\\wayfinding\\artifacts\\wayfinding-Reconhecer-um-l-d72a8--recalcula-mantendo-destino-webkit\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-recovery-20261113\\wayfinding\\artifacts\\wayfinding-Reconhecer-um-l-d72a8--recalcula-mantendo-destino-webkit\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "8adbe3a54fd8fc3e7ad7-fec6c15e394b11d9ed04",
+          "file": "wayfinding.spec.ts",
+          "line": 38,
+          "column": 1
+        },
+        {
+          "title": "Prévia 3D muda a câmera do trecho sem alterar a origem (apenas quando cena 3D disponível)",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 11,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:48:01.370Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-recovery-20261113\\wayfinding\\artifacts\\wayfinding-Prévia-3D-muda--dbbb0--quando-cena-3D-disponível--webkit\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-recovery-20261113\\wayfinding\\artifacts\\wayfinding-Prévia-3D-muda--dbbb0--quando-cena-3D-disponível--webkit\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "8adbe3a54fd8fc3e7ad7-76aab3055dde2ce6637e",
+          "file": "wayfinding.spec.ts",
+          "line": 69,
+          "column": 1
+        },
+        {
+          "title": "Passeio entre favoritos usa cada chegada como origem da próxima parada",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 12,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:48:02.507Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-recovery-20261113\\wayfinding\\artifacts\\wayfinding-Passeio-entre-f-8a30b-mo-origem-da-próxima-parada-webkit\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-recovery-20261113\\wayfinding\\artifacts\\wayfinding-Passeio-entre-f-8a30b-mo-origem-da-próxima-parada-webkit\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "8adbe3a54fd8fc3e7ad7-b8ee5a046c3cb02f1b7c",
+          "file": "wayfinding.spec.ts",
+          "line": 94,
+          "column": 1
+        },
+        {
+          "title": "Local indisponível oferece alternativas abertas da mesma categoria",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 13,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:48:03.640Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-recovery-20261113\\wayfinding\\artifacts\\wayfinding-Local-indisponí-cc539--abertas-da-mesma-categoria-webkit\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-recovery-20261113\\wayfinding\\artifacts\\wayfinding-Local-indisponí-cc539--abertas-da-mesma-categoria-webkit\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "8adbe3a54fd8fc3e7ad7-24f4c24d75a8e5e9c384",
+          "file": "wayfinding.spec.ts",
+          "line": 116,
+          "column": 1
+        },
+        {
+          "title": "Detalhes do elevador mostram o outro piso servido pela conexão ativa",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 14,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:48:04.795Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-recovery-20261113\\wayfinding\\artifacts\\wayfinding-Detalhes-do-ele-69f71--servido-pela-conexão-ativa-webkit\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-recovery-20261113\\wayfinding\\artifacts\\wayfinding-Detalhes-do-ele-69f71--servido-pela-conexão-ativa-webkit\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "8adbe3a54fd8fc3e7ad7-c3e9299a02cb82f89795",
+          "file": "wayfinding.spec.ts",
+          "line": 133,
+          "column": 1
+        },
+        {
+          "title": "Explorar mantém pesquisa e filtros separados do mapa no celular",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 15,
+                  "parallelIndex": 0,
+                  "status": "timedOut",
+                  "duration": 45233,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\wayfinding.spec.ts",
+                        "column": 72,
+                        "line": 23
+                      },
+                      "message": "Error: locator.click: Test timeout of 45000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Nomes com N', exact: true })\u001b[22m\n\n\n  21 |   await expect(page.getByRole(\"heading\", { name: \"Encontre seu lugar.\" })).toBeVisible();\n  22 |   await expect(page.getByRole(\"main\", { name: \"Explorar lojas e serviços\" }).getByTestId(\"floor-map\")).toHaveCount(0);\n> 23 |   await page.getByRole(\"button\", { name: \"Nomes com N\", exact: true }).click();\n     |                                                                        ^\n  24 |   await expect(page.getByRole(\"button\", { name: \"NATURA, ver detalhes\", exact: true })).toBeVisible();\n  25 |   await expect(page.getByRole(\"button\", { name: \"ADIDAS, ver detalhes\", exact: true })).toHaveCount(0);\n  26 |   await page.screenshot({ path: info.outputPath(\"directory-desktop.png\") });\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\wayfinding.spec.ts:23:72"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:48:05.941Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-recovery-20261113\\wayfinding\\artifacts\\wayfinding-Explorar-mantém-a6184-eparados-do-mapa-no-celular-chrome\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-recovery-20261113\\wayfinding\\artifacts\\wayfinding-Explorar-mantém-a6184-eparados-do-mapa-no-celular-chrome\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "8adbe3a54fd8fc3e7ad7-5887b45e7b7db8ee41b0",
+          "file": "wayfinding.spec.ts",
+          "line": 19,
+          "column": 1
+        },
+        {
+          "title": "Reconhecer um lugar exige confirmação e Estou perdido recalcula mantendo destino",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 16,
+                  "parallelIndex": 0,
+                  "status": "timedOut",
+                  "duration": 45210,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\wayfinding.spec.ts",
+                        "column": 85,
+                        "line": 42
+                      },
+                      "message": "Error: locator.click: Test timeout of 45000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Definir ponto de partida', exact: true })\u001b[22m\n\n\n  40 |   await expect(page.getByRole(\"heading\", { level: 1 })).toContainText(\"Onde você\");\n  41 |   await page.screenshot({ path: info.outputPath(\"intent-home.png\") });\n> 42 |   await page.getByRole(\"button\", { name: \"Definir ponto de partida\", exact: true }).click();\n     |                                                                                     ^\n  43 |   await page.getByLabel(\"Lugar que estou vendo\").fill(\"NATURA\");\n  44 |   await page.getByRole(\"button\", { name: \"Estou vendo NATURA\", exact: true }).click();\n  45 |   await page.getByRole(\"button\", { name: \"Confirmar minha posição em NATURA\", exact: true }).click();\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\wayfinding.spec.ts:42:85"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:48:53.907Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-recovery-20261113\\wayfinding\\artifacts\\wayfinding-Reconhecer-um-l-d72a8--recalcula-mantendo-destino-chrome\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-recovery-20261113\\wayfinding\\artifacts\\wayfinding-Reconhecer-um-l-d72a8--recalcula-mantendo-destino-chrome\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "8adbe3a54fd8fc3e7ad7-93af6360c56defb6b6f9",
+          "file": "wayfinding.spec.ts",
+          "line": 38,
+          "column": 1
+        },
+        {
+          "title": "Prévia 3D muda a câmera do trecho sem alterar a origem (apenas quando cena 3D disponível)",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 17,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4070,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:49:41.659Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8adbe3a54fd8fc3e7ad7-996f1dd88a0687a5208b",
+          "file": "wayfinding.spec.ts",
+          "line": 69,
+          "column": 1
+        },
+        {
+          "title": "Passeio entre favoritos usa cada chegada como origem da próxima parada",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 17,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3712,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:49:46.495Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8adbe3a54fd8fc3e7ad7-4821be89413607f99dd8",
+          "file": "wayfinding.spec.ts",
+          "line": 94,
+          "column": 1
+        },
+        {
+          "title": "Local indisponível oferece alternativas abertas da mesma categoria",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 17,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1573,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:49:50.223Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8adbe3a54fd8fc3e7ad7-c1574fa5d7be7ae4487f",
+          "file": "wayfinding.spec.ts",
+          "line": 116,
+          "column": 1
+        },
+        {
+          "title": "Detalhes do elevador mostram o outro piso servido pela conexão ativa",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 17,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1596,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:49:51.816Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8adbe3a54fd8fc3e7ad7-f76e3a65785274488b97",
+          "file": "wayfinding.spec.ts",
+          "line": 133,
+          "column": 1
+        },
+        {
+          "title": "Explorar mantém pesquisa e filtros separados do mapa no celular",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "msedge",
+              "projectName": "msedge",
+              "results": [
+                {
+                  "workerIndex": 18,
+                  "parallelIndex": 0,
+                  "status": "timedOut",
+                  "duration": 45283,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\wayfinding.spec.ts",
+                        "column": 72,
+                        "line": 23
+                      },
+                      "message": "Error: locator.click: Test timeout of 45000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Nomes com N', exact: true })\u001b[22m\n\n\n  21 |   await expect(page.getByRole(\"heading\", { name: \"Encontre seu lugar.\" })).toBeVisible();\n  22 |   await expect(page.getByRole(\"main\", { name: \"Explorar lojas e serviços\" }).getByTestId(\"floor-map\")).toHaveCount(0);\n> 23 |   await page.getByRole(\"button\", { name: \"Nomes com N\", exact: true }).click();\n     |                                                                        ^\n  24 |   await expect(page.getByRole(\"button\", { name: \"NATURA, ver detalhes\", exact: true })).toBeVisible();\n  25 |   await expect(page.getByRole(\"button\", { name: \"ADIDAS, ver detalhes\", exact: true })).toHaveCount(0);\n  26 |   await page.screenshot({ path: info.outputPath(\"directory-desktop.png\") });\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\wayfinding.spec.ts:23:72"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:49:55.493Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-recovery-20261113\\wayfinding\\artifacts\\wayfinding-Explorar-mantém-a6184-eparados-do-mapa-no-celular-msedge\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-recovery-20261113\\wayfinding\\artifacts\\wayfinding-Explorar-mantém-a6184-eparados-do-mapa-no-celular-msedge\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "8adbe3a54fd8fc3e7ad7-309761b3f633bbd2b21a",
+          "file": "wayfinding.spec.ts",
+          "line": 19,
+          "column": 1
+        },
+        {
+          "title": "Reconhecer um lugar exige confirmação e Estou perdido recalcula mantendo destino",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "msedge",
+              "projectName": "msedge",
+              "results": [
+                {
+                  "workerIndex": 19,
+                  "parallelIndex": 0,
+                  "status": "timedOut",
+                  "duration": 45187,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\wayfinding.spec.ts",
+                        "column": 85,
+                        "line": 42
+                      },
+                      "message": "Error: locator.click: Test timeout of 45000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Definir ponto de partida', exact: true })\u001b[22m\n\n\n  40 |   await expect(page.getByRole(\"heading\", { level: 1 })).toContainText(\"Onde você\");\n  41 |   await page.screenshot({ path: info.outputPath(\"intent-home.png\") });\n> 42 |   await page.getByRole(\"button\", { name: \"Definir ponto de partida\", exact: true }).click();\n     |                                                                                     ^\n  43 |   await page.getByLabel(\"Lugar que estou vendo\").fill(\"NATURA\");\n  44 |   await page.getByRole(\"button\", { name: \"Estou vendo NATURA\", exact: true }).click();\n  45 |   await page.getByRole(\"button\", { name: \"Confirmar minha posição em NATURA\", exact: true }).click();\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\wayfinding.spec.ts:42:85"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:50:43.433Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-recovery-20261113\\wayfinding\\artifacts\\wayfinding-Reconhecer-um-l-d72a8--recalcula-mantendo-destino-msedge\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-recovery-20261113\\wayfinding\\artifacts\\wayfinding-Reconhecer-um-l-d72a8--recalcula-mantendo-destino-msedge\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "8adbe3a54fd8fc3e7ad7-e17d84b362d1fcdf8f8c",
+          "file": "wayfinding.spec.ts",
+          "line": 38,
+          "column": 1
+        },
+        {
+          "title": "Prévia 3D muda a câmera do trecho sem alterar a origem (apenas quando cena 3D disponível)",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "msedge",
+              "projectName": "msedge",
+              "results": [
+                {
+                  "workerIndex": 20,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4259,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:51:31.067Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8adbe3a54fd8fc3e7ad7-7fe64bbd0f8ce1e688c2",
+          "file": "wayfinding.spec.ts",
+          "line": 69,
+          "column": 1
+        },
+        {
+          "title": "Passeio entre favoritos usa cada chegada como origem da próxima parada",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "msedge",
+              "projectName": "msedge",
+              "results": [
+                {
+                  "workerIndex": 20,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3777,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:51:35.906Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8adbe3a54fd8fc3e7ad7-30ddcadb9cfbef7cec8e",
+          "file": "wayfinding.spec.ts",
+          "line": 94,
+          "column": 1
+        },
+        {
+          "title": "Local indisponível oferece alternativas abertas da mesma categoria",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "msedge",
+              "projectName": "msedge",
+              "results": [
+                {
+                  "workerIndex": 20,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1514,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:51:39.701Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8adbe3a54fd8fc3e7ad7-c9749e7fa5b0390a1632",
+          "file": "wayfinding.spec.ts",
+          "line": 116,
+          "column": 1
+        },
+        {
+          "title": "Detalhes do elevador mostram o outro piso servido pela conexão ativa",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "msedge",
+              "projectName": "msedge",
+              "results": [
+                {
+                  "workerIndex": 20,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1432,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:51:41.232Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8adbe3a54fd8fc3e7ad7-12a49701fd5d861edc8d",
+          "file": "wayfinding.spec.ts",
+          "line": 133,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-13T18:45:52.362Z",
+    "duration": 351447.62399999995,
+    "expected": 12,
+    "skipped": 0,
+    "unexpected": 18,
+    "flaky": 0
+  }
+}

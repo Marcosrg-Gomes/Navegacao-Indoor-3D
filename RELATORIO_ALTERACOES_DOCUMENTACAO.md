@@ -6,8 +6,8 @@
 **Formato:** DOCX (Microsoft Word)  
 **Normas aplicadas:** ABNT NBR 14724:2011 (apresentação de trabalhos acadêmicos)  
 **Fonte:** Arial, tamanho 12, texto preto, parágrafos justificados, espaçamento 1,5  
-**Total de parágrafos:** 308  
-**Total de tabelas:** 4  
+**Total de parágrafos:** 256  
+**Total de tabelas:** 6  
 
 ## 2. Estrutura do documento
 
@@ -144,3 +144,54 @@ O documento está pronto para revisão final antes da apresentação da banca do
 - Nenhum commit ou push foi realizado.
 - Nenhum código-fonte foi alterado.
 - O documento DOCX é um arquivo novo, adicionado ao working tree.
+
+## 9. Alterações realizadas nesta sessão (revisão final para apresentação do TCC)
+
+### 9.1 Correções de consistência
+
+| Item | Problema | Correção |
+|------|----------|----------|
+| Total de parágrafos | Informava 308, mas o DOCX tem 256 | Corrigido para 256 |
+| Total de tabelas | Informava 4, mas o DOCX lista 6 (Tabela 1-6) | Corrigido para 6 |
+
+### 9.2 Novos arquivos criados (materiais de apresentação)
+
+| Arquivo | Conteúdo |
+|---------|----------|
+| docs/APRESENTACAO_TCC_ESTRUTURA_SLIDES.md | Estrutura dos 18 slides, tempo por slide, objetivos, orientacoes de formato |
+| docs/APRESENTACAO_TCC_CONTEUDO_SLIDES.md | Conteudo detalhado slide a slide, texto na tela e roteiro de fala resumido |
+| docs/APRESENTACAO_TCC_ROTEIRO_FALA.md | Roteiro completo de fala para todos os 18 slides, tempo total estimado ~25 min |
+| docs/APRESENTACAO_TCC_ARQUITETURA_TECNOLOGIAS.md | Explicacao detalhada da arquitetura, tecnologias, endpoints, banco de dados, diferencais |
+| docs/APRESENTACAO_TCC_DEMONSTRACAO.md | Sequencia passo a passo de demonstracao pratica (8 passos), script de contingencia, orientacoes sem improvisacao |
+| docs/APRESENTACAO_TCC_PERGUNTAS_RESPOSTAS.md | 23 perguntas possiveis da banca com respostas tecnicas, plus orientacoes para perguntas desconhecidas |
+
+### 9.3 Documentos analisados e preservados (sem alteracao de conteudo)
+
+| Documento | Finalidade | Status |
+|-----------|------------|--------|
+| Sistema_Navegacao_Indoor.docx | Lote 3 - SENAI Tecnico em Desenvolvimento de Sistemas | Preservado, nao modificado |
+| TCC_Navegacao_Indoor_3D_Final.docx | TCC final - UTFPR Tecnologo em ADS | Revisado (placeholders de autor/orientador mantidos) |
+| TCC_Navegacao_Indoor_3D_Com_Imagens.docx | Versao ilustrada do TCC final | Revisado (imagens e legendas verificadas) |
+| TCC_Navegacao_Indoor_3D_Parte1.docx | Rascunho intermediario Parte 1 | Preservado, nao modificado |
+| TCC_Navegacao_Indoor_3D_Parte2.docx | Rascunho intermediario Parte 2 | Preservado, nao modificado |
+| TCC_Navegacao_Indoor_3D_Parte3.docx | Rascunho intermediario Parte 3 | Preservado, nao modificado |
+| Rodar.md | Instrucoes de execucao local | Revisado (consistente com implementacao) |
+| docs/COMO_EXECUTAR_PARTE_PRATICA.md | Guia de execucao da parte pratica | Revisado (consistente com implementacao) |
+
+### 9.4 Informacoes que ainda dependem de validação presencial
+
+| Item | Status | Observacao |
+|------|--------|------------|
+| Autor e Orientador da capa do TCC | Pendente | Placeholders "Nome do Autor" e "Orientador" mantidos nos DOCX |
+| Local / Data da apresentacao | Pendente | Placeholder "Local / Data" mantido nos DOCX |
+| Validação fisica (QR, camera, TalkBack, MySQL local) | Pendente | Roteiro preparado em docs/teste-fisico-visitante.md |
+| Homologacao MySQL | Pendente | Matriz configurada no CI, nao executada localmente |
+| Leitura optica de QR Codes com camera real | Pendente | Nao executada |
+| Navegadores Firefox, WebKit, Edge | Pendente | Apenas Chromium testado |
+
+### 9.5 Pendencias documentais reais
+
+- Preenchimento de Autor, Orientador e Local/Data na capa dos DOCX (depende do autor do TCC)
+- Insercao de imagens binarias nos DOCX (referenciadas na Lista de Figuras, nao embutidas)
+- Elementos pre-textuais especificos da instituicao (ficha catalografica, termos de aprovacao) nao disponiveis no repositorio
+- Paginaçao automática (numeros de pagina) nao implementada no DOCX gerado

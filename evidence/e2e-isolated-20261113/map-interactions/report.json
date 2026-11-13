@@ -1,0 +1,1403 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "tests/map-interactions.spec.ts",
+      "../../evidence/e2e-isolated-20261113/map-interactions"
+    ],
+    "configFile": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\playwright.config.ts",
+    "rootDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/apps/admin/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/evidence/e2e-isolated-20261113/map-interactions/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/evidence/e2e-isolated-20261113/map-interactions/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/evidence/e2e-isolated-20261113/map-interactions/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/evidence/e2e-isolated-20261113/map-interactions/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chrome",
+        "name": "chrome",
+        "testDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/evidence/e2e-isolated-20261113/map-interactions/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "msedge",
+        "name": "msedge",
+        "testDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "../../evidence/e2e-isolated-20261113/map-interactions/report.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "map-interactions.spec.ts",
+      "file": "map-interactions.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "2D mantém arrastes sucessivos em 1×, alteração de preferências e troca de visualização",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 503,
+                  "error": {
+                    "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n",
+                    "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n    at openMap (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:29:21",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts",
+                      "column": 14,
+                      "line": 4
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 2 |\u001b[39m\n \u001b[90m 3 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m openMap(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m\u001b[33m,\u001b[39m mode\u001b[33m:\u001b[39m \u001b[32m\"2D\"\u001b[39m \u001b[33m|\u001b[39m \u001b[32m\"3D\"\u001b[39m) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 4 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 5 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"origin-label\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Entrada principal\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 6 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m`Mapa ${mode}`\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 7 |\u001b[39m   \u001b[36mconst\u001b[39m map \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByTestId(mode \u001b[33m===\u001b[39m \u001b[32m\"2D\"\u001b[39m \u001b[33m?\u001b[39m \u001b[32m\"map-2d-viewport\"\u001b[39m \u001b[33m:\u001b[39m \u001b[32m\"scene-map\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts",
+                        "column": 14,
+                        "line": 4
+                      },
+                      "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n\n  2 |\n  3 | async function openMap(page: Page, mode: \"2D\" | \"3D\") {\n> 4 |   await page.goto(\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\");\n    |              ^\n  5 |   await expect(page.getByTestId(\"origin-label\")).toContainText(\"Entrada principal\");\n  6 |   await page.getByRole(\"button\", { name: `Mapa ${mode}`, exact: true }).click();\n  7 |   const map = page.getByTestId(mode === \"2D\" ? \"map-2d-viewport\" : \"scene-map\");\n    at openMap (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:29:21"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T17:59:49.085Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-2D-mantém-dde0c-ias-e-troca-de-visualização-chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-2D-mantém-dde0c-ias-e-troca-de-visualização-chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts",
+                    "column": 14,
+                    "line": 4
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "86e5fa077c38973b61ed-b673bdee47e840b17e63",
+          "file": "map-interactions.spec.ts",
+          "line": 28,
+          "column": 1
+        },
+        {
+          "title": "2D aproxima sob o cursor, mantém pontos clicáveis e enquadra origem e rota",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 456,
+                  "error": {
+                    "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n",
+                    "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n    at openMap (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:47:21",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts",
+                      "column": 14,
+                      "line": 4
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 2 |\u001b[39m\n \u001b[90m 3 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m openMap(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m\u001b[33m,\u001b[39m mode\u001b[33m:\u001b[39m \u001b[32m\"2D\"\u001b[39m \u001b[33m|\u001b[39m \u001b[32m\"3D\"\u001b[39m) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 4 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 5 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"origin-label\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Entrada principal\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 6 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m`Mapa ${mode}`\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 7 |\u001b[39m   \u001b[36mconst\u001b[39m map \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByTestId(mode \u001b[33m===\u001b[39m \u001b[32m\"2D\"\u001b[39m \u001b[33m?\u001b[39m \u001b[32m\"map-2d-viewport\"\u001b[39m \u001b[33m:\u001b[39m \u001b[32m\"scene-map\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts",
+                        "column": 14,
+                        "line": 4
+                      },
+                      "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n\n  2 |\n  3 | async function openMap(page: Page, mode: \"2D\" | \"3D\") {\n> 4 |   await page.goto(\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\");\n    |              ^\n  5 |   await expect(page.getByTestId(\"origin-label\")).toContainText(\"Entrada principal\");\n  6 |   await page.getByRole(\"button\", { name: `Mapa ${mode}`, exact: true }).click();\n  7 |   const map = page.getByTestId(mode === \"2D\" ? \"map-2d-viewport\" : \"scene-map\");\n    at openMap (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:47:21"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T17:59:51.732Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-2D-aproxi-d7065-is-e-enquadra-origem-e-rota-chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-2D-aproxi-d7065-is-e-enquadra-origem-e-rota-chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts",
+                    "column": 14,
+                    "line": 4
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "86e5fa077c38973b61ed-157cd2bab7355bf10220",
+          "file": "map-interactions.spec.ts",
+          "line": 46,
+          "column": 1
+        },
+        {
+          "title": "3D mantém câmera após arraste, oferece zoom, rotação, vista superior e localização",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 479,
+                  "error": {
+                    "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n",
+                    "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n    at openMap (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:74:21",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts",
+                      "column": 14,
+                      "line": 4
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 2 |\u001b[39m\n \u001b[90m 3 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m openMap(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m\u001b[33m,\u001b[39m mode\u001b[33m:\u001b[39m \u001b[32m\"2D\"\u001b[39m \u001b[33m|\u001b[39m \u001b[32m\"3D\"\u001b[39m) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 4 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 5 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"origin-label\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Entrada principal\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 6 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m`Mapa ${mode}`\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 7 |\u001b[39m   \u001b[36mconst\u001b[39m map \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByTestId(mode \u001b[33m===\u001b[39m \u001b[32m\"2D\"\u001b[39m \u001b[33m?\u001b[39m \u001b[32m\"map-2d-viewport\"\u001b[39m \u001b[33m:\u001b[39m \u001b[32m\"scene-map\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts",
+                        "column": 14,
+                        "line": 4
+                      },
+                      "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n\n  2 |\n  3 | async function openMap(page: Page, mode: \"2D\" | \"3D\") {\n> 4 |   await page.goto(\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\");\n    |              ^\n  5 |   await expect(page.getByTestId(\"origin-label\")).toContainText(\"Entrada principal\");\n  6 |   await page.getByRole(\"button\", { name: `Mapa ${mode}`, exact: true }).click();\n  7 |   const map = page.getByTestId(mode === \"2D\" ? \"map-2d-viewport\" : \"scene-map\");\n    at openMap (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:74:21"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T17:59:53.973Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-3D-mantém-346a0-ista-superior-e-localização-chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-3D-mantém-346a0-ista-superior-e-localização-chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts",
+                    "column": 14,
+                    "line": 4
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "86e5fa077c38973b61ed-455b95f46aaf746de023",
+          "file": "map-interactions.spec.ts",
+          "line": 71,
+          "column": 1
+        },
+        {
+          "title": "Celular: arraste e pinça 2D/3D mantêm o zoom sem rolar a página ou abrir lojas",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 487,
+                  "error": {
+                    "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n",
+                    "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n    at openMap (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:116:25",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts",
+                      "column": 14,
+                      "line": 4
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 2 |\u001b[39m\n \u001b[90m 3 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m openMap(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m\u001b[33m,\u001b[39m mode\u001b[33m:\u001b[39m \u001b[32m\"2D\"\u001b[39m \u001b[33m|\u001b[39m \u001b[32m\"3D\"\u001b[39m) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 4 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 5 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"origin-label\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Entrada principal\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 6 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m`Mapa ${mode}`\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 7 |\u001b[39m   \u001b[36mconst\u001b[39m map \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByTestId(mode \u001b[33m===\u001b[39m \u001b[32m\"2D\"\u001b[39m \u001b[33m?\u001b[39m \u001b[32m\"map-2d-viewport\"\u001b[39m \u001b[33m:\u001b[39m \u001b[32m\"scene-map\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts",
+                        "column": 14,
+                        "line": 4
+                      },
+                      "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n\n  2 |\n  3 | async function openMap(page: Page, mode: \"2D\" | \"3D\") {\n> 4 |   await page.goto(\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\");\n    |              ^\n  5 |   await expect(page.getByTestId(\"origin-label\")).toContainText(\"Entrada principal\");\n  6 |   await page.getByRole(\"button\", { name: `Mapa ${mode}`, exact: true }).click();\n  7 |   const map = page.getByTestId(mode === \"2D\" ? \"map-2d-viewport\" : \"scene-map\");\n    at openMap (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:116:25"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T17:59:56.044Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-Celular-a-d761d-lar-a-página-ou-abrir-lojas-chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-Celular-a-d761d-lar-a-página-ou-abrir-lojas-chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts",
+                    "column": 14,
+                    "line": 4
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "86e5fa077c38973b61ed-fad7136109a30d28c972",
+          "file": "map-interactions.spec.ts",
+          "line": 109,
+          "column": 1
+        },
+        {
+          "title": "2D mantém arrastes sucessivos em 1×, alteração de preferências e troca de visualização",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T17:59:58.313Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-2D-mantém-dde0c-ias-e-troca-de-visualização-firefox\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-2D-mantém-dde0c-ias-e-troca-de-visualização-firefox\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "86e5fa077c38973b61ed-5d82073b41b6a53f3a92",
+          "file": "map-interactions.spec.ts",
+          "line": 28,
+          "column": 1
+        },
+        {
+          "title": "2D aproxima sob o cursor, mantém pontos clicáveis e enquadra origem e rota",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T17:59:59.522Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-2D-aproxi-d7065-is-e-enquadra-origem-e-rota-firefox\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-2D-aproxi-d7065-is-e-enquadra-origem-e-rota-firefox\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "86e5fa077c38973b61ed-f9ffd6ae7d99f8b7a826",
+          "file": "map-interactions.spec.ts",
+          "line": 46,
+          "column": 1
+        },
+        {
+          "title": "3D mantém câmera após arraste, oferece zoom, rotação, vista superior e localização",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:00:00.717Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-3D-mantém-346a0-ista-superior-e-localização-firefox\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-3D-mantém-346a0-ista-superior-e-localização-firefox\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "86e5fa077c38973b61ed-a2a077f411e73d0a0f9a",
+          "file": "map-interactions.spec.ts",
+          "line": 71,
+          "column": 1
+        },
+        {
+          "title": "Celular: arraste e pinça 2D/3D mantêm o zoom sem rolar a página ou abrir lojas",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:00:01.871Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-Celular-a-d761d-lar-a-página-ou-abrir-lojas-firefox\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-Celular-a-d761d-lar-a-página-ou-abrir-lojas-firefox\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "86e5fa077c38973b61ed-3bb2e4c955401f206789",
+          "file": "map-interactions.spec.ts",
+          "line": 109,
+          "column": 1
+        },
+        {
+          "title": "2D mantém arrastes sucessivos em 1×, alteração de preferências e troca de visualização",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:00:03.050Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-2D-mantém-dde0c-ias-e-troca-de-visualização-webkit\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-2D-mantém-dde0c-ias-e-troca-de-visualização-webkit\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "86e5fa077c38973b61ed-c21dab0b8f3c3161ec43",
+          "file": "map-interactions.spec.ts",
+          "line": 28,
+          "column": 1
+        },
+        {
+          "title": "2D aproxima sob o cursor, mantém pontos clicáveis e enquadra origem e rota",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:00:04.217Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-2D-aproxi-d7065-is-e-enquadra-origem-e-rota-webkit\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-2D-aproxi-d7065-is-e-enquadra-origem-e-rota-webkit\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "86e5fa077c38973b61ed-d0908c1dc260be78242e",
+          "file": "map-interactions.spec.ts",
+          "line": 46,
+          "column": 1
+        },
+        {
+          "title": "3D mantém câmera após arraste, oferece zoom, rotação, vista superior e localização",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 10,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:00:05.370Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-3D-mantém-346a0-ista-superior-e-localização-webkit\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-3D-mantém-346a0-ista-superior-e-localização-webkit\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "86e5fa077c38973b61ed-ef0cbec00a86640e1ea7",
+          "file": "map-interactions.spec.ts",
+          "line": 71,
+          "column": 1
+        },
+        {
+          "title": "Celular: arraste e pinça 2D/3D mantêm o zoom sem rolar a página ou abrir lojas",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 11,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:00:06.522Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-Celular-a-d761d-lar-a-página-ou-abrir-lojas-webkit\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-Celular-a-d761d-lar-a-página-ou-abrir-lojas-webkit\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "86e5fa077c38973b61ed-fa1d823650b081f252e5",
+          "file": "map-interactions.spec.ts",
+          "line": 109,
+          "column": 1
+        },
+        {
+          "title": "2D mantém arrastes sucessivos em 1×, alteração de preferências e troca de visualização",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 12,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 669,
+                  "error": {
+                    "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n",
+                    "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n    at openMap (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:29:21",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts",
+                      "column": 14,
+                      "line": 4
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 2 |\u001b[39m\n \u001b[90m 3 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m openMap(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m\u001b[33m,\u001b[39m mode\u001b[33m:\u001b[39m \u001b[32m\"2D\"\u001b[39m \u001b[33m|\u001b[39m \u001b[32m\"3D\"\u001b[39m) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 4 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 5 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"origin-label\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Entrada principal\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 6 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m`Mapa ${mode}`\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 7 |\u001b[39m   \u001b[36mconst\u001b[39m map \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByTestId(mode \u001b[33m===\u001b[39m \u001b[32m\"2D\"\u001b[39m \u001b[33m?\u001b[39m \u001b[32m\"map-2d-viewport\"\u001b[39m \u001b[33m:\u001b[39m \u001b[32m\"scene-map\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts",
+                        "column": 14,
+                        "line": 4
+                      },
+                      "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n\n  2 |\n  3 | async function openMap(page: Page, mode: \"2D\" | \"3D\") {\n> 4 |   await page.goto(\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\");\n    |              ^\n  5 |   await expect(page.getByTestId(\"origin-label\")).toContainText(\"Entrada principal\");\n  6 |   await page.getByRole(\"button\", { name: `Mapa ${mode}`, exact: true }).click();\n  7 |   const map = page.getByTestId(mode === \"2D\" ? \"map-2d-viewport\" : \"scene-map\");\n    at openMap (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:29:21"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:00:07.713Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-2D-mantém-dde0c-ias-e-troca-de-visualização-chrome\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-2D-mantém-dde0c-ias-e-troca-de-visualização-chrome\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts",
+                    "column": 14,
+                    "line": 4
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "86e5fa077c38973b61ed-f5c3d016eb2f58a8d7ac",
+          "file": "map-interactions.spec.ts",
+          "line": 28,
+          "column": 1
+        },
+        {
+          "title": "2D aproxima sob o cursor, mantém pontos clicáveis e enquadra origem e rota",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 13,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 661,
+                  "error": {
+                    "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n",
+                    "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n    at openMap (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:47:21",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts",
+                      "column": 14,
+                      "line": 4
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 2 |\u001b[39m\n \u001b[90m 3 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m openMap(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m\u001b[33m,\u001b[39m mode\u001b[33m:\u001b[39m \u001b[32m\"2D\"\u001b[39m \u001b[33m|\u001b[39m \u001b[32m\"3D\"\u001b[39m) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 4 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 5 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"origin-label\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Entrada principal\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 6 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m`Mapa ${mode}`\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 7 |\u001b[39m   \u001b[36mconst\u001b[39m map \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByTestId(mode \u001b[33m===\u001b[39m \u001b[32m\"2D\"\u001b[39m \u001b[33m?\u001b[39m \u001b[32m\"map-2d-viewport\"\u001b[39m \u001b[33m:\u001b[39m \u001b[32m\"scene-map\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts",
+                        "column": 14,
+                        "line": 4
+                      },
+                      "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n\n  2 |\n  3 | async function openMap(page: Page, mode: \"2D\" | \"3D\") {\n> 4 |   await page.goto(\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\");\n    |              ^\n  5 |   await expect(page.getByTestId(\"origin-label\")).toContainText(\"Entrada principal\");\n  6 |   await page.getByRole(\"button\", { name: `Mapa ${mode}`, exact: true }).click();\n  7 |   const map = page.getByTestId(mode === \"2D\" ? \"map-2d-viewport\" : \"scene-map\");\n    at openMap (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:47:21"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:00:11.079Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-2D-aproxi-d7065-is-e-enquadra-origem-e-rota-chrome\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-2D-aproxi-d7065-is-e-enquadra-origem-e-rota-chrome\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts",
+                    "column": 14,
+                    "line": 4
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "86e5fa077c38973b61ed-1eab003d239928e51069",
+          "file": "map-interactions.spec.ts",
+          "line": 46,
+          "column": 1
+        },
+        {
+          "title": "3D mantém câmera após arraste, oferece zoom, rotação, vista superior e localização",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 14,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 807,
+                  "error": {
+                    "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n",
+                    "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n    at openMap (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:74:21",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts",
+                      "column": 14,
+                      "line": 4
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 2 |\u001b[39m\n \u001b[90m 3 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m openMap(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m\u001b[33m,\u001b[39m mode\u001b[33m:\u001b[39m \u001b[32m\"2D\"\u001b[39m \u001b[33m|\u001b[39m \u001b[32m\"3D\"\u001b[39m) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 4 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 5 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"origin-label\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Entrada principal\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 6 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m`Mapa ${mode}`\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 7 |\u001b[39m   \u001b[36mconst\u001b[39m map \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByTestId(mode \u001b[33m===\u001b[39m \u001b[32m\"2D\"\u001b[39m \u001b[33m?\u001b[39m \u001b[32m\"map-2d-viewport\"\u001b[39m \u001b[33m:\u001b[39m \u001b[32m\"scene-map\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts",
+                        "column": 14,
+                        "line": 4
+                      },
+                      "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n\n  2 |\n  3 | async function openMap(page: Page, mode: \"2D\" | \"3D\") {\n> 4 |   await page.goto(\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\");\n    |              ^\n  5 |   await expect(page.getByTestId(\"origin-label\")).toContainText(\"Entrada principal\");\n  6 |   await page.getByRole(\"button\", { name: `Mapa ${mode}`, exact: true }).click();\n  7 |   const map = page.getByTestId(mode === \"2D\" ? \"map-2d-viewport\" : \"scene-map\");\n    at openMap (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:74:21"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:00:14.431Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-3D-mantém-346a0-ista-superior-e-localização-chrome\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-3D-mantém-346a0-ista-superior-e-localização-chrome\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts",
+                    "column": 14,
+                    "line": 4
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "86e5fa077c38973b61ed-168b68b49df8a2a19805",
+          "file": "map-interactions.spec.ts",
+          "line": 71,
+          "column": 1
+        },
+        {
+          "title": "Celular: arraste e pinça 2D/3D mantêm o zoom sem rolar a página ou abrir lojas",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 15,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 654,
+                  "error": {
+                    "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n",
+                    "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n    at openMap (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:116:25",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts",
+                      "column": 14,
+                      "line": 4
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 2 |\u001b[39m\n \u001b[90m 3 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m openMap(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m\u001b[33m,\u001b[39m mode\u001b[33m:\u001b[39m \u001b[32m\"2D\"\u001b[39m \u001b[33m|\u001b[39m \u001b[32m\"3D\"\u001b[39m) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 4 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 5 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"origin-label\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Entrada principal\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 6 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m`Mapa ${mode}`\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 7 |\u001b[39m   \u001b[36mconst\u001b[39m map \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByTestId(mode \u001b[33m===\u001b[39m \u001b[32m\"2D\"\u001b[39m \u001b[33m?\u001b[39m \u001b[32m\"map-2d-viewport\"\u001b[39m \u001b[33m:\u001b[39m \u001b[32m\"scene-map\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts",
+                        "column": 14,
+                        "line": 4
+                      },
+                      "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n\n  2 |\n  3 | async function openMap(page: Page, mode: \"2D\" | \"3D\") {\n> 4 |   await page.goto(\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\");\n    |              ^\n  5 |   await expect(page.getByTestId(\"origin-label\")).toContainText(\"Entrada principal\");\n  6 |   await page.getByRole(\"button\", { name: `Mapa ${mode}`, exact: true }).click();\n  7 |   const map = page.getByTestId(mode === \"2D\" ? \"map-2d-viewport\" : \"scene-map\");\n    at openMap (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:116:25"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:00:18.152Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-Celular-a-d761d-lar-a-página-ou-abrir-lojas-chrome\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-Celular-a-d761d-lar-a-página-ou-abrir-lojas-chrome\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts",
+                    "column": 14,
+                    "line": 4
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "86e5fa077c38973b61ed-716c5870188663b05023",
+          "file": "map-interactions.spec.ts",
+          "line": 109,
+          "column": 1
+        },
+        {
+          "title": "2D mantém arrastes sucessivos em 1×, alteração de preferências e troca de visualização",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "msedge",
+              "projectName": "msedge",
+              "results": [
+                {
+                  "workerIndex": 16,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 1033,
+                  "error": {
+                    "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n",
+                    "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n    at openMap (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:29:21",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts",
+                      "column": 14,
+                      "line": 4
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 2 |\u001b[39m\n \u001b[90m 3 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m openMap(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m\u001b[33m,\u001b[39m mode\u001b[33m:\u001b[39m \u001b[32m\"2D\"\u001b[39m \u001b[33m|\u001b[39m \u001b[32m\"3D\"\u001b[39m) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 4 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 5 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"origin-label\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Entrada principal\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 6 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m`Mapa ${mode}`\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 7 |\u001b[39m   \u001b[36mconst\u001b[39m map \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByTestId(mode \u001b[33m===\u001b[39m \u001b[32m\"2D\"\u001b[39m \u001b[33m?\u001b[39m \u001b[32m\"map-2d-viewport\"\u001b[39m \u001b[33m:\u001b[39m \u001b[32m\"scene-map\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts",
+                        "column": 14,
+                        "line": 4
+                      },
+                      "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n\n  2 |\n  3 | async function openMap(page: Page, mode: \"2D\" | \"3D\") {\n> 4 |   await page.goto(\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\");\n    |              ^\n  5 |   await expect(page.getByTestId(\"origin-label\")).toContainText(\"Entrada principal\");\n  6 |   await page.getByRole(\"button\", { name: `Mapa ${mode}`, exact: true }).click();\n  7 |   const map = page.getByTestId(mode === \"2D\" ? \"map-2d-viewport\" : \"scene-map\");\n    at openMap (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:29:21"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:00:21.535Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-2D-mantém-dde0c-ias-e-troca-de-visualização-msedge\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-2D-mantém-dde0c-ias-e-troca-de-visualização-msedge\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts",
+                    "column": 14,
+                    "line": 4
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "86e5fa077c38973b61ed-9fcf11cbdf05766f7a1c",
+          "file": "map-interactions.spec.ts",
+          "line": 28,
+          "column": 1
+        },
+        {
+          "title": "2D aproxima sob o cursor, mantém pontos clicáveis e enquadra origem e rota",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "msedge",
+              "projectName": "msedge",
+              "results": [
+                {
+                  "workerIndex": 17,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 956,
+                  "error": {
+                    "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n",
+                    "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n    at openMap (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:47:21",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts",
+                      "column": 14,
+                      "line": 4
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 2 |\u001b[39m\n \u001b[90m 3 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m openMap(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m\u001b[33m,\u001b[39m mode\u001b[33m:\u001b[39m \u001b[32m\"2D\"\u001b[39m \u001b[33m|\u001b[39m \u001b[32m\"3D\"\u001b[39m) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 4 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 5 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"origin-label\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Entrada principal\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 6 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m`Mapa ${mode}`\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 7 |\u001b[39m   \u001b[36mconst\u001b[39m map \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByTestId(mode \u001b[33m===\u001b[39m \u001b[32m\"2D\"\u001b[39m \u001b[33m?\u001b[39m \u001b[32m\"map-2d-viewport\"\u001b[39m \u001b[33m:\u001b[39m \u001b[32m\"scene-map\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts",
+                        "column": 14,
+                        "line": 4
+                      },
+                      "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n\n  2 |\n  3 | async function openMap(page: Page, mode: \"2D\" | \"3D\") {\n> 4 |   await page.goto(\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\");\n    |              ^\n  5 |   await expect(page.getByTestId(\"origin-label\")).toContainText(\"Entrada principal\");\n  6 |   await page.getByRole(\"button\", { name: `Mapa ${mode}`, exact: true }).click();\n  7 |   const map = page.getByTestId(mode === \"2D\" ? \"map-2d-viewport\" : \"scene-map\");\n    at openMap (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:47:21"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:00:25.348Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-2D-aproxi-d7065-is-e-enquadra-origem-e-rota-msedge\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-2D-aproxi-d7065-is-e-enquadra-origem-e-rota-msedge\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts",
+                    "column": 14,
+                    "line": 4
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "86e5fa077c38973b61ed-06879f4ea9f56eb9ae36",
+          "file": "map-interactions.spec.ts",
+          "line": 46,
+          "column": 1
+        },
+        {
+          "title": "3D mantém câmera após arraste, oferece zoom, rotação, vista superior e localização",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "msedge",
+              "projectName": "msedge",
+              "results": [
+                {
+                  "workerIndex": 18,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 968,
+                  "error": {
+                    "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n",
+                    "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n    at openMap (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:74:21",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts",
+                      "column": 14,
+                      "line": 4
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 2 |\u001b[39m\n \u001b[90m 3 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m openMap(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m\u001b[33m,\u001b[39m mode\u001b[33m:\u001b[39m \u001b[32m\"2D\"\u001b[39m \u001b[33m|\u001b[39m \u001b[32m\"3D\"\u001b[39m) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 4 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 5 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"origin-label\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Entrada principal\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 6 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m`Mapa ${mode}`\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 7 |\u001b[39m   \u001b[36mconst\u001b[39m map \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByTestId(mode \u001b[33m===\u001b[39m \u001b[32m\"2D\"\u001b[39m \u001b[33m?\u001b[39m \u001b[32m\"map-2d-viewport\"\u001b[39m \u001b[33m:\u001b[39m \u001b[32m\"scene-map\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts",
+                        "column": 14,
+                        "line": 4
+                      },
+                      "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n\n  2 |\n  3 | async function openMap(page: Page, mode: \"2D\" | \"3D\") {\n> 4 |   await page.goto(\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\");\n    |              ^\n  5 |   await expect(page.getByTestId(\"origin-label\")).toContainText(\"Entrada principal\");\n  6 |   await page.getByRole(\"button\", { name: `Mapa ${mode}`, exact: true }).click();\n  7 |   const map = page.getByTestId(mode === \"2D\" ? \"map-2d-viewport\" : \"scene-map\");\n    at openMap (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:74:21"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:00:29.025Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-3D-mantém-346a0-ista-superior-e-localização-msedge\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-3D-mantém-346a0-ista-superior-e-localização-msedge\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts",
+                    "column": 14,
+                    "line": 4
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "86e5fa077c38973b61ed-00827be56ec379901a53",
+          "file": "map-interactions.spec.ts",
+          "line": 71,
+          "column": 1
+        },
+        {
+          "title": "Celular: arraste e pinça 2D/3D mantêm o zoom sem rolar a página ou abrir lojas",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "msedge",
+              "projectName": "msedge",
+              "results": [
+                {
+                  "workerIndex": 19,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 940,
+                  "error": {
+                    "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n",
+                    "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n    at openMap (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:116:25",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts",
+                      "column": 14,
+                      "line": 4
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 2 |\u001b[39m\n \u001b[90m 3 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m openMap(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m\u001b[33m,\u001b[39m mode\u001b[33m:\u001b[39m \u001b[32m\"2D\"\u001b[39m \u001b[33m|\u001b[39m \u001b[32m\"3D\"\u001b[39m) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 4 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 5 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"origin-label\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Entrada principal\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 6 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m`Mapa ${mode}`\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 7 |\u001b[39m   \u001b[36mconst\u001b[39m map \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mgetByTestId(mode \u001b[33m===\u001b[39m \u001b[32m\"2D\"\u001b[39m \u001b[33m?\u001b[39m \u001b[32m\"map-2d-viewport\"\u001b[39m \u001b[33m:\u001b[39m \u001b[32m\"scene-map\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts",
+                        "column": 14,
+                        "line": 4
+                      },
+                      "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n\n  2 |\n  3 | async function openMap(page: Page, mode: \"2D\" | \"3D\") {\n> 4 |   await page.goto(\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\");\n    |              ^\n  5 |   await expect(page.getByTestId(\"origin-label\")).toContainText(\"Entrada principal\");\n  6 |   await page.getByRole(\"button\", { name: `Mapa ${mode}`, exact: true }).click();\n  7 |   const map = page.getByTestId(mode === \"2D\" ? \"map-2d-viewport\" : \"scene-map\");\n    at openMap (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts:116:25"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:00:32.728Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-Celular-a-d761d-lar-a-página-ou-abrir-lojas-msedge\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\map-interactions\\artifacts\\map-interactions-Celular-a-d761d-lar-a-página-ou-abrir-lojas-msedge\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\map-interactions.spec.ts",
+                    "column": 14,
+                    "line": 4
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "86e5fa077c38973b61ed-d829c93580eb27b96bdd",
+          "file": "map-interactions.spec.ts",
+          "line": 109,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-13T17:59:47.921Z",
+    "duration": 47359.078,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 20,
+    "flaky": 0
+  }
+}

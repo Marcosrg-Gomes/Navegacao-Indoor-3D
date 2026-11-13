@@ -31,7 +31,7 @@ export function VisitorTabBar({ state, navigation }: BottomTabBarProps) {
         }}
         onLongPress={() => navigation.emit({ type: "tabLongPress", target: route.key })}>
         <View style={[styles.iconPill, selected && styles.iconPillSelected]}>
-          <WayfindingIcon name={mobile && route.name === "index" ? "map" : tab.icon} color={selected ? "#168bd6" : "#526676"} size={23} />
+          <WayfindingIcon name={mobile && route.name === "index" ? "map" : tab.icon} color={selected ? colors.primary : colors.textMuted} size={23} />
         </View>
         <Text style={[styles.label, selected && styles.labelSelected]} numberOfLines={largeText ? 2 : 1}>{label}</Text>
       </Pressable>;
@@ -47,5 +47,5 @@ const styles = StyleSheet.create({
   iconPill: { width: 44, height: 31, borderRadius: 16, alignItems: "center", justifyContent: "center" },
   iconPillSelected: { backgroundColor: colors.sunSoft },
   label: { color: colors.textMuted, fontSize: 12, lineHeight: 16, fontWeight: "700", textAlign: "center" },
-  labelSelected: { color: "#087cc3", fontWeight: "800" },
+  labelSelected: { color: colors.primary, fontWeight: "800" },
 });

@@ -183,8 +183,9 @@ export function FloorMap({
           </G>;
         })}
         {position && position.floorId === floorId && <G testID="position-marker" accessibilityLabel={position.source === "simulation" ? "Posição simulada" : "Última posição confirmada"}>
-          <Circle cx={toX(position.x)} cy={toY(position.y)} r={18} fill={colors.surface} stroke={colors.primary} strokeWidth={3} opacity={.97} />
-          <Path d={`M ${toX(position.x)} ${toY(position.y) - 11} L ${toX(position.x) + 10} ${toY(position.y) + 8} L ${toX(position.x)} ${toY(position.y) + 5} L ${toX(position.x) - 10} ${toY(position.y) + 8} Z`} transform={`rotate(${-((position.heading ?? 0) % 360 + 360) % 360} ${toX(position.x)} ${toY(position.y)})`} fill={colors.primary} stroke={colors.primaryDark} strokeWidth={2} />
+          <Circle cx={toX(position.x)} cy={toY(position.y)} r={20} fill={colors.surface} stroke={colors.primary} strokeWidth={3} opacity={.97} />
+          <Path d={`M ${toX(position.x)} ${toY(position.y) - 13} L ${toX(position.x) + 11} ${toY(position.y) + 9} L ${toX(position.x)} ${toY(position.y) + 6} L ${toX(position.x) - 11} ${toY(position.y) + 9} Z`} transform={`rotate(${-((position.heading ?? 0) % 360 + 360) % 360} ${toX(position.x)} ${toY(position.y)})`} fill={colors.primary} stroke={colors.primaryDark} strokeWidth={2} />
+          {!compact && <SvgText x={toX(position.x)} y={toY(position.y) - 26} textAnchor="middle" fontSize={11} fontWeight="800" fill={colors.primary} letterSpacing={0.5}>Você</SvgText>}
         </G>}
       </g>
     </Svg>

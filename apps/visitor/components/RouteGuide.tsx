@@ -6,13 +6,14 @@ import { directoryStyles as d, ink, paper, accent, mono } from "./directoryDesig
 import { useVisitPlan } from "@/context/VisitPlan";
 import type { EtapaRota } from "@/types";
 
+type GuideView = "resumo" | "intermediario" | "expandido";
+
 export function RouteGuide({ onLost, onPreview, onMap }: { onMap?: () => void; onLost?: () => void; onPreview?: (step: EtapaRota) => void }) {
   const nav = useNavigation();
   const plan = useVisitPlan();
   const [step, setStep] = useState(0);
-  const [expanded, setExpanded] = useState(false);
-  const [showDetails, setShowDetails] = useState(false);
-  useEffect(() => { setStep(0); setExpanded(false); setShowDetails(false); }, [nav.route]);
+  const [guideView, setGuideView] = useState<GuideView>("resumo");
+  useEffect(() => { setStep(0); setGuideView("resumo"); }, [nav.route]);
   if (nav.hasArrived || (!nav.route && !nav.routeLoading && !nav.routeError)) return null;
   const route = nav.route;
   const steps = route?.etapas?.length ? route.etapas.filter((item) => item.tipo !== "inicio") :
@@ -26,6 +27,10 @@ export function RouteGuide({ onLost, onPreview, onMap }: { onMap?: () => void; o
     const targetFloor = steps[index]?.piso_origem_id;
     if (targetFloor && targetFloor !== nav.floor?.id) void nav.selectFloor(targetFloor);
   }
+  function nextView() {
+    setGuideView((v) => v === "resumo" ? "intermediario" : v === "intermediario" ? "expandido" : "resumo");
+  }
+  const viewLabel = guideView === "resumo" ? "Ver próximos passos" : guideView === "intermediario" ? "Ver detalhes do percurso" : "Ver resumo";
   return <View style={styles.panel} testID="route-panel" accessibilityState={{ busy }}>
     <View style={styles.heading}>
       <View style={{ flex: 1, minWidth: 160, gap: 5 }}>
@@ -50,34 +55,31 @@ export function RouteGuide({ onLost, onPreview, onMap }: { onMap?: () => void; o
           <Text style={[styles.link, { color: paper }]}>Ver trecho no {nav.floors.find((floor) => floor.id === current.piso_destino_id)?.nome}</Text>
         </TouchableOpacity>}
       </View>
-      <View style={styles.routeTools}>
+      {guideView !== "resumo" && <View style={styles.routeTools}>
         {onMap && <TouchableOpacity accessibilityRole="button" style={styles.mapAction} onPress={onMap}><Text style={styles.mapActionText}>Ver mapa do trajeto ↓</Text></TouchableOpacity>}
         {onLost && <TouchableOpacity accessibilityRole="button" style={styles.lostAction} onPress={onLost}><Text style={styles.lostActionText}>Estou perdido</Text></TouchableOpacity>}
-      </View>
-      {steps.slice(step + 1, step + 3).map((item, offset) => <View key={offset} style={styles.step}><Text style={d.label}>{offset === 0 ? "DEPOIS" : "EM SEGUIDA"}</Text><Text style={[d.text, { flex: 1 }]}>{item.texto}</Text></View>)}
+      </View>}
+      {guideView !== "resumo" && steps.slice(step + 1, step + 3).map((item, offset) => <View key={offset} style={styles.step}><Text style={d.label}>{offset === 0 ? "DEPOIS" : "EM SEGUIDA"}</Text><Text style={[d.text, { flex: 1 }]}>{item.texto}</Text></View>)}
       {route && <TouchableOpacity accessibilityRole="button" style={[styles.primary, disabled && styles.disabled]} disabled={disabled}
         accessibilityState={{ disabled }} onPress={() => void nav.completeNavigation()}><Text style={styles.primaryText}>{nav.arrivalLoading ? "Atualizando posição…" : "Cheguei ao destino"}</Text></TouchableOpacity>}
       {onPreview && Platform.OS === "web" && route.etapas && current.tipo !== "chegada" && <TouchableOpacity accessibilityRole="button" style={d.link} onPress={() => onPreview(current as EtapaRota)}><Text style={d.linkText}>Ver o que encontrarei ↗</Text></TouchableOpacity>}
-      <View style={styles.row}>
+      {guideView !== "resumo" && <View style={styles.row}>
         {step > 0 && <TouchableOpacity accessibilityRole="button" style={styles.secondary} disabled={disabled}
           accessibilityState={{ disabled }} onPress={() => moveStep(step - 1)}><Text style={styles.link}>Passo anterior</Text></TouchableOpacity>}
         {step < steps.length - 1 && <TouchableOpacity accessibilityRole="button" style={styles.secondary} disabled={disabled}
           accessibilityState={{ disabled }} onPress={() => moveStep(step + 1)}><Text style={styles.link}>Próximo passo</Text></TouchableOpacity>}
-      </View>
-      <TouchableOpacity accessibilityRole="button" accessibilityState={{ expanded }} style={styles.secondary} onPress={() => setExpanded((value) => !value)}>
-        <Text style={styles.link}>{expanded ? "Ocultar instruções" : "Ver instruções"}</Text>
-      </TouchableOpacity>
-      {expanded && <View testID="route-instructions">{steps.map((item, index) => index >= step && index <= step + 2 ? null : <View key={index} style={styles.step}>
+      </View>}
+      {guideView === "expandido" && <View testID="route-instructions">{steps.map((item, index) => index >= step && index <= step + 2 ? null : <View key={index} style={styles.step}>
         <Text style={styles.stepIndex}>{index + 1}</Text><Text style={styles.stepText}>{item.texto}</Text>
       </View>)}</View>}
     </>}
-    {route?.resumo && <TouchableOpacity accessibilityRole="button" accessibilityState={{ expanded: showDetails }} style={styles.detailToggle} onPress={() => setShowDetails((value) => !value)}><Text style={styles.detailToggleText}>{showDetails ? "Ocultar detalhes" : "Detalhes do percurso"}  {showDetails ? "⌃" : "⌄"}</Text><Text style={d.muted}>{route.resumo.minutos_estimados} min estimados · {nav.acessivel ? "sem escadas" : "rota padrão"}</Text></TouchableOpacity>}
-    {showDetails && route?.resumo && <View style={d.line} testID="route-composition"><Text style={d.label}>{nav.acessivel ? "ROTA SEM ESCADAS" : "SEU PERCURSO"}</Text>
+    {guideView === "expandido" && route?.resumo && <TouchableOpacity accessibilityRole="button" accessibilityState={{ expanded: true }} style={styles.detailToggle} onPress={nextView}><Text style={styles.detailToggleText}>{viewLabel}  ⌃</Text></TouchableOpacity>}
+    {guideView === "expandido" && route?.resumo && <View style={d.line} testID="route-composition"><Text style={d.label}>{nav.acessivel ? "ROTA SEM ESCADAS" : "SEU PERCURSO"}</Text>
       <Text style={d.text}>{route.resumo.metros_corredor} m no piso · {route.resumo.elevadores} elevador(es) · {route.resumo.escadas} escada(s)</Text>
       <Text style={d.muted}>≈ {route.resumo.minutos_estimados} min caminhando a 1 m/s, sem espera nos acessos. Ajuste ao seu ritmo.</Text>
       {nav.acessivel && <Text style={d.muted}>O caminho evita escadas. Não há certificação de portas ou do interior das lojas.</Text>}
     </View>}
-    {showDetails && floors.length > 1 && <View style={{ gap: 8 }}>
+    {guideView === "expandido" && floors.length > 1 && <View style={{ gap: 8 }}>
       <Text style={styles.text}>Rota entre pisos</Text>
       <View style={styles.row}>{floors.map((floor) => <TouchableOpacity key={floor.id} accessibilityRole="button"
         accessibilityLabel={`Ver trechos de ${floor.nome}`} accessibilityState={{ selected: nav.floor?.id === floor.id }}
@@ -85,12 +87,13 @@ export function RouteGuide({ onLost, onPreview, onMap }: { onMap?: () => void; o
         <Text style={styles.link}>{floor.nome} · {steps.filter((item) => item.piso_origem_id === floor.id && item.tipo !== "chegada").length} passos</Text>
       </TouchableOpacity>)}</View>
     </View>}
-    {showDetails && plan.stops[0]?.id === nav.destinationNodeId && <Text style={d.text}>Passeio: {plan.stops.map((node) => node.nome).join(" → ")}</Text>}
-    <View style={styles.row}>
+    {guideView === "expandido" && plan.stops[0]?.id === nav.destinationNodeId && <Text style={d.text}>Passeio: {plan.stops.map((node) => node.nome).join(" → ")}</Text>}
+    {guideView === "expandido" && <View style={styles.row}>
       <TouchableOpacity accessibilityRole="button" style={styles.secondary} disabled={busy} accessibilityState={{ disabled: busy }} onPress={() => void nav.recalculate()}><Text style={styles.link}>Recalcular</Text></TouchableOpacity>
       <TouchableOpacity accessibilityRole="button" style={styles.secondary} onPress={() => { plan.cancel(); nav.clearRoute(); }}><Text style={styles.link}>Cancelar rota</Text></TouchableOpacity>
-    </View>
-    <Text style={styles.note}>Avançar os passos não altera sua posição. Leia um QR durante o caminho ou confirme a chegada ao destino.</Text>
+    </View>}
+    {guideView !== "expandido" && <TouchableOpacity accessibilityRole="button" style={styles.viewToggle} onPress={nextView}><Text style={styles.viewToggleText}>{viewLabel}</Text></TouchableOpacity>}
+    {guideView === "expandido" && <Text style={styles.note}>Avançar os passos não altera sua posição. Leia um QR durante o caminho ou confirme a chegada ao destino.</Text>}
   </View>;
 }
 
@@ -112,6 +115,8 @@ const styles = StyleSheet.create({
   lostActionText: { color: colors.primary, fontSize: 15, fontWeight: "700" },
   detailToggle: { minHeight: 52, justifyContent: "center", paddingVertical: 8, borderTopWidth: 1, borderTopColor: colors.border },
   detailToggleText: { color: colors.primary, fontSize: 16, fontWeight: "700" },
+  viewToggle: { minHeight: 52, justifyContent: "center", paddingVertical: 8, borderTopWidth: 1, borderTopColor: colors.border },
+  viewToggleText: { color: colors.primary, fontSize: 16, fontWeight: "700" },
   text: { color: colors.text, fontSize: 14, lineHeight: 22 },
   note: { color: colors.textMuted, fontSize: 13, lineHeight: 20 },
   secondary: { minHeight: 44, padding: 10, justifyContent: "center" },

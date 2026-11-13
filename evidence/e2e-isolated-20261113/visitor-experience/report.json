@@ -1,0 +1,2366 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "tests/visitor-experience.spec.ts",
+      "../../evidence/e2e-isolated-20261113/visitor-experience"
+    ],
+    "configFile": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\playwright.config.ts",
+    "rootDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/apps/admin/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/evidence/e2e-isolated-20261113/visitor-experience/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/evidence/e2e-isolated-20261113/visitor-experience/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/evidence/e2e-isolated-20261113/visitor-experience/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/evidence/e2e-isolated-20261113/visitor-experience/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chrome",
+        "name": "chrome",
+        "testDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/evidence/e2e-isolated-20261113/visitor-experience/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "msedge",
+        "name": "msedge",
+        "testDir": "C:/Users/Dev_2o_Ano/Documents/Marcos/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "../../evidence/e2e-isolated-20261113/visitor-experience/report.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "visitor-experience.spec.ts",
+      "file": "visitor-experience.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Ajuda lembra dispensa e pode ser reaberta pelo teclado",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 464,
+                  "error": {
+                    "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n",
+                    "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:16:9",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                      "column": 14,
+                      "line": 4
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 2 |\u001b[39m\n \u001b[90m 3 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m start(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 4 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 5 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"origin-label\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Entrada principal\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 6 |\u001b[39m }\n \u001b[90m 7 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m destination(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m\u001b[33m,\u001b[39m name \u001b[33m=\u001b[39m \u001b[32m\"NATURA\"\u001b[39m) {\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                        "column": 14,
+                        "line": 4
+                      },
+                      "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n\n  2 |\n  3 | async function start(page: Page) {\n> 4 |   await page.goto(\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\");\n    |              ^\n  5 |   await expect(page.getByTestId(\"origin-label\")).toContainText(\"Entrada principal\");\n  6 | }\n  7 | async function destination(page: Page, name = \"NATURA\") {\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:16:9"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:04:02.840Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Ajuda-l-a2f60-e-ser-reaberta-pelo-teclado-chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Ajuda-l-a2f60-e-ser-reaberta-pelo-teclado-chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                    "column": 14,
+                    "line": 4
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-583d9df7c68980baf665",
+          "file": "visitor-experience.spec.ts",
+          "line": 15,
+          "column": 1
+        },
+        {
+          "title": "Favoritos e recentes persistem; a posição precisa ser confirmada novamente",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 452,
+                  "error": {
+                    "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n",
+                    "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:32:9",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                      "column": 14,
+                      "line": 4
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 2 |\u001b[39m\n \u001b[90m 3 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m start(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 4 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 5 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"origin-label\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Entrada principal\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 6 |\u001b[39m }\n \u001b[90m 7 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m destination(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m\u001b[33m,\u001b[39m name \u001b[33m=\u001b[39m \u001b[32m\"NATURA\"\u001b[39m) {\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                        "column": 14,
+                        "line": 4
+                      },
+                      "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n\n  2 |\n  3 | async function start(page: Page) {\n> 4 |   await page.goto(\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\");\n    |              ^\n  5 |   await expect(page.getByTestId(\"origin-label\")).toContainText(\"Entrada principal\");\n  6 | }\n  7 | async function destination(page: Page, name = \"NATURA\") {\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:32:9"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:04:05.440Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Favorit-dbf0d-sa-ser-confirmada-novamente-chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Favorit-dbf0d-sa-ser-confirmada-novamente-chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                    "column": 14,
+                    "line": 4
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-a73e1cb1be298b86a2db",
+          "file": "visitor-experience.spec.ts",
+          "line": 31,
+          "column": 1
+        },
+        {
+          "title": "Explorar busca e ordena pelo percurso da API",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 701,
+                  "error": {
+                    "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n",
+                    "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:66:9",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                      "column": 14,
+                      "line": 4
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 2 |\u001b[39m\n \u001b[90m 3 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m start(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 4 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 5 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"origin-label\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Entrada principal\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 6 |\u001b[39m }\n \u001b[90m 7 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m destination(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m\u001b[33m,\u001b[39m name \u001b[33m=\u001b[39m \u001b[32m\"NATURA\"\u001b[39m) {\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                        "column": 14,
+                        "line": 4
+                      },
+                      "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n\n  2 |\n  3 | async function start(page: Page) {\n> 4 |   await page.goto(\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\");\n    |              ^\n  5 |   await expect(page.getByTestId(\"origin-label\")).toContainText(\"Entrada principal\");\n  6 | }\n  7 | async function destination(page: Page, name = \"NATURA\") {\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:66:9"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:04:07.680Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Explora-10361-ordena-pelo-percurso-da-API-chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Explora-10361-ordena-pelo-percurso-da-API-chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                    "column": 14,
+                    "line": 4
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-2ec15e71873c725f7c62",
+          "file": "visitor-experience.spec.ts",
+          "line": 56,
+          "column": 1
+        },
+        {
+          "title": "Serviços sem loja recebem rotas e permitem voltar à entrada",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 556,
+                  "error": {
+                    "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n",
+                    "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:86:9",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                      "column": 14,
+                      "line": 4
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 2 |\u001b[39m\n \u001b[90m 3 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m start(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 4 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 5 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"origin-label\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Entrada principal\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 6 |\u001b[39m }\n \u001b[90m 7 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m destination(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m\u001b[33m,\u001b[39m name \u001b[33m=\u001b[39m \u001b[32m\"NATURA\"\u001b[39m) {\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                        "column": 14,
+                        "line": 4
+                      },
+                      "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n\n  2 |\n  3 | async function start(page: Page) {\n> 4 |   await page.goto(\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\");\n    |              ^\n  5 |   await expect(page.getByTestId(\"origin-label\")).toContainText(\"Entrada principal\");\n  6 | }\n  7 | async function destination(page: Page, name = \"NATURA\") {\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:86:9"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:04:10.061Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Serviço-3cdab-e-permitem-voltar-à-entrada-chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Serviço-3cdab-e-permitem-voltar-à-entrada-chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                    "column": 14,
+                    "line": 4
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-48a532fa901dc8834431",
+          "file": "visitor-experience.spec.ts",
+          "line": 85,
+          "column": 1
+        },
+        {
+          "title": "Avançar instruções e visualizar outro piso não altera a posição",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 576,
+                  "error": {
+                    "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n",
+                    "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:108:9",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                      "column": 14,
+                      "line": 4
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 2 |\u001b[39m\n \u001b[90m 3 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m start(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 4 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 5 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"origin-label\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Entrada principal\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 6 |\u001b[39m }\n \u001b[90m 7 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m destination(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m\u001b[33m,\u001b[39m name \u001b[33m=\u001b[39m \u001b[32m\"NATURA\"\u001b[39m) {\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                        "column": 14,
+                        "line": 4
+                      },
+                      "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n\n  2 |\n  3 | async function start(page: Page) {\n> 4 |   await page.goto(\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\");\n    |              ^\n  5 |   await expect(page.getByTestId(\"origin-label\")).toContainText(\"Entrada principal\");\n  6 | }\n  7 | async function destination(page: Page, name = \"NATURA\") {\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:108:9"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:04:12.346Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Avançar-f4549-o-piso-não-altera-a-posição-chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Avançar-f4549-o-piso-não-altera-a-posição-chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                    "column": 14,
+                    "line": 4
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-51fd5a3280bf55a4ef93",
+          "file": "visitor-experience.spec.ts",
+          "line": 107,
+          "column": 1
+        },
+        {
+          "title": "Recálculo mantém mapa, sinaliza falha e recupera sem perder a origem",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 1096,
+                  "error": {
+                    "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n",
+                    "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:126:9",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                      "column": 14,
+                      "line": 4
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 2 |\u001b[39m\n \u001b[90m 3 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m start(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 4 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 5 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"origin-label\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Entrada principal\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 6 |\u001b[39m }\n \u001b[90m 7 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m destination(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m\u001b[33m,\u001b[39m name \u001b[33m=\u001b[39m \u001b[32m\"NATURA\"\u001b[39m) {\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                        "column": 14,
+                        "line": 4
+                      },
+                      "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n\n  2 |\n  3 | async function start(page: Page) {\n> 4 |   await page.goto(\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\");\n    |              ^\n  5 |   await expect(page.getByTestId(\"origin-label\")).toContainText(\"Entrada principal\");\n  6 | }\n  7 | async function destination(page: Page, name = \"NATURA\") {\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:126:9"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:04:15.714Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Recálcu-36b50-ecupera-sem-perder-a-origem-chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Recálcu-36b50-ecupera-sem-perder-a-origem-chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                    "column": 14,
+                    "line": 4
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-da4cb6ce3fb4926efa3b",
+          "file": "visitor-experience.spec.ts",
+          "line": 125,
+          "column": 1
+        },
+        {
+          "title": "Explorar recupera erro de carregamento e mantém alvos legíveis no celular",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 642,
+                  "error": {
+                    "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n",
+                    "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:148:9",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                      "column": 14,
+                      "line": 4
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 2 |\u001b[39m\n \u001b[90m 3 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m start(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 4 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 5 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"origin-label\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Entrada principal\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 6 |\u001b[39m }\n \u001b[90m 7 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m destination(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m\u001b[33m,\u001b[39m name \u001b[33m=\u001b[39m \u001b[32m\"NATURA\"\u001b[39m) {\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                        "column": 14,
+                        "line": 4
+                      },
+                      "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n\n  2 |\n  3 | async function start(page: Page) {\n> 4 |   await page.goto(\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\");\n    |              ^\n  5 |   await expect(page.getByTestId(\"origin-label\")).toContainText(\"Entrada principal\");\n  6 | }\n  7 | async function destination(page: Page, name = \"NATURA\") {\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:148:9"
+                    },
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                        "column": 32,
+                        "line": 146
+                      },
+                      "message": "Error: page.waitForResponse: Test ended.\n\n  144 |\n  145 | test(\"Explorar recupera erro de carregamento e mantém alvos legíveis no celular\", async ({ page }) => {\n> 146 |   const initialRevision = page.waitForResponse((response) => response.url().endsWith(\"/navigation-state\"));\n      |                                ^\n  147 |   await page.setViewportSize({ width: 360, height: 800 });\n  148 |   await start(page);\n  149 |   await initialRevision;\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:146:32"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:04:19.691Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Explora-88955-m-alvos-legíveis-no-celular-chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Explora-88955-m-alvos-legíveis-no-celular-chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                    "column": 14,
+                    "line": 4
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-8526a19c7fce0c94227d",
+          "file": "visitor-experience.spec.ts",
+          "line": 145,
+          "column": 1
+        },
+        {
+          "title": "Ajuda lembra dispensa e pode ser reaberta pelo teclado",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:04:22.477Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Ajuda-l-a2f60-e-ser-reaberta-pelo-teclado-firefox\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Ajuda-l-a2f60-e-ser-reaberta-pelo-teclado-firefox\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-cc2065128dca9225819e",
+          "file": "visitor-experience.spec.ts",
+          "line": 15,
+          "column": 1
+        },
+        {
+          "title": "Favoritos e recentes persistem; a posição precisa ser confirmada novamente",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:04:23.947Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Favorit-dbf0d-sa-ser-confirmada-novamente-firefox\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Favorit-dbf0d-sa-ser-confirmada-novamente-firefox\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-cb82bc50adbe3475c926",
+          "file": "visitor-experience.spec.ts",
+          "line": 31,
+          "column": 1
+        },
+        {
+          "title": "Explorar busca e ordena pelo percurso da API",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:04:25.457Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Explora-10361-ordena-pelo-percurso-da-API-firefox\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Explora-10361-ordena-pelo-percurso-da-API-firefox\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-749c9d1ae6a39e33587e",
+          "file": "visitor-experience.spec.ts",
+          "line": 56,
+          "column": 1
+        },
+        {
+          "title": "Serviços sem loja recebem rotas e permitem voltar à entrada",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 10,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:04:26.824Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Serviço-3cdab-e-permitem-voltar-à-entrada-firefox\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Serviço-3cdab-e-permitem-voltar-à-entrada-firefox\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-7cd7cddf326d4e673581",
+          "file": "visitor-experience.spec.ts",
+          "line": 85,
+          "column": 1
+        },
+        {
+          "title": "Avançar instruções e visualizar outro piso não altera a posição",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 11,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 3,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:04:28.155Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Avançar-f4549-o-piso-não-altera-a-posição-firefox\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Avançar-f4549-o-piso-não-altera-a-posição-firefox\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-b0cdd30511a35a134dd7",
+          "file": "visitor-experience.spec.ts",
+          "line": 107,
+          "column": 1
+        },
+        {
+          "title": "Recálculo mantém mapa, sinaliza falha e recupera sem perder a origem",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 12,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 3,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:04:29.364Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Recálcu-36b50-ecupera-sem-perder-a-origem-firefox\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Recálcu-36b50-ecupera-sem-perder-a-origem-firefox\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-588e4708bfa635521fb3",
+          "file": "visitor-experience.spec.ts",
+          "line": 125,
+          "column": 1
+        },
+        {
+          "title": "Explorar recupera erro de carregamento e mantém alvos legíveis no celular",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 13,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\firefox-1543\\firefox\\firefox.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:04:30.639Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Explora-88955-m-alvos-legíveis-no-celular-firefox\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Explora-88955-m-alvos-legíveis-no-celular-firefox\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-535a45bd2deda32ddcbe",
+          "file": "visitor-experience.spec.ts",
+          "line": 145,
+          "column": 1
+        },
+        {
+          "title": "Ajuda lembra dispensa e pode ser reaberta pelo teclado",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 14,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 3,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:04:31.788Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Ajuda-l-a2f60-e-ser-reaberta-pelo-teclado-webkit\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Ajuda-l-a2f60-e-ser-reaberta-pelo-teclado-webkit\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-fcb765fccd8c1e21a967",
+          "file": "visitor-experience.spec.ts",
+          "line": 15,
+          "column": 1
+        },
+        {
+          "title": "Favoritos e recentes persistem; a posição precisa ser confirmada novamente",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 15,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 3,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:04:33.082Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Favorit-dbf0d-sa-ser-confirmada-novamente-webkit\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Favorit-dbf0d-sa-ser-confirmada-novamente-webkit\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-cfb2e83a411857b20736",
+          "file": "visitor-experience.spec.ts",
+          "line": 31,
+          "column": 1
+        },
+        {
+          "title": "Explorar busca e ordena pelo percurso da API",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 16,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 3,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:04:34.330Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Explora-10361-ordena-pelo-percurso-da-API-webkit\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Explora-10361-ordena-pelo-percurso-da-API-webkit\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-27a20b3f6a451cffcfac",
+          "file": "visitor-experience.spec.ts",
+          "line": 56,
+          "column": 1
+        },
+        {
+          "title": "Serviços sem loja recebem rotas e permitem voltar à entrada",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 17,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 3,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:04:35.576Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Serviço-3cdab-e-permitem-voltar-à-entrada-webkit\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Serviço-3cdab-e-permitem-voltar-à-entrada-webkit\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-14a671cd8d561ab51305",
+          "file": "visitor-experience.spec.ts",
+          "line": 85,
+          "column": 1
+        },
+        {
+          "title": "Avançar instruções e visualizar outro piso não altera a posição",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 18,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 3,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:04:36.788Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Avançar-f4549-o-piso-não-altera-a-posição-webkit\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Avançar-f4549-o-piso-não-altera-a-posição-webkit\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-5b3f1d5a5eff396f350a",
+          "file": "visitor-experience.spec.ts",
+          "line": 107,
+          "column": 1
+        },
+        {
+          "title": "Recálculo mantém mapa, sinaliza falha e recupera sem perder a origem",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 19,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 3,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:04:38.067Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Recálcu-36b50-ecupera-sem-perder-a-origem-webkit\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Recálcu-36b50-ecupera-sem-perder-a-origem-webkit\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-9fa06f7498878a292ba1",
+          "file": "visitor-experience.spec.ts",
+          "line": 125,
+          "column": 1
+        },
+        {
+          "title": "Explorar recupera erro de carregamento e mantém alvos legíveis no celular",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 20,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 3,
+                  "error": {
+                    "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+                    "stack": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Executable doesn't exist at C:\\Users\\Dev_2o_Ano\\AppData\\Local\\ms-playwright\\webkit-2359\\Playwright.exe\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:04:39.263Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Explora-88955-m-alvos-legíveis-no-celular-webkit\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Explora-88955-m-alvos-legíveis-no-celular-webkit\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-35e7c9db7646fa2daf3b",
+          "file": "visitor-experience.spec.ts",
+          "line": 145,
+          "column": 1
+        },
+        {
+          "title": "Ajuda lembra dispensa e pode ser reaberta pelo teclado",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 21,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 763,
+                  "error": {
+                    "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n",
+                    "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:16:9",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                      "column": 14,
+                      "line": 4
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 2 |\u001b[39m\n \u001b[90m 3 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m start(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 4 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 5 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"origin-label\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Entrada principal\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 6 |\u001b[39m }\n \u001b[90m 7 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m destination(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m\u001b[33m,\u001b[39m name \u001b[33m=\u001b[39m \u001b[32m\"NATURA\"\u001b[39m) {\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                        "column": 14,
+                        "line": 4
+                      },
+                      "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n\n  2 |\n  3 | async function start(page: Page) {\n> 4 |   await page.goto(\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\");\n    |              ^\n  5 |   await expect(page.getByTestId(\"origin-label\")).toContainText(\"Entrada principal\");\n  6 | }\n  7 | async function destination(page: Page, name = \"NATURA\") {\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:16:9"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:04:40.454Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Ajuda-l-a2f60-e-ser-reaberta-pelo-teclado-chrome\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Ajuda-l-a2f60-e-ser-reaberta-pelo-teclado-chrome\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                    "column": 14,
+                    "line": 4
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-3fc9c49263a31d836d87",
+          "file": "visitor-experience.spec.ts",
+          "line": 15,
+          "column": 1
+        },
+        {
+          "title": "Favoritos e recentes persistem; a posição precisa ser confirmada novamente",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 22,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 849,
+                  "error": {
+                    "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n",
+                    "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:32:9",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                      "column": 14,
+                      "line": 4
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 2 |\u001b[39m\n \u001b[90m 3 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m start(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 4 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 5 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"origin-label\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Entrada principal\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 6 |\u001b[39m }\n \u001b[90m 7 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m destination(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m\u001b[33m,\u001b[39m name \u001b[33m=\u001b[39m \u001b[32m\"NATURA\"\u001b[39m) {\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                        "column": 14,
+                        "line": 4
+                      },
+                      "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n\n  2 |\n  3 | async function start(page: Page) {\n> 4 |   await page.goto(\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\");\n    |              ^\n  5 |   await expect(page.getByTestId(\"origin-label\")).toContainText(\"Entrada principal\");\n  6 | }\n  7 | async function destination(page: Page, name = \"NATURA\") {\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:32:9"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:04:43.957Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Favorit-dbf0d-sa-ser-confirmada-novamente-chrome\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Favorit-dbf0d-sa-ser-confirmada-novamente-chrome\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                    "column": 14,
+                    "line": 4
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-9acc4850646825a914fc",
+          "file": "visitor-experience.spec.ts",
+          "line": 31,
+          "column": 1
+        },
+        {
+          "title": "Explorar busca e ordena pelo percurso da API",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 23,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 963,
+                  "error": {
+                    "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n",
+                    "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:66:9",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                      "column": 14,
+                      "line": 4
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 2 |\u001b[39m\n \u001b[90m 3 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m start(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 4 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 5 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"origin-label\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Entrada principal\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 6 |\u001b[39m }\n \u001b[90m 7 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m destination(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m\u001b[33m,\u001b[39m name \u001b[33m=\u001b[39m \u001b[32m\"NATURA\"\u001b[39m) {\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                        "column": 14,
+                        "line": 4
+                      },
+                      "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n\n  2 |\n  3 | async function start(page: Page) {\n> 4 |   await page.goto(\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\");\n    |              ^\n  5 |   await expect(page.getByTestId(\"origin-label\")).toContainText(\"Entrada principal\");\n  6 | }\n  7 | async function destination(page: Page, name = \"NATURA\") {\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:66:9"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:04:47.623Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Explora-10361-ordena-pelo-percurso-da-API-chrome\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Explora-10361-ordena-pelo-percurso-da-API-chrome\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                    "column": 14,
+                    "line": 4
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-5945159fd546017af896",
+          "file": "visitor-experience.spec.ts",
+          "line": 56,
+          "column": 1
+        },
+        {
+          "title": "Serviços sem loja recebem rotas e permitem voltar à entrada",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 24,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 950,
+                  "error": {
+                    "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n",
+                    "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:86:9",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                      "column": 14,
+                      "line": 4
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 2 |\u001b[39m\n \u001b[90m 3 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m start(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 4 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 5 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"origin-label\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Entrada principal\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 6 |\u001b[39m }\n \u001b[90m 7 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m destination(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m\u001b[33m,\u001b[39m name \u001b[33m=\u001b[39m \u001b[32m\"NATURA\"\u001b[39m) {\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                        "column": 14,
+                        "line": 4
+                      },
+                      "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n\n  2 |\n  3 | async function start(page: Page) {\n> 4 |   await page.goto(\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\");\n    |              ^\n  5 |   await expect(page.getByTestId(\"origin-label\")).toContainText(\"Entrada principal\");\n  6 | }\n  7 | async function destination(page: Page, name = \"NATURA\") {\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:86:9"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:04:51.241Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Serviço-3cdab-e-permitem-voltar-à-entrada-chrome\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Serviço-3cdab-e-permitem-voltar-à-entrada-chrome\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                    "column": 14,
+                    "line": 4
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-b717a032fda3cf0f7a40",
+          "file": "visitor-experience.spec.ts",
+          "line": 85,
+          "column": 1
+        },
+        {
+          "title": "Avançar instruções e visualizar outro piso não altera a posição",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 25,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 727,
+                  "error": {
+                    "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n",
+                    "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:108:9",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                      "column": 14,
+                      "line": 4
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 2 |\u001b[39m\n \u001b[90m 3 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m start(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 4 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 5 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"origin-label\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Entrada principal\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 6 |\u001b[39m }\n \u001b[90m 7 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m destination(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m\u001b[33m,\u001b[39m name \u001b[33m=\u001b[39m \u001b[32m\"NATURA\"\u001b[39m) {\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                        "column": 14,
+                        "line": 4
+                      },
+                      "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n\n  2 |\n  3 | async function start(page: Page) {\n> 4 |   await page.goto(\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\");\n    |              ^\n  5 |   await expect(page.getByTestId(\"origin-label\")).toContainText(\"Entrada principal\");\n  6 | }\n  7 | async function destination(page: Page, name = \"NATURA\") {\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:108:9"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:04:54.943Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Avançar-f4549-o-piso-não-altera-a-posição-chrome\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Avançar-f4549-o-piso-não-altera-a-posição-chrome\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                    "column": 14,
+                    "line": 4
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-8210bb07e35a34295754",
+          "file": "visitor-experience.spec.ts",
+          "line": 107,
+          "column": 1
+        },
+        {
+          "title": "Recálculo mantém mapa, sinaliza falha e recupera sem perder a origem",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 26,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 744,
+                  "error": {
+                    "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n",
+                    "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:126:9",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                      "column": 14,
+                      "line": 4
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 2 |\u001b[39m\n \u001b[90m 3 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m start(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 4 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 5 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"origin-label\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Entrada principal\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 6 |\u001b[39m }\n \u001b[90m 7 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m destination(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m\u001b[33m,\u001b[39m name \u001b[33m=\u001b[39m \u001b[32m\"NATURA\"\u001b[39m) {\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                        "column": 14,
+                        "line": 4
+                      },
+                      "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n\n  2 |\n  3 | async function start(page: Page) {\n> 4 |   await page.goto(\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\");\n    |              ^\n  5 |   await expect(page.getByTestId(\"origin-label\")).toContainText(\"Entrada principal\");\n  6 | }\n  7 | async function destination(page: Page, name = \"NATURA\") {\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:126:9"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:04:58.339Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Recálcu-36b50-ecupera-sem-perder-a-origem-chrome\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Recálcu-36b50-ecupera-sem-perder-a-origem-chrome\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                    "column": 14,
+                    "line": 4
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-852c333331179c2e9485",
+          "file": "visitor-experience.spec.ts",
+          "line": 125,
+          "column": 1
+        },
+        {
+          "title": "Explorar recupera erro de carregamento e mantém alvos legíveis no celular",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 27,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 740,
+                  "error": {
+                    "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n",
+                    "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:148:9",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                      "column": 14,
+                      "line": 4
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 2 |\u001b[39m\n \u001b[90m 3 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m start(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 4 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 5 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"origin-label\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Entrada principal\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 6 |\u001b[39m }\n \u001b[90m 7 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m destination(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m\u001b[33m,\u001b[39m name \u001b[33m=\u001b[39m \u001b[32m\"NATURA\"\u001b[39m) {\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                        "column": 14,
+                        "line": 4
+                      },
+                      "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n\n  2 |\n  3 | async function start(page: Page) {\n> 4 |   await page.goto(\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\");\n    |              ^\n  5 |   await expect(page.getByTestId(\"origin-label\")).toContainText(\"Entrada principal\");\n  6 | }\n  7 | async function destination(page: Page, name = \"NATURA\") {\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:148:9"
+                    },
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                        "column": 32,
+                        "line": 146
+                      },
+                      "message": "Error: page.waitForResponse: Test ended.\n\n  144 |\n  145 | test(\"Explorar recupera erro de carregamento e mantém alvos legíveis no celular\", async ({ page }) => {\n> 146 |   const initialRevision = page.waitForResponse((response) => response.url().endsWith(\"/navigation-state\"));\n      |                                ^\n  147 |   await page.setViewportSize({ width: 360, height: 800 });\n  148 |   await start(page);\n  149 |   await initialRevision;\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:146:32"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:05:02.170Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Explora-88955-m-alvos-legíveis-no-celular-chrome\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Explora-88955-m-alvos-legíveis-no-celular-chrome\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                    "column": 14,
+                    "line": 4
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-4644642a74d04aa6900a",
+          "file": "visitor-experience.spec.ts",
+          "line": 145,
+          "column": 1
+        },
+        {
+          "title": "Ajuda lembra dispensa e pode ser reaberta pelo teclado",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "msedge",
+              "projectName": "msedge",
+              "results": [
+                {
+                  "workerIndex": 28,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 997,
+                  "error": {
+                    "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n",
+                    "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:16:9",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                      "column": 14,
+                      "line": 4
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 2 |\u001b[39m\n \u001b[90m 3 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m start(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 4 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 5 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"origin-label\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Entrada principal\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 6 |\u001b[39m }\n \u001b[90m 7 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m destination(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m\u001b[33m,\u001b[39m name \u001b[33m=\u001b[39m \u001b[32m\"NATURA\"\u001b[39m) {\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                        "column": 14,
+                        "line": 4
+                      },
+                      "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n\n  2 |\n  3 | async function start(page: Page) {\n> 4 |   await page.goto(\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\");\n    |              ^\n  5 |   await expect(page.getByTestId(\"origin-label\")).toContainText(\"Entrada principal\");\n  6 | }\n  7 | async function destination(page: Page, name = \"NATURA\") {\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:16:9"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:05:05.858Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Ajuda-l-a2f60-e-ser-reaberta-pelo-teclado-msedge\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Ajuda-l-a2f60-e-ser-reaberta-pelo-teclado-msedge\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                    "column": 14,
+                    "line": 4
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-346dbfb9df04715ff536",
+          "file": "visitor-experience.spec.ts",
+          "line": 15,
+          "column": 1
+        },
+        {
+          "title": "Favoritos e recentes persistem; a posição precisa ser confirmada novamente",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "msedge",
+              "projectName": "msedge",
+              "results": [
+                {
+                  "workerIndex": 29,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 968,
+                  "error": {
+                    "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n",
+                    "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:32:9",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                      "column": 14,
+                      "line": 4
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 2 |\u001b[39m\n \u001b[90m 3 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m start(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 4 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 5 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"origin-label\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Entrada principal\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 6 |\u001b[39m }\n \u001b[90m 7 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m destination(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m\u001b[33m,\u001b[39m name \u001b[33m=\u001b[39m \u001b[32m\"NATURA\"\u001b[39m) {\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                        "column": 14,
+                        "line": 4
+                      },
+                      "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n\n  2 |\n  3 | async function start(page: Page) {\n> 4 |   await page.goto(\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\");\n    |              ^\n  5 |   await expect(page.getByTestId(\"origin-label\")).toContainText(\"Entrada principal\");\n  6 | }\n  7 | async function destination(page: Page, name = \"NATURA\") {\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:32:9"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:05:09.816Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Favorit-dbf0d-sa-ser-confirmada-novamente-msedge\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Favorit-dbf0d-sa-ser-confirmada-novamente-msedge\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                    "column": 14,
+                    "line": 4
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-6ba6fd4f6dfe1d306167",
+          "file": "visitor-experience.spec.ts",
+          "line": 31,
+          "column": 1
+        },
+        {
+          "title": "Explorar busca e ordena pelo percurso da API",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "msedge",
+              "projectName": "msedge",
+              "results": [
+                {
+                  "workerIndex": 30,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 1144,
+                  "error": {
+                    "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n",
+                    "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:66:9",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                      "column": 14,
+                      "line": 4
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 2 |\u001b[39m\n \u001b[90m 3 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m start(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 4 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 5 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"origin-label\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Entrada principal\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 6 |\u001b[39m }\n \u001b[90m 7 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m destination(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m\u001b[33m,\u001b[39m name \u001b[33m=\u001b[39m \u001b[32m\"NATURA\"\u001b[39m) {\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                        "column": 14,
+                        "line": 4
+                      },
+                      "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n\n  2 |\n  3 | async function start(page: Page) {\n> 4 |   await page.goto(\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\");\n    |              ^\n  5 |   await expect(page.getByTestId(\"origin-label\")).toContainText(\"Entrada principal\");\n  6 | }\n  7 | async function destination(page: Page, name = \"NATURA\") {\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:66:9"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:05:13.715Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Explora-10361-ordena-pelo-percurso-da-API-msedge\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Explora-10361-ordena-pelo-percurso-da-API-msedge\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                    "column": 14,
+                    "line": 4
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-a6d0c7c875f59fbc97f5",
+          "file": "visitor-experience.spec.ts",
+          "line": 56,
+          "column": 1
+        },
+        {
+          "title": "Serviços sem loja recebem rotas e permitem voltar à entrada",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "msedge",
+              "projectName": "msedge",
+              "results": [
+                {
+                  "workerIndex": 31,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 1357,
+                  "error": {
+                    "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n",
+                    "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:86:9",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                      "column": 14,
+                      "line": 4
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 2 |\u001b[39m\n \u001b[90m 3 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m start(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 4 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 5 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"origin-label\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Entrada principal\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 6 |\u001b[39m }\n \u001b[90m 7 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m destination(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m\u001b[33m,\u001b[39m name \u001b[33m=\u001b[39m \u001b[32m\"NATURA\"\u001b[39m) {\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                        "column": 14,
+                        "line": 4
+                      },
+                      "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n\n  2 |\n  3 | async function start(page: Page) {\n> 4 |   await page.goto(\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\");\n    |              ^\n  5 |   await expect(page.getByTestId(\"origin-label\")).toContainText(\"Entrada principal\");\n  6 | }\n  7 | async function destination(page: Page, name = \"NATURA\") {\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:86:9"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:05:17.787Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Serviço-3cdab-e-permitem-voltar-à-entrada-msedge\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Serviço-3cdab-e-permitem-voltar-à-entrada-msedge\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                    "column": 14,
+                    "line": 4
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-d6a0ba39c7d4eb476bc5",
+          "file": "visitor-experience.spec.ts",
+          "line": 85,
+          "column": 1
+        },
+        {
+          "title": "Avançar instruções e visualizar outro piso não altera a posição",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "msedge",
+              "projectName": "msedge",
+              "results": [
+                {
+                  "workerIndex": 32,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 978,
+                  "error": {
+                    "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n",
+                    "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:108:9",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                      "column": 14,
+                      "line": 4
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 2 |\u001b[39m\n \u001b[90m 3 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m start(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 4 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 5 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"origin-label\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Entrada principal\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 6 |\u001b[39m }\n \u001b[90m 7 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m destination(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m\u001b[33m,\u001b[39m name \u001b[33m=\u001b[39m \u001b[32m\"NATURA\"\u001b[39m) {\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                        "column": 14,
+                        "line": 4
+                      },
+                      "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n\n  2 |\n  3 | async function start(page: Page) {\n> 4 |   await page.goto(\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\");\n    |              ^\n  5 |   await expect(page.getByTestId(\"origin-label\")).toContainText(\"Entrada principal\");\n  6 | }\n  7 | async function destination(page: Page, name = \"NATURA\") {\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:108:9"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:05:21.887Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Avançar-f4549-o-piso-não-altera-a-posição-msedge\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Avançar-f4549-o-piso-não-altera-a-posição-msedge\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                    "column": 14,
+                    "line": 4
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-6941780b0735d7ed21a3",
+          "file": "visitor-experience.spec.ts",
+          "line": 107,
+          "column": 1
+        },
+        {
+          "title": "Recálculo mantém mapa, sinaliza falha e recupera sem perder a origem",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "msedge",
+              "projectName": "msedge",
+              "results": [
+                {
+                  "workerIndex": 33,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 975,
+                  "error": {
+                    "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n",
+                    "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:126:9",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                      "column": 14,
+                      "line": 4
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 2 |\u001b[39m\n \u001b[90m 3 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m start(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 4 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 5 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"origin-label\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Entrada principal\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 6 |\u001b[39m }\n \u001b[90m 7 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m destination(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m\u001b[33m,\u001b[39m name \u001b[33m=\u001b[39m \u001b[32m\"NATURA\"\u001b[39m) {\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                        "column": 14,
+                        "line": 4
+                      },
+                      "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n\n  2 |\n  3 | async function start(page: Page) {\n> 4 |   await page.goto(\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\");\n    |              ^\n  5 |   await expect(page.getByTestId(\"origin-label\")).toContainText(\"Entrada principal\");\n  6 | }\n  7 | async function destination(page: Page, name = \"NATURA\") {\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:126:9"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:05:25.562Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Recálcu-36b50-ecupera-sem-perder-a-origem-msedge\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Recálcu-36b50-ecupera-sem-perder-a-origem-msedge\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                    "column": 14,
+                    "line": 4
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-cb9e7de96c6398fa962e",
+          "file": "visitor-experience.spec.ts",
+          "line": 125,
+          "column": 1
+        },
+        {
+          "title": "Explorar recupera erro de carregamento e mantém alvos legíveis no celular",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "msedge",
+              "projectName": "msedge",
+              "results": [
+                {
+                  "workerIndex": 34,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 1098,
+                  "error": {
+                    "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n",
+                    "stack": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:148:9",
+                    "location": {
+                      "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                      "column": 14,
+                      "line": 4
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 2 |\u001b[39m\n \u001b[90m 3 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m start(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 4 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m   |\u001b[39m              \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 5 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"origin-label\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Entrada principal\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 6 |\u001b[39m }\n \u001b[90m 7 |\u001b[39m \u001b[36masync\u001b[39m \u001b[36mfunction\u001b[39m destination(page\u001b[33m:\u001b[39m \u001b[33mPage\u001b[39m\u001b[33m,\u001b[39m name \u001b[33m=\u001b[39m \u001b[32m\"NATURA\"\u001b[39m) {\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                        "column": 14,
+                        "line": 4
+                      },
+                      "message": "Error: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\nCall log:\n\u001b[2m  - navigating to \"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\", waiting until \"load\"\u001b[22m\n\n\n  2 |\n  3 | async function start(page: Page) {\n> 4 |   await page.goto(\"http://localhost:8081/?qr=MINI-ENTRADA-PRINCIPAL\");\n    |              ^\n  5 |   await expect(page.getByTestId(\"origin-label\")).toContainText(\"Entrada principal\");\n  6 | }\n  7 | async function destination(page: Page, name = \"NATURA\") {\n    at start (C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:4:14)\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:148:9"
+                    },
+                    {
+                      "location": {
+                        "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                        "column": 32,
+                        "line": 146
+                      },
+                      "message": "Error: page.waitForResponse: Test ended.\n\n  144 |\n  145 | test(\"Explorar recupera erro de carregamento e mantém alvos legíveis no celular\", async ({ page }) => {\n> 146 |   const initialRevision = page.waitForResponse((response) => response.url().endsWith(\"/navigation-state\"));\n      |                                ^\n  147 |   await page.setViewportSize({ width: 360, height: 800 });\n  148 |   await start(page);\n  149 |   await initialRevision;\n    at C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:146:32"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-13T18:05:29.212Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Explora-88955-m-alvos-legíveis-no-celular-msedge\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\evidence\\e2e-isolated-20261113\\visitor-experience\\artifacts\\visitor-experience-Explora-88955-m-alvos-legíveis-no-celular-msedge\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\Dev_2o_Ano\\Documents\\Marcos\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                    "column": 14,
+                    "line": 4
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-a47df12d71d1f56c0cc3",
+          "file": "visitor-experience.spec.ts",
+          "line": 145,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-13T18:04:01.723Z",
+    "duration": 90332.05,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 35,
+    "flaky": 0
+  }
+}
