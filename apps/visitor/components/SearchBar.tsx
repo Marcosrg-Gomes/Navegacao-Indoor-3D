@@ -1,13 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import {
-  ActivityIndicator,
-  FlatList,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { ActivityIndicator, FlatList, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Text, TextInput } from "@/components/AppText";
 import { listPois } from "@/services/api";
 import {
   getStatusOperacional,

@@ -1,14 +1,6 @@
 import { useEffect, useState } from "react";
-import {
-  ActivityIndicator,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  useWindowDimensions,
-  View,
-} from "react-native";
+import { ActivityIndicator, Platform, ScrollView, StyleSheet, TouchableOpacity, useWindowDimensions, View } from "react-native";
+import { Text } from "@/components/AppText";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { SceneMap } from "@/components/SceneMap";
 import { Map2D } from "@/components/Map2D";

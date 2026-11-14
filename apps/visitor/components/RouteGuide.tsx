@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { ActivityIndicator, Platform, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Platform, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Text } from "@/components/AppText";
 import { useNavigation } from "@/context/NavigationContext";
 import { colors } from "@/constants/colors";
 import { directoryStyles as d, ink, paper, accent, mono } from "./directoryDesign";

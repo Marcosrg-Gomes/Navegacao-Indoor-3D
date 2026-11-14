@@ -1,5 +1,6 @@
 import { useRouter } from "expo-router";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { Text } from "@/components/AppText";
 import { getStatusOperacional, type Loja } from "@/types";
 import { colors } from "@/constants/colors";
 import { PoiStatus } from "@/components/PoiStatus";

@@ -8,6 +8,8 @@ from pathlib import Path
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--port", type=int, default=8766)
+    # Padrão local; use --host 0.0.0.0 para testar em celular na mesma rede Wi-Fi.
+    parser.add_argument("--host", default="127.0.0.1")
     args = parser.parse_args()
     database = Path(tempfile.mkdtemp(prefix="mini-shopping-")) / "demo.db"
     os.environ.update(DATABASE_URL="sqlite:///" + database.as_posix(), ADMIN_API_KEY="audit-local-admin-key-with-32-characters", SECRET_KEY="audit-local-only")
@@ -22,7 +24,7 @@ def main():
         seed_mini_shopping(db)
         publish_scene(db, DEFAULT_CATALOG)
     import uvicorn
-    uvicorn.run("app.main:app", host="127.0.0.1", port=args.port)
+    uvicorn.run("app.main:app", host=args.host, port=args.port)
 
 
 if __name__ == "__main__":

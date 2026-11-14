@@ -5,8 +5,10 @@ import Svg, {
   Line,
   Path,
   Rect,
+  SvgXml,
   Text as SvgText,
 } from "react-native-svg";
+import { View } from "react-native";
 import type { Aresta, No, NoRota } from "@/types";
 import { coordenadaNormalizada, TIPO_NO_COR } from "@/types";
 import { getAssetUrl } from "@/services/api";
@@ -14,6 +16,9 @@ import { RouteOverlay } from "./RouteOverlay";
 import type { PositionEstimate } from "@/positioning/types";
 import { colors } from "@/constants/colors";
 import { markerPlanRotation, type MapOrientation } from "./navigationOrientation";
+import { isSvgPlan, orientPlanSvg } from "./planOrientation";
+import { usePlanSvg } from "@/hooks/usePlanSvg";
+import { plexFamily } from "@/constants/typography";
 
 type FloorMapProps = {
   width: number;
@@ -71,9 +76,18 @@ export function FloorMap({
   // Com a planta a 180°, "acima na tela" é coord_y crescente.
   const screenUp = mapRotation === 180 ? -1 : 1;
   const upright = (x: number, y: number) => mapRotation ? `rotate(${-mapRotation} ${x} ${y})` : undefined;
+  // Planta SVG: renderizada como camada própria, com os textos gravados contra-rotacionados a 180°.
+  const planSvg = usePlanSvg(plantaUrl);
+  const svgPlan = isSvgPlan(plantaUrl);
+  const planOpacity = compact ? .58 : 1;
 
   return (
+    <View style={{ width, height, backgroundColor: compact ? colors.primarySoft : colors.bg }}>
+    {planSvg && <View testID="floor-plan-layer" pointerEvents="none" aria-hidden accessibilityElementsHidden importantForAccessibility="no-hide-descendants" style={{ position: "absolute", left: 0, top: 0, width, height, opacity: planOpacity }}>
+      <SvgXml xml={orientPlanSvg(planSvg, mapRotation)} width={width} height={height} preserveAspectRatio="none" />
+    </View>}
     <Svg
+      style={{ position: "absolute", left: 0, top: 0 }}
       width={width}
       height={height}
       viewBox={`0 0 ${width} ${height}`}
@@ -81,17 +95,17 @@ export function FloorMap({
       accessibilityRole="image"
       accessibilityLabel="Mapa 2D do piso com nós e rota de navegação"
     >
-      <g>
-        <Rect x={0} y={0} width={width} height={height} fill={compact ? colors.primarySoft : colors.bg} />
-        {plantaUrl ? (
-          <SvgImage
+      <G>
+        {planSvg ? null : plantaUrl ? (
+          // Enquanto a planta SVG carrega a 180°, não exibe a imagem com textos invertidos.
+          svgPlan && mapRotation === 180 ? null : <SvgImage
             x={0}
             y={0}
             width={width}
             height={height}
             href={{ uri: plantaUrl }}
             preserveAspectRatio="none"
-            opacity={compact ? .58 : 1}
+            opacity={planOpacity}
           />
         ) : (
           <>
@@ -183,14 +197,15 @@ export function FloorMap({
               : <Circle cx={toX(node.coord_x)} cy={toY(node.coord_y)} r={radius} fill={transition && !isOrigin ? colors.accessible : fill} stroke={colors.surface} strokeWidth={2} />}
             {label && labelY !== undefined && <G transform={`rotate(${-mapRotation} ${labelX} ${labelY})`}>
               <Rect x={labelX - labelWidth / 2} y={labelY - (compact ? 10 : 11)} width={labelWidth} height={compact ? 20 : 22} rx={compact ? 10 : 6} fill={isOrigin ? colors.success : isDestination ? colors.danger : colors.surface} stroke={isOrigin || isDestination ? colors.surface : colors.border} strokeWidth={1} />
-              <SvgText x={labelX} y={labelY + (compact ? 3 : 4)} fontSize={compact ? 10 : 11} fontFamily="sans-serif" fontWeight="600" textAnchor="middle" fill={isOrigin || isDestination ? colors.textOnPrimary : colors.text}>{label.length > (compact ? 13 : 25) ? label.slice(0, compact ? 12 : 23) + "…" : label}</SvgText>
+              <SvgText x={labelX} y={labelY + (compact ? 3 : 4)} fontSize={compact ? 10 : 11} fontFamily={plexFamily("600")} fontWeight="600" textAnchor="middle" fill={isOrigin || isDestination ? colors.textOnPrimary : colors.text}>{label.length > (compact ? 13 : 25) ? label.slice(0, compact ? 12 : 23) + "…" : label}</SvgText>
             </G>}            
           </G>;
         })}
         {position && position.floorId === floorId && <NavigationMarker x={toX(position.x)} y={toY(position.y)} rotation={markerPlanRotation(mapRotation)}
           simulated={position.source === "simulation"} showLabel={!compact} />}
-      </g>
+      </G>
     </Svg>
+    </View>
   );
 }
 
@@ -207,7 +222,7 @@ export function NavigationMarker({ x, y, rotation, simulated, showLabel }: { x: 
     </G>
     {showLabel && <G transform={rotation ? `rotate(${-rotation} ${x} ${y})` : undefined}>
       <Rect x={x - 20} y={y - 44} width={40} height={18} rx={9} fill={colors.primary} />
-      <SvgText x={x} y={y - 31} textAnchor="middle" fontSize={11} fontWeight="700" fill={colors.textOnPrimary}>Você</SvgText>
+      <SvgText x={x} y={y - 31} textAnchor="middle" fontSize={11} fontFamily={plexFamily("700")} fontWeight="700" fill={colors.textOnPrimary}>Você</SvgText>
     </G>}
   </G>;
 }

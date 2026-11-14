@@ -134,6 +134,20 @@ inteiro. Arrastar ou ampliar suspende o acompanhamento até tocar em
 **Minha posição**. Nos acessos verticais, a seta permanece no embarque até a
 troca de piso terminar.
 
+**Interface.** No celular, o mapa ocupa a tela com busca, seletor de modo
+(Auto/3D/2D), seletor de piso e controles flutuantes (piso inteiro, zoom e
+minha posição) desenhados com ícones próprios. No navegador a partir de
+1024 px, a navegação vira um trilho lateral com a marca e a tela do mapa se
+divide em painel de controles à esquerda e mapa à direita. A tipografia é IBM
+Plex Sans empacotada no app (web, Android e iOS; ver
+`apps/visitor/constants/typography.ts`).
+
+**App nativo (Android/iOS).** Usa o mapa 2D; a planta SVG mantém os nomes das
+lojas legíveis também a 180°. Para testar em aparelho, inicie a API com
+`services/api/mini_server.py --port 8000 --host 0.0.0.0` e o app com
+`npm start --prefix apps/visitor`; o roteiro completo está em
+`docs/VALIDACAO_DISPOSITIVOS_FISICOS.md`.
+
 **Rota sem escadas.** O botão **Sem escadas** fica visível no painel da rota e
 recalcula usando apenas arestas acessíveis (elevadores e rampas); a escolha é
 mantida em recálculos e desvios. Se não houver caminho acessível, a API responde

@@ -1,8 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import {
-  ActivityIndicator, Platform, ScrollView, StyleSheet,
-  Text, TouchableOpacity, useWindowDimensions, View,
-} from "react-native";
+import { ActivityIndicator, Platform, ScrollView, StyleSheet, TouchableOpacity, useWindowDimensions, View } from "react-native";
+import { Text } from "@/components/AppText";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -22,6 +20,7 @@ import { colors } from "@/constants/colors";
 import { useIsFocused } from "@react-navigation/native";
 import { useDirectory } from "@/hooks/useDirectory";
 import { IntentHome } from "@/components/IntentHome";
+import { RAIL_WIDTH, useRailLayout } from "@/components/VisitorTabBar";
 import { FloorSwitcher } from "@/components/FloorSwitcher";
 import { OrientationPicker } from "@/components/OrientationPicker";
 import { DsButton, DsError, DsToggle } from "@/components/DesignSystem";
@@ -72,8 +71,11 @@ export default function MapScreen() {
   const insets = useSafeAreaInsets();
   const mobileJourney = width < 600;
   const mobileMapHeight = Math.max(280, height - 190);
-  const viewportWidth = Math.max(240, Math.min(width - 34, 1080));
-  const mapHeight = Math.min(600, Math.max(420, height * .64));
+  // Desktop (trilho lateral): painel de controles à esquerda e mapa ocupando o restante da tela.
+  const rail = useRailLayout();
+  const split = rail && showMap;
+  const viewportWidth = split ? Math.max(420, width - RAIL_WIDTH - SPLIT_SIDE - 50) : Math.max(240, Math.min(width - 34, 1080));
+  const mapHeight = split ? Math.max(420, height - 190) : Math.min(600, Math.max(420, height * .64));
   const [locateRequest, setLocateRequest] = useState(0);
   function locate() {
     setFollowing(true);
@@ -158,27 +160,7 @@ export default function MapScreen() {
       destination={nav.hasArrived ? undefined : nav.destinationNodeId} onNodePress={(node) => void inspectNode(node)}
       onLocate={locate} locateRequest={locateRequest} highlight={preview?.referencia_no_id ?? preview?.no_destino_id} />
       : <ActivityIndicator accessibilityLabel="Carregando piso" />} /> : <ActivityIndicator accessibilityLabel="Carregando piso" />;
-  return (
-    <View style={styles.screen} role="main" accessibilityLabel="Mapa e instruções de navegação">
-      {mobileJourney ? <View style={[styles.mobileJourney, { paddingTop: insets.top, backgroundColor: activeRoute ? colors.primaryDark : colors.bg }]}>
-        <StatusBar style={activeRoute ? "light" : "dark"} backgroundColor={activeRoute ? colors.primaryDark : colors.bg} />
-        <View style={styles.mobileMap} onLayout={(event) => setMobileMapSpace(Math.floor(event.nativeEvent.layout.height))}>
-          {renderMap(mobileMapSpace || mobileMapHeight, true)}
-          {activeRoute ? <View style={styles.mobileTop}><WazeManeuverBanner /></View> : <View style={styles.mobileTop}>
-            <View style={styles.mobileSearchRow}><TouchableOpacity accessibilityRole="button" accessibilityLabel="Pesquisar destinos" style={styles.mobileSearch} onPress={() => router.push("/explore")}><WayfindingIcon name="search" color="#223246" /><Text style={styles.mobileSearchText} numberOfLines={1}>Para onde você vai?</Text></TouchableOpacity><TouchableOpacity accessibilityRole="button" accessibilityLabel="Ajuda" style={styles.mobileHelp} onPress={() => setHelp(true)}><WayfindingIcon name="help" color="#223246" /></TouchableOpacity></View>
-          </View>}
-          <FloorSwitcher floors={nav.floors} currentId={nav.floor?.id} top={Platform.OS === "web" ? activeRoute ? 155 : 136 : activeRoute ? 90 : 76}
-            onSelect={(floorId) => { setFollowing(false); void nav.selectFloor(floorId); }} />
-          {(nav.mapError || error) && <View style={styles.mobileError} accessibilityRole="alert"><Text style={styles.errorText}>{error || nav.mapError}</Text><TouchableOpacity accessibilityRole="button" onPress={() => { setLocalError(null); nav.clearError(); void nav.refresh(); }}><Text style={styles.link}>Tentar novamente</Text></TouchableOpacity></View>}
-        </View>
-        {activeRoute ? <WazeNavigationPanel onChooseDestination={() => router.push("/explore")} onCorrectPosition={() => setLost(true)} onHelp={() => setHelp(true)} /> : nav.hasArrived ? <View testID="arrival-notice" style={styles.mobileBottom} accessibilityRole="alert">
-          <Text accessibilityRole="header" style={styles.mobileBottomTitle}>Você chegou a <Text testID="origin-label">{nav.originNode?.nome || nav.destinationName}</Text></Text><Text testID="location-update" style={styles.mobileBottomMeta}>{nav.floor?.nome} · Posição atualizada. A próxima rota começa daqui.</Text>
-          <TouchableOpacity accessibilityRole="button" accessibilityLabel="Iniciar outra navegação" style={styles.mobilePrimary} onPress={() => { nav.clearRoute(); router.push("/explore"); }}><Text style={styles.mobilePrimaryText}>Escolher outro destino</Text></TouchableOpacity>
-        </View> : <View style={styles.mobileBottom}>
-          <View style={styles.mobileBottomRow}><View style={{ flex: 1, minWidth: 0 }}><Text testID="origin-label" style={styles.mobileBottomTitle} numberOfLines={1}>{nav.originNode ? nav.originNode.nome : "Onde você está?"}</Text><Text testID="location-update" style={styles.mobileBottomMeta} numberOfLines={1}>{nav.floor?.nome || "Shopping"} · {nav.originNode ? nav.originUpdate?.source === "qr" ? "Posição por QR" : "Posição definida" : "Defina a posição para navegar"}</Text></View><TouchableOpacity accessibilityRole="button" accessibilityLabel={nav.originNode ? "Corrigir minha posição" : "Definir minha posição"} style={styles.mobilePin} onPress={() => setManual(true)}><WayfindingIcon name="pin" color={colors.primaryDark} /></TouchableOpacity></View>
-          <TouchableOpacity accessibilityRole="button" style={styles.mobilePrimary} onPress={() => router.push("/explore")}><Text style={styles.mobilePrimaryText}>Explorar destinos</Text><Text style={styles.mobilePrimaryText}>→</Text></TouchableOpacity>
-        </View>}
-      </View> : <ScrollView ref={scroll} contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
+  const sideContent = <>
         {(nav.loading || qrBusy) && <View style={styles.row}><ActivityIndicator /><Text>Carregando mapa e localização…</Text></View>}
         {error && <View style={styles.error} accessibilityRole="alert">
           <Text style={styles.errorText}>{error}</Text>
@@ -250,6 +232,8 @@ export default function MapScreen() {
         {activeRoute && <Text testID="origin-label" style={d.muted}>Última posição: {nav.originNode?.nome}</Text>}
         {(activeRoute || nav.hasArrived) && nav.originUpdate && <Text style={d.muted} testID="location-update">{nav.floors.find((f) => f.id === nav.originNode?.piso_id)?.nome} · {({ qr: "QR Code", manual: "Seleção manual", arrival: "Chegada confirmada" })[nav.originUpdate.source]}</Text>}
         {activeRoute && <View onLayout={(event) => { guideOffset.current = event.nativeEvent.layout.y; }}><RouteGuide onMap={goToMap} onLost={() => setLost(true)} onPreview={(step) => void previewStep(step)} /></View>}
+  </>;
+  const mapBlock = <>
         {showMap && <View style={{ gap: 12 }} onLayout={(event) => { mapOffset.current = event.nativeEvent.layout.y; }}>
         {activeRoute && <View style={d.row}><TouchableOpacity accessibilityRole="button" style={d.link} onPress={() => scroll.current?.scrollTo({ y: guideOffset.current, animated: false })}><Text style={d.linkText}>↑ Voltar às instruções</Text></TouchableOpacity><TouchableOpacity accessibilityRole="button" style={d.link} onPress={() => setLost(true)}><Text style={d.linkText}>Corrigir localização</Text></TouchableOpacity></View>}
         {preview && <View style={d.line}><Text style={d.label}>PRÉVIA DO TRECHO / NÃO É POSIÇÃO AO VIVO</Text><Text style={d.text}>{preview.referencia || preview.texto}</Text><View style={d.row}><TouchableOpacity accessibilityRole="button" style={d.link} onPress={() => setPreview(null)}><Text style={d.linkText}>Voltar à vista do mapa</Text></TouchableOpacity>{preview.piso_origem_id !== preview.piso_destino_id && <TouchableOpacity accessibilityRole="button" style={d.link} onPress={() => { const following = nav.route?.etapas?.find((step) => step.no_origem_id === preview.no_destino_id && step.piso_destino_id === preview.piso_destino_id && step.no_origem_id !== step.no_destino_id); if (following) void previewStep(following); else { void nav.selectFloor(preview.piso_destino_id); setPreview(null); } }}><Text style={d.linkText}>Ver saída no outro piso ↗</Text></TouchableOpacity>}</View></View>}
@@ -272,6 +256,32 @@ export default function MapScreen() {
 
 
         </View>}
+  </>;
+  return (
+    <View style={styles.screen} role="main" accessibilityLabel="Mapa e instruções de navegação">
+      {mobileJourney ? <View style={[styles.mobileJourney, { paddingTop: insets.top, backgroundColor: activeRoute ? colors.primaryDark : colors.bg }]}>
+        <StatusBar style={activeRoute ? "light" : "dark"} backgroundColor={activeRoute ? colors.primaryDark : colors.bg} />
+        <View style={styles.mobileMap} onLayout={(event) => setMobileMapSpace(Math.floor(event.nativeEvent.layout.height))}>
+          {renderMap(mobileMapSpace || mobileMapHeight, true)}
+          {activeRoute ? <View style={styles.mobileTop}><WazeManeuverBanner /></View> : <View style={styles.mobileTop}>
+            <View style={styles.mobileSearchRow}><TouchableOpacity accessibilityRole="button" accessibilityLabel="Pesquisar destinos" style={styles.mobileSearch} onPress={() => router.push("/explore")}><WayfindingIcon name="search" color="#223246" /><Text style={styles.mobileSearchText} numberOfLines={1}>Para onde você vai?</Text></TouchableOpacity><TouchableOpacity accessibilityRole="button" accessibilityLabel="Ajuda" style={styles.mobileHelp} onPress={() => setHelp(true)}><WayfindingIcon name="help" color="#223246" /></TouchableOpacity></View>
+          </View>}
+          <FloorSwitcher floors={nav.floors} currentId={nav.floor?.id} top={Platform.OS === "web" ? activeRoute ? 155 : 136 : activeRoute ? 90 : 76}
+            onSelect={(floorId) => { setFollowing(false); void nav.selectFloor(floorId); }} />
+          {(nav.mapError || error) && <View style={styles.mobileError} accessibilityRole="alert"><Text style={styles.errorText}>{error || nav.mapError}</Text><TouchableOpacity accessibilityRole="button" onPress={() => { setLocalError(null); nav.clearError(); void nav.refresh(); }}><Text style={styles.link}>Tentar novamente</Text></TouchableOpacity></View>}
+        </View>
+        {activeRoute ? <WazeNavigationPanel onChooseDestination={() => router.push("/explore")} onCorrectPosition={() => setLost(true)} onHelp={() => setHelp(true)} /> : nav.hasArrived ? <View testID="arrival-notice" style={styles.mobileBottom} accessibilityRole="alert">
+          <Text accessibilityRole="header" style={styles.mobileBottomTitle}>Você chegou a <Text testID="origin-label">{nav.originNode?.nome || nav.destinationName}</Text></Text><Text testID="location-update" style={styles.mobileBottomMeta}>{nav.floor?.nome} · Posição atualizada. A próxima rota começa daqui.</Text>
+          <TouchableOpacity accessibilityRole="button" accessibilityLabel="Iniciar outra navegação" style={styles.mobilePrimary} onPress={() => { nav.clearRoute(); router.push("/explore"); }}><Text style={styles.mobilePrimaryText}>Escolher outro destino</Text></TouchableOpacity>
+        </View> : <View style={styles.mobileBottom}>
+          <View style={styles.mobileBottomRow}><View style={{ flex: 1, minWidth: 0 }}><Text testID="origin-label" style={styles.mobileBottomTitle} numberOfLines={1}>{nav.originNode ? nav.originNode.nome : "Onde você está?"}</Text><Text testID="location-update" style={styles.mobileBottomMeta} numberOfLines={1}>{nav.floor?.nome || "Shopping"} · {nav.originNode ? nav.originUpdate?.source === "qr" ? "Posição por QR" : "Posição definida" : "Defina a posição para navegar"}</Text></View><TouchableOpacity accessibilityRole="button" accessibilityLabel={nav.originNode ? "Corrigir minha posição" : "Definir minha posição"} style={styles.mobilePin} onPress={() => setManual(true)}><WayfindingIcon name="pin" color={colors.primaryDark} /></TouchableOpacity></View>
+          <TouchableOpacity accessibilityRole="button" style={styles.mobilePrimary} onPress={() => router.push("/explore")}><Text style={styles.mobilePrimaryText}>Explorar destinos</Text><Text style={styles.mobilePrimaryText}>→</Text></TouchableOpacity>
+        </View>}
+      </View> : split ? <View style={styles.split}>
+        <ScrollView ref={scroll} style={styles.splitSide} contentContainerStyle={styles.splitSideContent} keyboardShouldPersistTaps="handled">{sideContent}</ScrollView>
+        <ScrollView style={styles.splitMap} contentContainerStyle={styles.splitMapContent}>{mapBlock}</ScrollView>
+      </View> : <ScrollView ref={scroll} contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
+        {sideContent}{mapBlock}
       </ScrollView>}
       <MapHelp visible={help} onClose={() => setHelp(false)} />
       <AccessibleSheet visible={!!reference} title={reference?.nome || "Ponto de referência"} onClose={() => setReference(null)}>
@@ -286,8 +296,14 @@ export default function MapScreen() {
   );
 }
 
+const SPLIT_SIDE = 420;
 const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: paper },
+  split: { flex: 1, flexDirection: "row" },
+  splitSide: { width: SPLIT_SIDE, flexGrow: 0, flexShrink: 0, backgroundColor: colors.surface, borderRightWidth: 1, borderRightColor: colors.borderLight },
+  splitSideContent: { padding: 24, gap: 14, paddingBottom: 40 },
+  splitMap: { flex: 1 },
+  splitMapContent: { padding: 24, gap: 12 },
   mobileJourney: { flex: 1, backgroundColor: "#e6eeec" },
   mobileTop: { position: "absolute", top: 0, left: 0, right: 0, zIndex: 5 },
   mobileSearchRow: { flexDirection: "row", alignItems: "center", gap: 8, paddingHorizontal: 12 },
@@ -327,8 +343,8 @@ const styles = StyleSheet.create({
   small: { fontSize: 13, lineHeight: 20, color: colors.textMuted },
   button: { backgroundColor: colors.primary, padding: 12, borderRadius: 6, minHeight: 44, justifyContent: "center" },
   buttonText: { color: "white", fontWeight: "600" },
-  chip: { backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.border, borderRadius: 6, padding: 12, minHeight: 44, justifyContent: "center" },
-  selected: { backgroundColor: colors.primaryDark, borderColor: colors.primaryDark },
+  chip: { backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.borderLight, borderRadius: 12, paddingHorizontal: 14, minHeight: 42, justifyContent: "center" },
+  selected: { backgroundColor: colors.primary, borderColor: colors.primary },
   card: { backgroundColor: colors.surface, borderRadius: 8, padding: 18, gap: 12, borderWidth: 1, borderColor: colors.border },
   distance: { fontSize: 24, fontWeight: "700", color: colors.primary },
   error: { backgroundColor: colors.dangerSoft, padding: 12, borderRadius: 8, gap: 8 },

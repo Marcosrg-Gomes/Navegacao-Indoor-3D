@@ -127,7 +127,8 @@ test("chegada confirmada mantém o mapa e a próxima rota parte da loja", async 
   await page.getByRole("button", { name: "Mais opções" }).click();
   await page.getByRole("button", { name: "Cheguei ao destino" }).click();
   await expect(page.getByTestId("arrival-notice")).toContainText("Você chegou a NATURA");
-  await expect(page.getByTestId("floor-map")).toBeVisible();
+  // No modo Automático o mapa visível pode ser o 3D (já carregado) ou o 2D.
+  await expect(page.getByTestId("floor-map").or(page.getByTestId("scene-map")).filter({ visible: true }).first()).toBeVisible();
   await page.getByRole("button", { name: "Iniciar outra navegação" }).click();
   await page.getByRole("tab", { name: "Explorar", exact: true }).click();
   await page.getByLabel("Buscar no Explorar").fill("ANACAPRI");

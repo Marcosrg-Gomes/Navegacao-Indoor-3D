@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
+import { Text } from "@/components/AppText";
 import type { GraphResponse, No, Piso } from "@/types";
 import { Map2D } from "./Map2D";
 import { directoryStyles as d, ink, paper, rule } from "./directoryDesign";

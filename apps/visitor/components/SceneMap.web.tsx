@@ -1,9 +1,11 @@
 import React, { Component, lazy, Suspense, useEffect, useState } from "react";
-import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Text } from "@/components/AppText";
 import { ApiError, getScene, reportDiagnostic } from "../services/api";
 import type { Scene } from "../types/scene";
 import type { SceneMapProps } from "./SceneMap.types";
 import { colors } from "../constants/colors";
+import { WayfindingIcon } from "./WayfindingIcon";
 
 const SceneCanvas = lazy(() => import("./SceneCanvas.web"));
 type Mode = "auto" | "3d" | "2d";
@@ -60,21 +62,47 @@ export function SceneMap(props: SceneMapProps) {
 
   const show3d = mode !== "2d" && !failure;
   return <View style={{ gap: 8 }}>
-    <View style={props.compact ? { position: "absolute", top: props.controlsTop ?? 8, left: 8, zIndex: 3, flexDirection: "row", gap: 4, padding: 3, backgroundColor: "#ffffffed", borderRadius: 24 } : { flexDirection: "row", flexWrap: "wrap", gap: 8 }} accessibilityLabel="Modo do mapa">
-      {([["auto", "Automático"], ["3d", "Mapa 3D"], ["2d", "Mapa 2D"]] as const).map(([value, label]) =>
-        <TouchableOpacity key={value} accessibilityRole="button" accessibilityLabel={label} accessibilityState={{ selected: mode === value }}
-          style={{ paddingHorizontal: props.compact ? 12 : 12, minHeight: 44, justifyContent: "center", borderRadius: props.compact ? 22 : 6, borderWidth: 1,
-            borderColor: mode === value ? colors.primary : colors.border, backgroundColor: mode === value ? colors.primarySoft : colors.surface }}
-          onPress={() => { setMode(value); if (value !== "2d") setHasUsed3d(true); if (value !== "2d" && failure) setAttempt((n) => n + 1); }}><Text style={{ color: colors.text, fontWeight: mode === value ? "800" : "600" }}>{props.compact ? value.toUpperCase() : label}</Text></TouchableOpacity>)}
+    {/* Controle segmentado: um único trilho com o modo atual preenchido. */}
+    <View style={[segment.track, props.compact ? { position: "absolute", top: props.controlsTop ?? 8, left: 10, zIndex: 3 } : { alignSelf: "flex-start" }]} accessibilityLabel="Modo do mapa">
+      {([["auto", "Automático"], ["3d", "Mapa 3D"], ["2d", "Mapa 2D"]] as const).map(([value, label]) => {
+        const selected = mode === value;
+        return <TouchableOpacity key={value} accessibilityRole="button" accessibilityLabel={label} accessibilityState={{ selected }}
+          style={[segment.item, selected && segment.itemSelected]}
+          onPress={() => { setMode(value); if (value !== "2d") setHasUsed3d(true); if (value !== "2d" && failure) setAttempt((n) => n + 1); }}>
+          <Text style={[segment.text, selected && segment.textSelected]}>{props.compact ? (value === "auto" ? "Auto" : value.toUpperCase()) : label}</Text>
+        </TouchableOpacity>;
+      })}
     </View>
-    {failure && mode !== "2d" && <View accessibilityRole="alert" testID="scene-fallback" style={{ padding: 12, backgroundColor: "#fef3c7" }}>
-      <Text>{failure} O mapa 2D e as instruções continuam disponíveis.</Text>
-      <TouchableOpacity accessibilityRole="button" style={{ minHeight: 44, justifyContent: "center" }} onPress={() => setAttempt((n) => n + 1)}><Text style={{ color: colors.primary }}>Tentar 3D novamente</Text></TouchableOpacity>
+    {failure && mode !== "2d" && <View accessibilityRole="alert" testID="scene-fallback" style={segment.notice}>
+      <WayfindingIcon name="alert" color={colors.warning} size={20} strokeWidth={2} />
+      <View style={{ flex: 1, gap: 2 }}>
+        <Text style={segment.noticeText}>{failure} O mapa 2D e as instruções continuam disponíveis.</Text>
+        <TouchableOpacity accessibilityRole="button" style={{ minHeight: 40, justifyContent: "center", alignSelf: "flex-start" }} onPress={() => setAttempt((n) => n + 1)}><Text style={segment.noticeLink}>Tentar 3D novamente</Text></TouchableOpacity>
+      </View>
     </View>}
-    {show3d && !ready && <View accessibilityLiveRegion="polite" style={{ flexDirection: "row", gap: 8 }}><ActivityIndicator /><Text>Carregando mapa 3D… {progress}%</Text></View>}
+    {show3d && !ready && <View accessibilityLiveRegion="polite" style={segment.loading}>
+      <ActivityIndicator color={colors.primary} />
+      <Text style={segment.loadingText}>Carregando mapa 3D… {progress}%</Text>
+      <View style={segment.progressTrack}><View style={[segment.progressFill, { width: `${progress}%` }]} /></View>
+    </View>}
     {hasUsed3d && scene && !failure && <View style={{ display: show3d ? "flex" : "none" }}><SceneBoundary key={`${props.shoppingId}-${attempt}`} onError={setFailure}>
       <Suspense fallback={null}><SceneCanvas {...props} scene={scene} onReady={() => setReady(true)} onProgress={setProgress} onError={setFailure} /></Suspense>
     </SceneBoundary></View>}
     <View style={{ display: !show3d || !ready ? "flex" : "none" }}>{props.fallback}</View>
   </View>;
 }
+
+const segment = StyleSheet.create({
+  track: { flexDirection: "row", gap: 2, padding: 3, borderRadius: 14, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.borderLight, shadowColor: "#0b1f1b", shadowOpacity: .14, shadowRadius: 10, shadowOffset: { width: 0, height: 3 }, elevation: 4 },
+  item: { minHeight: 40, minWidth: 48, paddingHorizontal: 12, borderRadius: 11, alignItems: "center", justifyContent: "center" },
+  itemSelected: { backgroundColor: colors.primary },
+  text: { color: colors.textMuted, fontSize: 13, fontWeight: "600" },
+  textSelected: { color: colors.textOnPrimary, fontWeight: "700" },
+  notice: { flexDirection: "row", gap: 10, padding: 12, borderRadius: 12, backgroundColor: colors.warningSoft, borderWidth: 1, borderColor: "#f1dca4" },
+  noticeText: { color: colors.text, fontSize: 14, lineHeight: 20 },
+  noticeLink: { color: colors.primary, fontSize: 14, fontWeight: "700", textDecorationLine: "underline" },
+  loading: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: 10 },
+  loadingText: { color: colors.textMuted, fontSize: 13, fontWeight: "500" },
+  progressTrack: { flexBasis: "100%", height: 3, borderRadius: 2, backgroundColor: colors.borderLight, overflow: "hidden" },
+  progressFill: { height: 3, backgroundColor: colors.primary },
+});

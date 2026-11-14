@@ -66,7 +66,8 @@ test("Mini Shopping: elevador acessível, mudança de piso e bloqueio", async ({
     expect((await request.put(`/api/admin/edges/${edge.id}`, { headers: auth, data: { ativa: false } })).ok()).toBeTruthy();
     await page.getByRole("button", { name: "Mais opções", exact: true }).click();
     await page.getByRole("button", { name: "Recalcular rota", exact: true }).click();
-    await expect(page.getByText("Não foi possível encontrar uma rota entre os nós especificados.", { exact: true })).toBeVisible();
+    // Com "Sem escadas" ativo, a API explica que não há alternativa acessível (nunca devolve rota com escadas).
+    await expect(page.getByText(/Não há rota sem escadas até este destino/).first()).toBeVisible();
   } finally {
     await request.put(`/api/admin/edges/${edge.id}`, { headers: auth, data: { ativa: true } });
   }
@@ -113,7 +114,8 @@ test("Botão acessível da loja visível do térreo abre o POI correto", async (
   const poi = await poiResponse;
   expect(poi.ok()).toBeTruthy();
   expect((await poi.json()).codigo).toBe("E01");
-  await expect(page.getByText("ADIDAS", { exact: true })).toBeVisible();
+  // A planta SVG também contém o texto "ADIDAS" (camada decorativa do 2D, oculta no modo 3D).
+  await expect(page.getByText("ADIDAS", { exact: true }).filter({ visible: true })).toBeVisible();
   await expect(page.getByText("BURGER KING", { exact: true })).toHaveCount(0);
   await expect(page.getByRole("button", { name: "Traçar rota", exact: true })).toBeVisible();
 });

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Platform, Text, TouchableOpacity, View } from "react-native";
+import { Platform, TouchableOpacity, View } from "react-native";
+import { Text } from "@/components/AppText";
 import type { GraphResponse, No, NoRota, Piso } from "../types";
 import type { PositionEstimate } from "../positioning/types";
 import { FloorMap } from "./FloorMap";
@@ -7,6 +8,7 @@ import { MapGestureSurface } from "./MapGestureSurface";
 import { MapLegend, MapToolbar } from "./MapToolbar";
 import { centerOnPosition, clampView, followPosition, framePoints, INITIAL_VIEW, nearbyView, zoomAt } from "./mapViewport";
 import { colors } from "@/constants/colors";
+import { FollowRouteButton, MapControls } from "./MapControls";
 import { useMapOrientation } from "@/hooks/useMapOrientation";
 
 export function Map2D({ width, height, floor, graph, routeNodes, origin, position, following, onExplore, compact, controlsTop, destination, highlight, pins, onNodePress, onLocate, locateRequest }: {
@@ -74,7 +76,7 @@ export function Map2D({ width, height, floor, graph, routeNodes, origin, positio
   const scaledWidth = bounds.mapWidth * view.zoom, scaledHeight = bounds.mapHeight * view.zoom;
   const scaleMeters = view.zoom >= 3 ? 2 : 5;
   const scaleWidth = scaleMeters * scaledWidth / (floor.largura_metros || 100);
-  return <View testID="floor-map" style={{ borderRadius: 2, overflow: "hidden", borderWidth: 1, borderColor: colors.borderLight, width: width + 2, maxWidth: "100%" }}>
+  return <View testID="floor-map" style={compact ? { overflow: "hidden", width, maxWidth: "100%" } : { borderRadius: 18, overflow: "hidden", borderWidth: 1, borderColor: colors.borderLight, backgroundColor: colors.surface, width: width + 2, maxWidth: "100%", shadowColor: "#0b1f1b", shadowOpacity: .08, shadowRadius: 18, shadowOffset: { width: 0, height: 6 } }}>
     {!compact && <MapToolbar zoom={view.zoom} onZoom={(factor) => { explore(); setView((v) => zoomAt(v, v.zoom * factor, bounds)); }}
       onReset={() => { explore(); setView(overview); }} onLocate={position || origin ? onLocate : undefined}
       onRoute={routeNodes.length ? () => { explore(); setView(framePoints(routeNodes.filter((n) => n.piso_id === floor.id), bounds, orientation)); } : undefined} />}
@@ -88,13 +90,10 @@ export function Map2D({ width, height, floor, graph, routeNodes, origin, positio
         </View>
       </MapGestureSurface>
       <CompassBadge rotation={view.rotation} top={controlsTop ?? 12} />
-      {compact && position?.source === "simulation" && !isFollowing && <TouchableOpacity accessibilityRole="button" accessibilityLabel="Voltar a acompanhar a rota" onPress={onLocate} style={{ position: "absolute", bottom: 65, alignSelf: "center", minHeight: 44, justifyContent: "center", paddingHorizontal: 16, borderRadius: 22, backgroundColor: `${colors.primary}e6` }}><Text style={{ color: colors.surface, fontSize: 13, fontWeight: "700" }}>◎ Acompanhar rota</Text></TouchableOpacity>}
-      {compact && <TouchableOpacity accessibilityRole="button" accessibilityLabel="Ver piso inteiro" onPress={() => { explore(); setView(overview); }} style={{ position: "absolute", bottom: 12, left: 12, minWidth: 104, height: 44, paddingHorizontal: 10, justifyContent: "center", alignItems: "center", borderRadius: 12, backgroundColor: colors.surface }}><Text style={{ color: colors.primaryDark, fontSize: 12, fontWeight: "800" }}>Piso inteiro</Text></TouchableOpacity>}
-      {compact && <View style={{ position: "absolute", bottom: 12, right: 12, flexDirection: "row", gap: 5 }}>
-        <TouchableOpacity accessibilityRole="button" accessibilityLabel="Diminuir zoom" onPress={() => { explore(); setView((v) => zoomAt(v, v.zoom / 1.5, bounds)); }} style={{ backgroundColor: colors.surface, width: 44, height: 44, alignItems: "center", justifyContent: "center", borderRadius: 12 }}><Text style={{ color: colors.primaryDark, fontSize: 23, fontWeight: "800" }}>−</Text></TouchableOpacity>
-        <TouchableOpacity accessibilityRole="button" accessibilityLabel="Aumentar zoom" onPress={() => { explore(); setView((v) => zoomAt(v, v.zoom * 1.5, bounds)); }} style={{ backgroundColor: colors.surface, width: 44, height: 44, alignItems: "center", justifyContent: "center", borderRadius: 12 }}><Text style={{ color: colors.primaryDark, fontSize: 23, fontWeight: "800" }}>+</Text></TouchableOpacity>
-        <TouchableOpacity accessibilityRole="button" accessibilityLabel="Minha posição" accessibilityHint="Volta a acompanhar sua posição no percurso" onPress={onLocate} style={{ backgroundColor: colors.accent, width: 44, height: 44, alignItems: "center", justifyContent: "center", borderRadius: 12 }}><Text style={{ color: colors.primaryDark, fontSize: 24, fontWeight: "800" }}>◎</Text></TouchableOpacity>
-      </View>}
+      {compact && position?.source === "simulation" && !isFollowing && <FollowRouteButton onPress={onLocate} />}
+      {compact && <MapControls onOverview={() => { explore(); setView(overview); }}
+        onZoomIn={() => { explore(); setView((v) => zoomAt(v, v.zoom * 1.5, bounds)); }}
+        onZoomOut={() => { explore(); setView((v) => zoomAt(v, v.zoom / 1.5, bounds)); }} onLocate={onLocate} />}
       {!compact && <View pointerEvents="none" style={{ position: "absolute", bottom: 12, left: 12, padding: 8, borderRadius: 8, backgroundColor: `${colors.surface}ed` }}>
         <View style={{ width: scaleWidth, height: 5, borderBottomWidth: 2, borderLeftWidth: 2, borderRightWidth: 2, borderColor: colors.textMuted }} /><Text style={{ fontSize: 11, color: colors.textMuted, marginTop: 3 }}>{scaleMeters} m</Text>
       </View>}

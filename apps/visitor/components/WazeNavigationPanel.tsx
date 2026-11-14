@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, useWindowDimensions, View } from "react-native";
+import { AccessibilityInfo, ActivityIndicator, Platform, StyleSheet, TouchableOpacity, useWindowDimensions, View } from "react-native";
+import { Text } from "@/components/AppText";
 import { colors } from "@/constants/colors";
 import { useNavigation } from "@/context/NavigationContext";
 import type { EtapaRota } from "@/types";
@@ -22,7 +23,7 @@ export function walkingMinutes(meters: number) {
 
 export function WazeManeuverBanner() {
   const nav = useNavigation();
-  if (!nav.route && !nav.routeLoading && !nav.routeError) return null;
+  const visible = !!(nav.route || nav.routeLoading || nav.routeError);
   const steps = nav.route?.etapas?.filter((item) => item.tipo !== "inicio") ?? [];
   const moving = nav.simulationStatus !== "idle" && !!nav.simulationProgress;
   const current = moving ? nav.simulationProgress?.instruction : steps[0];
@@ -32,6 +33,13 @@ export function WazeManeuverBanner() {
   const failed = !nav.route && !!nav.routeError;
   const loading = !nav.route && nav.routeLoading;
   const maneuver = maneuverIcon(arrived ? { tipo: "chegada", texto: "" } : current);
+  const spoken = arrived ? `Você chegou a ${nav.destinationName || "seu destino"}` : failed ? nav.routeError : moving ? current?.texto : null;
+  // iOS não lê regiões dinâmicas: o VoiceOver recebe cada nova instrução explicitamente.
+  // No Android, `accessibilityLiveRegion` já anuncia a mudança do banner.
+  useEffect(() => {
+    if (visible && spoken && Platform.OS === "ios") AccessibilityInfo.announceForAccessibility(spoken);
+  }, [visible, spoken]);
+  if (!visible) return null;
   return <View testID="maneuver-banner" style={[styles.maneuver, failed && styles.maneuverFailed, arrived && styles.maneuverArrived]} accessibilityLiveRegion="polite">
     <View style={[styles.maneuverTile, failed && styles.maneuverTileFailed]} accessible accessibilityRole="image" accessibilityLabel={failed ? "Atenção" : maneuver.label}>
       {loading ? <ActivityIndicator color={colors.primary} />
@@ -229,19 +237,22 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   primaryText: { color: colors.textOnPrimary, fontSize: 16, fontWeight: "700" },
+  // Ícone sobre rótulo curto: cabe ao lado da ação principal sem quebrar "Iniciar navegação".
   accessibleChip: {
     minHeight: 52,
+    minWidth: 52,
     borderRadius: 14,
     borderWidth: 1.5,
     borderColor: colors.accessible,
     backgroundColor: colors.surface,
-    paddingHorizontal: 10,
-    flexDirection: "row",
+    paddingHorizontal: 8,
+    paddingVertical: 4,
     alignItems: "center",
-    gap: 6,
+    justifyContent: "center",
+    gap: 1,
   },
   accessibleChipOn: { backgroundColor: colors.accessible },
-  accessibleText: { color: colors.accessible, fontSize: 13, fontWeight: "700" },
+  accessibleText: { color: colors.accessible, fontSize: 11, lineHeight: 14, fontWeight: "700" },
   accessibleTextOn: { color: colors.textOnPrimary },
   roundButton: {
     width: 52,

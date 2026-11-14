@@ -101,7 +101,7 @@ test("Textos de resultados e ação principal mantêm contraste de pelo menos 4,
   await loadWithQr(page);
   const adidas = page.getByRole("button", { name: "ADIDAS, ver detalhes", exact: true });
   await expect(adidas).toBeVisible();
-  for (const text of [adidas.getByText("ADIDAS", { exact: true }), adidas.getByText(/^Aberto/), adidas.getByText(/ESPORTE/), page.getByRole("button", { name: "Como chegar a ADIDAS", exact: true }).getByText("Ir →", { exact: true })]) {
+  for (const text of [adidas.getByText("ADIDAS", { exact: true }), adidas.getByText(/^Aberto/), adidas.getByText(/ESPORTE/), page.getByRole("button", { name: "Como chegar a ADIDAS", exact: true }).getByText("Ir", { exact: true })]) {
     const contrast = await text.evaluate((element) => {
       function luminance(color: string) {
         const rgb = color.match(/[\d.]+/g)!.slice(0, 3).map(Number).map((value) => { const channel = value / 255; return channel <= .04045 ? channel / 12.92 : ((channel + .055) / 1.055) ** 2.4; });

@@ -1,5 +1,6 @@
 import { useEffect, useRef, type ReactNode } from "react";
-import { AccessibilityInfo, findNodeHandle, Modal, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { AccessibilityInfo, findNodeHandle, Modal, Platform, ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Text } from "@/components/AppText";
 import { colors } from "@/constants/colors";
 import { WayfindingIcon } from "./WayfindingIcon";
 
@@ -40,7 +41,7 @@ export function AccessibleSheet({ visible, title, onClose, children, footer }: {
       <View style={styles.top}><Text ref={heading} accessibilityRole="header" {...(Platform.OS === "web" ? { tabIndex: -1, "aria-level": 2 } : {})} style={styles.title}>{title}</Text>
         <TouchableOpacity accessibilityRole="button" accessibilityLabel={`Fechar ${title}`} onPress={onClose} style={styles.close}><WayfindingIcon name="close" /></TouchableOpacity>
       </View>
-      <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={styles.body}>{children}</ScrollView>
+      <ScrollView keyboardShouldPersistTaps="handled" automaticallyAdjustKeyboardInsets contentContainerStyle={styles.body}>{children}</ScrollView>
       {footer && <View style={styles.footer}>{footer}</View>}
     </View></View>
   </Modal>;

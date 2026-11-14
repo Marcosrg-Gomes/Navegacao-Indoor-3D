@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
 import { Material, Mesh, Object3D, Shape } from "three";
-import { Text, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
+import { Text } from "@/components/AppText";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 import { getAssetUrl } from "../services/api";
@@ -17,6 +18,7 @@ import { sceneHeadingDirection, sceneTransform, sceneYawForDirection } from "./s
 import { markerPlanRotation, type MapOrientation } from "./navigationOrientation";
 import { useMapOrientation } from "@/hooks/useMapOrientation";
 import { colors } from "@/constants/colors";
+import { FollowRouteButton, MapControls } from "./MapControls";
 
 type Props = SceneMapProps & { scene: Scene; onReady: () => void; onProgress: (value: number) => void; onError: (message: string) => void };
 
@@ -70,7 +72,6 @@ function Viewport({ model, props, orientation, command, onView, previewNext }: {
 }
 
 export default function SceneCanvas(props: Props) {
-  const compactButton = { width: 44, height: 44, border: 0, borderRadius: 12, background: colors.surface, color: colors.primary, fontWeight: 800, fontSize: 22 } as const;
   const [model, setModel] = useState<Object3D | null>(null);
   // Mesma regra do 2D: 0° ou 180°, decidida pelo percurso à frente e não pelas curvas.
   const orientation = useMapOrientation(props.routeNodes, props.floorId, props.position);
@@ -114,11 +115,11 @@ export default function SceneCanvas(props: Props) {
   const selectedPoi = props.scene.pois.find((p) => p.anchor_node_id === props.destinationNodeId);
   const floor = props.scene.floors.find((f) => f.piso_id === props.floorId);
   useEffect(() => { setTopView(false); }, [props.floorId]);
-  return <View style={{ borderRadius: 2, overflow: "hidden", borderWidth: 1, borderColor: colors.borderLight, width: props.width + 2, maxWidth: "100%" }}>
+  return <View style={props.compact ? { overflow: "hidden", width: props.width, maxWidth: "100%" } : { borderRadius: 18, overflow: "hidden", borderWidth: 1, borderColor: colors.borderLight, backgroundColor: colors.surface, width: props.width + 2, maxWidth: "100%", shadowColor: "#0b1f1b", shadowOpacity: .08, shadowRadius: 18, shadowOffset: { width: 0, height: 6 } }}>
     {props.previewStep && <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8, padding: 12 }}>{[false, true].map((next) => <TouchableOpacity key={String(next)} accessibilityRole="button" accessibilityState={{ selected: previewNext === next }} style={{ padding: 12, minHeight: 44, borderBottomWidth: previewNext === next ? 3 : 1 }} onPress={() => setPreviewNext(next)}><Text>{next ? "Próxima referência" : "Vista atual do trecho"}</Text></TouchableOpacity>)}</View>}
     {model && !props.previewStep && !props.compact && <MapToolbar zoom={view.zoom} onZoom={(factor) => send(factor > 1 ? "in" : "out")}
       onReset={() => { send("reset"); setTopView(false); }} onLocate={props.hasOrigin ? props.onLocate : undefined} onRoute={() => send("route")}>
-      <TouchableOpacity accessibilityRole="button" onPress={() => { send(topView ? "angle" : "top"); setTopView(!topView); }} style={{ minHeight: 44, justifyContent: "center", padding: 12, borderRadius: 8, backgroundColor: colors.primarySoft }}><Text style={{ color: colors.primaryDark, fontSize: 13 }}>{topView ? "Vista inclinada" : "Vista superior"}</Text></TouchableOpacity>
+      <TouchableOpacity accessibilityRole="button" onPress={() => { send(topView ? "angle" : "top"); setTopView(!topView); }} style={{ minHeight: 42, justifyContent: "center", paddingHorizontal: 12, borderRadius: 12, borderWidth: 1, borderColor: colors.borderLight, backgroundColor: colors.surface }}><Text style={{ color: colors.primaryDark, fontSize: 13 }}>{topView ? "Vista inclinada" : "Vista superior"}</Text></TouchableOpacity>
     </MapToolbar>}
     <div data-testid="scene-map" data-preview={props.previewStep ? "walk" : "map"} data-floor-id={props.floorId} data-destination-code={selectedPoi?.codigo || ""}
       data-route-node-ids={props.routeNodes.filter((n) => n.piso_id === props.floorId).map((n) => n.id).join(",")}
@@ -128,14 +129,10 @@ export default function SceneCanvas(props: Props) {
         <Viewport model={model} props={props} orientation={orientation} command={command} onView={setView} previewNext={previewNext} />
       </Canvas>}
       {model && floor && <SceneLabels scene={props.scene} floor={floor} origin={props.originNodeId} destination={props.destinationNodeId} simulated={props.position?.source === "simulation"} position={props.position} view={view} width={props.width} height={props.height} onPoiPress={props.onPoiPress} />}
-      {props.compact && !props.previewStep && <button aria-label="Ver piso inteiro" title="Ver piso inteiro" onClick={() => { props.onExplore?.(); send("reset"); }} style={{ ...compactButton, position: "absolute", bottom: 10, left: 10, width: 104, fontSize: 12 }}>Piso inteiro</button>}
-      {props.compact && !props.previewStep && <div style={{ position: "absolute", bottom: 10, right: 10, display: "flex", gap: 5 }}>
-        <button aria-label="Diminuir zoom" title="Diminuir zoom" onClick={() => { props.onExplore?.(); send("out"); }} style={compactButton}>−</button>
-        <button aria-label="Aumentar zoom" title="Aumentar zoom" onClick={() => { props.onExplore?.(); send("in"); }} style={compactButton}>+</button>
-        <button aria-label="Minha posição" title="Voltar a acompanhar o percurso" onClick={props.onLocate} style={{ ...compactButton, background: colors.accent }}>◎</button>
-      </div>}
+      {props.compact && !props.previewStep && <MapControls onOverview={() => { props.onExplore?.(); send("reset"); }}
+        onZoomIn={() => { props.onExplore?.(); send("in"); }} onZoomOut={() => { props.onExplore?.(); send("out"); }} onLocate={props.onLocate} />}
 
-      {props.compact && props.position?.source === "simulation" && !props.following && <View pointerEvents="none" style={{ position: "absolute", bottom: 65, alignSelf: "center", paddingHorizontal: 12, paddingVertical: 7, borderRadius: 16, backgroundColor: `${colors.primary}e6` }}><Text style={{ color: colors.surface, fontSize: 12, fontWeight: "700" }}>Mapa livre · toque em ◎ para acompanhar</Text></View>}
+      {props.compact && !props.previewStep && props.position?.source === "simulation" && !props.following && <FollowRouteButton onPress={props.onLocate} />}
     </div>
     {!props.compact && <Text style={{ backgroundColor: colors.surface, color: colors.textMuted, paddingHorizontal: 12, paddingTop: 10, fontSize: 12 }}>{props.previewStep ? "Simulação orientada pelo trecho. Alterne entre a vista atual e a próxima referência." : "Arraste para explorar · roda ou pinça para aproximar"}</Text>}
     {!props.compact && <MapLegend simulated={props.position?.source === "simulation"} />}

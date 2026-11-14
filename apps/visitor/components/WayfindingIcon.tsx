@@ -24,6 +24,12 @@ const paths = {
   arrive: "M6 21V4m0 0h11l-2 4 2 4H6",
   accessible: "M12 5a1.6 1.6 0 1 0 0-3.2A1.6 1.6 0 0 0 12 5m-1 2v6h5l2 6m-7-9h5M8.5 11.5a5 5 0 1 0 6.9 6.4",
   alert: "M12 3 2 20h20L12 3m0 6v5m0 3v.1",
+  plus: "M12 5v14M5 12h14",
+  minus: "M5 12h14",
+  locate: "M12 2v3m0 14v3M2 12h3m14 0h3m-3 0a7 7 0 1 1-14 0 7 7 0 0 1 14 0m-4 0a3 3 0 1 1-6 0 3 3 0 0 1 6 0",
+  overview: "M4 9V4h5m6 0h5v5M4 15v5h5m11-5v5h-5",
+  filter: "M4 6h16M7 12h10m-7 6h4",
+  more: "M5 12h.01M12 12h.01M19 12h.01",
 } as const;
 
 export type WayfindingIconName = keyof typeof paths;
