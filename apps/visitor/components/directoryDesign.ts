@@ -1,11 +1,12 @@
 import { Platform, StyleSheet } from "react-native";
 import { colors } from "@/constants/colors";
+import { fontFamily, monoFamily } from "@/constants/typography";
 import type { Place } from "@/hooks/useDirectory";
 import type { No, Piso } from "@/types";
 
 export const ink = colors.text, paper = colors.bg, muted = colors.textMuted, rule = colors.border, accent = colors.accent;
-export const editorial = Platform.select({ web: "system-ui, -apple-system, Segoe UI, sans-serif", ios: "System", default: "sans-serif" });
-export const mono = Platform.select({ web: "monospace", ios: "Menlo", default: "monospace" });
+export const editorial = fontFamily;
+export const mono = monoFamily;
 export function spaceCode(node: No, poiCode?: string) { return poiCode || node.codigo.replace(/^(T|M)_LOJA_/, "").replace(/^(T|M)_/, "").replace(/_/g, " "); }
 export function placeIdentity(place: Place) {
   if (place.node.tipo === "banheiro") return { sign: "WC", label: "Banheiros", color: "#38586b" };
@@ -25,6 +26,6 @@ export const directoryStyles = StyleSheet.create({
   button: { minHeight: 52, paddingHorizontal: 18, paddingVertical: 12, backgroundColor: colors.primary, borderRadius: 10, justifyContent: "center", alignItems: "center" },
   buttonText: { color: "#ffffff", fontSize: 16, fontWeight: "700" },
   link: { minWidth: 44, minHeight: 44, justifyContent: "center", paddingVertical: 10, paddingHorizontal: 4 },
-  linkText: { fontSize: 15, color: accent, fontWeight: "700", textDecorationLine: "underline" },
+  linkText: { fontSize: 15, color: colors.primary, fontWeight: "700", textDecorationLine: "underline", textDecorationColor: accent },
   line: { borderTopWidth: 1, borderTopColor: rule, paddingVertical: 14, gap: 8 },
 });

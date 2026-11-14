@@ -1,16 +1,23 @@
 import { useEffect, useRef, useState } from "react";
-import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, useWindowDimensions, View } from "react-native";
 import { colors } from "@/constants/colors";
 import { useNavigation } from "@/context/NavigationContext";
 import type { EtapaRota } from "@/types";
+import { WayfindingIcon, type WayfindingIconName } from "./WayfindingIcon";
 
-function direction(step?: EtapaRota) {
-  if (!step) return "↑";
-  if (step.tipo === "chegada") return "✓";
-  if (step.tipo === "troca_piso") return "↕";
-  if (/esquerda/i.test(step.texto)) return "↰";
-  if (/direita/i.test(step.texto)) return "↱";
-  return "↑";
+/** Ícone de manobra derivado do tipo e do texto da etapa (a API é a fonte das instruções). */
+function maneuverIcon(step?: Pick<EtapaRota, "tipo" | "texto">): { icon: WayfindingIconName; label: string } {
+  if (!step) return { icon: "straight", label: "Seguir em frente" };
+  if (step.tipo === "chegada") return { icon: "arrive", label: "Chegada" };
+  if (step.tipo === "troca_piso") return { icon: /elevador/i.test(step.texto) ? "lift" : "floors", label: "Trocar de piso" };
+  if (/esquerda/i.test(step.texto)) return { icon: "turnLeft", label: "Virar à esquerda" };
+  if (/direita/i.test(step.texto)) return { icon: "turnRight", label: "Virar à direita" };
+  return { icon: "straight", label: "Seguir em frente" };
+}
+
+/** Ritmo médio de caminhada em shopping (~1,2 m/s), apenas para a estimativa exibida. */
+export function walkingMinutes(meters: number) {
+  return Math.max(1, Math.round(meters / 1.2 / 60));
 }
 
 export function WazeManeuverBanner() {
@@ -24,12 +31,16 @@ export function WazeManeuverBanner() {
   const arrived = nav.simulationStatus === "arrived";
   const failed = !nav.route && !!nav.routeError;
   const loading = !nav.route && nav.routeLoading;
-  return <View testID="maneuver-banner" style={[styles.maneuver, failed && styles.maneuverFailed]} accessibilityLiveRegion="polite">
-    <Text style={[styles.maneuverArrow, failed && styles.maneuverArrowError]} accessible={false}>{failed ? "!" : direction(current)}</Text>
+  const maneuver = maneuverIcon(arrived ? { tipo: "chegada", texto: "" } : current);
+  return <View testID="maneuver-banner" style={[styles.maneuver, failed && styles.maneuverFailed, arrived && styles.maneuverArrived]} accessibilityLiveRegion="polite">
+    <View style={[styles.maneuverTile, failed && styles.maneuverTileFailed]} accessible accessibilityRole="image" accessibilityLabel={failed ? "Atenção" : maneuver.label}>
+      {loading ? <ActivityIndicator color={colors.primary} />
+        : <WayfindingIcon name={failed ? "alert" : maneuver.icon} color={failed ? colors.danger : colors.primary} size={34} strokeWidth={2.4} />}
+    </View>
     <View style={{ flex: 1, minWidth: 0 }}>
       <Text style={[styles.maneuverEyebrow, failed && styles.maneuverEyebrowError]}>{arrived ? "VOCÊ CHEGOU" : moving ? "NAVEGAÇÃO SIMULADA" : failed ? "ROTA NÃO DISPONÍVEL" : loading ? "CALCULANDO CAMINHO" : "CAMINHO PREPARADO"}</Text>
       <Text testID="current-instruction" style={[styles.maneuverInstruction, failed && styles.maneuverInstructionError]}>{arrived ? nav.destinationName : failed ? nav.routeError : current?.texto || (nav.routeLoading ? "Calculando caminho…" : "Rota pronta para começar")}</Text>
-      {!!next && !arrived && <Text style={[styles.maneuverNext, failed && styles.maneuverNextError]}>Depois: {next.texto}</Text>}
+      {!!next && !arrived && !failed && <Text style={styles.maneuverNext} numberOfLines={1}>Depois: {next.texto}</Text>}
     </View>
   </View>;
 }
@@ -40,6 +51,9 @@ export function WazeNavigationPanel({ onChooseDestination, onCorrectPosition, on
   onHelp: () => void;
 }) {
   const nav = useNavigation();
+  const { width } = useWindowDimensions();
+  // Em telas estreitas o chip mostra só o ícone; o rótulo acessível continua completo.
+  const narrow = width < 360;
   const [more, setMore] = useState(false);
   const prevRouteKey = useRef<{ revisao: string | null } | null>(null);
   useEffect(() => {
@@ -57,6 +71,9 @@ export function WazeNavigationPanel({ onChooseDestination, onCorrectPosition, on
   const remaining = moving ? nav.simulationProgress?.remainingMeters : nav.route?.distancia_total_metros;
   const busy = nav.routeLoading || nav.arrivalLoading || nav.simulationStatus === "rerouting";
   const arrived = nav.simulationStatus === "arrived";
+  const total = nav.route?.distancia_total_metros ?? 0;
+  const progress = moving && total > 0 && remaining !== undefined ? Math.min(1, Math.max(0, 1 - remaining / total)) : 0;
+  const minutes = remaining !== undefined ? walkingMinutes(remaining) : 0;
 
   function primaryAction() {
     if (nav.simulationStatus === "running") nav.pauseSimulation();
@@ -72,23 +89,29 @@ export function WazeNavigationPanel({ onChooseDestination, onCorrectPosition, on
     arrived ? "Novo destino" : "Iniciar navegação";
 
   return <View testID="route-panel" style={[styles.panel, nav.arrivalLoading && styles.panelBusy]} accessibilityState={{ busy }}>
+    {moving && !arrived && <View style={styles.progressTrack} accessible accessibilityRole="progressbar" accessibilityLabel="Progresso do percurso"
+      accessibilityValue={{ min: 0, max: 100, now: Math.round(progress * 100) }}>
+      <View style={[styles.progressFill, { width: `${Math.round(progress * 100)}%` }]} />
+    </View>}
     <View style={styles.tripLine}>
       <View style={{ flex: 1, minWidth: 0 }}>
-        <Text style={styles.tripDestination} numberOfLines={1}>{nav.destinationName || "Destino"}</Text>
+        <Text style={styles.tripDestination} numberOfLines={1} accessibilityRole="header">{nav.destinationName || "Destino"}</Text>
         <Text style={styles.tripMeta} numberOfLines={1}>
           De <Text testID="origin-label">{nav.originNode?.nome || "origem"}</Text> ·
           {arrived ? "destino alcançado" : nav.simulationStatus === "running" ? "simulação" : "rota pronta"}
+          {nav.acessivel ? " · sem escadas" : ""}
         </Text>
       </View>
-      {remaining !== undefined && !arrived && <View style={styles.distanceBlock}>
+      {remaining !== undefined && !arrived && <View style={styles.distanceBlock} accessible
+        accessibilityLabel={`${Math.max(0, Math.round(remaining))} metros restantes, cerca de ${minutes} minuto${minutes > 1 ? "s" : ""}`}>
         <Text testID="remaining-distance" style={styles.distance}>{Math.max(0, Math.round(remaining))}</Text>
-        <Text style={styles.unit}>m restantes</Text>
+        <Text style={styles.unit}>m restantes · ~{minutes} min</Text>
       </View>}
     </View>
 
     {(nav.routeError || nav.simulationError) && <Text accessibilityRole="alert" style={styles.error}>{nav.simulationError || nav.routeError}</Text>}
-    {busy && <View style={styles.busy}>
-      <ActivityIndicator color={colors.route} />
+    {busy && <View style={styles.busy} accessibilityLiveRegion="polite">
+      <ActivityIndicator color={colors.primary} />
       <Text style={styles.busyText}>Atualizando caminho…</Text>
     </View>}
 
@@ -97,15 +120,18 @@ export function WazeNavigationPanel({ onChooseDestination, onCorrectPosition, on
         accessibilityState={{ disabled: busy }} onPress={primaryAction} style={[styles.primary, busy && styles.disabled]}>
         <Text style={styles.primaryText}>{primaryLabel}</Text>
       </TouchableOpacity>
+      {!arrived && <TouchableOpacity testID="accessible-toggle" accessibilityRole="switch" accessibilityLabel="Rota sem escadas"
+        accessibilityHint="Recalcula usando apenas elevadores e rampas" accessibilityState={{ checked: nav.acessivel, disabled: busy }}
+        disabled={busy} onPress={() => nav.setAcessivel(!nav.acessivel)} style={[styles.accessibleChip, nav.acessivel && styles.accessibleChipOn, busy && styles.disabled]}>
+        <WayfindingIcon name="accessible" color={nav.acessivel ? colors.textOnPrimary : colors.accessible} size={22} strokeWidth={2} />
+        {narrow ? nav.acessivel && <Text style={[styles.accessibleText, styles.accessibleTextOn]}>✓</Text>
+          : <Text style={[styles.accessibleText, nav.acessivel && styles.accessibleTextOn]}>{nav.acessivel ? "Sem escadas ✓" : "Sem escadas"}</Text>}
+      </TouchableOpacity>}
       <TouchableOpacity accessibilityRole="button" accessibilityLabel="Mais opções" accessibilityState={{ expanded: more }}
-        onPress={() => setMore(!more)} style={styles.roundButton}><Text style={styles.roundText}>•••</Text></TouchableOpacity>
+        onPress={() => setMore(!more)} style={[styles.roundButton, more && styles.roundButtonOn]}><Text style={styles.roundText}>•••</Text></TouchableOpacity>
     </View>
 
     {more && <View style={styles.moreActions}>
-      <TouchableOpacity accessibilityRole="switch" accessibilityLabel="Rota sem escadas" accessibilityState={{ checked: nav.acessivel, disabled: busy }}
-        disabled={busy} onPress={() => nav.setAcessivel(!nav.acessivel)} style={styles.secondary}>
-        <Text style={styles.secondaryText}>{nav.acessivel ? "✓ " : ""}Sem escadas</Text>
-      </TouchableOpacity>
       {moving && !arrived && <TouchableOpacity accessibilityRole="button" disabled={busy} onPress={() => void nav.simulateDeviation()} style={styles.secondary}><Text style={styles.secondaryText}>Estou fora da rota</Text></TouchableOpacity>}
       {!arrived && <TouchableOpacity accessibilityRole="button" disabled={busy} onPress={() => void nav.recalculate()} style={styles.secondary}><Text style={styles.secondaryText}>Recalcular rota</Text></TouchableOpacity>}
       <TouchableOpacity accessibilityRole="button" onPress={onCorrectPosition} style={styles.secondary}><Text style={styles.secondaryText}>Corrigir posição</Text></TouchableOpacity>
@@ -119,203 +145,146 @@ export function WazeNavigationPanel({ onChooseDestination, onCorrectPosition, on
 
 const styles = StyleSheet.create({
   maneuver: {
-    backgroundColor: "#ffffff",
+    backgroundColor: colors.primary,
     flexDirection: "row",
     alignItems: "center",
     gap: 14,
-    paddingHorizontal: 16,
-    paddingVertical: 14,
-    minHeight: 86,
-    borderRadius: 16,
-    shadowColor: "#000",
-    shadowOpacity: 0.08,
-    shadowRadius: 12,
-    elevation: 6,
-    borderWidth: 1,
-    borderColor: "#e2eae8",
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    minHeight: 84,
+    borderRadius: 18,
+    shadowColor: "#0b1f1b",
+    shadowOpacity: 0.22,
+    shadowRadius: 16,
+    shadowOffset: { width: 0, height: 6 },
+    elevation: 8,
   },
-  maneuverFailed: {
-    borderColor: "#f3c6c2",
-    backgroundColor: "#fdf1f0",
-  },
-  maneuverArrow: {
+  maneuverFailed: { backgroundColor: colors.dangerSoft, borderWidth: 1, borderColor: "#efc2bc" },
+  maneuverArrived: { backgroundColor: colors.success },
+  maneuverTile: {
     width: 56,
-    color: "#ffffff",
-    fontSize: 52,
-    lineHeight: 56,
-    fontWeight: "900",
-    textAlign: "center",
+    height: 56,
+    borderRadius: 14,
+    backgroundColor: colors.accent,
+    alignItems: "center",
+    justifyContent: "center",
   },
-  maneuverArrowError: {
-    color: "#d9736b",
-  },
+  maneuverTileFailed: { backgroundColor: colors.surface },
   maneuverEyebrow: {
-    color: "#5e736e",
-    fontSize: 9,
-    lineHeight: 13,
-    letterSpacing: 1.2,
-    fontWeight: "800",
+    color: "#f3cf97",
+    fontSize: 11,
+    lineHeight: 14,
+    letterSpacing: 1,
+    fontWeight: "700",
     textTransform: "uppercase",
   },
-  maneuverEyebrowError: {
-    color: "#d9736b",
-  },
+  maneuverEyebrowError: { color: colors.danger },
   maneuverInstruction: {
-    color: "#22332d",
-    fontSize: 18,
+    color: colors.textOnPrimary,
+    fontSize: 19,
     lineHeight: 24,
-    fontWeight: "800",
+    fontWeight: "700",
+    marginTop: 2,
   },
-  maneuverInstructionError: {
-    color: "#d9736b",
-  },
+  maneuverInstructionError: { color: "#7d2620" },
   maneuverNext: {
-    color: "#8da7a2",
-    fontSize: 12,
-    lineHeight: 17,
+    color: "#c5d8d2",
+    fontSize: 13,
+    lineHeight: 18,
     marginTop: 3,
   },
-  maneuverNextError: {
-    color: "#c48a84",
-  },
   panel: {
-    backgroundColor: "#ffffff",
+    backgroundColor: colors.surface,
     paddingHorizontal: 16,
-    paddingTop: 12,
+    paddingTop: 14,
     paddingBottom: 14,
-    gap: 10,
-    borderRadius: 16,
-    shadowColor: "#000",
-    shadowOpacity: 0.06,
-    shadowRadius: 16,
-    elevation: 5,
+    gap: 12,
+    borderRadius: 20,
+    shadowColor: "#0b1f1b",
+    shadowOpacity: 0.12,
+    shadowRadius: 18,
+    shadowOffset: { width: 0, height: -2 },
+    elevation: 6,
     borderWidth: 1,
-    borderColor: "#e2eae8",
+    borderColor: colors.borderLight,
+    overflow: "hidden",
   },
-  panelBusy: {
-    opacity: 0.92,
-  },
-  tripLine: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 10,
-  },
-  tripDestination: {
-    color: "#22332d",
-    fontSize: 15,
-    lineHeight: 20,
-    fontWeight: "800",
-  },
-  tripMeta: {
-    color: "#5e736e",
-    fontSize: 12,
-    lineHeight: 17,
-  },
-  distanceBlock: {
-    minWidth: 56,
-    alignItems: "flex-end",
-  },
-  distance: {
-    color: "#14332e",
-    fontSize: 24,
-    lineHeight: 28,
-    fontWeight: "900",
-  },
-  unit: {
-    color: "#5e736e",
-    fontSize: 11,
-    fontWeight: "700",
-  },
-  actions: {
-    flexDirection: "row",
-    gap: 8,
-  },
+  panelBusy: { opacity: 0.92 },
+  progressTrack: { position: "absolute", top: 0, left: 0, right: 0, height: 4, backgroundColor: colors.routeSoft },
+  progressFill: { height: 4, backgroundColor: colors.route },
+  tripLine: { flexDirection: "row", alignItems: "center", gap: 12 },
+  tripDestination: { color: colors.text, fontSize: 18, lineHeight: 24, fontWeight: "700" },
+  tripMeta: { color: colors.textMuted, fontSize: 13, lineHeight: 18 },
+  distanceBlock: { minWidth: 64, alignItems: "flex-end" },
+  distance: { color: colors.primary, fontSize: 26, lineHeight: 30, fontWeight: "700", fontVariant: ["tabular-nums"] },
+  unit: { color: colors.textMuted, fontSize: 12, fontWeight: "500" },
+  actions: { flexDirection: "row", gap: 8, alignItems: "center" },
   primary: {
     flex: 1,
     minHeight: 52,
-    borderRadius: 16,
-    backgroundColor: "#14332e",
+    borderRadius: 14,
+    backgroundColor: colors.primary,
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: 16,
-    shadowColor: "#14332e",
-    shadowOpacity: 0.16,
-    shadowRadius: 10,
-    elevation: 4,
   },
-  primaryText: {
-    color: "white",
-    fontSize: 15,
-    fontWeight: "800",
+  primaryText: { color: colors.textOnPrimary, fontSize: 16, fontWeight: "700" },
+  accessibleChip: {
+    minHeight: 52,
+    borderRadius: 14,
+    borderWidth: 1.5,
+    borderColor: colors.accessible,
+    backgroundColor: colors.surface,
+    paddingHorizontal: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
   },
+  accessibleChipOn: { backgroundColor: colors.accessible },
+  accessibleText: { color: colors.accessible, fontSize: 13, fontWeight: "700" },
+  accessibleTextOn: { color: colors.textOnPrimary },
   roundButton: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
+    width: 52,
+    height: 52,
+    borderRadius: 14,
     borderWidth: 1,
-    borderColor: "#e2eae8",
-    backgroundColor: "#f4f1ea",
+    borderColor: colors.border,
+    backgroundColor: colors.surfaceElevated,
     alignItems: "center",
     justifyContent: "center",
   },
-  roundText: {
-    color: "#22332d",
-    fontSize: 18,
-    lineHeight: 20,
-    fontWeight: "900",
-  },
+  roundButtonOn: { borderColor: colors.primary, backgroundColor: colors.primarySoft },
+  roundText: { color: colors.text, fontSize: 18, lineHeight: 20, fontWeight: "700" },
   moreActions: {
     flexDirection: "row",
     flexWrap: "wrap",
     gap: 8,
     borderTopWidth: 1,
-    borderTopColor: "#e8ede8",
-    paddingTop: 10,
+    borderTopColor: colors.borderLight,
+    paddingTop: 12,
   },
   secondary: {
     minHeight: 48,
-    borderRadius: 14,
-    backgroundColor: "#f4f1ea",
+    borderRadius: 12,
+    backgroundColor: colors.surfaceElevated,
+    borderWidth: 1,
+    borderColor: colors.borderLight,
     paddingHorizontal: 14,
     alignItems: "center",
     justifyContent: "center",
   },
-  secondaryText: {
-    color: "#5e736e",
-    fontSize: 13,
-    fontWeight: "800",
-  },
-  stop: {
-    minHeight: 48,
-    borderRadius: 14,
-    paddingHorizontal: 14,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  stopText: {
-    color: colors.danger,
-    fontSize: 13,
-    fontWeight: "800",
-  },
-  busy: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-  },
-  busyText: {
-    color: "#5e736e",
-    fontSize: 12,
-  },
+  secondaryText: { color: colors.text, fontSize: 14, fontWeight: "600" },
+  stop: { minHeight: 48, borderRadius: 12, paddingHorizontal: 14, alignItems: "center", justifyContent: "center" },
+  stopText: { color: colors.danger, fontSize: 14, fontWeight: "700" },
+  busy: { flexDirection: "row", alignItems: "center", gap: 8 },
+  busyText: { color: colors.textMuted, fontSize: 13 },
   error: {
-    color: "#a3332c",
-    backgroundColor: "#fbece8",
+    color: colors.danger,
+    backgroundColor: colors.dangerSoft,
     padding: 10,
     borderRadius: 10,
-    fontSize: 12,
-    fontWeight: "700",
-    alignSelf: "center",
+    fontSize: 13,
+    fontWeight: "600",
   },
-  disabled: {
-    opacity: 0.55,
-  },
+  disabled: { opacity: 0.55 },
 });

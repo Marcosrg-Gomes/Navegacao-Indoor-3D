@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
   text: { color: colors.text, fontSize: 14, lineHeight: 22 },
   note: { color: colors.textMuted, fontSize: 13, lineHeight: 20 },
   secondary: { minHeight: 44, padding: 10, justifyContent: "center" },
-  link: { color: accent, fontSize: 14, fontWeight: "600" },
+  link: { color: colors.primary, fontSize: 14, fontWeight: "600", textDecorationLine: "underline" },
   primary: { minHeight: 52, justifyContent: "center", alignItems: "center", padding: 14, borderRadius: 10, backgroundColor: colors.primary },
   primaryText: { color: "#ffffff", fontSize: 16, fontWeight: "700" },
   disabled: { opacity: .55 },

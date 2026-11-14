@@ -6,8 +6,8 @@ import type { PositionEstimate } from "@/positioning/types";
 import { remainingRouteEdges } from "./remainingRoute";
 
 /** Desenha os trechos da rota ainda à frente, com setas direcionais. */
-export function RouteOverlay({ width, height, routeNodes, floorId, showEndpoints = true, position }: {
-  width: number; height: number; routeNodes: NoRota[]; floorId?: number; showEndpoints?: boolean; position?: PositionEstimate | null;
+export function RouteOverlay({ width, height, routeNodes, floorId, showEndpoints = true, position, mapRotation = 0 }: {
+  width: number; height: number; routeNodes: NoRota[]; floorId?: number; showEndpoints?: boolean; position?: PositionEstimate | null; mapRotation?: number;
 }) {
   const edges = remainingRouteEdges(routeNodes, position).filter((edge) => floorId === undefined || edge.floorId === floorId);
   const toX = (n: { coord_x: number }) => coordenadaNormalizada(n.coord_x) * width;
@@ -35,7 +35,7 @@ export function RouteOverlay({ width, height, routeNodes, floorId, showEndpoints
         .filter((item) => item.node && visible(item.node)).map(({ node, label, color }) => (
           <G key={label}>
             <Circle cx={toX(node)} cy={toY(node)} r={10} fill={color} stroke="white" strokeWidth={2} />
-            <SvgText x={Math.max(24, Math.min(width - 24, toX(node)))} y={Math.max(12, toY(node) - 16)} fill={color} fontSize={11} fontWeight="800" textAnchor="middle">{label}</SvgText>
+            <SvgText transform={mapRotation ? `rotate(${-mapRotation} ${toX(node)} ${toY(node)})` : undefined} x={Math.max(24, Math.min(width - 24, toX(node)))} y={Math.max(12, toY(node) - 16)} fill={color} fontSize={11} fontWeight="800" textAnchor="middle">{label}</SvgText>
           </G>
         ))}
     </G>

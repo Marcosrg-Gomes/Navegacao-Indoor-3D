@@ -49,10 +49,9 @@ for (const kind of ["elevador", "escada", "escada_rolante"] as const) {
   });
 }
 
-test("Câmera 2D mantém o norte fixo e a seta abaixo do centro", () => {
+test("Câmera 2D acompanha a seta abaixo do centro sem girar nas curvas", () => {
   const bounds = { width: 390, height: 400, mapWidth: 330, mapHeight: 320 };
-  // Sem nextTurn, não há próximo trecho para determinar direção,
-  // então o mapa nunca inverte (rotação sempre 0°).
+  // O rumo do trecho nunca altera a rotação: ela vem da vista (0° ou 180°).
   for (const heading of [0, 90, 180, 270]) {
     const view = followPosition({ ...INITIAL_VIEW, zoom: 2.5 }, { x: .5, y: .5, heading }, bounds);
     expect(view.rotation).toBe(0);
@@ -61,59 +60,37 @@ test("Câmera 2D mantém o norte fixo e a seta abaixo do centro", () => {
     // Sem nextTurn, o deslocamento fixo posiciona a seta a 60% da altura.
     expect(bounds.height / 2 + view.y).toBeCloseTo(bounds.height * .6, 6);
   }
+  const flipped = followPosition({ ...INITIAL_VIEW, zoom: 2.5, rotation: 180 }, { x: .5, y: .5, heading: 90 }, bounds);
+  expect(flipped.rotation).toBe(180);
+  expect(bounds.height / 2 + flipped.y).toBeCloseTo(bounds.height * .6, 6);
   const thinFloor = { width: 390, height: 400, mapWidth: 150, mapHeight: 300 };
   const nearby = nearbyView(thinFloor, { x: .5, y: .1 });
   expect(nearby.zoom).toBeGreaterThan(2);
   expect(nearby.rotation).toBe(0);
-  const centered = centerOnPosition({ ...INITIAL_VIEW, zoom: 2.5, rotation: -90 }, { x: .5, y: .5 }, bounds);
+  const centered = centerOnPosition({ ...INITIAL_VIEW, zoom: 2.5, rotation: 180 }, { x: .5, y: .5 }, bounds);
   expect(centered.x).toBeCloseTo(0);
   expect(centered.y).toBeCloseTo(0);
-  // Com nextTurn apontando para cima (norte), a rotação é 0° mesmo com heading 0°.
+  // Curva à esquerda à frente: a câmera desloca para mostrar a curva, sem girar.
   const beforeLeftTurn = followPosition({ ...INITIAL_VIEW, zoom: 1.6 }, { x: .5, y: .5, heading: 0 }, bounds, { x: .25, y: .3 });
   expect(beforeLeftTurn.x).toBeGreaterThan(0);
-  // Quando o próximo trecho está "atrás" do usuário (heading 180° = sul, próximo nó ao norte),
-  // o mapa inverte 180° para manter o trajeto à frente da seta.
-  const afterTurn = followPosition({ ...INITIAL_VIEW, zoom: 1.6 }, { x: .5, y: .5, heading: 180 }, bounds, { x: .5, y: .3 });
-  expect(afterTurn.rotation).toBe(180);
+  expect(beforeLeftTurn.rotation).toBe(0);
+  // Com a planta a 180°, a mesma curva aparece espelhada e o deslocamento acompanha.
+  const flippedTurn = followPosition({ ...INITIAL_VIEW, zoom: 1.6, rotation: 180 }, { x: .5, y: .5, heading: 180 }, bounds, { x: .75, y: .7 });
+  expect(flippedTurn.rotation).toBe(180);
+  expect(flippedTurn.x).toBeGreaterThan(0);
 });
 
-test("Mapa 2D mantém rotação 0° quando o próximo trecho está à frente do usuário", () => {
-  // Quando o próximo trecho está à frente do usuário (heading alinhado com a direção),
-  // o mapa não inverte.
-  expect(mapRotationForHeading(0, 0)).toBe(0);       // norte para norte
-  expect(mapRotationForHeading(0, 45)).toBe(0);      // norte para nordeste
-  expect(mapRotationForHeading(0, 90)).toBe(0);      // norte para leste
-  expect(mapRotationForHeading(45, 45)).toBe(0);     // nordeste para nordeste
-  expect(mapRotationForHeading(90, 90)).toBe(0);     // leste para leste
-  expect(mapRotationForHeading(270, 270)).toBe(0);   // oeste para oeste
-  expect(mapRotationForHeading(315, 315)).toBe(0);   // noroeste para noroeste
-  expect(mapRotationForHeading(0, undefined)).toBe(0);
-  expect(mapRotationForHeading(undefined, undefined)).toBe(0);
-});
-
-test("Mapa 2D inverte 180° quando o próximo trecho está atrás do usuário", () => {
-  // Quando o próximo trecho está atrás do usuário, o mapa inverte 180°
-  // para que o trajeto fique à frente da seta.
-  expect(mapRotationForHeading(0, 180)).toBe(180);   // norte para sul (atrás)
-  expect(mapRotationForHeading(180, 0)).toBe(180);   // sul para norte (atrás)
-  expect(mapRotationForHeading(45, 225)).toBe(180);  // nordeste para sudoeste (atrás)
-  expect(mapRotationForHeading(135, 315)).toBe(180); // sudeste para noroeste (atrás)
-});
-
-test("Mapa 2D não alterna rotação por pequenas variações de heading próximo ao limiar", () => {
-  // Quando o próximo trecho está à frente (mesma direção), pequenas variações
-  // de heading não causam inversão.
-  expect(mapRotationForHeading(89.9, 90)).toBe(0);
-  expect(mapRotationForHeading(90.1, 90)).toBe(0);
-  expect(mapRotationForHeading(269.9, 270)).toBe(0);
-  expect(mapRotationForHeading(270.1, 270)).toBe(0);
-  
-  // Quando o próximo trecho está atrás, pequenas variações também não causam
-  // alternância rápida - permanece invertido.
-  expect(mapRotationForHeading(179.9, 359.9)).toBe(180);
-  expect(mapRotationForHeading(180.1, 0.1)).toBe(180);
-  expect(mapRotationForHeading(270.1, 90.1)).toBe(180);
-  expect(mapRotationForHeading(269.9, 89.9)).toBe(180);
+test("mapRotationForHeading só devolve 0° ou 180° e ignora rumos laterais", () => {
+  expect(mapRotationForHeading()).toBe(0);
+  expect(mapRotationForHeading(undefined, 180)).toBe(180);
+  expect(mapRotationForHeading(0)).toBe(0);
+  expect(mapRotationForHeading(180)).toBe(180);
+  expect(mapRotationForHeading(90, 0)).toBe(0);
+  expect(mapRotationForHeading(90, 180)).toBe(180);
+  expect(mapRotationForHeading(270, 180)).toBe(180);
+  for (let heading = -720; heading <= 720; heading += 7.5) {
+    for (const previous of [null, 0, 180] as const) expect([0, 180]).toContain(mapRotationForHeading(heading, previous));
+  }
 });
 
 test("Linha da rota encolhe no trecho atual e não reaparece após a chegada", () => {

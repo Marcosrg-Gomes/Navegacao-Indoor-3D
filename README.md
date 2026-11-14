@@ -100,29 +100,50 @@ acompanha o ponto sob o cursor ou os dedos. É possível mover a planta mesmo em
 No celular, o 2D abre perto da posição conhecida para mostrar os corredores e
 lojas em tamanho legível. **Ver piso inteiro** restaura o enquadramento;
 **Minha posição** volta a acompanhar a posição simulada ou centraliza a última
-posição confirmada; a bússola **N** restaura a orientação da planta.
+posição confirmada; a bússola **N** indica onde está o norte.
 **Centralizar rota** enquadra seu trecho
 no piso selecionado. Durante a simulação, o mapa acompanha o marcador até o
 usuário arrastar ou ampliar a planta. O app não mede deslocamento real.
-A seta azul é o equivalente indoor do marcador do Waze: fica encaixada na
-aresta atual do grafo e gira para o rumo do próximo trecho. Ao usar **Estou
-fora da rota**, o sistema preserva a posição simulada, encontra uma ligação
-válida no grafo e recalcula o caminho até o mesmo destino.
-Durante o acompanhamento, o 2D gira o caminho à frente para cima e desloca a
-seta para mostrar a próxima curva. A linha da rota encolhe conforme a posição
-simulada avança, tanto no 2D quanto no 3D. A planta 2D usa os corredores
-cadastrados para destacar as áreas caminháveis e limita os rótulos de lojas
-próximas; a busca mostra todos os destinos. O 3D mantém a planta na orientação indicada
-pela bússola e enquadra o trecho seguinte como vista geral; seus controles
-permitem zoom, retorno à posição e vista do piso inteiro. Arrastar ou ampliar
-suspende o acompanhamento até tocar em
-**Minha posição**. Nos acessos
-verticais, mantém o último rumo horizontal até a troca de piso terminar.
+A seta de navegação (chevron com halo) fica encaixada na aresta atual do grafo
+e **aponta sempre para cima na tela**. Ao usar **Estou fora da rota**, o sistema
+preserva a posição simulada, encontra uma ligação válida no grafo e recalcula o
+caminho até o mesmo destino.
+
+**Orientação dos mapas (regra única para 2D e 3D).** A planta e a câmera 3D só
+assumem **0°** (norte para cima) ou **180°**; não há ângulos intermediários nem
+rotação contínua. A orientação é decidida pelo percurso à frente no piso atual
+(`apps/visitor/components/navigationOrientation.ts`, compartilhado pelo hook
+`useMapOrientation`): se o caminho seguinte desce na planta, ela vira 180° para
+que o deslocamento seja sempre de baixo para cima. Há histerese: curvas laterais
+nunca giram o mapa — só uma inversão clara do sentido vertical troca 0° ↔ 180°.
+Curvas são comunicadas pela linha da rota, pelo ícone de manobra e pela próxima
+instrução. A bússola **N** mostra se o norte está para cima ou para baixo. No 3D,
+o azimute da câmera fica travado nessa mesma orientação (o arrasto com o botão
+direito só inclina). A cena 3D é refletida em X na apresentação
+(`SCENE_MIRROR` em `sceneTransform.ts`) para que esquerda e direita coincidam
+com a planta 2D e com as instruções da API; catálogo e GLB publicados não mudam.
+Com a planta a 180°, rótulos desenhados pelo app ficam legíveis; textos
+gravados na imagem da planta aparecem invertidos.
+
+Durante o acompanhamento, o mapa desloca a seta para mostrar a próxima curva.
+A linha da rota encolhe conforme a posição simulada avança, tanto no 2D quanto
+no 3D. A planta 2D usa os corredores cadastrados para destacar as áreas
+caminháveis e limita os rótulos de lojas próximas; a busca mostra todos os
+destinos. Os controles 3D permitem zoom, retorno à posição e vista do piso
+inteiro. Arrastar ou ampliar suspende o acompanhamento até tocar em
+**Minha posição**. Nos acessos verticais, a seta permanece no embarque até a
+troca de piso terminar.
+
+**Rota sem escadas.** O botão **Sem escadas** fica visível no painel da rota e
+recalcula usando apenas arestas acessíveis (elevadores e rampas); a escolha é
+mantida em recálculos e desvios. Se não houver caminho acessível, a API responde
+`SEM_ROTA` com a mensagem "Não há rota sem escadas até este destino", exibida no
+banner — nunca uma rota com escadas.
 
 No 3D, abra **Mais controles** e use **Vista superior / Vista inclinada** para enxergar os espaços de cima,
-e as setas de rotação ou o botão direito do mouse para mudar o ângulo. Nomes dos
+e o botão direito do mouse para inclinar a vista. Nomes dos
 locais aparecem ao aproximar. Verde indica origem, vermelho destino, azul rota
-e roxo os acessos entre pisos. A seta **N** mostra a orientação, e o 2D inclui
+e roxo os acessos entre pisos. A bússola **N** mostra a orientação, e o 2D inclui
 uma escala em metros. As setas do teclado também movem o mapa quando ele tem foco.
 
 ## Banco persistente e desenvolvimento

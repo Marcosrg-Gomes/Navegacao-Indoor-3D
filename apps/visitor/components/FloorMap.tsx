@@ -13,6 +13,7 @@ import { getAssetUrl } from "@/services/api";
 import { RouteOverlay } from "./RouteOverlay";
 import type { PositionEstimate } from "@/positioning/types";
 import { colors } from "@/constants/colors";
+import { markerPlanRotation, type MapOrientation } from "./navigationOrientation";
 
 type FloorMapProps = {
   width: number;
@@ -29,8 +30,8 @@ type FloorMapProps = {
   floorId?: number;
   onNodePress?: (node: No) => void;
   detailZoom?: number;
-  /** Rotação visual da planta; mantém os rótulos dos pontos legíveis. */
-  mapRotation?: number;
+  /** Rotação visual da planta (0° ou 180°); mantém rótulos e seta legíveis. */
+  mapRotation?: MapOrientation;
   position?: PositionEstimate | null;
   compact?: boolean;
 };
@@ -67,6 +68,9 @@ export function FloorMap({
     .sort((a, b) => focus ? Math.hypot((a.coord_x - focus.x) * width, (a.coord_y - focus.y) * height) - Math.hypot((b.coord_x - focus.x) * width, (b.coord_y - focus.y) * height) : a.id - b.id)
     .slice(0, compact && position?.source === "simulation" ? 0 : 3).map((node) => node.id));
   const occupiedLabels: { x: number; y: number; width: number }[] = [];
+  // Com a planta a 180°, "acima na tela" é coord_y crescente.
+  const screenUp = mapRotation === 180 ? -1 : 1;
+  const upright = (x: number, y: number) => mapRotation ? `rotate(${-mapRotation} ${x} ${y})` : undefined;
 
   return (
     <Svg
@@ -122,6 +126,7 @@ export function FloorMap({
               fill={colors.primaryLighter}
             />
             <SvgText
+              transform={upright(width / 2, height * 0.5)}
               x={width / 2}
               y={height * 0.52}
               fill={colors.textMuted}
@@ -145,7 +150,7 @@ export function FloorMap({
           );
         })}
 
-        <RouteOverlay width={width} height={height} routeNodes={routeNodes} floorId={floorId} showEndpoints={false} position={position} />
+        <RouteOverlay width={width} height={height} routeNodes={routeNodes} floorId={floorId} showEndpoints={false} position={position} mapRotation={mapRotation} />
 
         {visibleNodes.map((node) => {
           const isOrigin = node.id === originNodeId;
@@ -164,7 +169,7 @@ export function FloorMap({
           const label = isOrigin ? position?.source === "simulation" ? null : compact ? "Você" : "Você está aqui" : isDestination || isHighlight ? node.nome || "Destino" : pinned ? "★ " + node.nome : compact && position?.source === "simulation" ? null : node.tipo === "banheiro" ? "WC" : transition ? node.tipo === "elevador" ? "Elevador" : "Escada" : compact ? nearbyStores.has(node.id) && detailZoom >= 1.4 ? node.nome : null : detailZoom >= 1.6 ? node.nome : node.tipo === "loja" ? code : null;
           const labelWidth = Math.min(compact ? 92 : 174, (label?.length || 0) * (compact ? 5.8 : 6.5) + 16);
           const labelX = Math.max(labelWidth / 2 + 4, Math.min(width - labelWidth / 2 - 4, toX(node.coord_x) + (isOrigin || isDestination ? 0 : node.coord_x < .5 ? -labelWidth / 2 - 12 : labelWidth / 2 + 12)));
-          const preferredY = toY(node.coord_y) - (isOrigin || isDestination ? 23 : 0);
+          const preferredY = toY(node.coord_y) - (isOrigin || isDestination ? 23 * screenUp : 0);
           const labelY = [0, -26, 26, -52, 52].map((offset) => Math.max(16, Math.min(height - 16, preferredY + offset)))
             .find((y) => !occupiedLabels.some((other) => Math.abs(other.y - y) < 25 && Math.abs(other.x - labelX) < (other.width + labelWidth) / 2 + 5)
               && !visibleNodes.some((point) => Math.abs(toY(point.coord_y) - y) < 21 && Math.abs(toX(point.coord_x) - labelX) < labelWidth / 2 + 10));
@@ -182,12 +187,27 @@ export function FloorMap({
             </G>}            
           </G>;
         })}
-        {position && position.floorId === floorId && <G testID="position-marker" accessibilityLabel={position.source === "simulation" ? "Posição simulada" : "Última posição confirmada"}>
-          <Circle cx={toX(position.x)} cy={toY(position.y)} r={20} fill={colors.surface} stroke={colors.primary} strokeWidth={3} opacity={.97} />
-          <Path d={`M ${toX(position.x)} ${toY(position.y) - 13} L ${toX(position.x) + 11} ${toY(position.y) + 9} L ${toX(position.x)} ${toY(position.y) + 6} L ${toX(position.x) - 11} ${toY(position.y) + 9} Z`} transform={`rotate(${-((position.heading ?? 0) % 360 + 360) % 360} ${toX(position.x)} ${toY(position.y)})`} fill={colors.primary} stroke={colors.primaryDark} strokeWidth={2} />
-          {!compact && <SvgText x={toX(position.x)} y={toY(position.y) - 26} textAnchor="middle" fontSize={11} fontWeight="800" fill={colors.primary} letterSpacing={0.5}>Você</SvgText>}
-        </G>}
+        {position && position.floorId === floorId && <NavigationMarker x={toX(position.x)} y={toY(position.y)} rotation={markerPlanRotation(mapRotation)}
+          simulated={position.source === "simulation"} showLabel={!compact} />}
       </g>
     </Svg>
   );
+}
+
+/**
+ * Indicador de navegação: chevron com halo. Desenhado apontando para o topo da
+ * planta e girado junto com ela (0°/180°), de modo que na tela aponta sempre para cima.
+ */
+export function NavigationMarker({ x, y, rotation, simulated, showLabel }: { x: number; y: number; rotation: MapOrientation; simulated: boolean; showLabel: boolean }) {
+  return <G testID="position-marker" accessibilityLabel={simulated ? "Sua posição simulada; a seta indica o sentido do percurso" : "Sua última posição confirmada"}>
+    <Circle cx={x} cy={y} r={26} fill={colors.primary} opacity={.14} />
+    <Circle cx={x} cy={y} r={17} fill={colors.surface} stroke={colors.primary} strokeWidth={1.5} />
+    <G testID="position-arrow" transform={`translate(${x} ${y}) rotate(${rotation})`}>
+      <Path d="M 0 -13 L 10 9 L 0 4 L -10 9 Z" fill={colors.primary} stroke={colors.surface} strokeWidth={1.5} strokeLinejoin="round" />
+    </G>
+    {showLabel && <G transform={rotation ? `rotate(${-rotation} ${x} ${y})` : undefined}>
+      <Rect x={x - 20} y={y - 44} width={40} height={18} rx={9} fill={colors.primary} />
+      <SvgText x={x} y={y - 31} textAnchor="middle" fontSize={11} fontWeight="700" fill={colors.textOnPrimary}>Você</SvgText>
+    </G>}
+  </G>;
 }

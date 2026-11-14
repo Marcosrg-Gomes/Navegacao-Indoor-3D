@@ -28,7 +28,7 @@ test("navegação mobile mantém o mapa como foco e usa uma ação principal", a
   await expect(map).toBeVisible();
 
   const initial = Number(await page.getByTestId("remaining-distance").textContent());
-  const firstRouteEdge = map.locator('polyline[stroke="#6842d8"]').first();
+  const firstRouteEdge = map.locator('polyline[stroke="#1f5fc9"]').first();
   const beforeWalking = await firstRouteEdge.getAttribute("points");
   await panel.getByRole("button", { name: "Iniciar navegação", exact: true }).click();
   await expect(page.getByText("NAVEGAÇÃO SIMULADA", { exact: true })).toBeVisible();
@@ -73,7 +73,8 @@ test("mapa baixo mantém a planta orientada e a posição longe da lateral", asy
   await page.getByTestId("route-panel").getByRole("button", { name: "Iniciar navegação" }).click();
   await expect.poll(async () => Number(await page.getByTestId("remaining-distance").textContent())).toBeLessThan(18);
   const viewport = page.getByTestId("map-2d-viewport");
-  await expect(viewport).toHaveAttribute("data-rotation", "0.00");
+  // Regra 0°/180°: a planta pode estar invertida, mas nunca em ângulo intermediário.
+  expect(["0.00", "180.00"]).toContain(await viewport.getAttribute("data-rotation"));
   const marker = viewport.getByTestId("position-marker");
   const frame = await viewport.boundingBox(), point = await marker.boundingBox();
   expect(frame && point).toBeTruthy();

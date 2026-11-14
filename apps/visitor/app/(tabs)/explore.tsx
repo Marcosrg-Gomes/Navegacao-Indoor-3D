@@ -115,7 +115,7 @@ export default function ExploreScreen() {
 
   function filterButton(label: string, selected: boolean, action: () => void, disabled = false) {
     return <DsChip key={label} selected={selected} disabled={disabled} onPress={action}>
-      <Text style={styles.chipText}>{label}</Text>
+      {label}
     </DsChip>;
   }
 
@@ -152,10 +152,10 @@ export default function ExploreScreen() {
           <Text style={styles.positionPin} accessible={false}>◎</Text><Text style={styles.positionText}>{originNode ? `Você está em ${originNode.nome} · ${floors.find((floor) => floor.id === originNode.piso_id)?.nome || "Piso"}` : "Onde você está? Defina sua posição"}  ›</Text>
         </TouchableOpacity>
         <DsSearch value={query} onChangeText={(value) => { setQuery(value); setLetter(""); }} placeholder="Buscar por nome ou serviço" error={!!actionError} accessibilityLabel="Buscar no Explorar" />
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.shortcutStrip} accessibilityLabel="Tipos de lugares">{shortcuts.filter(([value]) => ["all", "shops", "food", "wc", "lift"].includes(value)).map(([value, label]) => <DsChip key={value} selected={shortcut === value} onPress={() => { setShortcut(value); setLetter(""); }}><Text style={styles.chipText}>{label}</Text></DsChip>)}</ScrollView>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.shortcutStrip} accessibilityLabel="Tipos de lugares">{shortcuts.filter(([value]) => ["all", "shops", "food", "wc", "lift"].includes(value)).map(([value, label]) => <DsChip key={value} selected={shortcut === value} onPress={() => { setShortcut(value); setLetter(""); }}>{label}</DsChip>)}</ScrollView>
         <View style={styles.actionBar}><DsButton variant="outline" onPress={() => setFilters(true)} style={styles.actionButton}><Text style={styles.actionText}>☷  Filtros {activeFilters.length ? `(${activeFilters.length})` : ""}</Text></DsButton></View>
         <View style={styles.resultRow}><Text accessibilityLiveRegion="polite" style={d.muted}>{waiting ? "Consultando locais…" : filtered.length + (filtered.length === 1 ? " local" : " locais") + (activeFilters.length ? ` · ${activeFilters.map((filter) => filter.label.toLowerCase()).join(", ")}` : "")}</Text><TouchableOpacity accessibilityRole="button" style={d.link} onPress={() => setGrouped(!grouped)}><Text style={d.linkText}>{grouped ? "Ordem A–Z" : "Por categoria"}</Text></TouchableOpacity></View>
-        {!query && ["all", "shops"].includes(shortcut) && <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.alphabetStrip} accessibilityLabel="Índice alfabético">{["", ...letters].map((value) => <DsChip key={value} selected={letter === value} onPress={() => { setLetter(value); setQuery(""); }}><Text style={styles.chipText}>{value || "A–Z"}</Text></DsChip>)}</ScrollView>}
+        {!query && ["all", "shops"].includes(shortcut) && <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.alphabetStrip} accessibilityLabel="Índice alfabético">{["", ...letters].map((value) => <DsChip key={value} selected={letter === value} onPress={() => { setLetter(value); setQuery(""); }}>{value || "A–Z"}</DsChip>)}</ScrollView>}
         {!!activeFilters.length && <View style={styles.quickFilters}>{activeFilters.map((item) => <TouchableOpacity key={item.key} accessibilityRole="button" accessibilityLabel={"Remover filtro " + item.label} style={d.link} onPress={item.remove}><Text style={d.linkText}>{item.label} ×</Text></TouchableOpacity>)}{activeFilters.length > 1 && <TouchableOpacity accessibilityRole="button" style={d.link} onPress={clearFilters}><Text style={d.linkText}>Limpar filtros</Text></TouchableOpacity>}</View>}
         {(directory.error || actionError || directory.distanceError) && (
           <DsError message={(actionError || directory.error || directory.distanceError) || ""} onRetry={() => { setActionError(null); directory.reload(); }} />
@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
   storeActions: { minWidth: 62, alignItems: "center", justifyContent: "space-between" },
   goButton: { minWidth: 60, minHeight: 44, borderRadius: 9, backgroundColor: colors.sun, alignItems: "center", justifyContent: "center", paddingHorizontal: 8 },
   goButtonText: { color: ink, fontSize: 15, fontWeight: "800" },
-  saveText: { color: colors.accent, fontSize: 13, fontWeight: "700" },
+  saveText: { color: colors.primary, fontSize: 13, fontWeight: "700", textDecorationLine: "underline" },
   screen: { flex: 1, backgroundColor: colors.bg },
   content: { padding: 18, paddingBottom: 32, width: "100%", maxWidth: 1120, alignSelf: "center", flexGrow: 1 },
   header: { gap: 10, paddingBottom: 8 },

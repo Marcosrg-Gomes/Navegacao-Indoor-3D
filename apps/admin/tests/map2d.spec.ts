@@ -17,7 +17,7 @@ test("Mapa 2D exibe rota contínua com setas direcionais por segmento", async ({
   });
 
   // Deve haver polylines da rota (uma por aresta) com a cor da rota
-  const routePolylines = page.locator('svg polyline[stroke="#6842d8"]');
+  const routePolylines = page.locator('svg polyline[stroke="#1f5fc9"]');
   const count = await routePolylines.count();
   expect(count).toBeGreaterThanOrEqual(1);
 });

@@ -14,20 +14,21 @@ import QRCodes from "./pages/QRCodes";
 import Validation from "./pages/Validation";
 import SceneValidation from "./pages/SceneValidation";
 import Audit from "./pages/Audit";
+import { Icon, type IconName } from "./components/Icon";
 
-const links = [
-  ["/", "Dashboard"],
-  ["/shoppings", "Shoppings"],
-  ["/pisos", "Pisos"],
-  ["/nos", "Editor de Nós"],
-  ["/arestas", "Arestas"],
-  ["/lojas", "Lojas"],
-  ["/categorias", "Categorias"],
-  ["/qr", "QR Codes"],
-  ["/validacao", "Validação"],
-  ["/cena-3d", "Cena 3D"],
-  ["/auditoria", "Histórico e falhas"],
-] as const;
+const links: readonly (readonly [string, string, IconName])[] = [
+  ["/", "Dashboard", "dashboard"],
+  ["/shoppings", "Shoppings", "mall"],
+  ["/pisos", "Pisos", "floors"],
+  ["/nos", "Editor de Nós", "node"],
+  ["/arestas", "Arestas", "edge"],
+  ["/lojas", "Lojas", "store"],
+  ["/categorias", "Categorias", "tag"],
+  ["/qr", "QR Codes", "qr"],
+  ["/validacao", "Validação", "check"],
+  ["/cena-3d", "Cena 3D", "cube"],
+  ["/auditoria", "Histórico e falhas", "history"],
+];
 
 export default function App() {
   const [authed, setAuthed] = useState(() => Boolean(getApiKey()));
@@ -44,24 +45,29 @@ export default function App() {
       <div className="app">
         <aside className="sidebar no-print">
           <div className="brand">
-            <small>Indoor Nav</small>
-            <strong>Painel Admin</strong>
+            <span className="brand-mark" aria-hidden="true" />
+            <div>
+              <small>Navegação Indoor</small>
+              <strong>Painel Admin</strong>
+            </div>
           </div>
-          <nav className="nav">
-            {links.map(([to, label]) => (
+          <nav className="nav" aria-label="Seções do painel">
+            {links.map(([to, label, icon]) => (
               <NavLink key={to} to={to} end={to === "/"}>
-                {label}
+                <Icon name={icon} />
+                <span>{label}</span>
               </NavLink>
             ))}
           </nav>
           <div className="sidebar-foot">
             <button
+              className="logout"
               onClick={() => {
                 clearApiKey();
                 setAuthed(false);
               }}
             >
-              Sair
+              <Icon name="logout" /> Sair
             </button>
           </div>
         </aside>
@@ -90,9 +96,9 @@ export default function App() {
   return (
     <ToastContext.Provider value={toast}>
       {authed ? shell : <Login onOk={() => setAuthed(true)} />}
-      <div className="toasts no-print">
+      <div className="toasts no-print" role="status" aria-live="polite">
         {toasts.map((t) => (
-          <div key={t.id} className={`toast ${t.kind}`}>
+          <div key={t.id} className={`toast ${t.kind}`} role={t.kind === "erro" ? "alert" : undefined}>
             {t.msg}
           </div>
         ))}

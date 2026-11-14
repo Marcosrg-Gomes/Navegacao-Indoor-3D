@@ -23,7 +23,7 @@ test("Mini Shopping: QR, GLB real, loja térrea, rota idêntica em 2D/3D e chega
   await page.getByRole("button", { name: "Mapa 2D", exact: true }).click();
   await expect(page.getByTestId("floor-map")).toBeVisible();
   const visibleEdges = route.nos.slice(1).filter((node: { piso_id: number }, index: number) => node.piso_id === route.nos[index].piso_id).length;
-  await expect(page.locator('svg polyline[stroke="#6842d8"]')).toHaveCount(visibleEdges);
+  await expect(page.locator('svg polyline[stroke="#1f5fc9"]')).toHaveCount(visibleEdges);
   await page.getByRole("button", { name: "Cheguei ao destino", exact: true }).click();
   await expect(page.getByTestId("arrival-notice")).toBeVisible();
   expect(errors).toEqual([]);

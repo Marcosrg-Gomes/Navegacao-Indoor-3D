@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { colors } from "@/constants/colors";
+import { WayfindingIcon } from "./WayfindingIcon";
 
 type Floor = { id: number; nome: string };
 
@@ -15,7 +16,7 @@ export function FloorSwitcher({ floors, currentId, top, onSelect }: {
     <TouchableOpacity testID="floor-switch" accessibilityRole="button" accessibilityLabel={`Piso atual: ${current.nome}. Trocar piso`}
       accessibilityState={{ expanded: open }} onPress={() => setOpen((value) => !value)} style={styles.trigger}>
       <View style={{ flex: 1 }}><Text style={styles.kicker}>PISO DO MAPA</Text><Text style={styles.name}>{current.nome}</Text></View>
-      <Text style={styles.chevron}>{open ? "⌃" : "⌄"}</Text>
+      <View style={{ transform: [{ rotate: open ? "180deg" : "0deg" }] }}><WayfindingIcon name="chevron" color={colors.primaryDark} size={20} strokeWidth={2.2} /></View>
     </TouchableOpacity>
     {open && <View style={styles.options} accessibilityLabel="Escolher piso do mapa">
       {floors.map((floor) => <TouchableOpacity key={floor.id} accessibilityRole="button" accessibilityLabel={floor.nome}

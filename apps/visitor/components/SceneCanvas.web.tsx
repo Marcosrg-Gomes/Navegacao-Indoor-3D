@@ -13,8 +13,9 @@ import { SceneControls, type CameraCommand, type CameraView } from "./SceneContr
 import { SceneLabels } from "./SceneLabels.web";
 import { MapLegend, MapToolbar } from "./MapToolbar";
 import { WalkCamera } from "./WalkCamera.web";
-import { sceneHeadingDirection, sceneTransform } from "./sceneTransform";
-import { mapRotationForHeading, directionFromTo } from "./mapViewport";
+import { sceneHeadingDirection, sceneTransform, sceneYawForDirection } from "./sceneTransform";
+import { markerPlanRotation, type MapOrientation } from "./navigationOrientation";
+import { useMapOrientation } from "@/hooks/useMapOrientation";
 import { colors } from "@/constants/colors";
 
 type Props = SceneMapProps & { scene: Scene; onReady: () => void; onProgress: (value: number) => void; onError: (message: string) => void };
@@ -30,7 +31,7 @@ function dispose(model: Object3D) {
   model.traverse((object) => { if (object instanceof Mesh) { object.geometry.dispose(); (Array.isArray(object.material) ? object.material : [object.material]).forEach((m: Material) => m.dispose()); } });
 }
 
-function Viewport({ model, props, command, onView, previewNext }: { model: Object3D; props: Props; command: CameraCommand | null; onView: (view: CameraView) => void; previewNext: boolean }) {
+function Viewport({ model, props, orientation, command, onView, previewNext }: { model: Object3D; props: Props; orientation: MapOrientation; command: CameraCommand | null; onView: (view: CameraView) => void; previewNext: boolean }) {
   const { gl, invalidate } = useThree();
   const floor = props.scene.floors.find((item) => item.piso_id === props.floorId);
   const callbacks = useRef(props); callbacks.current = props;
@@ -42,21 +43,8 @@ function Viewport({ model, props, command, onView, previewNext }: { model: Objec
   useEffect(() => { if (floor) callbacks.current.onReady(); else callbacks.current.onError("Piso ausente no catálogo 3D."); }, [floor, model]);
   useEffect(() => { invalidate(); }, [props.position?.x, props.position?.y, props.position?.floorId, invalidate]);
   if (!floor) return null;
-  // Calcular a direção do próximo trecho da rota em relação à posição do usuário,
-  // para que o marcador 3D sempre aponte para a frente (parte superior da tela).
-  let nextDirection: number | undefined;
-  if (props.position && props.routeNodes) {
-    const route = props.routeNodes.filter((n) => n.piso_id === floor.piso_id);
-    const currentIndex = route.findIndex((n) => n.id === props.position?.toNodeId);
-    const nextNode = route[currentIndex + 1];
-    if (nextNode) {
-      nextDirection = directionFromTo(props.position.x, props.position.y, nextNode.coord_x, nextNode.coord_y);
-    }
-  }
-  // O marcador 3D gira com o heading do usuário, apontando para a frente
-  // do deslocamento no plano horizontal do modelo 3D.
-  const direction = sceneHeadingDirection(floor, props.position?.heading ?? 0);
-  const markerYaw = Math.atan2(direction[0], direction[2]);
+  // A câmera olha para `orientation`; a seta aponta para o mesmo rumo e, portanto, para cima na tela.
+  const markerYaw = sceneYawForDirection(sceneHeadingDirection(floor, markerPlanRotation(orientation)));
   return <>
     <color attach="background" args={[colors.bg]} />
     <ambientLight intensity={1.7} /><directionalLight position={[15, 45, 20]} intensity={2.2} />
@@ -64,23 +52,28 @@ function Viewport({ model, props, command, onView, previewNext }: { model: Objec
     <SceneRoute nodes={props.routeNodes} floor={floor} position={props.position} />
     {props.position?.floorId === floor.piso_id && <group name="NAV_POSITION" position={sceneTransform(floor, props.position.x, props.position.y)}
       rotation={[0, markerYaw, 0]}>
-      <mesh position={[0, .11, 0]} rotation={[-Math.PI / 2, 0, 0]} renderOrder={19}>
-        <circleGeometry args={[1.25, 32]} /><meshBasicMaterial color={colors.primary} transparent opacity={.2} depthTest={false} />
+      <mesh position={[0, .11, 0]} rotation={[-Math.PI / 2, 0, 0]} renderOrder={18}>
+        <circleGeometry args={[1.6, 40]} /><meshBasicMaterial color={colors.primary} transparent opacity={.16} depthTest={false} />
       </mesh>
-      <mesh position={[0, .26, 0]} rotation={[-Math.PI / 2, 0, 0]} scale={[1.12, 1.12, 1]} renderOrder={20}>
+      <mesh position={[0, .2, 0]} rotation={[-Math.PI / 2, 0, 0]} renderOrder={19}>
+        <circleGeometry args={[1.05, 40]} /><meshBasicMaterial color={colors.surface} depthTest={false} />
+      </mesh>
+      <mesh position={[0, .26, 0]} rotation={[-Math.PI / 2, 0, 0]} scale={[.9, .9, 1]} renderOrder={20}>
         <shapeGeometry args={[navigationArrow]} /><meshBasicMaterial color={colors.surface} depthTest={false} />
       </mesh>
-      <mesh position={[0, .28, 0]} rotation={[-Math.PI / 2, 0, 0]} renderOrder={21}>
+      <mesh position={[0, .28, 0]} rotation={[-Math.PI / 2, 0, 0]} scale={[.78, .78, 1]} renderOrder={21}>
         <shapeGeometry args={[navigationArrow]} /><meshBasicMaterial color={colors.primary} depthTest={false} />
       </mesh>
     </group>}
-    {props.previewStep ? <WalkCamera floor={floor} scene={props.scene} step={props.previewStep} nodes={props.routeNodes} next={previewNext} onView={onView} /> : <SceneControls floor={floor} scene={props.scene} props={props} command={command} onView={onView} />}
+    {props.previewStep ? <WalkCamera floor={floor} scene={props.scene} step={props.previewStep} nodes={props.routeNodes} next={previewNext} orientation={orientation} onView={onView} /> : <SceneControls floor={floor} scene={props.scene} props={props} orientation={orientation} command={command} onView={onView} />}
   </>;
 }
 
 export default function SceneCanvas(props: Props) {
   const compactButton = { width: 44, height: 44, border: 0, borderRadius: 12, background: colors.surface, color: colors.primary, fontWeight: 800, fontSize: 22 } as const;
   const [model, setModel] = useState<Object3D | null>(null);
+  // Mesma regra do 2D: 0° ou 180°, decidida pelo percurso à frente e não pelas curvas.
+  const orientation = useMapOrientation(props.routeNodes, props.floorId, props.position);
   const [view, setView] = useState<CameraView>({ zoom: 1, northAngle: 0, target: [], position: [], labels: {} });
   const [command, setCommand] = useState<CameraCommand | null>(null);
   const [topView, setTopView] = useState(false);
@@ -129,10 +122,10 @@ export default function SceneCanvas(props: Props) {
     </MapToolbar>}
     <div data-testid="scene-map" data-preview={props.previewStep ? "walk" : "map"} data-floor-id={props.floorId} data-destination-code={selectedPoi?.codigo || ""}
       data-route-node-ids={props.routeNodes.filter((n) => n.piso_id === props.floorId).map((n) => n.id).join(",")}
-      data-zoom={view.zoom.toFixed(3)} data-camera-target={view.target.map((n) => n.toFixed(3)).join(",")} data-camera-position={view.position.map((n) => n.toFixed(3)).join(",")}
+      data-zoom={view.zoom.toFixed(3)} data-orientation={orientation} data-camera-target={view.target.map((n) => n.toFixed(3)).join(",")} data-camera-position={view.position.map((n) => n.toFixed(3)).join(",")}
       aria-label="Mapa 3D do shopping" style={{ position: "relative", width: props.width, height: props.height, maxWidth: "100%", overflow: "hidden", cursor: "grab" }}>
       {model && <Canvas key={props.previewStep ? "walk" : "map"} orthographic={!props.previewStep} frameloop="demand" dpr={[1, 1.5]} camera={{ near: .1, far: 400, fov: 65 }} gl={{ antialias: true }}>
-        <Viewport model={model} props={props} command={command} onView={setView} previewNext={previewNext} />
+        <Viewport model={model} props={props} orientation={orientation} command={command} onView={setView} previewNext={previewNext} />
       </Canvas>}
       {model && floor && <SceneLabels scene={props.scene} floor={floor} origin={props.originNodeId} destination={props.destinationNodeId} simulated={props.position?.source === "simulation"} position={props.position} view={view} width={props.width} height={props.height} onPoiPress={props.onPoiPress} />}
       {props.compact && !props.previewStep && <button aria-label="Ver piso inteiro" title="Ver piso inteiro" onClick={() => { props.onExplore?.(); send("reset"); }} style={{ ...compactButton, position: "absolute", bottom: 10, left: 10, width: 104, fontSize: 12 }}>Piso inteiro</button>}

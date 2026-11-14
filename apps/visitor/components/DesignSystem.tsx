@@ -83,9 +83,11 @@ export function DsButton({
       )}
       <Text
         style={{
-          color: disabled || loading ? "rgba(255,255,255,0.6)" : textColor,
+          // A opacidade de `styles.disabled` já sinaliza o estado; manter a cor da variante preserva o contraste.
+          color: textColor,
           fontWeight: "700",
           fontSize: 15,
+          textAlign: "center",
         }}
       >
         {children}
@@ -300,8 +302,10 @@ export function DsToggle({ checked, disabled = false, label, onPress }: DsToggle
 const styles = StyleSheet.create({
   // Botão
   button: {
-    borderRadius: 10,
+    borderRadius: 12,
     overflow: "hidden",
+    paddingHorizontal: 18,
+    paddingVertical: 10,
   },
   loading: {
     position: "absolute",
