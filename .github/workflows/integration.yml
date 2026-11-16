@@ -107,10 +107,32 @@ jobs:
           npx playwright install --with-deps chromium
       - name: Seed banco de teste com piso superior
         working-directory: apps/admin
+        run: python ../../services/api/seed_database.py --env ci --include-floors || true
+      - name: Verificar piso superior no banco de teste
+        working-directory: apps/admin
         run: |
-          # O script services/api/seed_database.py ainda não existe no repositório.
-          # Quando implementado, executar:
-          #   python ../../services/api/seed_database.py --env ci --include-floors || true
+          python ../../services/api/seed_database.py --env ci --include-floors || true
+          python - <<'PY'
+          import sys
+          sys.path.insert(0, "../../services/api")
+          from app.database import SessionLocal, engine
+          from app.models import Piso, No, QRCode, Shopping
+          db = SessionLocal()
+          demo = db.query(Shopping).filter_by(nome="Shopping Demo Center").first()
+          if not demo:
+            print("ERRO: Shopping Demo Center nao encontrado"); sys.exit(1)
+          upper = db.query(Piso).filter_by(shopping_id=demo.id, nivel=1).first()
+          if not upper:
+            print("ERRO: Piso superior nao encontrado"); sys.exit(1)
+          dest = db.query(No).filter_by(nome="Livraria Superior", piso_id=upper.id).first()
+          if not dest:
+            print("ERRO: Livraria Superior nao encontrada"); sys.exit(1)
+          qr = db.query(QRCode).filter_by(no_id=dest.id, token="DESTINO-SUPERIOR").first()
+          if not qr:
+            print("ERRO: QR code DESTINO-SUPERIOR nao encontrado"); sys.exit(1)
+          print("OK: Piso superior, Livraria Superior e QR DESTINO-SUPERIOR presentes no banco de teste.")
+          db.close()
+          PY
       - name: Existing E2E regression
         working-directory: apps/admin
         env:
