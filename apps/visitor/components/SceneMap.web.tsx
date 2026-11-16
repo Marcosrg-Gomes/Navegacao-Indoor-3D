@@ -77,7 +77,7 @@ export function SceneMap(props: SceneMapProps) {
       <WayfindingIcon name="alert" color={colors.warning} size={20} strokeWidth={2} />
       <View style={{ flex: 1, gap: 2 }}>
         <Text style={segment.noticeText}>{failure} O mapa 2D e as instruções continuam disponíveis.</Text>
-        <TouchableOpacity accessibilityRole="button" style={{ minHeight: 40, justifyContent: "center", alignSelf: "flex-start" }} onPress={() => setAttempt((n) => n + 1)}><Text style={segment.noticeLink}>Tentar 3D novamente</Text></TouchableOpacity>
+        <TouchableOpacity accessibilityRole="button" style={{ minHeight: 44, justifyContent: "center", alignSelf: "flex-start" }} onPress={() => setAttempt((n) => n + 1)}><Text style={segment.noticeLink}>Tentar 3D novamente</Text></TouchableOpacity>
       </View>
     </View>}
     {show3d && !ready && <View accessibilityLiveRegion="polite" style={segment.loading}>
@@ -94,7 +94,7 @@ export function SceneMap(props: SceneMapProps) {
 
 const segment = StyleSheet.create({
   track: { flexDirection: "row", gap: 2, padding: 3, borderRadius: 14, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.borderLight, shadowColor: "#0b1f1b", shadowOpacity: .14, shadowRadius: 10, shadowOffset: { width: 0, height: 3 }, elevation: 4 },
-  item: { minHeight: 40, minWidth: 48, paddingHorizontal: 12, borderRadius: 11, alignItems: "center", justifyContent: "center" },
+  item: { minHeight: 44, minWidth: 48, paddingHorizontal: 12, borderRadius: 11, alignItems: "center", justifyContent: "center" },
   itemSelected: { backgroundColor: colors.primary },
   text: { color: colors.textMuted, fontSize: 13, fontWeight: "600" },
   textSelected: { color: colors.textOnPrimary, fontWeight: "700" },
