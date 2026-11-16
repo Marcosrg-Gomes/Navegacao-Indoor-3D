@@ -1,21 +1,26 @@
 import React from "react";
 import { Tabs } from "expo-router";
-import { StyleSheet, Text, useWindowDimensions, View } from "react-native";
+import { StyleSheet, useWindowDimensions, View } from "react-native";
+import { Text } from "@/components/AppText";
 import { WayfindingIcon } from "@/components/WayfindingIcon";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { colors } from "@/constants/colors";
 import { useNavigation } from "@/context/NavigationContext";
-import { VisitorTabBar } from "@/components/VisitorTabBar";
+import { useRailLayout, VisitorTabBar } from "@/components/VisitorTabBar";
 
 /** O mapa é a tela principal no celular. */
 export default function TabsLayout() {
   const insets = useSafeAreaInsets();
   const mobile = useWindowDimensions().width < 600;
+  // Desktop web: trilho lateral com a marca; o cabeçalho superior fica redundante.
+  const rail = useRailLayout();
   const { shopping, floor } = useNavigation();
   return (
     <Tabs
       tabBar={(props) => <VisitorTabBar {...props} />}
       screenOptions={{
+        tabBarPosition: rail ? "left" : "bottom",
+        headerShown: rail ? false : undefined,
         header: () => <View style={[styles.brand, { paddingTop: insets.top + 10 }]}><View style={styles.brandMark} /><Text style={styles.brandName}>{shopping?.nome || "Guia do shopping"}</Text><Text style={styles.brandCaption}>{floor?.nome || "Bem-vindo"}</Text></View>,
         headerStyle: {
           backgroundColor: colors.primaryDark,
@@ -31,7 +36,7 @@ export default function TabsLayout() {
         name="index"
         options={{
           title: mobile ? "Mapa" : "Início",
-          headerShown: mobile ? false : undefined,
+          headerShown: mobile || rail ? false : undefined,
           headerTitle: "Navegação Indoor",
           tabBarIcon: ({ color }) => (
             <WayfindingIcon name="home" color={color} size={24} />

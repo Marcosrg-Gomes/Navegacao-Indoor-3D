@@ -1,14 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import {
-  ActivityIndicator,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { AccessibilityInfo, ActivityIndicator, Linking, Platform, ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Text, TextInput } from "@/components/AppText";
 import { CameraView, useCameraPermissions } from "expo-camera";
 import { useIsFocused } from "@react-navigation/native";
 import { useRouter } from "expo-router";
@@ -30,6 +22,7 @@ export default function ScanScreen() {
   const [busy, setBusy] = useState(false);
   const [cameraError, setCameraError] = useState<string | null>(null);
   const locked = useRef(false);
+  const unlockTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const resolving = useRef(false);
   const focused = useIsFocused();
   const focusedRef = useRef(focused);
@@ -44,7 +37,7 @@ export default function ScanScreen() {
 
   useEffect(() => {
     mounted.current = true;
-    return () => { mounted.current = false; focusedRef.current = false; };
+    return () => { mounted.current = false; focusedRef.current = false; if (unlockTimer.current) clearTimeout(unlockTimer.current); };
   }, []);
 
   async function scan(data: string) {
@@ -60,7 +53,14 @@ export default function ScanScreen() {
       if (!mounted.current || !focusedRef.current) return;
       router.replace("/map");
     } catch (err) {
-      if (mounted.current) setError(err instanceof Error ? err.message : "QR Code não reconhecido.");
+      if (mounted.current) {
+        const message = err instanceof Error ? err.message : "QR Code não reconhecido.";
+        setError(message);
+        if (Platform.OS !== "web") AccessibilityInfo.announceForAccessibility(message);
+        // Libera a câmera para outra leitura após uma pausa curta (evita repetir o mesmo código em sequência).
+        if (unlockTimer.current) clearTimeout(unlockTimer.current);
+        unlockTimer.current = setTimeout(() => { if (!resolving.current) locked.current = false; }, 1500);
+      }
     } finally {
       resolving.current = false;
       if (mounted.current) setBusy(false);
@@ -79,6 +79,8 @@ export default function ScanScreen() {
       accessibilityLabel="Ler QR Code e definir localização"
       contentContainerStyle={styles.screen}
       keyboardShouldPersistTaps="handled"
+      // iOS: rola o campo do código para cima do teclado virtual.
+      automaticallyAdjustKeyboardInsets
     >
       <Text accessibilityRole="header" style={styles.title}>Encontre sua posição</Text>
       <Text style={styles.text}>
@@ -96,8 +98,9 @@ export default function ScanScreen() {
       ) : (
         <View style={styles.cameraFallback}>
           <Text style={styles.textMuted}>
-            {cameraError ||
-              "A câmera precisa de permissão. Em navegador, use HTTPS ou abra o link pela câmera do celular."}
+            {cameraError || (Platform.OS === "web"
+              ? "A câmera precisa de permissão. Em navegador, use HTTPS ou abra o link pela câmera do celular."
+              : "Permita o uso da câmera para ler o QR Code da placa mais próxima.")}
           </Text>
           {permission?.canAskAgain === false && (
             <Text style={styles.textMuted}>
@@ -105,6 +108,12 @@ export default function ScanScreen() {
               Permissões e permita o uso da câmera. Você também pode digitar o
               código abaixo ou definir sua localização no mapa.
             </Text>
+          )}
+          {permission?.canAskAgain === false && Platform.OS !== "web" && (
+            <DsButton variant="outline" onPress={() => void Linking.openSettings()} style={styles.retryButton}
+              accessibilityHint="Abre as configurações do aplicativo para permitir a câmera">
+              Abrir configurações
+            </DsButton>
           )}
           {cameraError && (
             <DsButton variant="outline" onPress={() => setCameraError(null)} style={styles.retryButton}>

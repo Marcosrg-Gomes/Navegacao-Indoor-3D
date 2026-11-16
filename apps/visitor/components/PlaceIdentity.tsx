@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
+import { Text } from "@/components/AppText";
 import { getAssetUrl } from "@/services/api";
 import { colors } from "@/constants/colors";
 import { WayfindingIcon } from "./WayfindingIcon";

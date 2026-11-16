@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
+import { Text } from "@/components/AppText";
 import { useRouter } from "expo-router";
 import { useNavigation } from "@/context/NavigationContext";
 import { useVisitorPreferences } from "@/context/VisitorPreferences";

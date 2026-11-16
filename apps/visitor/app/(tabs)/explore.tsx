@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { AccessibilityInfo, ActivityIndicator, ScrollView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, useWindowDimensions, View } from "react-native";
+import { AccessibilityInfo, ActivityIndicator, ScrollView, Platform, StyleSheet, TouchableOpacity, useWindowDimensions, View } from "react-native";
+import { Text, TextInput } from "@/components/AppText";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useIsFocused } from "@react-navigation/native";
 import { getPoi } from "@/services/api";
@@ -115,7 +116,7 @@ export default function ExploreScreen() {
 
   function filterButton(label: string, selected: boolean, action: () => void, disabled = false) {
     return <DsChip key={label} selected={selected} disabled={disabled} onPress={action}>
-      <Text style={styles.chipText}>{label}</Text>
+      {label}
     </DsChip>;
   }
 
@@ -140,8 +141,8 @@ export default function ExploreScreen() {
   const letters = [...new Set(directory.places.map((place) => normalize(place.name)[0]?.toUpperCase()))].filter(Boolean).sort();
   const groups = grouped ? directory.categories.map((label) => ({ label, places: filtered.filter((place) => place.category === label) })).filter((group) => group.places.length) : [{ label: "Destinos", places: filtered }];
   const directoryHeader = <View style={[styles.directoryHeader, wide && styles.directoryHeaderWide]}>
-      <View style={{ flex: 1, minWidth: 0 }}><Text style={d.label}>{shopping?.nome || "SHOPPING"} · LOJAS E SERVIÇOS</Text><Text accessibilityRole="header" style={d.title}>Encontre seu lugar.</Text></View>
-      <TouchableOpacity accessibilityRole="button" accessibilityLabel="Meus lugares ↗" style={styles.savedHeader} onPress={() => setSavedOpen(true)}><Text style={styles.savedHeaderText}>☆  Meus lugares</Text></TouchableOpacity>
+      <View style={{ flex: 1, minWidth: 0, gap: 4 }}><Text accessibilityRole="header" style={d.title}>Encontre seu lugar</Text><Text style={styles.headerSub}>Lojas, alimentação e serviços{shopping?.nome ? ` do ${shopping.nome}` : ""}</Text></View>
+      <TouchableOpacity accessibilityRole="button" accessibilityLabel="Meus lugares ↗" style={styles.savedHeader} onPress={() => setSavedOpen(true)}><WayfindingIcon name="star" color={colors.primary} size={18} strokeWidth={2} /><Text style={styles.savedHeaderText}>Meus lugares</Text></TouchableOpacity>
     </View>;
   return <View style={{ flex: 1, backgroundColor: paper }} role="main" accessibilityLabel="Explorar lojas e serviços">
     {wide && directoryHeader}
@@ -149,13 +150,13 @@ export default function ExploreScreen() {
       <ScrollView style={{ flex: 1 }} contentContainerStyle={{ width: "100%", maxWidth: 840, alignSelf: "center", paddingHorizontal: 20, paddingBottom: 30 }} keyboardShouldPersistTaps="handled">
         {!wide && directoryHeader}
         <TouchableOpacity accessibilityRole="button" accessibilityLabel="Ver minha localização no mapa" style={styles.positionBanner} onPress={() => router.push(originNode ? "/?locate=1" : "/?manualOrigin=1")}>
-          <Text style={styles.positionPin} accessible={false}>◎</Text><Text style={styles.positionText}>{originNode ? `Você está em ${originNode.nome} · ${floors.find((floor) => floor.id === originNode.piso_id)?.nome || "Piso"}` : "Onde você está? Defina sua posição"}  ›</Text>
+          <View style={styles.positionPin}><WayfindingIcon name="locate" color={colors.primary} size={20} strokeWidth={2} /></View><Text style={styles.positionText}>{originNode ? `Você está em ${originNode.nome} · ${floors.find((floor) => floor.id === originNode.piso_id)?.nome || "Piso"}` : "Onde você está? Defina sua posição"}</Text><View style={{ transform: [{ rotate: "-90deg" }] }}><WayfindingIcon name="chevron" color={colors.textMuted} size={18} /></View>
         </TouchableOpacity>
         <DsSearch value={query} onChangeText={(value) => { setQuery(value); setLetter(""); }} placeholder="Buscar por nome ou serviço" error={!!actionError} accessibilityLabel="Buscar no Explorar" />
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.shortcutStrip} accessibilityLabel="Tipos de lugares">{shortcuts.filter(([value]) => ["all", "shops", "food", "wc", "lift"].includes(value)).map(([value, label]) => <DsChip key={value} selected={shortcut === value} onPress={() => { setShortcut(value); setLetter(""); }}><Text style={styles.chipText}>{label}</Text></DsChip>)}</ScrollView>
-        <View style={styles.actionBar}><DsButton variant="outline" onPress={() => setFilters(true)} style={styles.actionButton}><Text style={styles.actionText}>☷  Filtros {activeFilters.length ? `(${activeFilters.length})` : ""}</Text></DsButton></View>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.shortcutStrip} accessibilityLabel="Tipos de lugares">{shortcuts.filter(([value]) => ["all", "shops", "food", "wc", "lift"].includes(value)).map(([value, label]) => <DsChip key={value} selected={shortcut === value} onPress={() => { setShortcut(value); setLetter(""); }}>{label}</DsChip>)}</ScrollView>
+        <View style={styles.actionBar}><TouchableOpacity accessibilityRole="button" onPress={() => setFilters(true)} style={styles.actionButton}><WayfindingIcon name="filter" color={colors.primary} size={18} strokeWidth={2.2} /><Text style={styles.actionText}>Filtros{activeFilters.length ? ` (${activeFilters.length})` : ""}</Text></TouchableOpacity></View>
         <View style={styles.resultRow}><Text accessibilityLiveRegion="polite" style={d.muted}>{waiting ? "Consultando locais…" : filtered.length + (filtered.length === 1 ? " local" : " locais") + (activeFilters.length ? ` · ${activeFilters.map((filter) => filter.label.toLowerCase()).join(", ")}` : "")}</Text><TouchableOpacity accessibilityRole="button" style={d.link} onPress={() => setGrouped(!grouped)}><Text style={d.linkText}>{grouped ? "Ordem A–Z" : "Por categoria"}</Text></TouchableOpacity></View>
-        {!query && ["all", "shops"].includes(shortcut) && <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.alphabetStrip} accessibilityLabel="Índice alfabético">{["", ...letters].map((value) => <DsChip key={value} selected={letter === value} onPress={() => { setLetter(value); setQuery(""); }}><Text style={styles.chipText}>{value || "A–Z"}</Text></DsChip>)}</ScrollView>}
+        {!query && ["all", "shops"].includes(shortcut) && <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.alphabetStrip} accessibilityLabel="Índice alfabético">{["", ...letters].map((value) => <DsChip key={value} selected={letter === value} onPress={() => { setLetter(value); setQuery(""); }}>{value || "A–Z"}</DsChip>)}</ScrollView>}
         {!!activeFilters.length && <View style={styles.quickFilters}>{activeFilters.map((item) => <TouchableOpacity key={item.key} accessibilityRole="button" accessibilityLabel={"Remover filtro " + item.label} style={d.link} onPress={item.remove}><Text style={d.linkText}>{item.label} ×</Text></TouchableOpacity>)}{activeFilters.length > 1 && <TouchableOpacity accessibilityRole="button" style={d.link} onPress={clearFilters}><Text style={d.linkText}>Limpar filtros</Text></TouchableOpacity>}</View>}
         {(directory.error || actionError || directory.distanceError) && (
           <DsError message={(actionError || directory.error || directory.distanceError) || ""} onRetry={() => { setActionError(null); directory.reload(); }} />
@@ -180,8 +181,8 @@ export default function ExploreScreen() {
                 {item.poi?.horario_funcionamento && !item.poi.horario_resumo && <Text style={d.muted}>{item.poi.horario_funcionamento}</Text>}
               </View>
             </TouchableOpacity>
-            <View style={styles.storeActions}><TouchableOpacity accessibilityRole="button" accessibilityLabel={(here ? "Ver " : "Como chegar a ") + item.name + (here ? " no mapa" : "")} style={styles.goButton} disabled={navigatingKey !== null} onPress={() => here ? router.push("/?locate=1") : void navigateTo(item)}><Text style={styles.goButtonText}>{here ? "Ver" : "Ir"} →</Text></TouchableOpacity>
-              <TouchableOpacity accessibilityRole="button" accessibilityLabel={favorite ? "Remover " + item.name + " dos favoritos" : "Salvar " + item.name + " nos favoritos"} accessibilityState={{ selected: favorite, disabled: !saved.ready }} disabled={!saved.ready} onPress={() => shopping && saved.toggleFavorite(shopping.codigo, item.key)} style={d.link}><Text style={styles.saveText}>{favorite ? "Salvo ✓" : "Salvar"}</Text></TouchableOpacity>
+            <View style={styles.storeActions}><TouchableOpacity accessibilityRole="button" accessibilityLabel={(here ? "Ver " : "Como chegar a ") + item.name + (here ? " no mapa" : "")} style={styles.goButton} disabled={navigatingKey !== null} onPress={() => here ? router.push("/?locate=1") : void navigateTo(item)}><Text style={styles.goButtonText}>{here ? "Ver" : "Ir"}</Text><WayfindingIcon name="arrow" color={colors.primaryDark} size={16} strokeWidth={2.2} /></TouchableOpacity>
+              <TouchableOpacity accessibilityRole="button" accessibilityLabel={favorite ? "Remover " + item.name + " dos favoritos" : "Salvar " + item.name + " nos favoritos"} accessibilityState={{ selected: favorite, disabled: !saved.ready }} disabled={!saved.ready} onPress={() => shopping && saved.toggleFavorite(shopping.codigo, item.key)} style={styles.saveButton}><WayfindingIcon name="star" color={favorite ? colors.accentDark : colors.textMuted} size={16} strokeWidth={2} /><Text style={[styles.saveText, favorite && styles.saveTextOn]}>{favorite ? "Salvo" : "Salvar"}</Text></TouchableOpacity>
             </View>
           </View>;
         })}</View>)}
@@ -233,21 +234,22 @@ export default function ExploreScreen() {
   </View>;
 }
 const styles = StyleSheet.create({
-  directoryHeader: { paddingVertical: 14, borderBottomWidth: 1, borderBottomColor: colors.border, flexDirection: "column", alignItems: "flex-start", gap: 8 },
-  directoryHeaderWide: { paddingHorizontal: 20, paddingVertical: 18, flexDirection: "row", alignItems: "center" },
-  savedHeader: { minHeight: 44, justifyContent: "center", paddingHorizontal: 12, borderRadius: 9, backgroundColor: colors.sunSoft },
-  savedHeaderText: { color: ink, fontSize: 14, fontWeight: "700" },
-  positionBanner: { minHeight: 52, flexDirection: "row", alignItems: "center", gap: 10, paddingVertical: 8, marginBottom: 10 },
-  positionPin: { fontSize: 24, color: colors.primary, fontWeight: "700" },
-  positionText: { flex: 1, color: colors.primary, fontSize: 15, lineHeight: 21, fontWeight: "700" },
+  directoryHeader: { paddingTop: 18, paddingBottom: 6, flexDirection: "column", alignItems: "flex-start", gap: 12 },
+  directoryHeaderWide: { width: "100%", maxWidth: 880, alignSelf: "center", paddingHorizontal: 20, paddingTop: 36, paddingBottom: 8, flexDirection: "row", alignItems: "flex-end" },
+  savedHeader: { minHeight: 44, flexDirection: "row", alignItems: "center", gap: 8, paddingHorizontal: 14, borderRadius: 12, borderWidth: 1, borderColor: colors.borderLight, backgroundColor: colors.surface },
+  savedHeaderText: { color: colors.primary, fontSize: 14, fontWeight: "600" },
+  headerSub: { color: colors.textMuted, fontSize: 15, lineHeight: 21 },
+  positionBanner: { minHeight: 56, flexDirection: "row", alignItems: "center", gap: 12, paddingVertical: 8, paddingHorizontal: 12, marginVertical: 12, borderRadius: 14, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.borderLight },
+  positionPin: { width: 34, height: 34, borderRadius: 17, alignItems: "center", justifyContent: "center", backgroundColor: colors.primarySoft },
+  positionText: { flex: 1, color: colors.text, fontSize: 15, lineHeight: 21, fontWeight: "600" },
   shortcutStrip: { gap: 8, paddingVertical: 10, paddingRight: 20 },
   shortcutChip: { minHeight: 44, paddingHorizontal: 14, justifyContent: "center", borderRadius: 22, borderWidth: 1, borderColor: colors.border, backgroundColor: "#ffffff" },
   shortcutSelected: { backgroundColor: colors.primary, borderColor: colors.primary },
   shortcutText: { color: colors.text, fontSize: 14, fontWeight: "600" },
   shortcutTextSelected: { color: "#ffffff" },
   actionBar: { flexDirection: "row", alignItems: "center", gap: 8, paddingVertical: 2 },
-  actionButton: { flexGrow: 1, minHeight: 48, alignItems: "center", justifyContent: "center", paddingHorizontal: 12, borderWidth: 1, borderColor: colors.primary, borderRadius: 9, backgroundColor: "#ffffff" },
-  actionText: { color: colors.primary, fontSize: 15, fontWeight: "700" },
+  actionButton: { flexGrow: 1, minHeight: 46, flexDirection: "row", gap: 8, alignItems: "center", justifyContent: "center", paddingHorizontal: 12, borderWidth: 1, borderColor: colors.border, borderRadius: 12, backgroundColor: colors.surface },
+  actionText: { color: colors.primary, fontSize: 15, fontWeight: "600" },
 
   resultRow: { minHeight: 44, flexDirection: "row", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 4 },
   alphabetStrip: { gap: 3, paddingVertical: 3, paddingRight: 20 },
@@ -256,14 +258,16 @@ const styles = StyleSheet.create({
   letterText: { color: ink, fontFamily: mono, fontSize: 14, fontWeight: "700" },
   letterTextSelected: { color: "#ffffff" },
 
-  spaceCode: { minWidth: 48, minHeight: 48, flexShrink: 0, borderRadius: 10, backgroundColor: "#e6eee9", alignItems: "center", justifyContent: "center" },
-  spaceCodeText: { fontFamily: mono, fontSize: 18, lineHeight: 24, fontWeight: "700" },
+  spaceCode: { minWidth: 52, minHeight: 52, flexShrink: 0, borderRadius: 14, backgroundColor: colors.primarySoft, alignItems: "center", justifyContent: "center" },
+  spaceCodeText: { fontFamily: mono, fontSize: 16, lineHeight: 22, fontWeight: "700" },
   storeMeta: { color: colors.textMuted, fontSize: 14, lineHeight: 20 },
   storeStatus: { color: colors.textMuted, fontSize: 14, lineHeight: 20 },
   storeActions: { minWidth: 62, alignItems: "center", justifyContent: "space-between" },
-  goButton: { minWidth: 60, minHeight: 44, borderRadius: 9, backgroundColor: colors.sun, alignItems: "center", justifyContent: "center", paddingHorizontal: 8 },
-  goButtonText: { color: ink, fontSize: 15, fontWeight: "800" },
-  saveText: { color: colors.accent, fontSize: 13, fontWeight: "700" },
+  goButton: { minWidth: 72, minHeight: 44, borderRadius: 12, backgroundColor: colors.sun, flexDirection: "row", gap: 6, alignItems: "center", justifyContent: "center", paddingHorizontal: 14 },
+  goButtonText: { color: colors.primaryDark, fontSize: 15, fontWeight: "700" },
+  saveButton: { minHeight: 40, minWidth: 72, flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 5 },
+  saveText: { color: colors.textMuted, fontSize: 13, fontWeight: "600" },
+  saveTextOn: { color: colors.text },
   screen: { flex: 1, backgroundColor: colors.bg },
   content: { padding: 18, paddingBottom: 32, width: "100%", maxWidth: 1120, alignSelf: "center", flexGrow: 1 },
   header: { gap: 10, paddingBottom: 8 },
@@ -280,11 +284,11 @@ const styles = StyleSheet.create({
   activeTag: { minHeight: 44, paddingHorizontal: 10, flexDirection: "row", alignItems: "center", gap: 8, backgroundColor: colors.primarySoft },
   tagText: { fontSize: 14, color: colors.primary },
   columns: { gap: 28 },
-  store: { paddingVertical: 13, borderBottomWidth: 1, borderBottomColor: colors.border, gap: 9 },
+  store: { paddingVertical: 14, paddingHorizontal: 12, marginHorizontal: -12, borderRadius: 14, borderBottomWidth: 1, borderBottomColor: colors.borderLight, gap: 9 },
   storeColumn: { flex: 1, maxWidth: "48.6%" },
   storeTop: { flexDirection: "row", alignItems: "flex-start", gap: 8 },
   storeTitle: { flex: 1, minHeight: 48, flexDirection: "row", gap: 10, alignItems: "flex-start" },
-  storeName: { fontSize: 18, lineHeight: 23, fontWeight: "700", color: ink },
+  storeName: { fontSize: 17, lineHeight: 22, fontWeight: "600", color: ink },
   storeCategory: { fontSize: 14, lineHeight: 20, color: colors.textMuted },
   savedButton: { width: 44, minHeight: 44, justifyContent: "center", alignItems: "center" },
   favorite: { backgroundColor: colors.primarySoft },

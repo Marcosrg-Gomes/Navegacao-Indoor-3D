@@ -1,4 +1,5 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { Text } from "@/components/AppText";
 import { useRouter } from "expo-router";
 import { useNavigation } from "@/context/NavigationContext";
 import type { useDirectory } from "@/hooks/useDirectory";

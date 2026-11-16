@@ -173,3 +173,19 @@ def test_etapas_identificam_troca_de_piso(client, db_session, sample_data):
     assert transition["no_destino_id"] == destino.id
     assert "elevador" in transition["texto"].lower()
     assert transition["distancia_exata_metros"] == 4
+
+
+def test_accessible_route_absent_is_reported_explicitly(db_session, sample_data):
+    """Sem conexão acessível, a API não devolve rota com escadas e explica o motivo."""
+    from app.models import Aresta
+    nodes = sample_data["nodes"]
+    for edge in db_session.query(Aresta).all():
+        edge.acessivel = False
+    db_session.commit()
+    nav = NavigationEngine(db_session)
+    regular = nav.calcular_rota(nodes["n1"].id, nodes["n5"].id, acessivel=False)
+    assert regular["sucesso"] is True
+    accessible = nav.calcular_rota(nodes["n1"].id, nodes["n5"].id, acessivel=True)
+    assert accessible["sucesso"] is False
+    assert accessible["codigo"] == "SEM_ROTA"
+    assert "sem escadas" in accessible["mensagem"].lower()

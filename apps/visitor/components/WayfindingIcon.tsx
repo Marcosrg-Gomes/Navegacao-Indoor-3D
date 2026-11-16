@@ -17,14 +17,30 @@ const paths = {
   lift: "M5 3h14v18H5V3m4 6 3-3 3 3m-6 6 3 3 3-3M12 6v12",
   service: "M8 4a2 2 0 1 1-4 0 2 2 0 0 1 4 0M3 10h6m-3-2v13m-3-7h6m11-10a2 2 0 1 1-4 0 2 2 0 0 1 4 0m-5 6h6m-3-2 4 9h-8l4-9m-2 9v4m4-4v4",
   help: "M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0M9 9a3 3 0 0 1 6 0c0 2-3 2-3 4m0 3v.1",
+  straight: "M12 21V4m-6 6 6-6 6 6",
+  turnLeft: "M16 21v-8a4 4 0 0 0-4-4H5m5-5L5 9l5 5",
+  turnRight: "M8 21v-8a4 4 0 0 1 4-4h7m-5-5 5 5-5 5",
+  floors: "M8 3v18m0-18L4 7m4-4 4 4m4 14V3m0 18-4-4m4 4 4-4",
+  arrive: "M6 21V4m0 0h11l-2 4 2 4H6",
+  accessible: "M12 5a1.6 1.6 0 1 0 0-3.2A1.6 1.6 0 0 0 12 5m-1 2v6h5l2 6m-7-9h5M8.5 11.5a5 5 0 1 0 6.9 6.4",
+  alert: "M12 3 2 20h20L12 3m0 6v5m0 3v.1",
+  plus: "M12 5v14M5 12h14",
+  minus: "M5 12h14",
+  locate: "M12 2v3m0 14v3M2 12h3m14 0h3m-3 0a7 7 0 1 1-14 0 7 7 0 0 1 14 0m-4 0a3 3 0 1 1-6 0 3 3 0 0 1 6 0",
+  overview: "M4 9V4h5m6 0h5v5M4 15v5h5m11-5v5h-5",
+  filter: "M4 6h16M7 12h10m-7 6h4",
+  more: "M5 12h.01M12 12h.01M19 12h.01",
 } as const;
 
-export function WayfindingIcon({ name, color = colors.text, size = 22 }: {
-  name: keyof typeof paths;
+export type WayfindingIconName = keyof typeof paths;
+
+export function WayfindingIcon({ name, color = colors.text, size = 22, strokeWidth = 1.7 }: {
+  name: WayfindingIconName;
   color?: string;
   size?: number;
+  strokeWidth?: number;
 }) {
   return <Svg width={size} height={size} viewBox="0 0 24 24" fill="none" accessible={false}>
-    <Path d={paths[name]} stroke={color} strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round" />
+    <Path d={paths[name]} stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" />
   </Svg>;
 }

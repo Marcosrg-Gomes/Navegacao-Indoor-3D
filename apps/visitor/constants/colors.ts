@@ -46,14 +46,17 @@ export const colors = {
   dangerSoft: "#fbece8",   // Vermelho muito claro para fundo de erro
 
   // Semânticos específicos do app
-  route: "#6842d8",        // Roxo suave para rotas
-  routeSoft: "#ede2f5",    // Roxo muito claro para fundo de rota
-  origin: "#22c55e",       // Verde para origem
-  originSoft: "#dcfce7",   // Verde claro para origem
-  destination: "#ef4444",  // Vermelho para destino
-  destinationSoft: "#fecaca", // Vermelho claro para destino
-  accessible: "#7c3aed",   // Roxo para acessibilidade
-  accessibleSoft: "#f0e7ff", // Roxo claro para acessibilidade
+  // Rota em azul de alto contraste: distinta do verde da marca e do mapa (5,6:1 sobre branco).
+  route: "#1f5fc9",        // Linha da rota
+  routeCasing: "#ffffff",  // Contorno da linha da rota
+  routeSoft: "#e4ecfa",    // Fundo suave de rota
+  routePassed: "#9fb3c8",  // Trecho já percorrido
+  origin: "#1d7a4c",       // Origem (texto branco ≥ 5:1)
+  originSoft: "#dff3e8",   // Origem suave
+  destination: "#b93a2e",  // Destino (texto branco ≥ 5:1)
+  destinationSoft: "#fbe3df", // Destino suave
+  accessible: "#5b3cc4",   // Acesso entre pisos / acessibilidade
+  accessibleSoft: "#eee9fb", // Acessibilidade suave
 
   // Sombras (usadas em CSS customizado via style)
   shadowLight: "0 1px 3px rgba(0, 0, 0, 0.08)",

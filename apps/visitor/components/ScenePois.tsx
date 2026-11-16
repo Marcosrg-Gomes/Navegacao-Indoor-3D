@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useThree, type ThreeEvent } from "@react-three/fiber";
 import { Mesh, MeshStandardMaterial, Object3D } from "three";
 import type { Scene, SceneFloor } from "../types/scene";
-import { sceneTransform } from "./sceneTransform";
+import { SCENE_MIRROR, sceneTransform } from "./sceneTransform";
 import { colors } from "@/constants/colors";
 
 export function ScenePois({ model, scene, floor, origin, destination, highlight, onPoiPress }: {
@@ -44,7 +44,8 @@ export function ScenePois({ model, scene, floor, origin, destination, highlight,
     if (poi) { event.stopPropagation(); onPoiPress(poi.loja_id); }
   }
   return <group>
-    <primitive object={model} onClick={select} />
+    {/* Mesmo espelho de apresentação aplicado a sceneTransform. */}
+    <group scale={SCENE_MIRROR}><primitive object={model} onClick={select} /></group>
     {scene.anchors.filter((a) => a.piso_id === floor.piso_id && (a.node_id === origin || a.node_id === destination || a.type === "elevador" || a.type === "escada_rolante")).map((anchor) => {
       const position = sceneTransform(floor, anchor.coord_x, anchor.coord_y); position[1] += .3;
       return <mesh key={anchor.node_id} position={position} renderOrder={11} name={anchor.codigo}>

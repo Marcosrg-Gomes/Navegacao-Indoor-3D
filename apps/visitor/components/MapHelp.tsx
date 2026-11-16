@@ -1,4 +1,5 @@
-import { Platform, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Platform, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Text } from "@/components/AppText";
 import { AccessibleSheet } from "./AccessibleSheet";
 import { colors } from "@/constants/colors";
 import { useVisitorPreferences } from "@/context/VisitorPreferences";
@@ -31,7 +32,7 @@ export function MapHelp({ visible, onClose }: { visible: boolean; onClose: () =>
   </AccessibleSheet>;
 }
 const styles = StyleSheet.create({
-  intro: { borderLeftWidth: 3, borderLeftColor: colors.primary, padding: 14, backgroundColor: colors.primarySoft, gap: 8 },
+  intro: { padding: 16, borderRadius: 14, backgroundColor: colors.primarySoft, borderWidth: 1, borderColor: colors.primaryLighter, gap: 8 },
   title: { color: colors.text, fontSize: 16, fontWeight: "600" },
   heading: { color: colors.text, fontSize: 24, fontWeight: "600" },
   text: { color: colors.textMuted, fontSize: 14, lineHeight: 22 },

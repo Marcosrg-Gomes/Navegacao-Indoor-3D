@@ -38,7 +38,9 @@ class NavigationEngine:
         caminho_ids, distancia = self._dijkstra(graph, origem_id, destino_id)
 
         if caminho_ids is None or distancia is None:
-            return {"sucesso": False, "codigo": "SEM_ROTA", "mensagem": "Não foi possível encontrar uma rota entre os nós especificados."}
+            mensagem = ("Não há rota sem escadas até este destino. Desative \"Sem escadas\" "
+                        "ou procure o atendimento do shopping.") if acessivel else                 "Não foi possível encontrar uma rota entre os nós especificados."
+            return {"sucesso": False, "codigo": "SEM_ROTA", "mensagem": mensagem}
 
         nos_dict = {no.id: no for no in self.db.query(No).filter(No.id.in_(caminho_ids)).all()}
         nos_caminho = [nos_dict[no_id] for no_id in caminho_ids]

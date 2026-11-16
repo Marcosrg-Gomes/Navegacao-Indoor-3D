@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { api } from "../services/api";
 import type { Aresta, Categoria, Loja, No, Piso, QRCode, Shopping, ValidacaoGrafo } from "../types";
+import { Icon, type IconName } from "../components/Icon";
 
 export default function Dashboard() {
   const [stats, setStats] = useState({
@@ -43,14 +44,14 @@ export default function Dashboard() {
   }, []);
 
   const cards = [
-    ["Shoppings", stats.shoppings, "🏬", "/shoppings"],
-    ["Pisos", stats.pisos, "🏢", "/pisos"],
-    ["Nós no Mapa", stats.nos, "📍", "/nos"],
-    ["Arestas", stats.arestas, "🔗", "/arestas"],
-    ["Lojas / POIs", stats.lojas, "🛍️", "/lojas"],
-    ["Categorias", stats.categorias, "🏷️", "/categorias"],
-    ["QR Codes", stats.qrs, "📷", "/qr"],
-  ] as const;
+    ["Shoppings", stats.shoppings, "mall", "/shoppings"],
+    ["Pisos", stats.pisos, "floors", "/pisos"],
+    ["Nós no mapa", stats.nos, "node", "/nos"],
+    ["Arestas", stats.arestas, "edge", "/arestas"],
+    ["Lojas / POIs", stats.lojas, "store", "/lojas"],
+    ["Categorias", stats.categorias, "tag", "/categorias"],
+    ["QR Codes", stats.qrs, "qr", "/qr"],
+  ] as const satisfies readonly (readonly [string, number, IconName, string])[];
 
   return (
     <div>
@@ -61,45 +62,27 @@ export default function Dashboard() {
           <p>Visão geral da infraestrutura cadastrada e da integridade da malha de navegação indoor.</p>
         </div>
         <div className="row-actions">
-          <Link to="/nos">
-            <button className="primary">📐 Editor Visual de Nós</button>
-          </Link>
-          <Link to="/validacao">
-            <button className="accent">🩺 Validar Grafo</button>
-          </Link>
+          <Link to="/nos" className="btn primary"><Icon name="node" /> Editor visual de nós</Link>
+          <Link to="/validacao" className="btn accent"><Icon name="check" /> Validar grafo</Link>
         </div>
       </div>
 
       <div className="grid-cards">
         {cards.map(([label, value, icon, to]) => (
-          <Link to={to} key={label} style={{ textDecoration: "none", color: "inherit" }}>
-            <div className="stat" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <span style={{ fontSize: 20 }}>{icon}</span>
-                <span>{label}</span>
-              </div>
-              <strong style={{ fontSize: 32 }}>{value}</strong>
-            </div>
+          <Link to={to} key={label} className="stat stat-link" aria-label={`${label}: ${value}`}>
+            <span className="stat-icon"><Icon name={icon} size={20} /></span>
+            <span className="stat-label">{label}</span>
+            <strong>{value}</strong>
           </Link>
         ))}
       </div>
 
-      <div className="card" style={{ marginTop: 24 }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <h3 style={{ margin: 0, color: "var(--primary)" }}>Integridade da Malha de Navegação</h3>
+      <div className="card">
+        <div className="card-head">
+          <h2>Integridade da malha de navegação</h2>
           {validacao && (
-            <span
-              style={{
-                padding: "6px 14px",
-                borderRadius: 20,
-                fontSize: "0.85rem",
-                fontWeight: 700,
-                backgroundColor: validacao.valido ? "var(--success-soft)" : "var(--danger-soft)",
-                color: validacao.valido ? "var(--success)" : "var(--danger)",
-                border: `1px solid ${validacao.valido ? "var(--success)" : "var(--danger)"}`,
-              }}
-            >
-              {validacao.valido ? "Grafo Conexo e Íntegro" : "Inconsistências Detectadas"}
+            <span className={`badge ${validacao.valido ? "on" : "off"}`}>
+              {validacao.valido ? "Grafo conexo e íntegro" : "Inconsistências detectadas"}
             </span>
           )}
         </div>
@@ -107,13 +90,13 @@ export default function Dashboard() {
         {!validacao ? (
           <p className="muted" style={{ marginTop: 12 }}>Carregando validação do grafo…</p>
         ) : validacao.valido ? (
-          <p style={{ marginTop: 12, color: "var(--success)", fontWeight: 600 }}>
-            ✅ Todos os nós ativos estão conectados e nenhuma referência órfã foi identificada.
+          <p className="status-line ok">
+            <Icon name="check" /> Todos os nós ativos estão conectados e nenhuma referência órfã foi identificada.
           </p>
         ) : (
           <div style={{ marginTop: 12 }}>
-            <p style={{ color: "var(--danger)", fontWeight: 600 }}>
-              ⚠️ Foram detectados <strong>{validacao.problemas.length}</strong> tipo(s) de inconsistência no grafo de navegação.
+            <p className="status-line err">
+              <Icon name="alert" /> Foram detectados <strong>{validacao.problemas.length}</strong> tipo(s) de inconsistência no grafo de navegação.
             </p>
             <div style={{ marginTop: 12 }}>
               <Link to="/validacao" style={{ fontWeight: 700, color: "var(--primary)", textDecoration: "underline" }}>
