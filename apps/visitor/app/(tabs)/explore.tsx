@@ -141,7 +141,7 @@ export default function ExploreScreen() {
   const letters = [...new Set(directory.places.map((place) => normalize(place.name)[0]?.toUpperCase()))].filter(Boolean).sort();
   const groups = grouped ? directory.categories.map((label) => ({ label, places: filtered.filter((place) => place.category === label) })).filter((group) => group.places.length) : [{ label: "Destinos", places: filtered }];
   const directoryHeader = <View style={[styles.directoryHeader, wide && styles.directoryHeaderWide]}>
-      <View style={{ flex: 1, minWidth: 0, gap: 4 }}><Text accessibilityRole="header" style={d.title}>Encontre seu lugar</Text><Text style={styles.headerSub}>Lojas, alimentação e serviços{shopping?.nome ? ` do ${shopping.nome}` : ""}</Text></View>
+      <View style={{ flex: 1, minWidth: 0, gap: 4 }}><Text accessibilityRole="header" style={d.title}>Encontre seu lugar.</Text><Text style={styles.headerSub}>Lojas, alimentação e serviços{shopping?.nome ? ` do ${shopping.nome}` : ""}</Text></View>
       <TouchableOpacity accessibilityRole="button" accessibilityLabel="Meus lugares ↗" style={styles.savedHeader} onPress={() => setSavedOpen(true)}><WayfindingIcon name="star" color={colors.primary} size={18} strokeWidth={2} /><Text style={styles.savedHeaderText}>Meus lugares</Text></TouchableOpacity>
     </View>;
   return <View style={{ flex: 1, backgroundColor: paper }} role="main" accessibilityLabel="Explorar lojas e serviços">
