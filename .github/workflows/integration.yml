@@ -105,6 +105,12 @@ jobs:
           npm ci
           npm run build
           npx playwright install --with-deps chromium
+      - name: Seed banco de teste com piso superior
+        working-directory: apps/admin
+        run: |
+          # O script services/api/seed_database.py ainda não existe no repositório.
+          # Quando implementado, executar:
+          #   python ../../services/api/seed_database.py --env ci --include-floors || true
       - name: Existing E2E regression
         working-directory: apps/admin
         env:
@@ -117,6 +123,13 @@ jobs:
           for attempt in $(seq 1 30); do curl --fail --silent http://127.0.0.1:8765/health && break; sleep 1; done
           curl --fail --silent http://127.0.0.1:8765/health
           npm run test:e2e -- --project=chromium tests/navigation.spec.ts tests/scanner.spec.ts tests/admin-crud.spec.ts tests/multiuser.spec.ts
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: regression-logs
+          path: |
+            ../../.work-audit-server.log
+            ../../evidence/regression-browser-artifacts/**
       # Não usa continue-on-error: a suíte roda mesmo se a legada falhar, mas o
       # job termina falho se qualquer uma das duas falhar.
       - name: Integrated 3D E2E
@@ -129,10 +142,26 @@ jobs:
         run: |
           python ../../services/api/mini_server.py --port 8766 > ../../.work-mini-server.log 2>&1 &
           server_pid=$!
-          trap 'kill $server_pid' EXIT
+          CI=1 EXPO_PUBLIC_API_URL=http://127.0.0.1:8766 npm --prefix ../visitor run web -- --port 8081 > ../../.work-visitor-web.log 2>&1 &
+          visitor_pid=$!
+          trap 'kill $visitor_pid $server_pid' EXIT
           for attempt in $(seq 1 30); do curl --fail --silent http://127.0.0.1:8766/health && break; sleep 1; done
           curl --fail --silent http://127.0.0.1:8766/health
+          # O servidor web do Expo (Metro) pode demorar mais que 30s a ficar
+          # disponível em execução fria (bind de porta 8081). Aguarda até 120s
+          # antes de seguir para os testes, evitando ERRO_CONNECTION_REFUSED
+          # por corrida de disponibilidade.
+          for attempt in $(seq 1 120); do curl --fail --silent http://127.0.0.1:8081 && break; sleep 1; done
+          curl --fail --silent http://127.0.0.1:8081
           npm run test:e2e -- --project=chromium tests/scene.spec.ts tests/map-interactions.spec.ts tests/visitor-journey.spec.ts tests/visitor-experience.spec.ts tests/business-rules.spec.ts tests/layout-accessibility.spec.ts tests/wayfinding.spec.ts tests/waze-navigation.spec.ts tests/simulation-engine.spec.ts tests/simulation-rerouting.spec.ts
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: integration-logs
+          path: |
+            ../../.work-visitor-web.log
+            ../../.work-mini-server.log
+            ../../evidence/integration-browser-artifacts/**
       # A auditoria do catálogo calcula 104 rotas (26 destinos × 2 modos × 2
       # sentidos). O limite de produção continua 30/60 s; a cota maior vale
       # apenas para este processo isolado, em porta própria.
