@@ -11,6 +11,7 @@ import { AccessibleSheet } from "@/components/AccessibleSheet";
 import { WayfindingIcon } from "@/components/WayfindingIcon";
 import { useNavigation } from "@/context/NavigationContext";
 import { getPoi, listPois } from "@/services/api";
+import { useAccessibilityAnnouncer } from "@/hooks/useAccessibilityAnnouncer";
 import { colors } from "@/constants/colors";
 import { TIPO_NO_LABEL, type Loja, type No } from "@/types";
 import {
@@ -31,6 +32,8 @@ export default function ShoppingMapScreen() {
   const [poi, setPoi] = useState<Loja | null>(null);
   const [reference, setReference] = useState<No | null>(null);
   const [error, setError] = useState<string | null>(null);
+  // Anuncia mudanças de rota, chegada, piso e erro para leitores de tela nesta tela.
+  useAccessibilityAnnouncer();
   const hasRoute = !nav.hasArrived && !!nav.route;
   const routeWarning = nav.routeError
     ? {
@@ -135,8 +138,8 @@ export default function ShoppingMapScreen() {
           </View>
         )}
 
-        {error && <Text accessibilityRole="alert" style={styles.error}>{error}</Text>}
-        {nav.mapError && <Text accessibilityRole="alert" style={styles.error}>{nav.mapError}</Text>}
+        {error && <Text accessibilityRole="alert" accessibilityLiveRegion="polite" style={styles.error}>{error}</Text>}
+        {nav.mapError && <Text accessibilityRole="alert" accessibilityLiveRegion="polite" style={styles.error}>{nav.mapError}</Text>}
         {nav.loading && <ActivityIndicator accessibilityLabel="Carregando mapa" color={colors.primary} />}
 
         {!!nav.floors.length && (
@@ -189,10 +192,10 @@ export default function ShoppingMapScreen() {
         )}
 
         <View style={styles.bottomActions}>
-          <TouchableOpacity accessibilityRole="button" style={styles.scanButton} onPress={() => router.push("/scan")}>
+          <TouchableOpacity accessibilityRole="button" accessibilityLabel="Escanear QR Code" style={styles.scanButton} onPress={() => router.push("/scan")}>
             <WayfindingIcon name="scan" color="#ffffff" /><Text style={styles.scanText}>Escanear QR</Text>
           </TouchableOpacity>
-          <TouchableOpacity accessibilityRole="button" style={styles.exploreButton} onPress={() => router.push("/explore")}>
+          <TouchableOpacity accessibilityRole="button" accessibilityLabel="Explorar lugares e serviços" style={styles.exploreButton} onPress={() => router.push("/explore")}>
             <Text style={styles.exploreText}>Explorar lugares</Text>
           </TouchableOpacity>
         </View>
