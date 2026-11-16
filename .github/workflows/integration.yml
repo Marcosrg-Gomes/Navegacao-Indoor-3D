@@ -129,7 +129,7 @@ jobs:
           name: regression-logs
           path: |
             apps/admin/.work-audit-server.log
-            ../../evidence/regression-browser-artifacts/**
+            evidence/regression-browser-artifacts/**
       # Não usa continue-on-error: a suíte roda mesmo se a legada falhar, mas o
       # job termina falho se qualquer uma das duas falhar.
       - name: Integrated 3D E2E
@@ -161,7 +161,7 @@ jobs:
           path: |
             apps/admin/.work-visitor-web.log
             apps/admin/.work-mini-server.log
-            ../../evidence/integration-browser-artifacts/**
+            evidence/integration-browser-artifacts/**
       # A auditoria do catálogo calcula 104 rotas (26 destinos × 2 modos × 2
       # sentidos). O limite de produção continua 30/60 s; a cota maior vale
       # apenas para este processo isolado, em porta própria.
