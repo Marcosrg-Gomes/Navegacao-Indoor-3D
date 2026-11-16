@@ -11,6 +11,7 @@ e scanner.spec.ts).
 from __future__ import annotations
 
 import argparse
+import math
 import sys
 from pathlib import Path
 
@@ -113,7 +114,6 @@ def _criar_demo_completo(db) -> Shopping:
     for u, v in arestas_conexoes:
         n1 = n_map[u]
         n2 = n_map[v]
-        import math
         dx = float(n1.coord_x - n2.coord_x) * 100.0
         dy = float(n1.coord_y - n2.coord_y) * 60.0
         dist = (dx**2 + dy**2) ** 0.5
