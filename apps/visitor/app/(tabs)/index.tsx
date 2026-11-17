@@ -109,16 +109,23 @@ export default function MapScreen() {
   useEffect(() => {
     if (params.manualOrigin === "1") { setManual(true); router.setParams({ manualOrigin: "" }); }
   }, [params.manualOrigin]);
+  const qrProcessingRef = useRef(false);
   useEffect(() => {
     const token = qrParam || tokenParam;
     if (token) setFullMap(true);
-    if (!token || nav.loading || qrRead.current === token) return;
+    if (!token || nav.loading || qrProcessingRef.current) return;
+    qrProcessingRef.current = true;
     qrRead.current = token;
     setQrBusy(true);
     setLocalError(null);
     resolveQrCode(token).then((result) => nav.setOriginNode(result.no, "qr"))
       .catch((e) => { setLocalError(e.message); setManual(true); })
-      .finally(() => { setQrBusy(false); if (qrRead.current === token) qrRead.current = null; router.setParams({ qr: "", token: "" }); });
+      .finally(() => {
+        setQrBusy(false);
+        qrProcessingRef.current = false;
+        qrRead.current = null;
+        router.setParams({ qr: "", token: "" });
+      });
   }, [qrParam, tokenParam, nav.loading, nav.setOriginNode]);
 
   const initialSelection = useRef(false);
