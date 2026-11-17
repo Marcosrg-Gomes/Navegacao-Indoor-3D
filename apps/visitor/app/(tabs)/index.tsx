@@ -110,12 +110,13 @@ export default function MapScreen() {
     if (params.manualOrigin === "1") { setManual(true); router.setParams({ manualOrigin: "" }); }
   }, [params.manualOrigin]);
   const qrProcessingRef = useRef(false);
+  const qrLastToken = useRef<string | null>(null);
   useEffect(() => {
     const token = qrParam || tokenParam;
     if (token) setFullMap(true);
-    if (!token || nav.loading || qrProcessingRef.current) return;
+    if (!token || nav.loading || qrProcessingRef.current || qrLastToken.current === token) return;
     qrProcessingRef.current = true;
-    qrRead.current = token;
+    qrLastToken.current = token;
     setQrBusy(true);
     setLocalError(null);
     resolveQrCode(token).then((result) => nav.setOriginNode(result.no, "qr"))
