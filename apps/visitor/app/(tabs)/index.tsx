@@ -110,13 +110,11 @@ export default function MapScreen() {
     if (params.manualOrigin === "1") { setManual(true); router.setParams({ manualOrigin: "" }); }
   }, [params.manualOrigin]);
   const qrProcessingRef = useRef(false);
-  const qrLastToken = useRef<string | null>(null);
   useEffect(() => {
     const token = qrParam || tokenParam;
     if (token) setFullMap(true);
-    if (!token || nav.loading || qrProcessingRef.current || qrLastToken.current === token) return;
+    if (!token || nav.loading || qrProcessingRef.current) return;
     qrProcessingRef.current = true;
-    qrLastToken.current = token;
     setQrBusy(true);
     setLocalError(null);
     resolveQrCode(token).then((result) => nav.setOriginNode(result.no, "qr"))
@@ -124,7 +122,6 @@ export default function MapScreen() {
       .finally(() => {
         setQrBusy(false);
         qrProcessingRef.current = false;
-        qrRead.current = null;
         router.setParams({ qr: "", token: "" });
       });
   }, [qrParam, tokenParam, nav.loading, nav.setOriginNode]);
@@ -199,7 +196,7 @@ export default function MapScreen() {
           <TouchableOpacity accessibilityRole="button" accessibilityLabel="Ajuda" style={styles.iconButton} onPress={() => setHelp(true)}><WayfindingIcon name="help" /></TouchableOpacity></View>
         <FirstVisitHelp onOpen={() => setHelp(true)} />
         {nav.shoppings.length > 1 && <ScrollView horizontal contentContainerStyle={styles.row} accessibilityLabel="Seletor de shopping">
-          {nav.shoppings.map((s) => <TouchableOpacity key={s.id} accessibilityRole="button" accessibilityLabel={s.nome + (nav.shopping?.id === s.id ? ", selecionado" : "")} accessibilityState={{ selected: nav.shopping?.id === s.id }} style={styles.chip}
+          {nav.shoppings.map((s) => <TouchableOpacity key={s.id} accessibilityRole="button" accessibilityLabel={nav.shopping?.id === s.id ? s.nome + ", selecionado" : s.nome} accessibilityState={{ selected: nav.shopping?.id === s.id }} style={styles.chip}
             onPress={() => void nav.selectShopping(s.id)}><Text>{s.nome}{nav.shopping?.id === s.id ? " ✓" : ""}</Text></TouchableOpacity>)}
         </ScrollView>}
         <View style={styles.position}>
