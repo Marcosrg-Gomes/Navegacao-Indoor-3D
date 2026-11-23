@@ -272,8 +272,9 @@ export default function Nodes() {
       {/* Toolbar: seleção de piso e filtros */}
       <div className="toolbar" style={{ flexWrap: "wrap", gap: 12 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <label style={{ fontWeight: 600 }}>Piso:</label>
+          <label htmlFor="filtro-piso" style={{ fontWeight: 600 }}>Piso:</label>
           <select
+            id="filtro-piso"
             value={pisoId}
             onChange={(e) => setPisoId(Number(e.target.value) || "")}
             style={{ minWidth: 220 }}
@@ -287,8 +288,9 @@ export default function Nodes() {
         </div>
 
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <label style={{ fontWeight: 600 }}>Tipo:</label>
+          <label htmlFor="filtro-tipo" style={{ fontWeight: 600 }}>Tipo:</label>
           <select
+            id="filtro-tipo"
             value={filterTipo}
             onChange={(e) => setFilterTipo(e.target.value)}
             style={{ minWidth: 140 }}
@@ -476,7 +478,7 @@ export default function Nodes() {
                         padding: "2px 8px",
                         borderRadius: 6,
                         backgroundColor: TIPO_NO_COR[node.tipo] ? TIPO_NO_COR[node.tipo] + "20" : "var(--line)",
-                        color: TIPO_NO_COR[node.tipo] || "var(--muted)",
+                        color: "var(--primary-dark)",
                         fontWeight: 600,
                         fontSize: "0.85rem",
                       }}

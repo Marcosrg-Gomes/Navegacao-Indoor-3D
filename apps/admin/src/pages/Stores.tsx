@@ -88,7 +88,10 @@ export default function Stores() {
         </button>
       </div>
       <div className="toolbar">
-        <select value={filtro} onChange={(e) => setFiltro(e.target.value)} style={{ maxWidth: 240 }}>
+        <label htmlFor="filtro-categoria" className="field-label" style={{ fontWeight: 600, marginRight: 6 }}>
+          Filtrar por categoria
+        </label>
+        <select id="filtro-categoria" value={filtro} onChange={(e) => setFiltro(e.target.value)} style={{ maxWidth: 240 }}>
           <option value="">Todas as categorias</option>
           {cats.map((c) => (
             <option key={c.id} value={c.id}>

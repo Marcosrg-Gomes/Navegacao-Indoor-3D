@@ -75,8 +75,9 @@ export default function Validation() {
 
       <div className="toolbar" style={{ gap: 12 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <label style={{ fontWeight: 600 }}>Escopo:</label>
+          <label htmlFor="escopo-piso" style={{ fontWeight: 600 }}>Escopo:</label>
           <select
+            id="escopo-piso"
             value={pisoId}
             onChange={(e) => setPisoId(e.target.value)}
             style={{ minWidth: 260 }}
@@ -107,7 +108,7 @@ export default function Validation() {
                 <span style={{ fontSize: 32 }}>✅</span>
                 <div>
                   <h3 style={{ margin: 0, color: "var(--success)" }}>Grafo 100% Íntegro e Conexo</h3>
-                  <p style={{ margin: "4px 0 0", color: "var(--muted)" }}>
+                  <p style={{ margin: "4px 0 0", color: "var(--success)" }}>
                     Não foram detectados nós isolados, arestas órfãs ou componentes desconectados no escopo selecionado.
                   </p>
                 </div>
@@ -129,7 +130,7 @@ export default function Validation() {
                     <h3 style={{ margin: 0, color: "var(--danger)" }}>
                       Atenção: {result.problemas.length} Tipo(s) de Inconsistência Detectado(s)
                     </h3>
-                    <p style={{ margin: "4px 0 0", color: "var(--muted)" }}>
+                    <p style={{ margin: "4px 0 0", color: "var(--danger)" }}>
                       Clique nos links dos elementos abaixo para navegar diretamente à tela de correção.
                     </p>
                   </div>

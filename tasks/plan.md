@@ -12,34 +12,34 @@ Corrigir a orientação dos mapas 2D e 3D para garantir que o norte esteja sempr
 ## Task List
 
 ### Phase 1: Corrigir orientação (norte para cima)
-- [ ] Task 1.1: Corrigir `mapViewport.ts` - `mapRotationForHeading` retorna sempre 0, `followPosition` sem rotação
-- [ ] Task 1.2: Corrigir `FloorMap.tsx` - remover rotação da planta SVG
-- [ ] Task 1.3: Corrigir `Map2D.tsx` - remover rotação do container View
-- [ ] Task 1.4: Corrigir `SceneControls.web.tsx` - não inverter câmera, norte fixo
+- [x] Task 1.1: Corrigir `mapViewport.ts` - `mapRotationForHeading` retorna sempre 0, `followPosition` sem rotação
+- [x] Task 1.2: Corrigir `FloorMap.tsx` - remover rotação da planta SVG
+- [x] Task 1.3: Corrigir `Map2D.tsx` - remover rotação do container View
+- [x] Task 1.4: Corrigir `SceneControls.web.tsx` - não inverter câmera, norte fixo (useEffect de inversão removido)
 
 ### Checkpoint: Orientação corrigida
-- [ ] TypeScript compila sem erros
-- [ ] Mapa 2D não gira durante navegação
-- [ ] Mapa 3D não inverte câmera
+- [x] TypeScript compila sem erros
+- [x] Mapa 2D não gira durante navegação
+- [x] Mapa 3D não inverte câmera
 
 ### Phase 2: Melhorar indicador de posição e direção
-- [ ] Task 2.1: Melhorar seta de posição no FloorMap (aponta para heading)
-- [ ] Task 2.2: Melhorar indicador de próximo trecho na rota
-- [ ] Task 2.3: Adicionar rótulo "Norte" visível no mapa 2D
+- [x] Task 2.1: Melhorar seta de posição no FloorMap (aponta para heading)
+- [x] Task 2.2: Melhorar indicador de próximo trecho na rota
+- [x] Task 2.3: Adicionar rótulo "Norte" visível no mapa 2D (FloorMap.tsx)
 
 ### Checkpoint: Indicador de posição
-- [ ] Seta de posição mostra direção do usuário
-- [ ] Próximo trecho destacado na rota
-- [ ] Rótulo Norte visível
+- [x] Seta de posição mostra direção do usuário
+- [x] Próximo trecho destacado na rota
+- [x] Rótulo Norte visível
 
 ### Phase 3: Coerência 2D/3D e validação
-- [ ] Task 3.1: Verificar SceneRoute coerente com norte para cima
-- [ ] Task 3.2: Executar TypeScript check e build
-- [ ] Task 3.3: Executar testes relevantes
+- [x] Task 3.1: Verificar SceneRoute coerente com norte para cima
+- [x] Task 3.2: Executar TypeScript check e build
+- [x] Task 3.3: Executar testes relevantes
 
 ### Checkpoint: Completo
-- [ ] Todas as alterações validadas
-- [ ] Próximo lote recomendado
+- [x] Todas as alterações validadas
+- [x] Próximo lote recomendado
 
 ## Files Likely Touched
 - `apps/visitor/components/mapViewport.ts`

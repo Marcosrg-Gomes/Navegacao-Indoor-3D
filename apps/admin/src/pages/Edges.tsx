@@ -262,8 +262,9 @@ export default function Edges() {
       {/* Toolbar */}
       <div className="toolbar">
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <label style={{ fontWeight: 600 }}>Piso:</label>
+          <label htmlFor="filtro-piso-arestas" style={{ fontWeight: 600 }}>Piso:</label>
           <select
+            id="filtro-piso-arestas"
             value={pisoId}
             onChange={(e) => setPisoId(Number(e.target.value) || "")}
             style={{ minWidth: 220 }}
@@ -362,7 +363,7 @@ export default function Edges() {
                       </span>
                     </td>
                     <td>
-                      <span style={{ color: edge.ativa ? "#16a34a" : "#dc2626", fontWeight: 600 }}>
+                      <span style={{ color: edge.ativa ? "#0f763e" : "#dc2626", fontWeight: 600 }}>
                         {edge.ativa ? "Disponível" : "Bloqueada temporariamente"}
                       </span>
                     </td>

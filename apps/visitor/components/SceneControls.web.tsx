@@ -101,6 +101,7 @@ export function SceneControls({ floor, scene, props, orientation, command, onVie
     control.addEventListener("start", () => latest.current.props.onExplore?.());
     const canvas = gl.domElement;
     canvas.tabIndex = 0;
+    canvas.setAttribute("role", "img");
     canvas.setAttribute("aria-label", "Explorar mapa 3D: arraste para mover, use a roda para aproximar");
     const focus = () => canvas.focus({ preventScroll: true });
     canvas.addEventListener("pointerdown", focus);
@@ -149,15 +150,7 @@ export function SceneControls({ floor, scene, props, orientation, command, onVie
       else centerOn([new Vector3(...sceneTransform(floor, props.position.x, props.position.y))], camera.zoom);
     }
   }, [props.following, props.position?.floorId, props.position?.x, props.position?.y, floor.piso_id, orientation]);
-  useEffect(() => {
-    // Troca 0° ↔ 180°: mantém alvo, distância e inclinação, só inverte o lado da câmera.
-    const control = controls.current;
-    if (!control || !(camera instanceof OrthographicCamera)) return;
-    const offset = camera.position.clone().sub(control.target);
-    const height = offset.y, horizontal = Math.hypot(offset.x, offset.z);
-    camera.position.copy(control.target).add(forward().multiplyScalar(-Math.max(horizontal, .001)).add(new Vector3(0, height, 0)));
-    camera.lookAt(control.target); lockAzimuth(control); control.update(); report();
-  }, [orientation]);
+  // A câmera 3D mantém norte fixo para cima: não inverte quando a orientação 0°/180° muda.
   useEffect(() => {
     const control = controls.current;
     if (!command || !control || !(camera instanceof OrthographicCamera)) return;

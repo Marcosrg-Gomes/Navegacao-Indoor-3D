@@ -40,6 +40,19 @@ Abra `http://127.0.0.1:8766/?qr=MINI-ENTRADA-PRINCIPAL` e
 `http://127.0.0.1:8766/admin/`. O banco é criado em diretório temporário a
 cada execução. Não edite os diretórios estáticos manualmente.
 
+### Validação rápida da API (apenas backend)
+
+Para validar que a API responde corretamente aos endpoints de navegação sem
+depender do frontend:
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest services/api/tests/test_integracao_funcional.py services/api/tests/test_integracao_admin_visitante.py services/api/tests/test_seguranca_estabilidade.py -q
+```
+
+Isso executa 26 testes de integração (fluxo completo QR → rota → acessível →
+recalculo → chegada, admin → visitante, segurança e estabilidade) contra um
+banco SQLite temporário e isolado. Não toca no banco MySQL original.
+
 ## Desenvolvimento por componente
 
 Para a API persistente, copie `services/api/.env.example` para

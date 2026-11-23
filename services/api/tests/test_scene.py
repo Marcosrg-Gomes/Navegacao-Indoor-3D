@@ -124,7 +124,7 @@ def test_contract_rejects_invalid_catalogs(mutation):
     if mutation == "position_nan": catalog["anchors"]["T_ENTRADA"]["position"][0] = float("nan")
     if mutation == "bool": catalog["anchors"]["T_ENTRADA"]["coord_x"] = True
     if mutation == "structure": catalog["floors"] = ["TERREO"]
-    if mutation == "release": catalog["release"] = 2
+    if mutation == "release": catalog["release"] = 99
     if mutation == "metadata": del catalog["pois"]["E01"]["kind"]
     if mutation == "direction": catalog["edges"][0]["bidirectional"] = "false"
     with pytest.raises(ValueError): validate_catalog(catalog)

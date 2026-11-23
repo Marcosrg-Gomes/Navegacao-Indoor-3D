@@ -1,4 +1,4 @@
-import { FormEvent, ReactNode, useState } from "react";
+import { FormEvent, ReactNode, useState, useId, cloneElement, isValidElement } from "react";
 
 export { Modal } from "./components/Modal";
 
@@ -11,10 +11,14 @@ export function Field({
   children: ReactNode;
   className?: string;
 }) {
+  const fieldId = useId();
+  const input = isValidElement(children as any)
+    ? cloneElement(children as any, { id: fieldId })
+    : children;
   return (
-    <label className={className}>
+    <label className={className} htmlFor={fieldId}>
       <span className="field-label">{label}</span>
-      {children}
+      {input}
     </label>
   );
 }

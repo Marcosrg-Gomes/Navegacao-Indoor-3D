@@ -13,6 +13,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--port", type=int, default=8765)
     parser.add_argument("--database", type=Path, help="Reuse an explicit audit SQLite file (never deletes records)")
+    parser.add_argument("--workers", type=int, default=4, help="Número de workers do uvicorn para atender requisições concorrentes nos testes E2E")
     args = parser.parse_args()
     database = args.database.resolve() if args.database else Path(tempfile.mkdtemp(prefix="indoor-audit-")) / "demo.db"
     database.parent.mkdir(parents=True, exist_ok=True)
@@ -74,7 +75,7 @@ def main():
                                 status_operacional="aberto", descricao="Livros e papelaria no piso superior."))
                     db.add(QRCode(no_id=dest.id, token="DESTINO-SUPERIOR", ativo=True))
     import uvicorn
-    uvicorn.run("app.main:app", host="127.0.0.1", port=args.port)
+    uvicorn.run("app.main:app", host="127.0.0.1", port=args.port, workers=args.workers)
 
 
 if __name__ == "__main__":

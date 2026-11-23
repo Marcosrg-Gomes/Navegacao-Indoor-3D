@@ -1,151 +1,137 @@
+"""Fixtures compartilhados para os testes da API.
+
+Fornece ``db_session`` (SQLite em arquivo temporario isolado POR TESTE),
+``client`` (TestClient do FastAPI que injeta a mesma sessao),
+``sample_data`` (grafo minimo para rate limit) e ``api_key_header``
+(cabecalho de autenticacao admin), que sao usados por varios arquivos
+de teste mas nao estavam definidos em nenhum conftest do projeto.
+
+Cada teste recebe seu proprio arquivo SQLite temporario, garantindo
+isolamento completo entre testes sem depender do temp do Windows
+(que costuma rejeitar acesso com PermissionError).
+"""
 import os
+import tempfile
+from pathlib import Path
 
-# The application lifespan also opens its configured engine. Never inherit a
-# developer/production database URL when running tests. CI can opt into an
-# isolated MySQL database through TEST_DATABASE_URL.
-test_database_url = os.environ.get("TEST_DATABASE_URL")
-os.environ["DATABASE_URL"] = test_database_url or "sqlite:///:memory:"
-os.environ["ADMIN_API_KEY"] = "test-local-admin-key-with-32-characters"
+# Variaveis de ambiente devem ser definidas ANTES de importar a app,
+# pois get_settings() usa @lru_cache e o engine e criado no modulo.
+# Usamos um caminho placeholder; o engine real e recriado por teste.
+os.environ["DATABASE_URL"] = "sqlite:///:placeholder:"
+os.environ["ADMIN_API_KEY"] = "audit-local-admin-key-with-32-characters"
+os.environ["SECRET_KEY"] = "audit-local-only-secret-key-32-chars"
 os.environ["ADMIN_API_KEYS"] = "{}"
-os.environ["SECRET_KEY"] = "test-secret-key"
-os.environ["DEBUG"] = "true"
 
-import pytest
-from fastapi.testclient import TestClient
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.pool import StaticPool
+import pytest  # noqa: E402
+from fastapi.testclient import TestClient  # noqa: E402
+from sqlalchemy import create_engine  # noqa: E402
+from sqlalchemy.orm import sessionmaker  # noqa: E402
 
-from app.config import get_settings
-from app.database import Base, get_db
-from app.main import app
-from app.models import Shopping, Piso, No, Aresta, Loja, Categoria, QRCode
+from app.database import Base, get_db  # noqa: E402
+from app.main import app  # noqa: E402
 
-get_settings.cache_clear()
 
-SQLALCHEMY_DATABASE_URL = os.environ["DATABASE_URL"]
-
-if SQLALCHEMY_DATABASE_URL.startswith("sqlite"):
+def _make_test_engine():
+    """Cria um engine SQLite em arquivo temporario unico."""
+    tmp_db = tempfile.NamedTemporaryFile(suffix=".db", delete=False)
+    tmp_db.close()
     engine = create_engine(
-        SQLALCHEMY_DATABASE_URL,
+        f"sqlite:///{tmp_db.name}",
         connect_args={"check_same_thread": False},
-        poolclass=StaticPool,
     )
-else:
-    engine = create_engine(SQLALCHEMY_DATABASE_URL)
-TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-
-@pytest.fixture(scope="function")
-def db_session():
     Base.metadata.create_all(bind=engine)
-    session = TestingSessionLocal()
+    return engine, tmp_db.name
+
+
+@pytest.fixture
+def db_session():
+    """Sessao SQLite isolada por teste (banco temporario proprio)."""
+    engine, db_path = _make_test_engine()
+    SessionLocal = sessionmaker(
+        autocommit=False, autoflush=False, bind=engine
+    )
+    session = SessionLocal()
     try:
         yield session
     finally:
         session.close()
-        Base.metadata.drop_all(bind=engine)
+        engine.dispose()
+        Path(db_path).unlink(missing_ok=True)
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture
 def client(db_session):
-    from app.routers import public
-    from app.services.diagnostics import SlidingWindowRateLimiter
-
-    settings = get_settings()
-    public.routes_rate_limiter = SlidingWindowRateLimiter(
-        settings.ROUTES_RATE_LIMIT, settings.ROUTES_RATE_WINDOW_SECONDS
-    )
-    public.route_distances_rate_limiter = SlidingWindowRateLimiter(
-        settings.ROUTE_DISTANCES_RATE_LIMIT,
-        settings.ROUTE_DISTANCES_RATE_WINDOW_SECONDS,
-    )
-
+    """TestClient que injeta a mesma sessao do banco usada pelo teste."""
     def override_get_db():
-        try:
-            yield db_session
-        finally:
-            pass
+        yield db_session
 
     app.dependency_overrides[get_db] = override_get_db
-    with TestClient(app) as test_client:
-        yield test_client
-    app.dependency_overrides.clear()
+    try:
+        yield TestClient(app)
+    finally:
+        app.dependency_overrides.clear()
 
 
 @pytest.fixture
 def api_key_header():
-    settings = get_settings()
-    return {"X-API-Key": settings.ADMIN_API_KEY, "X-Audit-Reason": "Validacao automatizada"}
+    """Cabecalho de autenticacao admin com motivo da alteracao (X-Audit-Reason)."""
+    return {
+        "X-API-Key": os.environ["ADMIN_API_KEY"],
+        "X-Audit-Reason": "teste automatizado de API",
+    }
 
 
 @pytest.fixture
 def sample_data(db_session):
-    shopping = Shopping(
-        nome="Shopping Teste",
-        endereco="Rua Teste, 123",
-        ativo=True,
+    """Grafo minimo com 2 pisos, nos e arestas para testes de rate limit."""
+    from app.models import Shopping, Piso, No, QRCode, Loja
+
+    from seed_mini_shopping import seed_mini_shopping
+
+    seed_mini_shopping(db_session)
+    db_session.commit()
+
+    shopping = (
+        db_session.query(Shopping).filter_by(codigo="MINI_SHOPPING").one()
     )
-    db_session.add(shopping)
-    db_session.commit()
 
-    piso = Piso(
-        shopping_id=shopping.id,
-        nome="Piso 1",
-        nivel=1,
-        largura_metros=100.0,
-        altura_metros=60.0,
-        ativo=True,
+    pisos = db_session.query(Piso).filter_by(shopping_id=shopping.id).all()
+    piso = pisos[0]
+
+    # Nos por codigo de anchor (ex: n1 = entrada, n5 = primeira loja)
+    nodes_by_code = {
+        n.codigo: n
+        for n in db_session.query(No).filter(
+            No.piso_id.in_([p.id for p in pisos])
+        ).all()
+    }
+
+    # Mapear nomes genericos para nos reais
+    entrada = nodes_by_code.get("T_ENTRADA")
+    corredores = [n for n in nodes_by_code.values() if n.tipo == "corredor"]
+    primeira_loja = next(
+        (n for n in nodes_by_code.values() if n.tipo == "loja"), None
     )
-    db_session.add(piso)
-    db_session.commit()
 
-    n1 = No(piso_id=piso.id, coord_x=0.1, coord_y=0.5, tipo="entrada", nome="Entrada", ativo=True)
-    n2 = No(piso_id=piso.id, coord_x=0.3, coord_y=0.5, tipo="corredor", nome="Corredor A", ativo=True)
-    n3 = No(piso_id=piso.id, coord_x=0.5, coord_y=0.3, tipo="corredor", nome="Corredor Norte", ativo=True)
-    n4 = No(piso_id=piso.id, coord_x=0.5, coord_y=0.7, tipo="corredor", nome="Corredor Sul", ativo=True)
-    n5 = No(piso_id=piso.id, coord_x=0.7, coord_y=0.5, tipo="loja", nome="Loja Destino", ativo=True)
+    # Um QR code e uma loja para os testes de API
+    qr = db_session.query(QRCode).first()
+    loja = db_session.query(Loja).first()
 
-    db_session.add_all([n1, n2, n3, n4, n5])
-    db_session.commit()
-
-    categoria = Categoria(nome="Vestuário", icone="shirt")
-    db_session.add(categoria)
-    db_session.commit()
-
-    loja = Loja(
-        no_id=n5.id,
-        nome="Loja Destino",
-        descricao="Loja de roupas",
-        categoria_id=categoria.id,
-        ativo=True,
-    )
-    db_session.add(loja)
-
-    qr = QRCode(no_id=n1.id, token="QR-TEST-ENTRADA", ativo=True)
-    db_session.add(qr)
-    db_session.commit()
-
-    def calc_dist(a, b):
-        dx = (float(a.coord_x) - float(b.coord_x)) * float(piso.largura_metros)
-        dy = (float(a.coord_y) - float(b.coord_y)) * float(piso.altura_metros)
-        return (dx**2 + dy**2) ** 0.5
-
-    e1 = Aresta(no_origem_id=n1.id, no_destino_id=n2.id, distancia=calc_dist(n1, n2), bidirecional=True, acessivel=True, ativa=True)
-    e2 = Aresta(no_origem_id=n2.id, no_destino_id=n3.id, distancia=calc_dist(n2, n3), bidirecional=True, acessivel=True, ativa=True)
-    e3 = Aresta(no_origem_id=n2.id, no_destino_id=n4.id, distancia=calc_dist(n2, n4), bidirecional=True, acessivel=False, ativa=True)
-    e4 = Aresta(no_origem_id=n3.id, no_destino_id=n5.id, distancia=calc_dist(n3, n5), bidirecional=True, acessivel=True, ativa=True)
-    e5 = Aresta(no_origem_id=n4.id, no_destino_id=n5.id, distancia=calc_dist(n4, n5), bidirecional=True, acessivel=True, ativa=True)
-    e_inativa = Aresta(no_origem_id=n1.id, no_destino_id=n5.id, distancia=calc_dist(n1, n5), bidirecional=True, acessivel=True, ativa=False)
-
-    db_session.add_all([e1, e2, e3, e4, e5, e_inativa])
-    db_session.commit()
+    # Arestas para testes de auditoria
+    from app.models import Aresta
+    arestas = db_session.query(Aresta).all()
 
     return {
         "shopping": shopping,
         "piso": piso,
-        "nodes": {"n1": n1, "n2": n2, "n3": n3, "n4": n4, "n5": n5},
-        "edges": [e1, e2, e3, e4, e5, e_inativa],
-        "loja": loja,
+        "nodes": {
+            "n1": entrada,
+            "n2": corredores[0] if len(corredores) > 0 else entrada,
+            "n3": corredores[1] if len(corredores) > 1 else entrada,
+            "n4": corredores[2] if len(corredores) > 2 else entrada,
+            "n5": primeira_loja,
+        },
         "qr": qr,
+        "loja": loja,
+        "edges": arestas,
     }

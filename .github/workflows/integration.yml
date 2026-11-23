@@ -184,6 +184,29 @@ jobs:
             apps/admin/.work-visitor-web.log
             apps/admin/.work-mini-server.log
             evidence/integration-browser-artifacts/**
+      # Auditoria de acessibilidade automatizada (axe-core WCAG 2.2 AA) sobre
+      # o visitante público e o painel admin, contra o mini_server já validado.
+      - name: Accessibility audit (axe-core WCAG 2.2 AA)
+        if: always() && steps.admin-build.outcome == 'success'
+        working-directory: apps/admin
+        env:
+          AUDIT_URL: http://127.0.0.1:8766
+          AUDIT_REPORT: ../../evidence/accessibility-browser-tests.json
+          AUDIT_ARTIFACTS: ../../evidence/accessibility-browser-artifacts
+        run: |
+          python ../../services/api/mini_server.py --port 8766 > .work-accessibility-server.log 2>&1 &
+          server_pid=$!
+          trap 'kill $server_pid' EXIT
+          for attempt in $(seq 1 30); do curl --fail --silent http://127.0.0.1:8766/health && break; sleep 1; done
+          curl --fail --silent http://127.0.0.1:8766/health
+          npx playwright test --project=chromium tests/accessibility.spec.ts
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: accessibility-logs
+          path: |
+            apps/admin/.work-accessibility-server.log
+            evidence/accessibility-browser-artifacts/**
       # A auditoria do catálogo calcula 104 rotas (26 destinos × 2 modos × 2
       # sentidos). O limite de produção continua 30/60 s; a cota maior vale
       # apenas para este processo isolado, em porta própria.
