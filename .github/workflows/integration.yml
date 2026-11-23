@@ -105,18 +105,53 @@ jobs:
           npm ci
           npm run build
           npx playwright install --with-deps chromium
+      - name: Seed banco de teste com piso superior
+        working-directory: apps/admin
+        run: python ../../services/api/seed_database.py --env ci --include-floors || true
+      - name: Verificar piso superior no banco de teste
+        working-directory: apps/admin
+        run: |
+          python ../../services/api/seed_database.py --env ci --include-floors || true
+          python - <<'PY'
+          import sys
+          sys.path.insert(0, "../../services/api")
+          from app.database import SessionLocal, engine
+          from app.models import Piso, No, QRCode, Shopping
+          db = SessionLocal()
+          demo = db.query(Shopping).filter_by(nome="Shopping Demo Center").first()
+          if not demo:
+            print("ERRO: Shopping Demo Center nao encontrado"); sys.exit(1)
+          upper = db.query(Piso).filter_by(shopping_id=demo.id, nivel=1).first()
+          if not upper:
+            print("ERRO: Piso superior nao encontrado"); sys.exit(1)
+          dest = db.query(No).filter_by(nome="Livraria Superior", piso_id=upper.id).first()
+          if not dest:
+            print("ERRO: Livraria Superior nao encontrada"); sys.exit(1)
+          qr = db.query(QRCode).filter_by(no_id=dest.id, token="DESTINO-SUPERIOR").first()
+          if not qr:
+            print("ERRO: QR code DESTINO-SUPERIOR nao encontrado"); sys.exit(1)
+          print("OK: Piso superior, Livraria Superior e QR DESTINO-SUPERIOR presentes no banco de teste.")
+          db.close()
+          PY
       - name: Existing E2E regression
         working-directory: apps/admin
         env:
           AUDIT_REPORT: ../../evidence/regression-browser-tests.json
           AUDIT_ARTIFACTS: ../../evidence/regression-browser-artifacts
         run: |
-          python ../../services/api/audit_server.py --port 8765 > ../../.work-audit-server.log 2>&1 &
+          python ../../services/api/audit_server.py --port 8765 > .work-audit-server.log 2>&1 &
           server_pid=$!
           trap 'kill $server_pid' EXIT
           for attempt in $(seq 1 30); do curl --fail --silent http://127.0.0.1:8765/health && break; sleep 1; done
           curl --fail --silent http://127.0.0.1:8765/health
           npm run test:e2e -- --project=chromium tests/navigation.spec.ts tests/scanner.spec.ts tests/admin-crud.spec.ts tests/multiuser.spec.ts
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: regression-logs
+          path: |
+            apps/admin/.work-audit-server.log
+            evidence/regression-browser-artifacts/**
       # Não usa continue-on-error: a suíte roda mesmo se a legada falhar, mas o
       # job termina falho se qualquer uma das duas falhar.
       - name: Integrated 3D E2E
@@ -127,12 +162,51 @@ jobs:
           AUDIT_REPORT: ../../evidence/integration-browser-tests.json
           AUDIT_ARTIFACTS: ../../evidence/integration-browser-artifacts
         run: |
-          python ../../services/api/mini_server.py --port 8766 > ../../.work-mini-server.log 2>&1 &
+          python ../../services/api/mini_server.py --port 8766 > .work-mini-server.log 2>&1 &
+          server_pid=$!
+          CI=1 EXPO_PUBLIC_API_URL=http://127.0.0.1:8766 npm --prefix ../visitor run web -- --port 8081 > .work-visitor-web.log 2>&1 &
+          visitor_pid=$!
+          trap 'kill $visitor_pid $server_pid' EXIT
+          for attempt in $(seq 1 30); do curl --fail --silent http://127.0.0.1:8766/health && break; sleep 1; done
+          curl --fail --silent http://127.0.0.1:8766/health
+          # O servidor web do Expo (Metro) pode demorar mais que 30s a ficar
+          # disponível em execução fria (bind de porta 8081). Aguarda até 120s
+          # antes de seguir para os testes, evitando ERRO_CONNECTION_REFUSED
+          # por corrida de disponibilidade.
+          for attempt in $(seq 1 120); do curl --fail --silent http://127.0.0.1:8081 && break; sleep 1; done
+          curl --fail --silent http://127.0.0.1:8081
+          npm run test:e2e -- --project=chromium tests/scene.spec.ts tests/map-interactions.spec.ts tests/visitor-journey.spec.ts tests/visitor-experience.spec.ts tests/business-rules.spec.ts tests/layout-accessibility.spec.ts tests/wayfinding.spec.ts tests/waze-navigation.spec.ts tests/simulation-engine.spec.ts tests/simulation-rerouting.spec.ts
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: integration-logs
+          path: |
+            apps/admin/.work-visitor-web.log
+            apps/admin/.work-mini-server.log
+            evidence/integration-browser-artifacts/**
+      # Auditoria de acessibilidade automatizada (axe-core WCAG 2.2 AA) sobre
+      # o visitante público e o painel admin, contra o mini_server já validado.
+      - name: Accessibility audit (axe-core WCAG 2.2 AA)
+        if: always() && steps.admin-build.outcome == 'success'
+        working-directory: apps/admin
+        env:
+          AUDIT_URL: http://127.0.0.1:8766
+          AUDIT_REPORT: ../../evidence/accessibility-browser-tests.json
+          AUDIT_ARTIFACTS: ../../evidence/accessibility-browser-artifacts
+        run: |
+          python ../../services/api/mini_server.py --port 8766 > .work-accessibility-server.log 2>&1 &
           server_pid=$!
           trap 'kill $server_pid' EXIT
           for attempt in $(seq 1 30); do curl --fail --silent http://127.0.0.1:8766/health && break; sleep 1; done
           curl --fail --silent http://127.0.0.1:8766/health
-          npm run test:e2e -- --project=chromium tests/scene.spec.ts tests/map-interactions.spec.ts tests/visitor-journey.spec.ts tests/visitor-experience.spec.ts tests/business-rules.spec.ts tests/layout-accessibility.spec.ts tests/wayfinding.spec.ts tests/waze-navigation.spec.ts tests/simulation-engine.spec.ts tests/simulation-rerouting.spec.ts
+          npx playwright test --project=chromium tests/accessibility.spec.ts
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: accessibility-logs
+          path: |
+            apps/admin/.work-accessibility-server.log
+            evidence/accessibility-browser-artifacts/**
       # A auditoria do catálogo calcula 104 rotas (26 destinos × 2 modos × 2
       # sentidos). O limite de produção continua 30/60 s; a cota maior vale
       # apenas para este processo isolado, em porta própria.

@@ -35,8 +35,8 @@ export default function SceneValidation() {
     <div className="page-head"><div><h1>Cena 3D</h1><p>Valide a correspondência entre catálogo, banco e rotas. A geometria e as âncoras são editadas no Blender.</p></div></div>
     <div className="card">
       <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
-        <label style={{ fontWeight: 600, minWidth: 70 }}>Shopping</label>
-        <select value={selected} onChange={(e) => setSelected(e.target.value)} style={{ minWidth: 260 }}>
+        <label htmlFor="shopping-select" style={{ fontWeight: 600, minWidth: 70 }}>Shopping</label>
+        <select id="shopping-select" value={selected} onChange={(e) => setSelected(e.target.value)} style={{ minWidth: 260 }}>
           {shoppings.map((s) => <option key={s.id} value={s.id}>{s.nome}</option>)}
         </select>
         <button onClick={() => setRefresh((n) => n + 1)} disabled={loading} className="accent">

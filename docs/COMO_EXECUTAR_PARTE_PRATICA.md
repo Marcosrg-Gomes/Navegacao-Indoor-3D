@@ -45,6 +45,15 @@ Endereços:
 A chave de demonstração do painel é exibida no README. Ela é exclusiva desse
 servidor local e não deve ser reutilizada fora dele.
 
+### Validação rápida da API (apenas backend)
+
+Para validar que a API responde corretamente aos endpoints de navegação sem
+depender do frontend:
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest services/api/tests/test_integracao_funcional.py services/api/tests/test_integracao_admin_visitante.py services/api/tests/test_seguranca_estabilidade.py -q
+```
+
 ## Demonstração sugerida
 
 1. Abra o visitante com o QR da entrada.

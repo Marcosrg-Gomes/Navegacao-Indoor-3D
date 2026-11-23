@@ -19,6 +19,7 @@ import { TIPO_NO_LABEL, getStatusOperacional, STATUS_OPERACIONAL_LABEL, type Loj
 import { colors } from "@/constants/colors";
 import { useIsFocused } from "@react-navigation/native";
 import { useDirectory } from "@/hooks/useDirectory";
+import { useAccessibilityAnnouncer } from "@/hooks/useAccessibilityAnnouncer";
 import { IntentHome } from "@/components/IntentHome";
 import { RAIL_WIDTH, useRailLayout } from "@/components/VisitorTabBar";
 import { FloorSwitcher } from "@/components/FloorSwitcher";
@@ -36,6 +37,8 @@ export default function MapScreen() {
   const directory = useDirectory(useIsFocused());
   const plan = useVisitPlan();
   const preferences = useVisitorPreferences();
+  // Anuncia mudanças de rota, chegada e piso para leitores de tela.
+  useAccessibilityAnnouncer();
   const scroll = useRef<ScrollView>(null);
   const mapOffset = useRef(0);
   const guideOffset = useRef(0);
@@ -106,16 +109,21 @@ export default function MapScreen() {
   useEffect(() => {
     if (params.manualOrigin === "1") { setManual(true); router.setParams({ manualOrigin: "" }); }
   }, [params.manualOrigin]);
+  const qrProcessingRef = useRef(false);
   useEffect(() => {
     const token = qrParam || tokenParam;
     if (token) setFullMap(true);
-    if (!token || nav.loading || qrRead.current === token) return;
-    qrRead.current = token;
+    if (!token || nav.loading || qrProcessingRef.current) return;
+    qrProcessingRef.current = true;
     setQrBusy(true);
     setLocalError(null);
     resolveQrCode(token).then((result) => nav.setOriginNode(result.no, "qr"))
       .catch((e) => { setLocalError(e.message); setManual(true); })
-      .finally(() => { setQrBusy(false); if (qrRead.current === token) qrRead.current = null; router.setParams({ qr: "", token: "" }); });
+      .finally(() => {
+        setQrBusy(false);
+        qrProcessingRef.current = false;
+        router.setParams({ qr: "", token: "" });
+      });
   }, [qrParam, tokenParam, nav.loading, nav.setOriginNode]);
 
   const initialSelection = useRef(false);
@@ -187,8 +195,8 @@ export default function MapScreen() {
         <View style={styles.topLine}><View style={{ flex: 1 }}><SearchBar onSelect={setPoi} shoppingId={nav.shopping?.id} /></View>
           <TouchableOpacity accessibilityRole="button" accessibilityLabel="Ajuda" style={styles.iconButton} onPress={() => setHelp(true)}><WayfindingIcon name="help" /></TouchableOpacity></View>
         <FirstVisitHelp onOpen={() => setHelp(true)} />
-        {nav.shoppings.length > 1 && <ScrollView horizontal contentContainerStyle={styles.row}>
-          {nav.shoppings.map((s) => <TouchableOpacity key={s.id} accessibilityRole="button" style={styles.chip}
+        {nav.shoppings.length > 1 && <ScrollView horizontal contentContainerStyle={styles.row} accessibilityLabel="Seletor de shopping">
+          {nav.shoppings.map((s) => <TouchableOpacity key={s.id} accessibilityRole="button" accessibilityLabel={nav.shopping?.id === s.id ? s.nome + ", selecionado" : s.nome} accessibilityState={{ selected: nav.shopping?.id === s.id }} style={styles.chip}
             onPress={() => void nav.selectShopping(s.id)}><Text>{s.nome}{nav.shopping?.id === s.id ? " ✓" : ""}</Text></TouchableOpacity>)}
         </ScrollView>}
         <View style={styles.position}>
@@ -343,7 +351,7 @@ const styles = StyleSheet.create({
   small: { fontSize: 13, lineHeight: 20, color: colors.textMuted },
   button: { backgroundColor: colors.primary, padding: 12, borderRadius: 6, minHeight: 44, justifyContent: "center" },
   buttonText: { color: "white", fontWeight: "600" },
-  chip: { backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.borderLight, borderRadius: 12, paddingHorizontal: 14, minHeight: 42, justifyContent: "center" },
+  chip: { backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.borderLight, borderRadius: 12, paddingHorizontal: 14, minHeight: 44, justifyContent: "center" },
   selected: { backgroundColor: colors.primary, borderColor: colors.primary },
   card: { backgroundColor: colors.surface, borderRadius: 8, padding: 18, gap: 12, borderWidth: 1, borderColor: colors.border },
   distance: { fontSize: 24, fontWeight: "700", color: colors.primary },

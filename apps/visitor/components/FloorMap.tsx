@@ -96,6 +96,7 @@ export function FloorMap({
       accessibilityLabel="Mapa 2D do piso com nós e rota de navegação"
     >
       <G>
+        <SvgText x={width / 2} y={height * 0.055} fill={colors.textMuted} fontSize={13} fontWeight="800" textAnchor="middle">Norte</SvgText>
         {planSvg ? null : plantaUrl ? (
           // Enquanto a planta SVG carrega a 180°, não exibe a imagem com textos invertidos.
           svgPlan && mapRotation === 180 ? null : <SvgImage
@@ -188,7 +189,7 @@ export function FloorMap({
             .find((y) => !occupiedLabels.some((other) => Math.abs(other.y - y) < 25 && Math.abs(other.x - labelX) < (other.width + labelWidth) / 2 + 5)
               && !visibleNodes.some((point) => Math.abs(toY(point.coord_y) - y) < 21 && Math.abs(toX(point.coord_x) - labelX) < labelWidth / 2 + 10));
           if (label && labelY !== undefined) occupiedLabels.push({ x: labelX, y: labelY, width: labelWidth });
-          return <G key={node.id} onPress={() => onNodePress?.(node)} accessibilityLabel={node.nome || node.tipo}>
+          return <G key={node.id} onPress={() => onNodePress?.(node)} role="img" aria-label={node.nome || node.tipo}>
             {label && labelY !== undefined && Math.abs(labelY - preferredY) > 2 && <Line x1={toX(node.coord_x)} y1={toY(node.coord_y)} x2={labelX} y2={labelY} stroke={colors.border} strokeWidth={1} />}
             <Circle cx={toX(node.coord_x)} cy={toY(node.coord_y)} r={22} fill={fill} opacity={isOrigin || isDestination ? .18 : 0.01} />
             {(isHighlight || pinned) && <Rect x={toX(node.coord_x) - 14} y={toY(node.coord_y) - 14} width={28} height={28} fill="none" stroke={colors.accentDark} strokeWidth={3} strokeDasharray={pinned ? "4 3" : undefined} />}
@@ -214,7 +215,7 @@ export function FloorMap({
  * planta e girado junto com ela (0°/180°), de modo que na tela aponta sempre para cima.
  */
 export function NavigationMarker({ x, y, rotation, simulated, showLabel }: { x: number; y: number; rotation: MapOrientation; simulated: boolean; showLabel: boolean }) {
-  return <G testID="position-marker" accessibilityLabel={simulated ? "Sua posição simulada; a seta indica o sentido do percurso" : "Sua última posição confirmada"}>
+  return <G testID="position-marker" role="img" aria-label={simulated ? "Sua posição simulada; a seta indica o sentido do percurso" : "Sua última posição confirmada"}>
     <Circle cx={x} cy={y} r={26} fill={colors.primary} opacity={.14} />
     <Circle cx={x} cy={y} r={17} fill={colors.surface} stroke={colors.primary} strokeWidth={1.5} />
     <G testID="position-arrow" transform={`translate(${x} ${y}) rotate(${rotation})`}>

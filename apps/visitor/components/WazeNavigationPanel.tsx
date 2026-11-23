@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { AccessibilityInfo, ActivityIndicator, Platform, StyleSheet, TouchableOpacity, useWindowDimensions, View } from "react-native";
+import { ActivityIndicator, StyleSheet, TouchableOpacity, useWindowDimensions, View } from "react-native";
 import { Text } from "@/components/AppText";
 import { colors } from "@/constants/colors";
 import { useNavigation } from "@/context/NavigationContext";
@@ -33,12 +33,6 @@ export function WazeManeuverBanner() {
   const failed = !nav.route && !!nav.routeError;
   const loading = !nav.route && nav.routeLoading;
   const maneuver = maneuverIcon(arrived ? { tipo: "chegada", texto: "" } : current);
-  const spoken = arrived ? `Você chegou a ${nav.destinationName || "seu destino"}` : failed ? nav.routeError : moving ? current?.texto : null;
-  // iOS não lê regiões dinâmicas: o VoiceOver recebe cada nova instrução explicitamente.
-  // No Android, `accessibilityLiveRegion` já anuncia a mudança do banner.
-  useEffect(() => {
-    if (visible && spoken && Platform.OS === "ios") AccessibilityInfo.announceForAccessibility(spoken);
-  }, [visible, spoken]);
   if (!visible) return null;
   return <View testID="maneuver-banner" style={[styles.maneuver, failed && styles.maneuverFailed, arrived && styles.maneuverArrived]} accessibilityLiveRegion="polite">
     <View style={[styles.maneuverTile, failed && styles.maneuverTileFailed]} accessible accessibilityRole="image" accessibilityLabel={failed ? "Atenção" : maneuver.label}>
@@ -97,7 +91,7 @@ export function WazeNavigationPanel({ onChooseDestination, onCorrectPosition, on
     arrived ? "Novo destino" : "Iniciar navegação";
 
   return <View testID="route-panel" style={[styles.panel, nav.arrivalLoading && styles.panelBusy]} accessibilityState={{ busy }}>
-    {moving && !arrived && <View style={styles.progressTrack} accessible accessibilityRole="progressbar" accessibilityLabel="Progresso do percurso"
+    {moving && !arrived && <View style={styles.progressTrack} accessible accessibilityRole="progressbar" aria-label="Progresso do percurso" accessibilityLabel="Progresso do percurso"
       accessibilityValue={{ min: 0, max: 100, now: Math.round(progress * 100) }}>
       <View style={[styles.progressFill, { width: `${Math.round(progress * 100)}%` }]} />
     </View>}
@@ -128,7 +122,7 @@ export function WazeNavigationPanel({ onChooseDestination, onCorrectPosition, on
         accessibilityState={{ disabled: busy }} onPress={primaryAction} style={[styles.primary, busy && styles.disabled]}>
         <Text style={styles.primaryText}>{primaryLabel}</Text>
       </TouchableOpacity>
-      {!arrived && <TouchableOpacity testID="accessible-toggle" accessibilityRole="switch" accessibilityLabel="Rota sem escadas"
+      {!arrived && <TouchableOpacity testID="accessible-toggle" accessibilityRole="switch" accessibilityLabel="Rota acessível"
         accessibilityHint="Recalcula usando apenas elevadores e rampas" accessibilityState={{ checked: nav.acessivel, disabled: busy }}
         disabled={busy} onPress={() => nav.setAcessivel(!nav.acessivel)} style={[styles.accessibleChip, nav.acessivel && styles.accessibleChipOn, busy && styles.disabled]}>
         <WayfindingIcon name="accessible" color={nav.acessivel ? colors.textOnPrimary : colors.accessible} size={22} strokeWidth={2} />

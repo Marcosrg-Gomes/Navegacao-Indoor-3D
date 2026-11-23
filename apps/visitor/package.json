@@ -9,7 +9,8 @@
     "web": "expo start --web",
     "build:web": "node scripts/copy-draco.cjs && expo export --platform web --output-dir ../../services/api/app/static/visitor",
     "build:native": "expo export --platform android --platform ios --source-maps --output-dir dist-native && node scripts/check-native-bundle.cjs",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "node services/accessibility.unit.test.mjs"
   },
   "dependencies": {
     "@expo-google-fonts/ibm-plex-sans": "0.2.3",
