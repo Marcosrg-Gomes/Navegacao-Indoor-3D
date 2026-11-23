@@ -42,6 +42,11 @@ jobs:
       - run: npm ci --prefix apps/admin
       - run: npm run build --prefix apps/admin
       - run: pytest services/api/tests -v
+        env:
+          DATABASE_URL: "sqlite:///./test.db"
+          ADMIN_API_KEY: "audit-local-admin-key-with-32-characters"
+          SECRET_KEY: "audit-local-only"
+          ADMIN_API_KEYS: "{}"
 
   blender:
     runs-on: ubuntu-latest
@@ -107,9 +112,19 @@ jobs:
           npx playwright install --with-deps chromium
       - name: Seed banco de teste com piso superior
         working-directory: apps/admin
+        env:
+          DATABASE_URL: "sqlite:///./test.db"
+          ADMIN_API_KEY: "audit-local-admin-key-with-32-characters"
+          SECRET_KEY: "audit-local-only"
+          ADMIN_API_KEYS: "{}"
         run: python ../../services/api/seed_database.py --env ci --include-floors || true
       - name: Verificar piso superior no banco de teste
         working-directory: apps/admin
+        env:
+          DATABASE_URL: "sqlite:///./test.db"
+          ADMIN_API_KEY: "audit-local-admin-key-with-32-characters"
+          SECRET_KEY: "audit-local-only"
+          ADMIN_API_KEYS: "{}"
         run: |
           python ../../services/api/seed_database.py --env ci --include-floors || true
           python - <<'PY'
@@ -138,6 +153,10 @@ jobs:
         env:
           AUDIT_REPORT: ../../evidence/regression-browser-tests.json
           AUDIT_ARTIFACTS: ../../evidence/regression-browser-artifacts
+          DATABASE_URL: "sqlite:///./test.db"
+          ADMIN_API_KEY: "audit-local-admin-key-with-32-characters"
+          SECRET_KEY: "audit-local-only"
+          ADMIN_API_KEYS: "{}"
         run: |
           python ../../services/api/audit_server.py --port 8765 > .work-audit-server.log 2>&1 &
           server_pid=$!
@@ -161,6 +180,10 @@ jobs:
           AUDIT_URL: http://127.0.0.1:8766
           AUDIT_REPORT: ../../evidence/integration-browser-tests.json
           AUDIT_ARTIFACTS: ../../evidence/integration-browser-artifacts
+          DATABASE_URL: "sqlite:///./test.db"
+          ADMIN_API_KEY: "audit-local-admin-key-with-32-characters"
+          SECRET_KEY: "audit-local-only"
+          ADMIN_API_KEYS: "{}"
         run: |
           python ../../services/api/mini_server.py --port 8766 > .work-mini-server.log 2>&1 &
           server_pid=$!
@@ -193,6 +216,10 @@ jobs:
           AUDIT_URL: http://127.0.0.1:8766
           AUDIT_REPORT: ../../evidence/accessibility-browser-tests.json
           AUDIT_ARTIFACTS: ../../evidence/accessibility-browser-artifacts
+          DATABASE_URL: "sqlite:///./test.db"
+          ADMIN_API_KEY: "audit-local-admin-key-with-32-characters"
+          SECRET_KEY: "audit-local-only"
+          ADMIN_API_KEYS: "{}"
         run: |
           python ../../services/api/mini_server.py --port 8766 > .work-accessibility-server.log 2>&1 &
           server_pid=$!
@@ -217,6 +244,10 @@ jobs:
           AUDIT_URL: http://127.0.0.1:8767
           AUDIT_REPORT: ../../evidence/catalog-browser-tests.json
           AUDIT_ARTIFACTS: ../../evidence/catalog-browser-artifacts
+          DATABASE_URL: "sqlite:///./test.db"
+          ADMIN_API_KEY: "audit-local-admin-key-with-32-characters"
+          SECRET_KEY: "audit-local-only"
+          ADMIN_API_KEYS: "{}"
         run: |
           mkdir -p ../../evidence
           ROUTES_RATE_LIMIT=200 python ../../services/api/mini_server.py --port 8767 > ../../evidence/catalog-server.log 2>&1 &
