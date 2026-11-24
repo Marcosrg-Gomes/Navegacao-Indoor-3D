@@ -11,7 +11,7 @@ def main():
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--catalog", type=str, default=None,
                         help="Caminho do catálogo a publicar (padrão: scene-catalog-v2.json)")
-    parser.add_argument("--workers", type=int, default=4, help="Workers uvicorn para testes E2E concorrentes")
+    parser.add_argument("--workers", type=int, default=1, help="Workers uvicorn (padrão: 1 para evitar problemas de concorrência do SQLite)")
     args = parser.parse_args()
     database = Path(tempfile.mkdtemp(prefix="mini-shopping-")) / "demo.db"
     # Usa MySQL do .env quando disponível; senão, SQLite temporário (demonstração isolada)
@@ -21,6 +21,13 @@ def main():
         os.environ.setdefault("ADMIN_API_KEY", "audit-local-admin-key-with-32-characters")
         os.environ.setdefault("SECRET_KEY", "audit-local-only")
     os.environ["ADMIN_API_KEYS"] = "{}"
+    # Aumenta limites de rate para ambiente de teste
+    if os.environ.get("ROUTES_RATE_LIMIT"):
+        os.environ["ROUTES_RATE_LIMIT"] = os.environ.get("ROUTES_RATE_LIMIT", "1000")
+    if os.environ.get("ROUTE_DISTANCES_RATE_LIMIT"):
+        os.environ["ROUTE_DISTANCES_RATE_LIMIT"] = os.environ.get("ROUTE_DISTANCES_RATE_LIMIT", "1000")
+    if os.environ.get("DIAGNOSTICS_RATE_LIMIT"):
+        os.environ["DIAGNOSTICS_RATE_LIMIT"] = os.environ.get("DIAGNOSTICS_RATE_LIMIT", "1000")
     from app.database import Base, SessionLocal, engine
     from app.migrations import upgrade_schema
     from seed_mini_shopping import seed_mini_shopping
@@ -29,6 +36,11 @@ def main():
     catalog_path = Path(args.catalog) if args.catalog else default_catalog
     Base.metadata.create_all(engine)
     upgrade_schema(engine)
+    # Habilita WAL mode para melhorar concorrência de leitura no SQLite
+    from sqlalchemy import text
+    with engine.connect() as conn:
+        conn.execute(text("PRAGMA journal_mode=WAL"))
+        conn.commit()
     with SessionLocal.begin() as db:
         seed_mini_shopping(db, catalog_path=catalog_path)
         publish_scene(db, catalog_path)
