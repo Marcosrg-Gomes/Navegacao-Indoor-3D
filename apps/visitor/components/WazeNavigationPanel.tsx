@@ -96,7 +96,7 @@ export function WazeNavigationPanel({ onChooseDestination, onCorrectPosition, on
         style={styles.progressTrack}
         accessible
         accessibilityRole="progressbar"
-        {...{ "aria-label": "Progresso do percurso" }}
+        aria-label="Progresso do percurso"
         accessibilityLabel="Progresso do percurso"
         accessibilityValue={{ min: 0, max: 100, now: Math.round(progress * 100) }}
       >
