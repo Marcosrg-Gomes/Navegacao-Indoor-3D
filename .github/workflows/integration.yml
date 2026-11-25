@@ -63,16 +63,16 @@ jobs:
       - run: ruff format --check tests scripts utils/mesh_data.py
       - run: python -m compileall -q .
       - run: python -m unittest discover -s tests -v
-      - name: Download Blender 4.5.14 LTS
+      - name: Install Blender via apt
         run: |
-          curl -L --fail --output blender.tar.xz https://download.blender.org/release/Blender4.5/blender-4.5.14-linux-x64.tar.xz
-          tar -xf blender.tar.xz
+          sudo apt-get update
+          sudo apt-get install -y blender
       - name: Existing generation smoke test
-        run: ./blender-4.5.14-linux-x64/blender --background --factory-startup --python-exit-code 1 --python scripts/blender_smoke.py
+        run: blender --background --factory-startup --python-exit-code 1 --python scripts/blender_smoke.py
       - name: Physical navigation and GLB export
         run: |
-          ./blender-4.5.14-linux-x64/blender --background --factory-startup --python-exit-code 1 --python scripts/validate_navigation_geometry.py
-          ./blender-4.5.14-linux-x64/blender --background --factory-startup --python-exit-code 1 --python scripts/export_navigation_scene.py -- --output ../../.work/ci-scene
+          blender --background --factory-startup --python-exit-code 1 --python scripts/validate_navigation_geometry.py
+          blender --background --factory-startup --python-exit-code 1 --python scripts/export_navigation_scene.py -- --output ../../.work/ci-scene
       - uses: actions/upload-artifact@v4
         with:
           name: generated-navigation-scene

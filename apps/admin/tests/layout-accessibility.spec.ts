@@ -91,6 +91,8 @@ test("Logotipo cadastrado aparece e falha de carregamento mantém identificaçã
   await expect(adidas.getByText("E01", { exact: true })).toHaveCount(0);
   await page.unroute("**/marca-teste.svg");
   await page.route("**/marca-teste.svg", (route) => route.fulfill({ status: 404 }));
+  // Desabilita cache para garantir que o 404 do SVG seja respeitado após reload
+  await page.context().setCacheEnabled(false);
   await page.reload();
   const adidasAfterReload = page.getByRole("button", { name: "ADIDAS, ver detalhes", exact: true });
   await expect(adidasAfterReload.getByText("E01", { exact: true })).toBeVisible();
