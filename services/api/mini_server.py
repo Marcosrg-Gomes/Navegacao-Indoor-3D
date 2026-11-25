@@ -21,13 +21,11 @@ def main():
         os.environ.setdefault("ADMIN_API_KEY", "audit-local-admin-key-with-32-characters")
         os.environ.setdefault("SECRET_KEY", "audit-local-only")
     os.environ["ADMIN_API_KEYS"] = "{}"
-    # Aumenta limites de rate para ambiente de teste
-    if os.environ.get("ROUTES_RATE_LIMIT"):
-        os.environ["ROUTES_RATE_LIMIT"] = os.environ.get("ROUTES_RATE_LIMIT", "1000")
-    if os.environ.get("ROUTE_DISTANCES_RATE_LIMIT"):
-        os.environ["ROUTE_DISTANCES_RATE_LIMIT"] = os.environ.get("ROUTE_DISTANCES_RATE_LIMIT", "1000")
-    if os.environ.get("DIAGNOSTICS_RATE_LIMIT"):
-        os.environ["DIAGNOSTICS_RATE_LIMIT"] = os.environ.get("DIAGNOSTICS_RATE_LIMIT", "1000")
+    # Aumenta limites de rate para ambiente de teste (o schema aceita no máximo 600).
+    # Sem isso, o padrão de 20 distâncias/min derruba a suíte E2E com HTTP 429.
+    os.environ.setdefault("ROUTES_RATE_LIMIT", "600")
+    os.environ.setdefault("ROUTE_DISTANCES_RATE_LIMIT", "600")
+    os.environ.setdefault("DIAGNOSTICS_RATE_LIMIT", "600")
     from app.database import Base, SessionLocal, engine
     from app.migrations import upgrade_schema
     from seed_mini_shopping import seed_mini_shopping

@@ -241,7 +241,7 @@ export function DsEmptyState({
 export function DsLoading({ message = "Carregando…" }: { message?: string }) {
   return (
     <View style={styles.loadingContainer} accessibilityLiveRegion="polite" accessibilityLabel={message}>
-      <ActivityIndicator size="large" color={colors.primary} />
+      <ActivityIndicator size="large" color={colors.primary} accessibilityLabel={message} />
       <Text style={styles.loadingText}>{message}</Text>
     </View>
   );

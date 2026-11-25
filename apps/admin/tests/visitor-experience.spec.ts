@@ -31,12 +31,14 @@ test("Favoritos e recentes persistem; a posição precisa ser confirmada novamen
 test("Explorar busca e ordena pelo percurso da API", async ({ page, request }) => {
   const origin = await (await request.get("/api/qr-codes/MINI-ENTRADA-PRINCIPAL")).json();
   const distances = await (await request.get("/api/routes/distances?origem_no_id=" + origin.no.id + "&acessivel=false")).json();
-  // Seleciona um nó que a API garante ser alcançável (distância definida), independentemente dos dados do banco
-  const reachableNodeId = Object.entries(distances).find(([, d]) => typeof d === "number" && Number.isFinite(d))?.[0];
-  expect(reachableNodeId).toBeDefined();
+  // Seleciona um POI que a API garante ser alcançável (distância definida e positiva),
+  // independentemente dos dados do banco.
   const pois = await (await request.get("/api/pois")).json();
-  const targetPoi = pois.find((p: any) => String(p.no_id) === reachableNodeId);
-  expect(targetPoi).toBeDefined();
+  const target = pois
+    .map((poi: any) => ({ poi, distance: distances[String(poi.no_id)] }))
+    .find(({ distance }) => typeof distance === "number" && Number.isFinite(distance) && distance > 0);
+  if (!target) throw new Error("Nenhum POI alcançável retornado pela API");
+  const { poi: targetPoi, distance: distancia } = target;
   await start(page);
   await page.getByRole("tab", { name: /Explorar/ }).click();
   // Aguarda o diretório carregar as distâncias (pelo menos um POI mostra "m de percurso")
@@ -49,8 +51,8 @@ test("Explorar busca e ordena pelo percurso da API", async ({ page, request }) =
   const poiElement = page.getByRole("button", { name: targetPoi.nome + ", ver detalhes", exact: true });
   await expect(poiElement).toBeVisible({ timeout: 15000 });
   // Verifica que a distância está sendo exibida (formato pode variar por navegador)
-  expect(distances[reachableNodeId]).toBeDefined();
-  const distanciaEsperada = Math.round(distances[reachableNodeId]);
+  expect(distancia).toBeDefined();
+  const distanciaEsperada = Math.round(distancia);
   await expect(poiElement).toContainText(distanciaEsperada.toString(), { timeout: 15000 });
 });
 
