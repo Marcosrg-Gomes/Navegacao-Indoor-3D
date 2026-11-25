@@ -40,7 +40,8 @@ test("Explorar busca e ordena pelo percurso da API", async ({ page, request }) =
   await start(page);
   await page.getByRole("tab", { name: /Explorar/ }).click();
   await page.getByLabel("Buscar no Explorar").fill(targetPoi.nome);
-  const poiElement = page.getByTestId("explore-poi-" + targetPoi.id);
+  // Localiza pelo nome do POI (o testID usa poi.id, mas a distância é por no_id; o nome é o vínculo confiável)
+  const poiElement = page.getByRole("button", { name: targetPoi.nome + ", ver detalhes", exact: true });
   await expect(poiElement).toBeVisible({ timeout: 15000 });
   // Verifica que a distância está sendo exibida (formato pode variar por navegador)
   expect(distances[reachableNodeId]).toBeDefined();
