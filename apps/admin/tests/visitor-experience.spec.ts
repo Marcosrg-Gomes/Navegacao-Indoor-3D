@@ -39,6 +39,11 @@ test("Explorar busca e ordena pelo percurso da API", async ({ page, request }) =
   expect(targetPoi).toBeDefined();
   await start(page);
   await page.getByRole("tab", { name: /Explorar/ }).click();
+  // Aguarda o diretório carregar as distâncias (pelo menos um POI mostra "m de percurso")
+  await expect.poll(async () => {
+    const texts = await page.locator('[data-testid^="explore-poi-"]').allTextContents();
+    return texts.some((t) => /m de percurso/.test(t));
+  }, { timeout: 15000 }).toBeTruthy();
   await page.getByLabel("Buscar no Explorar").fill(targetPoi.nome);
   // Localiza pelo nome do POI (o testID usa poi.id, mas a distância é por no_id; o nome é o vínculo confiável)
   const poiElement = page.getByRole("button", { name: targetPoi.nome + ", ver detalhes", exact: true });
@@ -46,7 +51,6 @@ test("Explorar busca e ordena pelo percurso da API", async ({ page, request }) =
   // Verifica que a distância está sendo exibida (formato pode variar por navegador)
   expect(distances[reachableNodeId]).toBeDefined();
   const distanciaEsperada = Math.round(distances[reachableNodeId]);
-  // Aguarda o diretório carregar as distâncias (assíncrono após montar a tab Explorar)
   await expect(poiElement).toContainText(distanciaEsperada.toString(), { timeout: 15000 });
 });
 
