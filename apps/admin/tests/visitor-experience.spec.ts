@@ -31,16 +31,20 @@ test("Favoritos e recentes persistem; a posição precisa ser confirmada novamen
 test("Explorar busca e ordena pelo percurso da API", async ({ page, request }) => {
   const origin = await (await request.get("/api/qr-codes/MINI-ENTRADA-PRINCIPAL")).json();
   const distances = await (await request.get("/api/routes/distances?origem_no_id=" + origin.no.id + "&acessivel=false")).json();
-  await start(page);
+  // Seleciona um nó que a API garante ser alcançável (distância definida), independentemente dos dados do banco
+  const reachableNodeId = Object.entries(distances).find(([, d]) => typeof d === "number" && Number.isFinite(d))?.[0];
+  expect(reachableNodeId).toBeDefined();
   const pois = await (await request.get("/api/pois")).json();
-  const natura = pois.find((p: any) => p.nome === "NATURA");
+  const targetPoi = pois.find((p: any) => String(p.no_id) === reachableNodeId);
+  expect(targetPoi).toBeDefined();
+  await start(page);
   await page.getByRole("tab", { name: /Explorar/ }).click();
-  await page.getByLabel("Buscar no Explorar").fill("natura");
-  const poiElement = page.getByTestId("explore-poi-" + natura.id);
+  await page.getByLabel("Buscar no Explorar").fill(targetPoi.nome);
+  const poiElement = page.getByTestId("explore-poi-" + targetPoi.id);
   await expect(poiElement).toBeVisible({ timeout: 15000 });
   // Verifica que a distância está sendo exibida (formato pode variar por navegador)
-  expect(distances[String(natura.no_id)]).toBeDefined();
-  const distanciaEsperada = Math.round(distances[String(natura.no_id)]);
+  expect(distances[reachableNodeId]).toBeDefined();
+  const distanciaEsperada = Math.round(distances[reachableNodeId]);
   // Aguarda o diretório carregar as distâncias (assíncrono após montar a tab Explorar)
   await expect(poiElement).toContainText(distanciaEsperada.toString(), { timeout: 15000 });
 });
