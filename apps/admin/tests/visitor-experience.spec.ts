@@ -39,6 +39,7 @@ test("Explorar busca e ordena pelo percurso da API", async ({ page, request }) =
   const poiElement = page.getByTestId("explore-poi-" + natura.id);
   await expect(poiElement).toBeVisible({ timeout: 15000 });
   // Verifica que a distância está sendo exibida (formato pode variar por navegador)
+  expect(distances[String(natura.no_id)]).toBeDefined();
   const distanciaEsperada = Math.round(distances[String(natura.no_id)]);
   await expect(poiElement).toContainText(distanciaEsperada.toString());
 });
