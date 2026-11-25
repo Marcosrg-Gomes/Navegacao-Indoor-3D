@@ -45,6 +45,10 @@ def main():
     with SessionLocal.begin() as db:
         seed_mini_shopping(db, catalog_path=catalog_path)
         publish_scene(db, catalog_path)
+    # Quando rodando em MySQL (banco de teste/E2E), o mini shopping ja semeia
+    # os tokens MINI-ENTRADA-PRINCIPAL etc. via seed_mini_shopping. Os testes
+    # de scanner do navegador usam esses mesmos tokens.
+    pass
     import uvicorn
     uvicorn.run("app.main:app", host=args.host, port=args.port, workers=args.workers)
 

@@ -1,0 +1,19 @@
+{
+  "run_id": "4bbdf6fe",
+  "plan": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\.alethe\\plans\\tcc-navegacao-indoor-2workers.json",
+  "executed_at": "2026-11-16T17:38:27.390580",
+  "results": [
+    {
+      "worker": "opencode-mobile",
+      "returncode": 1,
+      "stdout": "{\"type\":\"error\",\"timestamp\":1794861507139,\"sessionID\":\"ses_e19eade05ffeO2mvrhwV3URhRo\",\"error\":{\"type\":\"provider.no-route\",\"message\":\"Model unavailable: nvidia/nemotron-3.5-super-vl-120b-a12b\"}}\n",
+      "stderr": ""
+    },
+    {
+      "worker": "opencode-ci",
+      "returncode": 1,
+      "stdout": "{\"type\":\"error\",\"timestamp\":1794861507370,\"sessionID\":\"ses_e19eadd1affeM7u46ITvuRsFzg\",\"error\":{\"type\":\"provider.no-route\",\"message\":\"Model unavailable: nvidia/nemotron-3.5-super-vl-120b-a12b\"}}\n",
+      "stderr": ""
+    }
+  ]
+}

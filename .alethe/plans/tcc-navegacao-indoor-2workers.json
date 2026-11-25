@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "title": "TCC Navegacao Indoor - 2 workers paralelos",
+  "playbook": "plan-big-execute-small",
+  "phase": "implementation",
+  "why": "Codex planeja; Worker Mobile (Nemotron) faz acessibilidade + experiencia; Worker CI (Nemotron) faz GitHub Actions e testes. Sem conflito de merge.",
+  "strategy": "balanced",
+  "maxConcurrent": 2,
+  "budget": {
+    "maxCalls": 2,
+    "maxWallSeconds": 900,
+    "maxEstimatedPromptTokens": 12000
+  },
+  "workers": [
+    {
+      "id": "opencode-mobile",
+      "why": "Worker Mobile - Acessibilidade e experiencia mobile (Expo/React Native) em apps/visitor/",
+      "provider": "custom",
+      "mode": "write",
+      "isolate": true,
+      "cwd": "../..",
+      "command": "C:/Users/marco/AppData/Roaming/npm/node_modules/@opencode/cli/bin/opencode.exe",
+      "args": [
+        "run",
+        "--archived",
+        "--model",
+        "nvidia/nvidia/nemotron-3.5-super-vl-120b-a12b",
+        "--format",
+        "json"
+      ],
+      "promptTransport": "argument",
+      "outputFormat": "jsonl",
+      "timeoutSeconds": 300,
+      "task": "WORKER MOBILE - ACESSEBILIDADE E EXPERIENCIA\nNo aplicativo visitante (Expo/React Native, apps/visitor/):\n\n1. ACESSEBILIDADE:\n   - Configurar VoiceOver (iOS) e TalkBack (Android) nos componentes de navegacao\n   - Adicionar labels e descricoes acessiveis a todos os elementos interativos\n   - Implementar anuncios de mudanca de rota e chegada ao destino\n   - Ajustar ordem de foco e navegacao por acessibilidade nos ecrans\n   - Garantir tamanho minimo dos alvos de toque (44x44dp minimo)\n\n2. EXPERIENCIA MOBILE:\n   - Garantir legibilidade em telas pequenas\n   - Ajustar contraste e hierarquia visual\n   - Adaptar componentes a diferencas de resolucao de tela\n   - Implementar estados de carregamento, erro e selecao\n   - Preservar mapas 2D e 3D existentes\n\nRESTRIÇÕES OBRIGATÓRIAS:\n- O aplicativo visitante é MOBILE (Expo/React Native), NÃO aplicação web\n- NÃO usar soluções baseadas exclusivamente em HTML, DOM ou ARIA web\n- Preservar compatibilidade Android e iOS\n- Reutilizar componentes existentes\n- Não modificar arquivos fora de apps/visitor/\n- NÃO fazer commit ou push"
+    },
+    {
+      "id": "opencode-ci",
+      "why": "Worker CI - GitHub Actions e testes de integracao em backend/ e .github/",
+      "provider": "custom",
+      "mode": "write",
+      "isolate": true,
+      "cwd": "../..",
+      "command": "C:/Users/marco/AppData/Roaming/npm/node_modules/@opencode/cli/bin/opencode.exe",
+      "args": [
+        "run",
+        "--archived",
+        "--model",
+        "nvidia/nvidia/nemotron-3.5-super-vl-120b-a12b",
+        "--format",
+        "json"
+      ],
+      "promptTransport": "argument",
+      "outputFormat": "jsonl",
+      "timeoutSeconds": 300,
+      "task": "WORKER CI - GITHUB ACTIONS E TESTES DE INTEGRACAO\nNo backend e CI do TCC (backend/, .github/workflows/):\n\n1. Investigar ERRO_CONNECTION_REFUSED na porta 8081\n2. Verificar inicializacao do Expo e disponibilidade do servidor antes dos testes\n3. Corrigir regressoes de navegacao entre pisos, incluindo Livraria Superior\n4. Preservar todos os testes aprovados existentes\n5. Identificar a causa real das falhas ANTES de alterar o workflow do GitHub Actions\n\nRESTRIÇÕES OBRIGATÓRIAS:\n- O aplicativo visitante é MOBILE (Expo/React Native), NÃO aplicação web\n- NÃO usar soluções baseadas exclusivamente em HTML, DOM ou ARIA web\n- Preservar compatibilidade Android e iOS\n- Reutilizar componentes e testes existentes\n- Não modificar arquivos fora de backend/ e .github/workflows/\n- NÃO fazer commit ou push"
+    }
+  ]
+}

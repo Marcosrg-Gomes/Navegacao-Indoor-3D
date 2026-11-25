@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "onboarded": true,
+  "backend": "auto",
+  "defaultStrategy": "auto",
+  "providerSwitch": "ask",
+  "providerOrder": [
+    "codex",
+    "kimi"
+  ],
+  "conserveProviders": [],
+  "maxWorkers": 16,
+  "maxConcurrent": 4,
+  "budget": {},
+  "modelTiers": {},
+  "trust": {
+    "allowUnsafe": false,
+    "cwdRoots": [],
+    "workerEnv": []
+  }
+}

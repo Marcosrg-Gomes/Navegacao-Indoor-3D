@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "runId": "0188e132",
+  "runnerPid": 32484,
+  "status": "done",
+  "strategy": "economy",
+  "requestedStrategy": "economy",
+  "maxConcurrent": 1,
+  "policyPath": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\.alethe\\alethe-orchestrate.json",
+  "allowLowQuota": false,
+  "planPath": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\.alethe\\plans\\openrouter-free-smoke.json",
+  "runDir": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\.alethe\\orchestrations\\20261116-160012-alethe-multiagent-validation\\02-verify-openrouter-free",
+  "startedAt": "2026-11-16T19:01:19.477914+00:00",
+  "finishedAt": "2026-11-16T19:01:31.610665+00:00",
+  "budget": {
+    "maxCalls": 1,
+    "maxWallSeconds": 180,
+    "maxEstimatedPromptTokens": 2000
+  },
+  "orchestrationBudget": null,
+  "workers": {
+    "opencode-openrouter-free": {
+      "id": "opencode-openrouter-free",
+      "provider": "custom",
+      "status": "succeeded",
+      "cwd": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\.alethe\\worktrees\\skill-0188e132-opencode-openrouter-free",
+      "originCwd": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D",
+      "worktree": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\.alethe\\worktrees\\skill-0188e132-opencode-openrouter-free",
+      "startedAt": "2026-11-16T19:01:19.496197+00:00",
+      "costCapUsd": null,
+      "pid": 37492,
+      "processStartTime": "134393292818481250",
+      "outputBytes": 0,
+      "idleSeconds": 5,
+      "exitCode": 0,
+      "timedOut": false,
+      "finishedAt": "2026-11-16T19:01:31.586010+00:00",
+      "durationSeconds": 12.09,
+      "resultPath": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\.alethe\\orchestrations\\20261116-160012-alethe-multiagent-validation\\02-verify-openrouter-free\\workers\\opencode-openrouter-free\\result.md",
+      "stdoutPath": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\.alethe\\orchestrations\\20261116-160012-alethe-multiagent-validation\\02-verify-openrouter-free\\workers\\opencode-openrouter-free\\stdout.log",
+      "stderrPath": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\.alethe\\orchestrations\\20261116-160012-alethe-multiagent-validation\\02-verify-openrouter-free\\workers\\opencode-openrouter-free\\stderr.log",
+      "diffPath": null,
+      "diffError": null,
+      "sessionId": "ses_e1a43bc22ffeoX2MshgRLgwEgL",
+      "metrics": {
+        "usage": {
+          "input": 14184,
+          "output": 0,
+          "reasoning": 269,
+          "cache": {
+            "read": 0,
+            "write": 0
+          }
+        },
+        "totalCostUsd": 0
+      },
+      "error": null,
+      "failureKind": null,
+      "resetHint": null,
+      "workerStatus": null,
+      "workerSummary": null,
+      "verdict": null,
+      "permissionDenials": [],
+      "billedModels": [],
+      "readOnlyViolation": null,
+      "touchedFiles": null,
+      "dirtyBefore": null,
+      "sharedCheckoutWith": []
+    }
+  },
+  "budgetUsage": {
+    "calls": 1,
+    "wallSeconds": 12.131,
+    "reportedCostUsd": 0.0,
+    "reportedTokens": null
+  }
+}

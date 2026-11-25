@@ -1,0 +1,12 @@
+{
+  "name": "navegacao-indoor-captura",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Dependencia local apenas para o script de captura de telas",
+  "scripts": {
+    "capturar": "node scripts/capturar-todas-telas.mjs"
+  },
+  "dependencies": {
+    "playwright": "^1.65.1"
+  }
+}

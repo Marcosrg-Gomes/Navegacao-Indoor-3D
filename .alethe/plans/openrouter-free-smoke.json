@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "title": "OpenCode OpenRouter free smoke test",
+  "playbook": "plan-big-execute-small",
+  "phase": "verify-openrouter-free",
+  "why": "Validate the custom OpenCode adapter with one explicitly free, pinned OpenRouter model.",
+  "strategy": "economy",
+  "maxConcurrent": 1,
+  "budget": {
+    "maxCalls": 1,
+    "maxWallSeconds": 180,
+    "maxEstimatedPromptTokens": 2000
+  },
+  "workers": [
+    {
+      "id": "opencode-openrouter-free",
+      "why": "Smoke test of OpenCode with a pinned free OpenRouter model and no fallback.",
+      "provider": "custom",
+      "mode": "write",
+      "isolate": true,
+      "cwd": "../..",
+      "command": "C:/Users/marco/AppData/Roaming/npm/node_modules/@opencode/cli/bin/opencode.exe",
+      "args": [
+        "run",
+        "--archived",
+        "--model",
+        "openrouter/cohere/north-mini-code:free",
+        "--format",
+        "json"
+      ],
+      "promptTransport": "argument",
+      "outputFormat": "jsonl",
+      "timeoutSeconds": 180,
+      "task": "This is a connectivity smoke test. Do not read, modify, create, or delete any repository file. Do not use tools. Reply exactly: OPENROUTER_FREE_OK"
+    }
+  ]
+}

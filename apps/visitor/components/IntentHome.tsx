@@ -42,7 +42,7 @@ export function IntentHome({ directory, onOrigin, onSaved, onMap, onPoi, onHelp 
     </View>
 
     <View style={{ gap: 12 }}><Text accessibilityRole="header" aria-level={2} style={d.section}>O que você procura?</Text>
-      <View style={styles.quickGrid}>{quickPlaces.map((item) => <DsButton key={item.shortcut} variant="outline" style={[styles.quick, { backgroundColor: item.tone }]} onPress={() => router.push({ pathname: "/explore", params: { shortcut: item.shortcut } })}>
+      <View style={styles.quickGrid}>{quickPlaces.map((item) => <DsButton key={item.shortcut} variant="outline" accessibilityLabel={item.label} accessibilityHint="Toque para ver os lugares desta categoria no diretório" style={[styles.quick, { backgroundColor: item.tone }]} onPress={() => router.push({ pathname: "/explore", params: { shortcut: item.shortcut } })}>
         <Text style={[styles.quickSign, { color: ink }]} accessible={false}>{item.sign}</Text>
         <Text style={[styles.quickLabel, { color: ink }]}>{item.label}</Text>
         <Text style={[styles.quickArrow, { color: ink }]} accessible={false}>›</Text>

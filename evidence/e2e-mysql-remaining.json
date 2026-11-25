@@ -1,0 +1,2233 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--project=chromium",
+      "tests/map-orientation.spec.ts",
+      "tests/map2d.spec.ts",
+      "tests/mobile-navigation.spec.ts",
+      "tests/mobile-wayfinding.spec.ts",
+      "tests/chegada-mobile.spec.ts",
+      "tests/navigation-orientation.spec.ts",
+      "tests/positioning-session.spec.ts",
+      "tests/native-support.spec.ts",
+      "tests/diag3d.spec.ts",
+      "tests/evidence.spec.ts",
+      "tests/evidence3d.spec.ts",
+      "tests/simulation-context.spec.ts"
+    ],
+    "configFile": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\playwright.config.ts",
+    "rootDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-mysql-remaining-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-mysql-remaining-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-mysql-remaining-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-mysql-remaining-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chrome",
+        "name": "chrome",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-mysql-remaining-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "msedge",
+        "name": "msedge",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "../../evidence/e2e-mysql-remaining.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "chegada-mobile.spec.ts",
+      "file": "chegada-mobile.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Confirmação de chegada mobile após parar simulação",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5369,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('NATURA', { exact: true })\nExpected: visible\nError: strict mode violation: getByText('NATURA', { exact: true }) resolved to 2 elements:\n    1) <text x=\"7.5\" text-anchor=\"middle\" y=\"28.700000000000003\">NATURA</text> aka getByTestId('floor-plan-layer').getByText('NATURA')\n    2) <div dir=\"auto\" class=\"css-146c3p1 r-1iewvzr r-1inkyih r-1kfrs79 r-hbpseb\">NATURA</div> aka getByRole('button', { name: 'NATURA, ver detalhes' })\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('NATURA', { exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('NATURA', { exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('NATURA', { exact: true })\nExpected: visible\nError: strict mode violation: getByText('NATURA', { exact: true }) resolved to 2 elements:\n    1) <text x=\"7.5\" text-anchor=\"middle\" y=\"28.700000000000003\">NATURA</text> aka getByTestId('floor-plan-layer').getByText('NATURA')\n    2) <div dir=\"auto\" class=\"css-146c3p1 r-1iewvzr r-1inkyih r-1kfrs79 r-hbpseb\">NATURA</div> aka getByRole('button', { name: 'NATURA, ver detalhes' })\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('NATURA', { exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('NATURA', { exact: true })\u001b[22m\n\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\chegada-mobile.spec.ts:18:59",
+                    "location": {
+                      "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\chegada-mobile.spec.ts",
+                      "column": 59,
+                      "line": 18
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 16 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m2000\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 17 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByLabel(\u001b[32m\"Buscar no Explorar\"\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m\"NATURA\"\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 18 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByText(\u001b[32m\"NATURA\"\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                           \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 19 |\u001b[39m\n \u001b[90m 20 |\u001b[39m   expect(errors)\u001b[33m.\u001b[39mtoEqual([])\u001b[33m;\u001b[39m\n \u001b[90m 21 |\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\chegada-mobile.spec.ts",
+                        "column": 59,
+                        "line": 18
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('NATURA', { exact: true })\nExpected: visible\nError: strict mode violation: getByText('NATURA', { exact: true }) resolved to 2 elements:\n    1) <text x=\"7.5\" text-anchor=\"middle\" y=\"28.700000000000003\">NATURA</text> aka getByTestId('floor-plan-layer').getByText('NATURA')\n    2) <div dir=\"auto\" class=\"css-146c3p1 r-1iewvzr r-1inkyih r-1kfrs79 r-hbpseb\">NATURA</div> aka getByRole('button', { name: 'NATURA, ver detalhes' })\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('NATURA', { exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('NATURA', { exact: true })\u001b[22m\n\n\n  16 |   await page.waitForTimeout(2000);\n  17 |   await page.getByLabel(\"Buscar no Explorar\").fill(\"NATURA\");\n> 18 |   await expect(page.getByText(\"NATURA\", { exact: true })).toBeVisible();\n     |                                                           ^\n  19 |\n  20 |   expect(errors).toEqual([]);\n  21 | });\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\chegada-mobile.spec.ts:18:59"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:11:26.955Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-mysql-remaining-artifacts\\chegada-mobile-Confirmação-07729-mobile-após-parar-simulação-chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-mysql-remaining-artifacts\\chegada-mobile-Confirmação-07729-mobile-após-parar-simulação-chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\chegada-mobile.spec.ts",
+                    "column": 59,
+                    "line": 18
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "8506acb6828e35992bc5-fe3c48ca9f6c1138f3ba",
+          "file": "chegada-mobile.spec.ts",
+          "line": 4,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "diag3d.spec.ts",
+      "file": "diag3d.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Diagnóstico: verificar se scene-map aparece após QR",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1224,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "DIAG: sceneMap=1 floorMap=1\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:11:33.493Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "022b92bd9d64b590874e-d380d9c4312e8bb18245",
+          "file": "diag3d.spec.ts",
+          "line": 4,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "evidence.spec.ts",
+      "file": "evidence.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Evidência: QR resolvido e origem identificada",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3391,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:11:34.885Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "72c23c329750e5cf3a24-ed1a54890c062b05d6e4",
+          "file": "evidence.spec.ts",
+          "line": 4,
+          "column": 1
+        },
+        {
+          "title": "Evidência: busca no Explorar retorna resultados",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 7329,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('NATURA', { exact: true })\nExpected: visible\nError: strict mode violation: getByText('NATURA', { exact: true }) resolved to 2 elements:\n    1) <text x=\"7.5\" text-anchor=\"middle\" y=\"28.700000000000003\">NATURA</text> aka getByTestId('floor-plan-layer').getByText('NATURA')\n    2) <div dir=\"auto\" class=\"css-146c3p1 r-1iewvzr r-1inkyih r-1kfrs79 r-hbpseb\">NATURA</div> aka getByRole('button', { name: 'NATURA, ver detalhes' })\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('NATURA', { exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('NATURA', { exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('NATURA', { exact: true })\nExpected: visible\nError: strict mode violation: getByText('NATURA', { exact: true }) resolved to 2 elements:\n    1) <text x=\"7.5\" text-anchor=\"middle\" y=\"28.700000000000003\">NATURA</text> aka getByTestId('floor-plan-layer').getByText('NATURA')\n    2) <div dir=\"auto\" class=\"css-146c3p1 r-1iewvzr r-1inkyih r-1kfrs79 r-hbpseb\">NATURA</div> aka getByRole('button', { name: 'NATURA, ver detalhes' })\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('NATURA', { exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('NATURA', { exact: true })\u001b[22m\n\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\evidence.spec.ts:20:59",
+                    "location": {
+                      "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\evidence.spec.ts",
+                      "column": 59,
+                      "line": 20
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 18 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m2000\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 19 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByLabel(\u001b[32m\"Buscar no Explorar\"\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m\"NATURA\"\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 20 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByText(\u001b[32m\"NATURA\"\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                           \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 21 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"origin-label\"\u001b[39m)\u001b[33m.\u001b[39mscreenshot({ path\u001b[33m:\u001b[39m info\u001b[33m.\u001b[39moutputPath(\u001b[32m\"evidence-busca-natura.png\"\u001b[39m) })\u001b[33m;\u001b[39m\n \u001b[90m 22 |\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 23 |\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\evidence.spec.ts",
+                        "column": 59,
+                        "line": 20
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('NATURA', { exact: true })\nExpected: visible\nError: strict mode violation: getByText('NATURA', { exact: true }) resolved to 2 elements:\n    1) <text x=\"7.5\" text-anchor=\"middle\" y=\"28.700000000000003\">NATURA</text> aka getByTestId('floor-plan-layer').getByText('NATURA')\n    2) <div dir=\"auto\" class=\"css-146c3p1 r-1iewvzr r-1inkyih r-1kfrs79 r-hbpseb\">NATURA</div> aka getByRole('button', { name: 'NATURA, ver detalhes' })\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('NATURA', { exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('NATURA', { exact: true })\u001b[22m\n\n\n  18 |   await page.waitForTimeout(2000);\n  19 |   await page.getByLabel(\"Buscar no Explorar\").fill(\"NATURA\");\n> 20 |   await expect(page.getByText(\"NATURA\", { exact: true })).toBeVisible();\n     |                                                           ^\n  21 |   await page.getByTestId(\"origin-label\").screenshot({ path: info.outputPath(\"evidence-busca-natura.png\") });\n  22 | });\n  23 |\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\evidence.spec.ts:20:59"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:11:38.290Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-mysql-remaining-artifacts\\evidence-Evidência-busca-no-Explorar-retorna-resultados-chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-mysql-remaining-artifacts\\evidence-Evidência-busca-no-Explorar-retorna-resultados-chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\evidence.spec.ts",
+                    "column": 59,
+                    "line": 20
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "72c23c329750e5cf3a24-bd3cffae8bfca76dcc84",
+          "file": "evidence.spec.ts",
+          "line": 12,
+          "column": 1
+        },
+        {
+          "title": "Evidência: mapa 2D em 0° (orientação fixa norte)",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 7069,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('NATURA', { exact: true })\nExpected: visible\nError: strict mode violation: getByText('NATURA', { exact: true }) resolved to 2 elements:\n    1) <text x=\"7.5\" text-anchor=\"middle\" y=\"28.700000000000003\">NATURA</text> aka getByTestId('floor-plan-layer').getByText('NATURA')\n    2) <div dir=\"auto\" class=\"css-146c3p1 r-1iewvzr r-1inkyih r-1kfrs79 r-hbpseb\">NATURA</div> aka getByRole('button', { name: 'NATURA, ver detalhes' })\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('NATURA', { exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('NATURA', { exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('NATURA', { exact: true })\nExpected: visible\nError: strict mode violation: getByText('NATURA', { exact: true }) resolved to 2 elements:\n    1) <text x=\"7.5\" text-anchor=\"middle\" y=\"28.700000000000003\">NATURA</text> aka getByTestId('floor-plan-layer').getByText('NATURA')\n    2) <div dir=\"auto\" class=\"css-146c3p1 r-1iewvzr r-1inkyih r-1kfrs79 r-hbpseb\">NATURA</div> aka getByRole('button', { name: 'NATURA, ver detalhes' })\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('NATURA', { exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('NATURA', { exact: true })\u001b[22m\n\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\evidence.spec.ts:32:59",
+                    "location": {
+                      "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\evidence.spec.ts",
+                      "column": 59,
+                      "line": 32
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 30 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m2000\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 31 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByLabel(\u001b[32m\"Buscar no Explorar\"\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m\"NATURA\"\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 32 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByText(\u001b[32m\"NATURA\"\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                           \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 33 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"origin-label\"\u001b[39m)\u001b[33m.\u001b[39mscreenshot({ path\u001b[33m:\u001b[39m info\u001b[33m.\u001b[39moutputPath(\u001b[32m\"evidence-mapa2d-orientacao.png\"\u001b[39m) })\u001b[33m;\u001b[39m\n \u001b[90m 34 |\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 35 |\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\evidence.spec.ts",
+                        "column": 59,
+                        "line": 32
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('NATURA', { exact: true })\nExpected: visible\nError: strict mode violation: getByText('NATURA', { exact: true }) resolved to 2 elements:\n    1) <text x=\"7.5\" text-anchor=\"middle\" y=\"28.700000000000003\">NATURA</text> aka getByTestId('floor-plan-layer').getByText('NATURA')\n    2) <div dir=\"auto\" class=\"css-146c3p1 r-1iewvzr r-1inkyih r-1kfrs79 r-hbpseb\">NATURA</div> aka getByRole('button', { name: 'NATURA, ver detalhes' })\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('NATURA', { exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('NATURA', { exact: true })\u001b[22m\n\n\n  30 |   await page.waitForTimeout(2000);\n  31 |   await page.getByLabel(\"Buscar no Explorar\").fill(\"NATURA\");\n> 32 |   await expect(page.getByText(\"NATURA\", { exact: true })).toBeVisible();\n     |                                                           ^\n  33 |   await page.getByTestId(\"origin-label\").screenshot({ path: info.outputPath(\"evidence-mapa2d-orientacao.png\") });\n  34 | });\n  35 |\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\evidence.spec.ts:32:59"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:11:46.614Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-mysql-remaining-artifacts\\evidence-Evidência-mapa-2D-em-0°-orientação-fixa-norte--chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-mysql-remaining-artifacts\\evidence-Evidência-mapa-2D-em-0°-orientação-fixa-norte--chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\evidence.spec.ts",
+                    "column": 59,
+                    "line": 32
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "72c23c329750e5cf3a24-800b467fab213565b80c",
+          "file": "evidence.spec.ts",
+          "line": 24,
+          "column": 1
+        },
+        {
+          "title": "Evidência: painel de rota mobile",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 6340,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('NATURA', { exact: true })\nExpected: visible\nError: strict mode violation: getByText('NATURA', { exact: true }) resolved to 2 elements:\n    1) <text x=\"7.5\" text-anchor=\"middle\" y=\"28.700000000000003\">NATURA</text> aka getByTestId('floor-plan-layer').getByText('NATURA')\n    2) <div dir=\"auto\" class=\"css-146c3p1 r-1iewvzr r-1inkyih r-1kfrs79 r-hbpseb\">NATURA</div> aka getByRole('button', { name: 'NATURA, ver detalhes' })\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('NATURA', { exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('NATURA', { exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('NATURA', { exact: true })\nExpected: visible\nError: strict mode violation: getByText('NATURA', { exact: true }) resolved to 2 elements:\n    1) <text x=\"7.5\" text-anchor=\"middle\" y=\"28.700000000000003\">NATURA</text> aka getByTestId('floor-plan-layer').getByText('NATURA')\n    2) <div dir=\"auto\" class=\"css-146c3p1 r-1iewvzr r-1inkyih r-1kfrs79 r-hbpseb\">NATURA</div> aka getByRole('button', { name: 'NATURA, ver detalhes' })\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('NATURA', { exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('NATURA', { exact: true })\u001b[22m\n\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\evidence.spec.ts:44:59",
+                    "location": {
+                      "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\evidence.spec.ts",
+                      "column": 59,
+                      "line": 44
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 42 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m2000\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 43 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByLabel(\u001b[32m\"Buscar no Explorar\"\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m\"NATURA\"\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 44 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByText(\u001b[32m\"NATURA\"\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                           \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 45 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"origin-label\"\u001b[39m)\u001b[33m.\u001b[39mscreenshot({ path\u001b[33m:\u001b[39m info\u001b[33m.\u001b[39moutputPath(\u001b[32m\"evidence-painel-rota-mobile.png\"\u001b[39m) })\u001b[33m;\u001b[39m\n \u001b[90m 46 |\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 47 |\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\evidence.spec.ts",
+                        "column": 59,
+                        "line": 44
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('NATURA', { exact: true })\nExpected: visible\nError: strict mode violation: getByText('NATURA', { exact: true }) resolved to 2 elements:\n    1) <text x=\"7.5\" text-anchor=\"middle\" y=\"28.700000000000003\">NATURA</text> aka getByTestId('floor-plan-layer').getByText('NATURA')\n    2) <div dir=\"auto\" class=\"css-146c3p1 r-1iewvzr r-1inkyih r-1kfrs79 r-hbpseb\">NATURA</div> aka getByRole('button', { name: 'NATURA, ver detalhes' })\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('NATURA', { exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('NATURA', { exact: true })\u001b[22m\n\n\n  42 |   await page.waitForTimeout(2000);\n  43 |   await page.getByLabel(\"Buscar no Explorar\").fill(\"NATURA\");\n> 44 |   await expect(page.getByText(\"NATURA\", { exact: true })).toBeVisible();\n     |                                                           ^\n  45 |   await page.getByTestId(\"origin-label\").screenshot({ path: info.outputPath(\"evidence-painel-rota-mobile.png\") });\n  46 | });\n  47 |\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\evidence.spec.ts:44:59"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:11:54.888Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-mysql-remaining-artifacts\\evidence-Evidência-painel-de-rota-mobile-chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-mysql-remaining-artifacts\\evidence-Evidência-painel-de-rota-mobile-chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\evidence.spec.ts",
+                    "column": 59,
+                    "line": 44
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "72c23c329750e5cf3a24-9a8d0e62dde15ebf560c",
+          "file": "evidence.spec.ts",
+          "line": 36,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "evidence3d.spec.ts",
+      "file": "evidence3d.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Evidência: mapa 3D com GLB real renderizado",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1282,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:12:02.310Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b739b9822888badc0062-1c21989ae8cce3c57671",
+          "file": "evidence3d.spec.ts",
+          "line": 4,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "map-orientation.spec.ts",
+      "file": "map-orientation.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "alternância 2D/3D preserva a orientação permitida",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5191,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:12:03.780Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "13c9a483e111f8071a59-756f8ab943f37d30345a",
+          "file": "map-orientation.spec.ts",
+          "line": 11,
+          "column": 1
+        },
+        {
+          "title": "zoom e centralização continuam funcionando no 2D",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4844,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:12:08.984Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "13c9a483e111f8071a59-60e3552df733c1aff8b2",
+          "file": "map-orientation.spec.ts",
+          "line": 18,
+          "column": 1
+        },
+        {
+          "title": "mudança de piso mantém rotação 0° sem rota",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4839,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:12:13.840Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "13c9a483e111f8071a59-485cc6cf26e44e4cd2d4",
+          "file": "map-orientation.spec.ts",
+          "line": 25,
+          "column": 1
+        },
+        {
+          "title": "navegação: mapa só usa 0°/180°, não gira nas curvas e a seta aponta para cima",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5458,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:12:18.691Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "13c9a483e111f8071a59-8053316b3362b4e1e90e",
+          "file": "map-orientation.spec.ts",
+          "line": 32,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "map2d.spec.ts",
+      "file": "map2d.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Mapa 2D exibe rota contínua com setas direcionais por segmento",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7124,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:12:24.172Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d3eccf004d6b7dda3a8e-f5d0bb41d94f74295545",
+          "file": "map2d.spec.ts",
+          "line": 4,
+          "column": 1
+        },
+        {
+          "title": "Mapa 2D exibe origem e destino identificados",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7036,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:12:31.310Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d3eccf004d6b7dda3a8e-4bbefe276edaf6ed63b4",
+          "file": "map2d.spec.ts",
+          "line": 17,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "mobile-navigation.spec.ts",
+      "file": "mobile-navigation.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Barra inferior mostra quatro destinos claros em celulares estreitos",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 12281,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:12:38.386Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c5769ca8d3a9eeb2f0b2-bfafb988ee1b5466a378",
+          "file": "mobile-navigation.spec.ts",
+          "line": 4,
+          "column": 1
+        },
+        {
+          "title": "Mapa mantém posição e oferece instruções quando há rota ativa",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5272,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('NATURA', { exact: true })\nExpected: visible\nError: strict mode violation: getByText('NATURA', { exact: true }) resolved to 2 elements:\n    1) <text x=\"7.5\" text-anchor=\"middle\" y=\"28.700000000000003\">NATURA</text> aka getByTestId('floor-plan-layer').getByText('NATURA')\n    2) <div dir=\"auto\" class=\"css-146c3p1 r-1iewvzr r-1inkyih r-1kfrs79 r-hbpseb\">NATURA</div> aka getByRole('button', { name: 'NATURA, ver detalhes' })\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('NATURA', { exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('NATURA', { exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('NATURA', { exact: true })\nExpected: visible\nError: strict mode violation: getByText('NATURA', { exact: true }) resolved to 2 elements:\n    1) <text x=\"7.5\" text-anchor=\"middle\" y=\"28.700000000000003\">NATURA</text> aka getByTestId('floor-plan-layer').getByText('NATURA')\n    2) <div dir=\"auto\" class=\"css-146c3p1 r-1iewvzr r-1inkyih r-1kfrs79 r-hbpseb\">NATURA</div> aka getByRole('button', { name: 'NATURA, ver detalhes' })\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('NATURA', { exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('NATURA', { exact: true })\u001b[22m\n\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\mobile-navigation.spec.ts:23:59",
+                    "location": {
+                      "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\mobile-navigation.spec.ts",
+                      "column": 59,
+                      "line": 23
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 21 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m2000\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 22 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByLabel(\u001b[32m\"Buscar no Explorar\"\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m\"NATURA\"\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 23 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByText(\u001b[32m\"NATURA\"\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                           \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 24 |\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 25 |\u001b[39m\n \u001b[90m 26 |\u001b[39m test(\u001b[32m\"Leitura do código QR abre o mapa com a posição atualizada\"\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\mobile-navigation.spec.ts",
+                        "column": 59,
+                        "line": 23
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('NATURA', { exact: true })\nExpected: visible\nError: strict mode violation: getByText('NATURA', { exact: true }) resolved to 2 elements:\n    1) <text x=\"7.5\" text-anchor=\"middle\" y=\"28.700000000000003\">NATURA</text> aka getByTestId('floor-plan-layer').getByText('NATURA')\n    2) <div dir=\"auto\" class=\"css-146c3p1 r-1iewvzr r-1inkyih r-1kfrs79 r-hbpseb\">NATURA</div> aka getByRole('button', { name: 'NATURA, ver detalhes' })\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('NATURA', { exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('NATURA', { exact: true })\u001b[22m\n\n\n  21 |   await page.waitForTimeout(2000);\n  22 |   await page.getByLabel(\"Buscar no Explorar\").fill(\"NATURA\");\n> 23 |   await expect(page.getByText(\"NATURA\", { exact: true })).toBeVisible();\n     |                                                           ^\n  24 | });\n  25 |\n  26 | test(\"Leitura do código QR abre o mapa com a posição atualizada\", async ({ page }) => {\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\mobile-navigation.spec.ts:23:59"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:12:50.679Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-mysql-remaining-artifacts\\mobile-navigation-Mapa-man-df741-ruções-quando-há-rota-ativa-chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-mysql-remaining-artifacts\\mobile-navigation-Mapa-man-df741-ruções-quando-há-rota-ativa-chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\mobile-navigation.spec.ts",
+                    "column": 59,
+                    "line": 23
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "c5769ca8d3a9eeb2f0b2-6cfb542443023cc9319b",
+          "file": "mobile-navigation.spec.ts",
+          "line": 15,
+          "column": 1
+        },
+        {
+          "title": "Leitura do código QR abre o mapa com a posição atualizada",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2498,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:12:57.222Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c5769ca8d3a9eeb2f0b2-61fd54655b0ab691a4d4",
+          "file": "mobile-navigation.spec.ts",
+          "line": 26,
+          "column": 1
+        },
+        {
+          "title": "Trocar de aba preserva o enquadramento escolhido no mapa",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7254,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:12:59.863Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c5769ca8d3a9eeb2f0b2-d6816695eb4f48301102",
+          "file": "mobile-navigation.spec.ts",
+          "line": 33,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "mobile-wayfinding.spec.ts",
+      "file": "mobile-wayfinding.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Início no celular oferece busca, posição e categorias com ações legíveis",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3264,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:13:07.141Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3d7a2cbcc78cef5570f3-953888a9f86bc1166747",
+          "file": "mobile-wayfinding.spec.ts",
+          "line": 4,
+          "column": 1
+        },
+        {
+          "title": "Rota no celular mostra passo atual, mapa, correção de posição e chegada",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5203,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('NATURA', { exact: true })\nExpected: visible\nError: strict mode violation: getByText('NATURA', { exact: true }) resolved to 2 elements:\n    1) <text x=\"7.5\" text-anchor=\"middle\" y=\"28.700000000000003\">NATURA</text> aka getByTestId('floor-plan-layer').getByText('NATURA')\n    2) <div dir=\"auto\" class=\"css-146c3p1 r-1iewvzr r-1inkyih r-1kfrs79 r-hbpseb\">NATURA</div> aka getByRole('button', { name: 'NATURA, ver detalhes' })\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('NATURA', { exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('NATURA', { exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('NATURA', { exact: true })\nExpected: visible\nError: strict mode violation: getByText('NATURA', { exact: true }) resolved to 2 elements:\n    1) <text x=\"7.5\" text-anchor=\"middle\" y=\"28.700000000000003\">NATURA</text> aka getByTestId('floor-plan-layer').getByText('NATURA')\n    2) <div dir=\"auto\" class=\"css-146c3p1 r-1iewvzr r-1inkyih r-1kfrs79 r-hbpseb\">NATURA</div> aka getByRole('button', { name: 'NATURA, ver detalhes' })\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('NATURA', { exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('NATURA', { exact: true })\u001b[22m\n\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\mobile-wayfinding.spec.ts:24:59",
+                    "location": {
+                      "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\mobile-wayfinding.spec.ts",
+                      "column": 59,
+                      "line": 24
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 22 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m2000\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 23 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByLabel(\u001b[32m\"Buscar no Explorar\"\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m\"NATURA\"\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 24 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByText(\u001b[32m\"NATURA\"\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                           \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 25 |\u001b[39m   expect(\u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mevaluate(() \u001b[33m=>\u001b[39m document\u001b[33m.\u001b[39mdocumentElement\u001b[33m.\u001b[39mscrollWidth \u001b[33m<=\u001b[39m innerWidth))\u001b[33m.\u001b[39mtoBe(\u001b[36mtrue\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 26 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mscreenshot({ path\u001b[33m:\u001b[39m info\u001b[33m.\u001b[39moutputPath(\u001b[32m\"route-390.png\"\u001b[39m) })\u001b[33m;\u001b[39m\n \u001b[90m 27 |\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\mobile-wayfinding.spec.ts",
+                        "column": 59,
+                        "line": 24
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('NATURA', { exact: true })\nExpected: visible\nError: strict mode violation: getByText('NATURA', { exact: true }) resolved to 2 elements:\n    1) <text x=\"7.5\" text-anchor=\"middle\" y=\"28.700000000000003\">NATURA</text> aka getByTestId('floor-plan-layer').getByText('NATURA')\n    2) <div dir=\"auto\" class=\"css-146c3p1 r-1iewvzr r-1inkyih r-1kfrs79 r-hbpseb\">NATURA</div> aka getByRole('button', { name: 'NATURA, ver detalhes' })\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('NATURA', { exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('NATURA', { exact: true })\u001b[22m\n\n\n  22 |   await page.waitForTimeout(2000);\n  23 |   await page.getByLabel(\"Buscar no Explorar\").fill(\"NATURA\");\n> 24 |   await expect(page.getByText(\"NATURA\", { exact: true })).toBeVisible();\n     |                                                           ^\n  25 |   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);\n  26 |   await page.screenshot({ path: info.outputPath(\"route-390.png\") });\n  27 | });\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\mobile-wayfinding.spec.ts:24:59"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:13:10.417Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-mysql-remaining-artifacts\\mobile-wayfinding-Rota-no--2c2ce-rreção-de-posição-e-chegada-chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-mysql-remaining-artifacts\\mobile-wayfinding-Rota-no--2c2ce-rreção-de-posição-e-chegada-chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\mobile-wayfinding.spec.ts",
+                    "column": 59,
+                    "line": 24
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "3d7a2cbcc78cef5570f3-70cf70eb0d8bf2ec591f",
+          "file": "mobile-wayfinding.spec.ts",
+          "line": 16,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "native-support.spec.ts",
+      "file": "native-support.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "planta a 0° não é alterada",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:13:16.736Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "16feaecce6048b8035ef-c81f98cf41a5415886b9",
+          "file": "native-support.spec.ts",
+          "line": 13,
+          "column": 1
+        },
+        {
+          "title": "planta a 180°: cada texto gira 180° em torno do próprio centro e a geometria fica intacta",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 22,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:13:16.783Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "16feaecce6048b8035ef-2edfb4043b7b2f9cfec9",
+          "file": "native-support.spec.ts",
+          "line": 17,
+          "column": 1
+        },
+        {
+          "title": "textos com transform próprio são preservados",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:13:16.818Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "16feaecce6048b8035ef-e581cc281b293ea12a31",
+          "file": "native-support.spec.ts",
+          "line": 35,
+          "column": 1
+        },
+        {
+          "title": "detecção de planta SVG",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:13:16.832Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "16feaecce6048b8035ef-6e4af9549886a024cb16",
+          "file": "native-support.spec.ts",
+          "line": 42,
+          "column": 1
+        },
+        {
+          "title": "pesos tipográficos usam os quatro arquivos IBM Plex Sans",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:13:16.847Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "16feaecce6048b8035ef-08a609811f2769f69246",
+          "file": "native-support.spec.ts",
+          "line": 49,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "navigation-orientation.spec.ts",
+      "file": "navigation-orientation.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "normalização de ângulos cobre negativos, voltas completas e valores inválidos",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:13:16.909Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "67e14d35ffe347bc3d5f-9e10f30e14224fb95575",
+          "file": "navigation-orientation.spec.ts",
+          "line": 40,
+          "column": 1
+        },
+        {
+          "title": "bearing: 0° para cima, 90° direita, 180° baixo, 270° esquerda",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:13:16.927Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "67e14d35ffe347bc3d5f-fe610dec1d04617af699",
+          "file": "navigation-orientation.spec.ts",
+          "line": 50,
+          "column": 1
+        },
+        {
+          "title": "somente 0° e 180° são orientações válidas",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 13,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:13:16.946Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "67e14d35ffe347bc3d5f-1264d7bd56ce37f46d1b",
+          "file": "navigation-orientation.spec.ts",
+          "line": 59,
+          "column": 1
+        },
+        {
+          "title": "qualquer vetor ou rumo produz apenas 0° ou 180°",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 441,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:13:16.972Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "67e14d35ffe347bc3d5f-69bd192d422239271e56",
+          "file": "navigation-orientation.spec.ts",
+          "line": 70,
+          "column": 1
+        },
+        {
+          "title": "histerese: curvas laterais mantêm a orientação; só inversão clara troca",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:13:17.431Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "67e14d35ffe347bc3d5f-387f73c4703c1e9d4490",
+          "file": "navigation-orientation.spec.ts",
+          "line": 83,
+          "column": 1
+        },
+        {
+          "title": "seta: desenho gira com a planta e na tela aponta sempre para cima",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:13:17.461Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "67e14d35ffe347bc3d5f-3478ac71a19e26c0e05e",
+          "file": "navigation-orientation.spec.ts",
+          "line": 94,
+          "column": 1
+        },
+        {
+          "title": "rota em L (curva de 90°) não gira o mapa em nenhum quadro",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:13:17.475Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "67e14d35ffe347bc3d5f-53e95344fc9c1dcf5dd9",
+          "file": "navigation-orientation.spec.ts",
+          "line": 107,
+          "column": 1
+        },
+        {
+          "title": "zigue-zague lateral nunca alterna a orientação",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:13:17.487Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "67e14d35ffe347bc3d5f-f53ed519c73e9b3d953c",
+          "file": "navigation-orientation.spec.ts",
+          "line": 116,
+          "column": 1
+        },
+        {
+          "title": "retorno em U inverte uma única vez e permanece estável",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 18,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:13:17.499Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "67e14d35ffe347bc3d5f-0033b7381af55a77f66e",
+          "file": "navigation-orientation.spec.ts",
+          "line": 123,
+          "column": 1
+        },
+        {
+          "title": "percurso à frente ignora outros pisos e começa na posição atual",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:13:17.527Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "67e14d35ffe347bc3d5f-01174ac2a752661f47f6",
+          "file": "navigation-orientation.spec.ts",
+          "line": 132,
+          "column": 1
+        },
+        {
+          "title": "2D e 3D usam a mesma orientação: câmera e seta apontam para o topo da tela",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:13:17.540Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "67e14d35ffe347bc3d5f-213801507368bfcebb68",
+          "file": "navigation-orientation.spec.ts",
+          "line": 144,
+          "column": 1
+        },
+        {
+          "title": "3D não espelha a planta: esquerda/direita na tela coincidem com o 2D e com a API",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:13:17.553Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "67e14d35ffe347bc3d5f-ec6e1d5c282df49792cb",
+          "file": "navigation-orientation.spec.ts",
+          "line": 158,
+          "column": 1
+        },
+        {
+          "title": "vistas 2D preservam 0°/180° em enquadrar e acompanhar",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:13:17.565Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "67e14d35ffe347bc3d5f-17653e85add130cc5a6d",
+          "file": "navigation-orientation.spec.ts",
+          "line": 182,
+          "column": 1
+        },
+        {
+          "title": "direção da curva para instruções e indicadores",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:13:17.584Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "67e14d35ffe347bc3d5f-d238ba41fbbe30277424",
+          "file": "navigation-orientation.spec.ts",
+          "line": 198,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "positioning-session.spec.ts",
+      "file": "positioning-session.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "QR → simulação → pausa → QR mantém confirmação e descarta quadros antigos",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:13:17.623Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "0d3b54c637e5027f96bf-47059f38e6659b394044",
+          "file": "positioning-session.spec.ts",
+          "line": 17,
+          "column": 1
+        },
+        {
+          "title": "Retomar exige a mesma revisão e não aceita o quadro anterior à pausa",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:13:17.641Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "0d3b54c637e5027f96bf-54f903d6235f76e99adc",
+          "file": "positioning-session.spec.ts",
+          "line": 36,
+          "column": 1
+        },
+        {
+          "title": "Encerrar/cancelar preserva a confirmação e resetar não herda posição de outro shopping",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:13:17.653Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "0d3b54c637e5027f96bf-79bc323e910dc83db46f",
+          "file": "positioning-session.spec.ts",
+          "line": 46,
+          "column": 1
+        },
+        {
+          "title": "qr atualiza nó, piso, horário e fonte juntos, interrompendo simulação",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:13:17.666Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "0d3b54c637e5027f96bf-814b0903e1d63989383a",
+          "file": "positioning-session.spec.ts",
+          "line": 59,
+          "column": 3
+        },
+        {
+          "title": "manual atualiza nó, piso, horário e fonte juntos, interrompendo simulação",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:13:17.676Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "0d3b54c637e5027f96bf-1a98d858f5e853c092a8",
+          "file": "positioning-session.spec.ts",
+          "line": 59,
+          "column": 3
+        },
+        {
+          "title": "arrival atualiza nó, piso, horário e fonte juntos, interrompendo simulação",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:13:17.688Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "0d3b54c637e5027f96bf-c56e0a85915e36ff93f1",
+          "file": "positioning-session.spec.ts",
+          "line": 59,
+          "column": 3
+        },
+        {
+          "title": "Início exige origem confirmada e uma rota válida da revisão e origem atuais",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:13:17.700Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "0d3b54c637e5027f96bf-3b4ed479b4ea0c99dbbc",
+          "file": "positioning-session.spec.ts",
+          "line": 69,
+          "column": 1
+        },
+        {
+          "title": "Tempo inválido ou anterior não altera a posição; ticks não podem fornecer coordenadas",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:13:17.713Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "0d3b54c637e5027f96bf-a5479383d7ba40ca2855",
+          "file": "positioning-session.spec.ts",
+          "line": 84,
+          "column": 1
+        },
+        {
+          "title": "Chegada simulada mantém confirmação física; encerrar restaura a origem",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:13:17.725Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "0d3b54c637e5027f96bf-02c1cf217dde920f7d89",
+          "file": "positioning-session.spec.ts",
+          "line": 96,
+          "column": 1
+        },
+        {
+          "title": "Confirmação inválida não substitui o ponto confirmado",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:13:17.737Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "0d3b54c637e5027f96bf-790ec4c9c6bd239eccdb",
+          "file": "positioning-session.spec.ts",
+          "line": 107,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "simulation-context.spec.ts",
+      "file": "simulation-context.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Contexto: simulação carrega e reconhece origem via QR",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2426,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:13:17.767Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4b6557526b563b5a45f3-f3331ff1ef37c2c68c73",
+          "file": "simulation-context.spec.ts",
+          "line": 4,
+          "column": 1
+        },
+        {
+          "title": "Contexto: navegação para Explorar funciona",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5181,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:13:20.303Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4b6557526b563b5a45f3-90c8137ccc2a0f1ba3f6",
+          "file": "simulation-context.spec.ts",
+          "line": 11,
+          "column": 1
+        },
+        {
+          "title": "Contexto: busca por NATURA no Explorar",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5363,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('NATURA', { exact: true })\nExpected: visible\nError: strict mode violation: getByText('NATURA', { exact: true }) resolved to 2 elements:\n    1) <text x=\"7.5\" text-anchor=\"middle\" y=\"28.700000000000003\">NATURA</text> aka getByTestId('floor-plan-layer').getByText('NATURA')\n    2) <div dir=\"auto\" class=\"css-146c3p1 r-1iewvzr r-1inkyih r-1kfrs79 r-hbpseb\">NATURA</div> aka getByRole('button', { name: 'NATURA, ver detalhes' })\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('NATURA', { exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('NATURA', { exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('NATURA', { exact: true })\nExpected: visible\nError: strict mode violation: getByText('NATURA', { exact: true }) resolved to 2 elements:\n    1) <text x=\"7.5\" text-anchor=\"middle\" y=\"28.700000000000003\">NATURA</text> aka getByTestId('floor-plan-layer').getByText('NATURA')\n    2) <div dir=\"auto\" class=\"css-146c3p1 r-1iewvzr r-1inkyih r-1kfrs79 r-hbpseb\">NATURA</div> aka getByRole('button', { name: 'NATURA, ver detalhes' })\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('NATURA', { exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('NATURA', { exact: true })\u001b[22m\n\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\simulation-context.spec.ts:29:59",
+                    "location": {
+                      "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\simulation-context.spec.ts",
+                      "column": 59,
+                      "line": 29
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 27 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m2000\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 28 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByLabel(\u001b[32m\"Buscar no Explorar\"\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m\"NATURA\"\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 29 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByText(\u001b[32m\"NATURA\"\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                           \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 30 |\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 31 |\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\simulation-context.spec.ts",
+                        "column": 59,
+                        "line": 29
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('NATURA', { exact: true })\nExpected: visible\nError: strict mode violation: getByText('NATURA', { exact: true }) resolved to 2 elements:\n    1) <text x=\"7.5\" text-anchor=\"middle\" y=\"28.700000000000003\">NATURA</text> aka getByTestId('floor-plan-layer').getByText('NATURA')\n    2) <div dir=\"auto\" class=\"css-146c3p1 r-1iewvzr r-1inkyih r-1kfrs79 r-hbpseb\">NATURA</div> aka getByRole('button', { name: 'NATURA, ver detalhes' })\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('NATURA', { exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('NATURA', { exact: true })\u001b[22m\n\n\n  27 |   await page.waitForTimeout(2000);\n  28 |   await page.getByLabel(\"Buscar no Explorar\").fill(\"NATURA\");\n> 29 |   await expect(page.getByText(\"NATURA\", { exact: true })).toBeVisible();\n     |                                                           ^\n  30 | });\n  31 |\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\simulation-context.spec.ts:29:59"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-24T15:13:25.498Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-mysql-remaining-artifacts\\simulation-context-Contexto-busca-por-NATURA-no-Explorar-chromium\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-mysql-remaining-artifacts\\simulation-context-Contexto-busca-por-NATURA-no-Explorar-chromium\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\simulation-context.spec.ts",
+                    "column": 59,
+                    "line": 29
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "4b6557526b563b5a45f3-006aa82ca649126b44a0",
+          "file": "simulation-context.spec.ts",
+          "line": 21,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-24T15:11:26.124Z",
+    "duration": 125211.766,
+    "expected": 44,
+    "skipped": 0,
+    "unexpected": 7,
+    "flaky": 0
+  }
+}

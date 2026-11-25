@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "title": "OpenCode NVIDIA Nemotron direct smoke test",
+  "playbook": "plan-big-execute-small",
+  "phase": "verify-nvidia-direct",
+  "why": "Template for the existing direct NVIDIA endpoint; execute only after zero-cost quota is confirmed.",
+  "strategy": "economy",
+  "maxConcurrent": 1,
+  "budget": {
+    "maxCalls": 1,
+    "maxWallSeconds": 180,
+    "maxEstimatedPromptTokens": 2000
+  },
+  "workers": [
+    {
+      "id": "opencode-nvidia-nemotron",
+      "why": "OpenCode with the explicit direct NVIDIA Nemotron model; no automatic fallback.",
+      "provider": "custom",
+      "mode": "write",
+      "isolate": true,
+      "cwd": "../..",
+      "command": "C:/Users/marco/AppData/Roaming/npm/node_modules/@opencode/cli/bin/opencode.exe",
+      "args": [
+        "run",
+        "--archived",
+        "--model",
+        "nvidia/nvidia/nemotron-3.5-super-vl-120b-a12b",
+        "--format",
+        "json"
+      ],
+      "promptTransport": "argument",
+      "outputFormat": "jsonl",
+      "timeoutSeconds": 180,
+      "task": "This is a connectivity smoke test. Do not read, modify, create, or delete any repository file. Do not use tools. Reply exactly: NVIDIA_NEMOTRON_OK"
+    }
+  ]
+}

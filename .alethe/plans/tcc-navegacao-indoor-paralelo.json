@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "title": "TCC Navegacao Indoor - Implementacao paralela (Nemotron + DeepSeek + Cohere)",
+  "playbook": "plan-big-execute-small",
+  "phase": "implementation",
+  "why": "Codex planeja; OpenCode Nemotron implementa API/logica; DeepSeek gera testes/docs; Cohere faz documentacao e seeds em paralelo",
+  "strategy": "balanced",
+  "maxConcurrent": 3,
+  "budget": {
+    "maxCalls": 3,
+    "maxWallSeconds": 900,
+    "maxEstimatedPromptTokens": 12000
+  },
+  "workers": [
+    {
+      "id": "opencode-nemotron",
+      "why": "OpenCode Nemotron 120B - implementacao principal da API e logica de navegacao (sem limite pratico p/ voce)",
+      "provider": "custom",
+      "mode": "write",
+      "isolate": true,
+      "cwd": "../..",
+      "command": "C:/Users/marco/AppData/Roaming/npm/node_modules/@opencode/cli/bin/opencode.exe",
+      "args": [
+        "run",
+        "--archived",
+        "--model",
+        "nvidia/nemotron-3.5-super-vl-120b-a12b",
+        "--format",
+        "json"
+      ],
+      "promptTransport": "argument",
+      "outputFormat": "jsonl",
+      "timeoutSeconds": 300,
+      "task": "SUBSTITUA: Implemente a funcionalidade principal de navegacao indoor. Exemplo: 'Criar endpoint /api/rotas que calcula caminho mais curto entre dois pontos usando Dijkstra. Arquivos: services/api/routes/rotas.py, services/api/models/grafo.py. Nao modificar banco nem testes existentes.'"
+    },
+    {
+      "id": "opencode-deepseek",
+      "why": "OpenCode DeepSeek V4.1 Flash Free - testes, documentacao e boilerplate em paralelo",
+      "provider": "custom",
+      "mode": "write",
+      "isolate": true,
+      "cwd": "../..",
+      "command": "C:/Users/marco/AppData/Roaming/npm/node_modules/@opencode/cli/bin/opencode.exe",
+      "args": [
+        "run",
+        "--archived",
+        "--model",
+        "deepseek/deepseek-v4.1-flash:free",
+        "--format",
+        "json"
+      ],
+      "promptTransport": "argument",
+      "outputFormat": "jsonl",
+      "timeoutSeconds": 300,
+      "task": "SUBSTITUA: Gere testes unitarios para o que o Nemotron implementou, crie seeds de pontos de interesse do shopping e escreva README da API."
+    },
+    {
+      "id": "opencode-cohere",
+      "why": "OpenCode Cohere North Mini Code - documentacao tecnica, validacoes leves e mensagens de erro",
+      "provider": "custom",
+      "mode": "write",
+      "isolate": true,
+      "cwd": "../..",
+      "command": "C:/Users/marco/AppData/Roaming/npm/node_modules/@opencode/cli/bin/opencode.exe",
+      "args": [
+        "run",
+        "--archived",
+        "--model",
+        "cohere/north-mini-code:free",
+        "--format",
+        "json"
+      ],
+      "promptTransport": "argument",
+      "outputFormat": "jsonl",
+      "timeoutSeconds": 300,
+      "task": "SUBSTITUA: Escreva documentacao tecnica da API, mensagens de erro padronizadas e validacoes de entrada para os endpoints de navegacao."
+    }
+  ]
+}

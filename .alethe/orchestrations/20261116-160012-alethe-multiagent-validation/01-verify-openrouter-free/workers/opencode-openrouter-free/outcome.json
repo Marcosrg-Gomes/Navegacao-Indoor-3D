@@ -1,0 +1,46 @@
+{
+  "id": "opencode-openrouter-free",
+  "provider": "custom",
+  "status": "failed",
+  "exitCode": 0,
+  "timedOut": false,
+  "startedAt": "2026-11-16T19:00:30.200818+00:00",
+  "finishedAt": "2026-11-16T19:00:42.279149+00:00",
+  "durationSeconds": 12.079,
+  "cwd": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\.alethe\\worktrees\\skill-77d7ad17-opencode-openrouter-free",
+  "originCwd": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D",
+  "worktree": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\.alethe\\worktrees\\skill-77d7ad17-opencode-openrouter-free",
+  "resultPath": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\.alethe\\orchestrations\\20261116-160012-alethe-multiagent-validation\\01-verify-openrouter-free\\workers\\opencode-openrouter-free\\result.md",
+  "stdoutPath": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\.alethe\\orchestrations\\20261116-160012-alethe-multiagent-validation\\01-verify-openrouter-free\\workers\\opencode-openrouter-free\\stdout.log",
+  "stderrPath": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\.alethe\\orchestrations\\20261116-160012-alethe-multiagent-validation\\01-verify-openrouter-free\\workers\\opencode-openrouter-free\\stderr.log",
+  "diffPath": null,
+  "diffError": null,
+  "sessionId": "ses_e1a447a37ffedD0cNrVMAGcLdn",
+  "metrics": {
+    "usage": {
+      "input": 14187,
+      "output": 0,
+      "reasoning": 211,
+      "cache": {
+        "read": 0,
+        "write": 0
+      }
+    },
+    "totalCostUsd": 0
+  },
+  "costCapUsd": null,
+  "error": "worker produced no final result",
+  "failureKind": "no_result",
+  "resetHint": null,
+  "workerStatus": null,
+  "workerSummary": null,
+  "verdict": null,
+  "permissionDenials": [],
+  "billedModels": [],
+  "readOnlyViolation": null,
+  "touchedFiles": null,
+  "dirtyBefore": null,
+  "sharedCheckoutWith": [],
+  "pid": 35800,
+  "processStartTime": "134393292331566953"
+}

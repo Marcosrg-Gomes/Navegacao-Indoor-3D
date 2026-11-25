@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "title": "Implementar funcionalidade com workers múltiplos",
+  "playbook": "plan-big-execute-small",
+  "phase": "implementation",
+  "why": "Codex planeja; OpenCode implementa (Nemotron + DeepSeek); Copilot e Antigravity revisam",
+  "strategy": "balanced",
+  "maxConcurrent": 2,
+  "budget": {
+    "maxCalls": 4,
+    "maxWallSeconds": 600,
+    "maxEstimatedPromptTokens": 8000
+  },
+  "workers": [
+    {
+      "id": "opencode-nemotron",
+      "why": "Implementação principal com Nemotron 120B (raciocínio complexo, API NVIDIA)",
+      "provider": "custom",
+      "mode": "write",
+      "isolate": true,
+      "cwd": "../..",
+      "command": "C:/Users/marco/AppData/Roaming/npm/node_modules/@opencode/cli/bin/opencode.exe",
+      "args": [
+        "run",
+        "--archived",
+        "--model",
+        "nvidia/nemotron-3.5-super-vl-120b-a12b",
+        "--format",
+        "json"
+      ],
+      "promptTransport": "argument",
+      "outputFormat": "jsonl",
+      "timeoutSeconds": 300,
+      "task": "SUBSTITUA: Descreva aqui o que o OpenCode Nemotron deve implementar. Especifique caminhos de arquivos, o que pode modificar e o que é proibido alterar."
+    },
+    {
+      "id": "opencode-deepseek",
+      "why": "Implementação secundária com DeepSeek V4 free (testes, documentação, boilerplate)",
+      "provider": "custom",
+      "mode": "write",
+      "isolate": true,
+      "cwd": "../..",
+      "command": "C:/Users/marco/AppData/Roaming/npm/node_modules/@opencode/cli/bin/opencode.exe",
+      "args": [
+        "run",
+        "--archived",
+        "--model",
+        "openrouter/deepseek/deepseek-v4:free",
+        "--format",
+        "json"
+      ],
+      "promptTransport": "argument",
+      "outputFormat": "jsonl",
+      "timeoutSeconds": 300,
+      "task": "SUBSTITUA: Descreva aqui os testes unitários, documentação ou código boilerplate que o DeepSeek deve gerar com base na implementação do Nemotron."
+    }
+  ]
+}

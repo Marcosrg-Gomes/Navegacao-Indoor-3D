@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "title": "Plano de Orquestração Multiagente — Navegação Indoor 3D",
+  "why": "Concluir melhorias de acessibilidade mobile, experiência visual mobile e estabilidade da integração contínua do projeto Navegacao-Indoor-3D, respeitando a arquitetura definida: OpenCode + NVIDIA Nemotron 3.5 Super VL 120B A12B como Planner/Lead, Worker 1 e Worker 3 na NVIDIA API, Worker 2 na OpenCode API com DeepSeek V4.1 Flash Free.",
+  "maxConcurrent": 2,
+  "defaultTimeoutSeconds": 1200,
+  "workers": [
+    {
+      "id": "worker1-acessibilidade-mobile",
+      "why": "Acessibilidade mobile do aplicativo visitante Expo/React Native: TalkBack, VoiceOver, labels, ordem de foco, alvos de toque, anúncios de rota e chegada.",
+      "provider": "custom",
+      "command": "opencode",
+      "args": ["run", "--model", "nvidia/nvidia/nemotron-3.5-super-vl-120b-a12b"],
+      "model": "nvidia/nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "promptTransport": "argument",
+      "outputFormat": "text",
+      "mode": "write",
+      "cwd": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\visitor",
+      "isolate": true,
+      "task": "Melhorar a acessibilidade mobile do aplicativo visitante (Expo/React Native). Escopo: compatibilidade TalkBack (Android) e VoiceOver (iOS); labels, descrições e identificação acessível dos controles; anúncios acessíveis de mudanças de rota, estados e confirmação de chegada; ordem de foco e navegação por recursos de acessibilidade; tamanho adequado dos alvos de toque; testes relacionados às melhorias implementadas. Regras: não tratar como aplicação web; não usar HTML/DOM/ARIA web; reutilizar componentes existentes; preservar funcionalidades aprovadas; não modificar arquivos fora do escopo; não sobrescrever alterações de outros workers; não apagar evidências; não realizar commit/push/merge.",
+      "seedPaths": []
+    },
+    {
+      "id": "worker2-experiencia-mobile",
+      "why": "Experiência visual mobile: legibilidade, contraste, hierarquia, componentes responsivos, estados de carregamento/erro/seleção/navegação, preservação de mapas 2D/3D.",
+      "provider": "custom",
+      "command": "opencode",
+      "args": ["run", "--model", "opencode/deepseek-v4.1-flash-free"],
+      "model": "opencode/deepseek-v4.1-flash-free",
+      "promptTransport": "argument",
+      "outputFormat": "text",
+      "mode": "write",
+      "cwd": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\visitor",
+      "isolate": true,
+      "task": "Melhorar a legibilidade e experiência visual do aplicativo visitante (Expo/React Native). Escopo: legibilidade em telas pequenas; contraste e hierarquia visual; componentes adaptados a diferentes resoluções; estados de carregamento, erro, seleção e navegação; preservação e clareza dos mapas 2D e 3D; testes relacionados às melhorias implementadas. Regras: não tratar como aplicação web; não usar HTML/DOM/ARIA web; reutilizar componentes existentes; preservar funcionalidades aprovadas; não modificar arquivos fora do escopo; não sobrescrever alterações de outros workers; não apagar evidências; não realizar commit/push/merge.",
+      "seedPaths": []
+    },
+    {
+      "id": "worker3-ci-testes",
+      "why": "Investigar e corrigir problemas de CI e testes: ERR_CONNECTION_REFUSED porta 8081, inicialização Expo, regressões de navegação entre pisos incluindo Livraria Superior, preservar testes aprovados.",
+      "provider": "custom",
+      "command": "opencode",
+      "args": ["run", "--model", "nvidia/nvidia/nemotron-3.5-super-vl-120b-a12b"],
+      "model": "nvidia/nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "promptTransport": "argument",
+      "outputFormat": "text",
+      "mode": "write",
+      "cwd": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D",
+      "isolate": true,
+      "task": "Investigar e corrigir problemas de integração contínua e testes automatizados. Escopo: investigar erro ERR_CONNECTION_REFUSED na porta 8081; verificar inicialização do Expo e disponibilidade do servidor antes dos testes; investigar regressões de navegação entre pisos, incluindo a Livraria Superior; preservar testes anteriormente aprovados; identificar a causa real das falhas antes de modificar workflows; executar testes pertinentes e apresentar resultados. Regras: não tratar como aplicação web; não usar HTML/DOM/ARIA web; reutilizar componentes e testes existentes; preservar funcionalidades aprovadas; não modificar arquivos fora do escopo; não sobrescrever alterações de outros workers; não apagar evidências; não realizar commit/push/merge.",
+      "seedPaths": []
+    }
+  ]
+}

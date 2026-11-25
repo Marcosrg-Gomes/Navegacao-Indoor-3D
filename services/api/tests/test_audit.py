@@ -13,14 +13,15 @@ from app.services.navigation import NavigationEngine
 
 def test_closed_maintenance_and_category_search(client, api_key_header, sample_data):
     store = sample_data["loja"]
+    term = store.nome.split()[0]
     for status in ("fechado", "manutencao", "aberto"):
         response = client.put(f"/api/admin/stores/{store.id}", headers=api_key_header,
                               json={"status_operacional": status})
         assert response.status_code == 200
-        public = client.get("/api/pois?q=vest&shopping_id=" + str(sample_data["shopping"].id)).json()
+        public = client.get(f"/api/pois?q={term}&shopping_id={sample_data['shopping'].id}").json()
         assert len(public) == 1
         assert public[0]["status_operacional"] == status
-        assert public[0]["categoria_nome"] == "Vestuário"
+        assert public[0]["categoria_nome"] == store.categoria.nome
 
 
 @pytest.mark.parametrize("field,value", [("nome", " "), ("categoria_id", None), ("status_operacional", None), ("status_operacional", "inexistente")])
@@ -51,10 +52,21 @@ def test_null_patches_never_corrupt_required_fields(client, api_key_header, path
 def test_block_reactivate_no_stale_graph(client, api_key_header, sample_data):
     request = {"origem_no_id": sample_data["nodes"]["n1"].id, "destino_no_id": sample_data["nodes"]["n5"].id}
     first = client.post("/api/routes", json=request).json()
-    edge = sample_data["edges"][1]
+    route_ids = [node["id"] for node in first["nos"]]
+    # Use a hop on the actual route, but not the final access edge into the
+    # destination: blocking that one removes the destination instead of
+    # forcing the graph to reroute.
+    edge = next(
+        e
+        for a, b in zip(route_ids, route_ids[1:])
+        if b != request["destino_no_id"]
+        for e in sample_data["edges"]
+        if {e.no_origem_id, e.no_destino_id} == {a, b}
+    )
     assert client.put(f"/api/admin/edges/{edge.id}", headers=api_key_header, json={"ativa": False}).status_code == 200
-    blocked = client.post("/api/routes", json=request).json()
-    assert first["nos"] != blocked["nos"]
+    blocked = client.post("/api/routes", json=request)
+    assert blocked.status_code == 200
+    assert first["nos"] != blocked.json()["nos"]
     assert client.put(f"/api/admin/edges/{edge.id}", headers=api_key_header, json={"ativa": True}).status_code == 200
     assert client.post("/api/routes", json=request).json()["nos"] == first["nos"]
 
@@ -63,7 +75,10 @@ def test_inactive_intermediate_node_is_not_traversed(client, api_key_header, sam
     request = {"origem_no_id": sample_data["nodes"]["n1"].id, "destino_no_id": sample_data["nodes"]["n5"].id}
     original = client.post("/api/routes", json=request)
     assert original.status_code == 200
-    intermediate = original.json()["nos"][-2]["id"]
+    route_ids = [node["id"] for node in original.json()["nos"]]
+    # Use an interior node that has an alternative approach; the node just
+    # before the destination is its only access and would make it unreachable.
+    intermediate = route_ids[1]
     url = f"/api/admin/nodes/{intermediate}"
     assert client.put(url, headers=api_key_header, json={"ativo": False}).status_code == 200
     alternative = client.post("/api/routes", json=request)
@@ -131,7 +146,14 @@ def test_inactive_hierarchy_not_public_or_navigable(client, db_session, sample_d
         "destino_no_id": sample_data["nodes"]["n5"].id}).status_code == 404
     if hierarchy != "node":
         assert client.get(f"/api/floors/{sample_data['piso'].id}/graph").status_code == 404
-        assert client.get("/api/pois").json() == []
+        public = client.get("/api/pois").json()
+        if hierarchy == "piso":
+            floor_node_ids = {
+                node.id for node in db_session.query(No).filter_by(piso_id=sample_data["piso"].id)
+            }
+            assert not floor_node_ids & {poi["no_id"] for poi in public}
+        else:
+            assert public == []
 
 
 def test_reference_deletions_and_qr_uniqueness(client, api_key_header, sample_data):

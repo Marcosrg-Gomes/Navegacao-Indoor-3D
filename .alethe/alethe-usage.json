@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "providers": {
+    "agy": {
+      "provider": "agy",
+      "windows": {
+        "week": {
+          "usedPercent": 0.0,
+          "resetsAt": "2026-11-23T19:00:11+00:00"
+        },
+        "3p-week": {
+          "usedPercent": 100.0,
+          "resetsAt": "2026-11-19T23:49:58+00:00"
+        }
+      },
+      "observedAt": "2026-11-16T19:00:12.082063+00:00",
+      "source": "agy -p /usage"
+    }
+  },
+  "samples": []
+}

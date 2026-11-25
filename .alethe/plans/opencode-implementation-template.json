@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "title": "OpenCode isolated implementation",
+  "playbook": "plan-execute",
+  "phase": "implementation",
+  "why": "Template for the primary implementation worker; model selection is explicit and no fallback is configured.",
+  "strategy": "economy",
+  "maxConcurrent": 1,
+  "workers": [
+    {
+      "id": "opencode-implementation",
+      "why": "Primary OpenCode implementation worker in a disposable isolated worktree.",
+      "provider": "custom",
+      "mode": "write",
+      "isolate": true,
+      "cwd": "../..",
+      "command": "C:/Users/marco/AppData/Roaming/npm/node_modules/@opencode/cli/bin/opencode.exe",
+      "args": ["run", "--archived", "--model", "MODEL_MUST_BE_EXPLICIT", "--format", "json"],
+      "promptTransport": "argument",
+      "outputFormat": "jsonl",
+      "task": "Replace this placeholder with a bounded implementation brief before execution. Specify owned paths, validation, forbidden changes, and an explicit approved model."
+    }
+  ]
+}

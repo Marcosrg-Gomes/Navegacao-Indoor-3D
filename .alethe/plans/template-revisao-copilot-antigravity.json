@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "title": "Revisão e quality gate da implementação",
+  "playbook": "plan-big-execute-small",
+  "phase": "review",
+  "why": "Copilot CLI revisa código; Antigravity analisa impacto arquitetural",
+  "strategy": "balanced",
+  "maxConcurrent": 2,
+  "budget": {
+    "maxCalls": 2,
+    "maxWallSeconds": 300,
+    "maxEstimatedPromptTokens": 4000
+  },
+  "workers": [
+    {
+      "id": "copilot-revisao",
+      "why": "GitHub Copilot CLI revisa código gerado pelos workers de implementação",
+      "provider": "custom",
+      "mode": "write",
+      "isolate": true,
+      "cwd": "../..",
+      "command": "node",
+      "args": [
+        "C:/Users/marco/AppData/Local/copilot/pkg/win32-x64/1.0.112/cli-main.js",
+        "--allow-tool=write",
+        "-p"
+      ],
+      "promptTransport": "argument",
+      "outputFormat": "text",
+      "timeoutSeconds": 180,
+      "task": "SUBSTITUA: Revise os arquivos implementados na onda anterior. Aponte bugs, problemas de segurança, inconsistências e sugira correções específicas com caminhos de arquivo e números de linha."
+    },
+    {
+      "id": "antigravity-analise",
+      "why": "Antigravity CLI analisa impacto arquitetural e consistência do sistema",
+      "provider": "agy",
+      "mode": "read-only",
+      "cwd": "../..",
+      "model": "gpt-oss-120b-medium",
+      "effort": "low",
+      "timeoutSeconds": 180,
+      "task": "SUBSTITUA: Analise o impacto das mudanças implementadas na arquitetura geral. Verifique consistência, dependências, e se não há quebra de contratos existentes. Não modificar arquivos."
+    }
+  ]
+}

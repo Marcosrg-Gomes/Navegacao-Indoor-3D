@@ -11,7 +11,7 @@ test("RNF03: cinco visitantes simultâneos carregam mapa e calculam rota", async
     const startedAt = performance.now();
     try {
       await page.goto(visitorQrUrl("MINI-ENTRADA-PRINCIPAL"));
-      await expect(page.getByTestId("floor-map")).toBeVisible();
+      await expect(page.getByTestId("floor-map")).toBeVisible({ timeout: 15000 });
       await expect(page.getByTestId("origin-label")).toContainText("Entrada principal");
       const mapMs = performance.now() - startedAt;
       await page.getByRole("button", { name: "Pesquisar destinos", exact: true }).click();

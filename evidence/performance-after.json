@@ -1,0 +1,26 @@
+{
+  "profile": "4G simulado: 9 Mbps down / 1 Mbps up / 80 ms, cache frio, Chromium, 360x640",
+  "fixture": "mini shopping (MINI-ENTRADA-PRINCIPAL → NATURA)",
+  "samples": [
+    {
+      "mapMs": 2835,
+      "routeMs": 392
+    },
+    {
+      "mapMs": 2851,
+      "routeMs": 378
+    },
+    {
+      "mapMs": 2837,
+      "routeMs": 366
+    },
+    {
+      "mapMs": 2824,
+      "routeMs": 406
+    },
+    {
+      "mapMs": 2829,
+      "routeMs": 367
+    }
+  ]
+}

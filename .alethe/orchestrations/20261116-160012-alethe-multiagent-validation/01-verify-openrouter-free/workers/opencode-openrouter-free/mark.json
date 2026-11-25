@@ -1,0 +1,6 @@
+{
+  "worker": "opencode-openrouter-free",
+  "mark": "discarded",
+  "why": "Alethe parser mismatch; corrected by JSONL retry.",
+  "markedAt": "2026-11-16T19:02:02.748337+00:00"
+}
