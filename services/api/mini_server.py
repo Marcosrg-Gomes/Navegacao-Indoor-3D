@@ -11,7 +11,7 @@ def main():
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--catalog", type=str, default=None,
                         help="Caminho do catálogo a publicar (padrão: scene-catalog-v2.json)")
-    parser.add_argument("--workers", type=int, default=4, help="Workers uvicorn para testes E2E concorrentes")
+    parser.add_argument("--workers", type=int, default=1, help="Workers uvicorn (padrão: 1 para evitar problemas de concorrência do SQLite)")
     args = parser.parse_args()
     database = Path(tempfile.mkdtemp(prefix="mini-shopping-")) / "demo.db"
     # Usa MySQL do .env quando disponível; senão, SQLite temporário (demonstração isolada)
@@ -21,6 +21,11 @@ def main():
         os.environ.setdefault("ADMIN_API_KEY", "audit-local-admin-key-with-32-characters")
         os.environ.setdefault("SECRET_KEY", "audit-local-only")
     os.environ["ADMIN_API_KEYS"] = "{}"
+    # Aumenta limites de rate para ambiente de teste (o schema aceita no máximo 600).
+    # Sem isso, o padrão de 20 distâncias/min derruba a suíte E2E com HTTP 429.
+    os.environ.setdefault("ROUTES_RATE_LIMIT", "600")
+    os.environ.setdefault("ROUTE_DISTANCES_RATE_LIMIT", "600")
+    os.environ.setdefault("DIAGNOSTICS_RATE_LIMIT", "600")
     from app.database import Base, SessionLocal, engine
     from app.migrations import upgrade_schema
     from seed_mini_shopping import seed_mini_shopping
@@ -29,9 +34,19 @@ def main():
     catalog_path = Path(args.catalog) if args.catalog else default_catalog
     Base.metadata.create_all(engine)
     upgrade_schema(engine)
+    # Habilita WAL mode para melhorar concorrência de leitura no SQLite
+    from sqlalchemy import text
+    if engine.dialect.name == "sqlite":
+        with engine.connect() as conn:
+            conn.execute(text("PRAGMA journal_mode=WAL"))
+            conn.commit()
     with SessionLocal.begin() as db:
         seed_mini_shopping(db, catalog_path=catalog_path)
         publish_scene(db, catalog_path)
+    # Quando rodando em MySQL (banco de teste/E2E), o mini shopping ja semeia
+    # os tokens MINI-ENTRADA-PRINCIPAL etc. via seed_mini_shopping. Os testes
+    # de scanner do navegador usam esses mesmos tokens.
+    pass
     import uvicorn
     uvicorn.run("app.main:app", host=args.host, port=args.port, workers=args.workers)
 

@@ -237,11 +237,11 @@ export function DsEmptyState({
   );
 }
 
-/** Estado de carregamento. */
+/** Estado de carregamento anunciado para leitores de tela. */
 export function DsLoading({ message = "Carregando…" }: { message?: string }) {
   return (
-    <View style={styles.loadingContainer}>
-      <ActivityIndicator size="large" color={colors.primary} />
+    <View style={styles.loadingContainer} accessibilityLiveRegion="polite" accessibilityLabel={message}>
+      <ActivityIndicator size="large" color={colors.primary} accessibilityLabel={message} />
       <Text style={styles.loadingText}>{message}</Text>
     </View>
   );
@@ -255,7 +255,7 @@ export interface DsErrorProps {
 
 export function DsError({ message, onRetry }: DsErrorProps) {
   return (
-    <View style={styles.errorContainer}>
+    <View style={styles.errorContainer} accessibilityRole="alert" accessibilityLiveRegion="polite">
       <Text style={styles.errorTitle}>{message}</Text>
       {onRetry && (
         <DsButton variant="outline" onPress={onRetry} style={styles.errorButton}>

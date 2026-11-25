@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "title": "Implementação paralela Nemotron + DeepSeek",
+  "playbook": "plan-big-execute-small",
+  "phase": "implementation",
+  "why": "Dois workers OpenCode em paralelo: Nemotron 120B (implementação principal) e DeepSeek V4.1 Flash Free (testes/docs/boilerplate)",
+  "strategy": "balanced",
+  "maxConcurrent": 2,
+  "budget": {
+    "maxCalls": 4,
+    "maxWallSeconds": 600,
+    "maxEstimatedPromptTokens": 8000
+  },
+  "workers": [
+    {
+      "id": "opencode-nemotron",
+      "why": "OpenCode Nemotron 120B - implementação principal (raciocínio complexo, API NVIDIA sem limite prático)",
+      "provider": "custom",
+      "mode": "write",
+      "isolate": true,
+      "cwd": "../..",
+      "command": "C:/Users/marco/AppData/Roaming/npm/node_modules/@opencode/cli/bin/opencode.exe",
+      "args": [
+        "run",
+        "--archived",
+        "--model",
+        "nvidia/nemotron-3.5-super-vl-120b-a12b",
+        "--format",
+        "json"
+      ],
+      "promptTransport": "argument",
+      "outputFormat": "jsonl",
+      "timeoutSeconds": 300,
+      "task": "SUBSTITUA: Descreva aqui o que o Nemotron deve implementar. Especifique caminhos de arquivos, o que pode modificar e o que é proibido alterar."
+    },
+    {
+      "id": "opencode-deepseek",
+      "why": "OpenCode DeepSeek V4.1 Flash Free - implementação secundária paralela (testes, documentação, boilerplate)",
+      "provider": "custom",
+      "mode": "write",
+      "isolate": true,
+      "cwd": "../..",
+      "command": "C:/Users/marco/AppData/Roaming/npm/node_modules/@opencode/cli/bin/opencode.exe",
+      "args": [
+        "run",
+        "--archived",
+        "--model",
+        "deepseek/deepseek-v4.1-flash:free",
+        "--format",
+        "json"
+      ],
+      "promptTransport": "argument",
+      "outputFormat": "jsonl",
+      "timeoutSeconds": 300,
+      "task": "SUBSTITUA: Descreva aqui os testes, documentação ou código boilerplate que o DeepSeek deve gerar com base na implementação do Nemotron."
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "title": "Alethe multiagent validation",
+  "playbook": "plan-big-execute-small",
+  "why": "Codex plans and consolidates isolated worker smoke tests.",
+  "lead": {
+    "provider": "codex",
+    "model": "planner",
+    "effort": null,
+    "source": "flag"
+  },
+  "createdAt": "2026-11-16T19:00:12.586802+00:00"
+}

@@ -1,0 +1,10 @@
+This is a connectivity smoke test. Do not read, modify, create, or delete any repository file. Do not use tools. Reply exactly: OPENROUTER_FREE_OK
+
+Runtime contract:
+- Work only on this assigned unit and only inside the stated scope.
+- Do not delegate, spawn subagents, or launch another agent CLI.
+- Do not commit, push, tag, release, or open a pull request.
+- End with a concise handoff: outcome, evidence, files changed, checks run, failures, and risks.
+- Finish with a line `STATUS: DONE`, `STATUS: DONE_WITH_CONCERNS`, `STATUS: BLOCKED` or
+  `STATUS: NEEDS_CONTEXT`, then a line `SUMMARY: <one sentence>`. Use BLOCKED or NEEDS_CONTEXT
+  instead of guessing, and put what you need in the handoff.

@@ -1,0 +1,430 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--project=chrome",
+      "tests/scene.spec.ts"
+    ],
+    "configFile": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\playwright.config.ts",
+    "rootDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-scene-final2-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-scene-final2-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-scene-final2-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-scene-final2-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chrome",
+        "name": "chrome",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-scene-final2-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "msedge",
+        "name": "msedge",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "../../evidence/e2e-scene-final2.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "scene.spec.ts",
+      "file": "scene.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Mini Shopping: QR, GLB real, loja térrea, rota idêntica em 2D/3D e chegada",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7224,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-17T00:24:55.068Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "route",
+                      "contentType": "application/json",
+                      "body": "ewogICJzdWNlc3NvIjogdHJ1ZSwKICAibm9zIjogWwogICAgewogICAgICAiaWQiOiA0NSwKICAgICAgImNvb3JkX3giOiAwLjUsCiAgICAgICJjb29yZF95IjogMC4wMjUsCiAgICAgICJ0aXBvIjogImVudHJhZGEiLAogICAgICAibm9tZSI6ICJFbnRyYWRhIHByaW5jaXBhbCIsCiAgICAgICJwaXNvX2lkIjogMQogICAgfSwKICAgIHsKICAgICAgImlkIjogNDYsCiAgICAgICJjb29yZF94IjogMC40MTMzMzMsCiAgICAgICJjb29yZF95IjogMC4wMjUsCiAgICAgICJ0aXBvIjogImNvcnJlZG9yIiwKICAgICAgIm5vbWUiOiAiVF9DT1JfRV8wMTUwMCIsCiAgICAgICJwaXNvX2lkIjogMQogICAgfSwKICAgIHsKICAgICAgImlkIjogMiwKICAgICAgImNvb3JkX3giOiAwLjQxMzMzMywKICAgICAgImNvb3JkX3kiOiAwLjIxLAogICAgICAidGlwbyI6ICJjb3JyZWRvciIsCiAgICAgICJub21lIjogIlRfQ09SX0VfMTI2MDAiLAogICAgICAicGlzb19pZCI6IDEKICAgIH0sCiAgICB7CiAgICAgICJpZCI6IDEsCiAgICAgICJjb29yZF94IjogMC4zODY2NjcsCiAgICAgICJjb29yZF95IjogMC4yMSwKICAgICAgInRpcG8iOiAibG9qYSIsCiAgICAgICJub21lIjogIkFESURBUyIsCiAgICAgICJwaXNvX2lkIjogMQogICAgfQogIF0sCiAgImRpc3RhbmNpYV90b3RhbF9tZXRyb3MiOiAxNC41LAogICJpbnN0cnVjb2VzIjogWwogICAgIlBhcnRpbmRvIGRlIEVudHJhZGEgcHJpbmNpcGFsIChwb250byBkZSBvcmlnZW0pIiwKICAgICJTaWdhIGVtIGZyZW50ZSBwb3IgMi42IG1ldHJvcyIsCiAgICAiVmlyZSDDoCBlc3F1ZXJkYSBwb3IgMTEuMSBtZXRyb3MiLAogICAgIlZpcmUgw6AgZGlyZWl0YSBwb3IgMC44IG1ldHJvcyIsCiAgICAiVm9jw6ogY2hlZ291IGFvIGRlc3Rpbm86IEFESURBUyIKICBdLAogICJldGFwYXMiOiBbCiAgICB7CiAgICAgICJ0ZXh0byI6ICJQYXJ0aW5kbyBkZSBFbnRyYWRhIHByaW5jaXBhbCAocG9udG8gZGUgb3JpZ2VtKSIsCiAgICAgICJ0aXBvIjogImluaWNpbyIsCiAgICAgICJub19vcmlnZW1faWQiOiA0NSwKICAgICAgIm5vX2Rlc3Rpbm9faWQiOiA0NSwKICAgICAgInBpc29fb3JpZ2VtX2lkIjogMSwKICAgICAgInBpc29fZGVzdGlub19pZCI6IDEsCiAgICAgICJkaXN0YW5jaWFfbWV0cm9zIjogMCwKICAgICAgImRpc3RhbmNpYV9leGF0YV9tZXRyb3MiOiAwLAogICAgICAicmVmZXJlbmNpYSI6IG51bGwsCiAgICAgICJyZWZlcmVuY2lhX25vX2lkIjogbnVsbAogICAgfSwKICAgIHsKICAgICAgInRleHRvIjogIlNpZ2EgZW0gZnJlbnRlIHBvciAyLjYgbWV0cm9zIiwKICAgICAgInRpcG8iOiAiY2FtaW5obyIsCiAgICAgICJub19vcmlnZW1faWQiOiA0NSwKICAgICAgIm5vX2Rlc3Rpbm9faWQiOiA0NiwKICAgICAgInBpc29fb3JpZ2VtX2lkIjogMSwKICAgICAgInBpc29fZGVzdGlub19pZCI6IDEsCiAgICAgICJkaXN0YW5jaWFfbWV0cm9zIjogMi42LAogICAgICAiZGlzdGFuY2lhX2V4YXRhX21ldHJvcyI6IDIuNiwKICAgICAgInJlZmVyZW5jaWEiOiAiUmVmZXLDqm5jaWEgbmVzdGUgdHJlY2hvOiBFbnRyYWRhIHByaW5jaXBhbCIsCiAgICAgICJyZWZlcmVuY2lhX25vX2lkIjogNDUKICAgIH0sCiAgICB7CiAgICAgICJ0ZXh0byI6ICJWaXJlIMOgIGVzcXVlcmRhIHBvciAxMS4xIG1ldHJvcyIsCiAgICAgICJ0aXBvIjogImNhbWluaG8iLAogICAgICAibm9fb3JpZ2VtX2lkIjogNDYsCiAgICAgICJub19kZXN0aW5vX2lkIjogMiwKICAgICAgInBpc29fb3JpZ2VtX2lkIjogMSwKICAgICAgInBpc29fZGVzdGlub19pZCI6IDEsCiAgICAgICJkaXN0YW5jaWFfbWV0cm9zIjogMTEuMSwKICAgICAgImRpc3RhbmNpYV9leGF0YV9tZXRyb3MiOiAxMS4xLAogICAgICAicmVmZXJlbmNpYSI6ICJSZWZlcsOqbmNpYSBuZXN0ZSB0cmVjaG86IEVudHJhZGEgcHJpbmNpcGFsIiwKICAgICAgInJlZmVyZW5jaWFfbm9faWQiOiA0NQogICAgfSwKICAgIHsKICAgICAgInRleHRvIjogIlZpcmUgw6AgZGlyZWl0YSBwb3IgMC44IG1ldHJvcyIsCiAgICAgICJ0aXBvIjogImNhbWluaG8iLAogICAgICAibm9fb3JpZ2VtX2lkIjogMiwKICAgICAgIm5vX2Rlc3Rpbm9faWQiOiAxLAogICAgICAicGlzb19vcmlnZW1faWQiOiAxLAogICAgICAicGlzb19kZXN0aW5vX2lkIjogMSwKICAgICAgImRpc3RhbmNpYV9tZXRyb3MiOiAwLjgsCiAgICAgICJkaXN0YW5jaWFfZXhhdGFfbWV0cm9zIjogMC44LAogICAgICAicmVmZXJlbmNpYSI6ICJSZWZlcsOqbmNpYSBuZXN0ZSB0cmVjaG86IEFESURBUyIsCiAgICAgICJyZWZlcmVuY2lhX25vX2lkIjogMQogICAgfSwKICAgIHsKICAgICAgInRleHRvIjogIlZvY8OqIGNoZWdvdSBhbyBkZXN0aW5vOiBBRElEQVMiLAogICAgICAidGlwbyI6ICJjaGVnYWRhIiwKICAgICAgIm5vX29yaWdlbV9pZCI6IDEsCiAgICAgICJub19kZXN0aW5vX2lkIjogMSwKICAgICAgInBpc29fb3JpZ2VtX2lkIjogMSwKICAgICAgInBpc29fZGVzdGlub19pZCI6IDEsCiAgICAgICJkaXN0YW5jaWFfbWV0cm9zIjogMCwKICAgICAgImRpc3RhbmNpYV9leGF0YV9tZXRyb3MiOiAwLAogICAgICAicmVmZXJlbmNpYSI6IG51bGwsCiAgICAgICJyZWZlcmVuY2lhX25vX2lkIjogbnVsbAogICAgfQogIF0sCiAgInJlc3VtbyI6IHsKICAgICJtZXRyb3NfY29ycmVkb3IiOiAxNC41LAogICAgImVsZXZhZG9yZXMiOiAwLAogICAgImVzY2FkYXMiOiAwLAogICAgIm1pbnV0b3NfZXN0aW1hZG9zIjogMQogIH0sCiAgInJldmlzYW8iOiAiNWMxZjhmZDUwOWMyNGFjYzBmNzEwODMzMjVjNDQxODhiM2IyMzA3MjMxODM3NTExOWExM2QxNGVlMDkyMDM2YyIKfQ=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3aa4c5b91f4bbc99f382-31856624be31547ba9b2",
+          "file": "scene.spec.ts",
+          "line": 6,
+          "column": 1
+        },
+        {
+          "title": "Mini Shopping: elevador acessível, mudança de piso e bloqueio",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 18885,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: /Filtros/ })\nExpected: visible\nTimeout: 15000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: /Filtros/ }) with timeout 15000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: /Filtros/ })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: /Filtros/ })\nExpected: visible\nTimeout: 15000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: /Filtros/ }) with timeout 15000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: /Filtros/ })\u001b[22m\n\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\scene.spec.ts:42:63",
+                    "location": {
+                      "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\scene.spec.ts",
+                      "column": 63,
+                      "line": 42
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 40 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page)\u001b[33m.\u001b[39mtoHaveURL(\u001b[35m/.*\\/explore.*/\u001b[39m\u001b[33m,\u001b[39m { timeout\u001b[33m:\u001b[39m \u001b[35m15000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 41 |\u001b[39m   \u001b[90m// Aguarda o botão de filtros ficar visível\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 42 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[35m/Filtros/\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible({ timeout\u001b[33m:\u001b[39m \u001b[35m15000\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                               \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 43 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[35m/Filtros/\u001b[39m })\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 44 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"Com rota sem escadas\"\u001b[39m })\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 45 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"Mostrar resultados\"\u001b[39m })\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\scene.spec.ts",
+                        "column": 63,
+                        "line": 42
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: /Filtros/ })\nExpected: visible\nTimeout: 15000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: /Filtros/ }) with timeout 15000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: /Filtros/ })\u001b[22m\n\n\n  40 |   await expect(page).toHaveURL(/.*\\/explore.*/, { timeout: 15000 });\n  41 |   // Aguarda o botão de filtros ficar visível\n> 42 |   await expect(page.getByRole(\"button\", { name: /Filtros/ })).toBeVisible({ timeout: 15000 });\n     |                                                               ^\n  43 |   await page.getByRole(\"button\", { name: /Filtros/ }).click();\n  44 |   await page.getByRole(\"button\", { name: \"Com rota sem escadas\" }).click();\n  45 |   await page.getByRole(\"button\", { name: \"Mostrar resultados\" }).click();\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\scene.spec.ts:42:63"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-17T00:25:04.128Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-scene-final2-artifacts\\scene-Mini-Shopping-elevad-3326f--mudança-de-piso-e-bloqueio-chrome\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-scene-final2-artifacts\\scene-Mini-Shopping-elevad-3326f--mudança-de-piso-e-bloqueio-chrome\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\scene.spec.ts",
+                    "column": 63,
+                    "line": 42
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "3aa4c5b91f4bbc99f382-986471cc73885aa51409",
+          "file": "scene.spec.ts",
+          "line": 33,
+          "column": 1
+        },
+        {
+          "title": "Falha do GLB preserva mapa 2D, destino e instruções; tentativa manual recupera",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3710,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-17T00:25:24.651Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3aa4c5b91f4bbc99f382-6e2c550d6bc8cec59dc2",
+          "file": "scene.spec.ts",
+          "line": 78,
+          "column": 1
+        },
+        {
+          "title": "Painel mostra inventário da cena e links dos pisos",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2405,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-17T00:25:28.705Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3aa4c5b91f4bbc99f382-c58ad4f58a4a1d666d70",
+          "file": "scene.spec.ts",
+          "line": 99,
+          "column": 1
+        },
+        {
+          "title": "Botão acessível da loja visível do térreo abre o POI correto",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3537,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-17T00:25:31.183Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3aa4c5b91f4bbc99f382-ce351b4c9a3273cb43cd",
+          "file": "scene.spec.ts",
+          "line": 108,
+          "column": 1
+        },
+        {
+          "title": "Sem WebGL o visitante mantém QR e mapa 2D",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1614,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-17T00:25:34.890Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3aa4c5b91f4bbc99f382-b2b186bbe15a3f14b333",
+          "file": "scene.spec.ts",
+          "line": 125,
+          "column": 1
+        },
+        {
+          "title": "GLB sem resposta atinge o limite de carregamento e libera o mapa 2D",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 21369,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-17T00:25:36.544Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3aa4c5b91f4bbc99f382-c013b2d42f94442d2ee6",
+          "file": "scene.spec.ts",
+          "line": 138,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-17T00:24:53.524Z",
+    "duration": 77837.22200000001,
+    "expected": 6,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

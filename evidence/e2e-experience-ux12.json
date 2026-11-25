@@ -1,0 +1,494 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--project=chrome",
+      "tests/visitor-experience.spec.ts"
+    ],
+    "configFile": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\playwright.config.ts",
+    "rootDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-experience-ux12-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-experience-ux12-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-experience-ux12-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-experience-ux12-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chrome",
+        "name": "chrome",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-experience-ux12-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "msedge",
+        "name": "msedge",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "../../evidence/e2e-experience-ux12.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "visitor-experience.spec.ts",
+      "file": "visitor-experience.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Ajuda lembra dispensa e pode ser reaberta pelo teclado",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2187,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-17T18:17:13.177Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "31f8b141317877a86365-3fc9c49263a31d836d87",
+          "file": "visitor-experience.spec.ts",
+          "line": 15,
+          "column": 1
+        },
+        {
+          "title": "Favoritos e recentes persistem; a posição precisa ser confirmada novamente",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 8622,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'NATURA, ver detalhes', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'NATURA, ver detalhes', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'NATURA, ver detalhes', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'NATURA, ver detalhes', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'NATURA, ver detalhes', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'NATURA, ver detalhes', exact: true })\u001b[22m\n\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:48:89",
+                    "location": {
+                      "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                      "column": 89,
+                      "line": 48
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 46 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"Mostrar resultados\"\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m.\u001b[39mclick({ force\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 47 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m500\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 48 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"NATURA, ver detalhes\"\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                                                         \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 49 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"ADIDAS, ver detalhes\"\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoHaveCount(\u001b[35m0\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 50 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"Filtrar e ordenar\"\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 51 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"button\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m\"Recentes\"\u001b[39m\u001b[33m,\u001b[39m exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m.\u001b[39mclick({ force\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                        "column": 89,
+                        "line": 48
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'NATURA, ver detalhes', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByRole('button', { name: 'NATURA, ver detalhes', exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'NATURA, ver detalhes', exact: true })\u001b[22m\n\n\n  46 |   await page.getByRole(\"button\", { name: \"Mostrar resultados\", exact: true }).click({ force: true });\n  47 |   await page.waitForTimeout(500);\n> 48 |   await expect(page.getByRole(\"button\", { name: \"NATURA, ver detalhes\", exact: true })).toBeVisible();\n     |                                                                                         ^\n  49 |   await expect(page.getByRole(\"button\", { name: \"ADIDAS, ver detalhes\", exact: true })).toHaveCount(0);\n  50 |   await page.getByRole(\"button\", { name: \"Filtrar e ordenar\", exact: true }).click();\n  51 |   await page.getByRole(\"button\", { name: \"Recentes\", exact: true }).click({ force: true });\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:48:89"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-17T18:17:15.681Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-experience-ux12-artifacts\\visitor-experience-Favorit-dbf0d-sa-ser-confirmada-novamente-chrome\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-experience-ux12-artifacts\\visitor-experience-Favorit-dbf0d-sa-ser-confirmada-novamente-chrome\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                    "column": 89,
+                    "line": 48
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-9acc4850646825a914fc",
+          "file": "visitor-experience.spec.ts",
+          "line": 31,
+          "column": 1
+        },
+        {
+          "title": "Explorar busca e ordena pelo percurso da API",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 9811,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveAttribute\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('[data-testid^=\"explore-poi-\"]').first()\nExpected: \u001b[32m\"explore-poi-\u001b[7m1\u001b[27m\"\u001b[39m\nReceived: \u001b[31m\"explore-poi-\u001b[7m23\u001b[27m\"\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveAttribute\" locator('[data-testid^=\"explore-poi-\"]').first() with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-testid^=\"explore-poi-\"]').first()\u001b[22m\n\u001b[2m    14 × locator resolved to <div data-testid=\"explore-poi-23\" class=\"css-175oi2r r-7vjg70 r-qklmqi r-t23y2h r-1y00bll r-1gjx2kl r-1ml3abn r-3o4zer\">…</div>\u001b[22m\n\u001b[2m       - unexpected value \"explore-poi-23\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveAttribute\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('[data-testid^=\"explore-poi-\"]').first()\nExpected: \u001b[32m\"explore-poi-\u001b[7m1\u001b[27m\"\u001b[39m\nReceived: \u001b[31m\"explore-poi-\u001b[7m23\u001b[27m\"\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveAttribute\" locator('[data-testid^=\"explore-poi-\"]').first() with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-testid^=\"explore-poi-\"]').first()\u001b[22m\n\u001b[2m    14 × locator resolved to <div data-testid=\"explore-poi-23\" class=\"css-175oi2r r-7vjg70 r-qklmqi r-t23y2h r-1y00bll r-1gjx2kl r-1ml3abn r-3o4zer\">…</div>\u001b[22m\n\u001b[2m       - unexpected value \"explore-poi-23\"\u001b[22m\n\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:86:71",
+                    "location": {
+                      "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                      "column": 71,
+                      "line": 86
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 84 |\u001b[39m   \u001b[36mconst\u001b[39m shopNodes \u001b[33m=\u001b[39m \u001b[36mnew\u001b[39m \u001b[33mSet\u001b[39m(graphs\u001b[33m.\u001b[39mflatMap((graph\u001b[33m:\u001b[39m any) \u001b[33m=>\u001b[39m graph\u001b[33m.\u001b[39mnos\u001b[33m.\u001b[39mfilter((node\u001b[33m:\u001b[39m any) \u001b[33m=>\u001b[39m node\u001b[33m.\u001b[39mtipo \u001b[33m===\u001b[39m \u001b[32m\"loja\"\u001b[39m)\u001b[33m.\u001b[39mmap((node\u001b[33m:\u001b[39m any) \u001b[33m=>\u001b[39m node\u001b[33m.\u001b[39mid)))\u001b[33m;\u001b[39m\n \u001b[90m 85 |\u001b[39m   \u001b[36mconst\u001b[39m expected \u001b[33m=\u001b[39m pois\u001b[33m.\u001b[39mfilter((p\u001b[33m:\u001b[39m any) \u001b[33m=>\u001b[39m shopNodes\u001b[33m.\u001b[39mhas(p\u001b[33m.\u001b[39mno_id) \u001b[33m&&\u001b[39m distances[p\u001b[33m.\u001b[39mno_id] \u001b[33m!==\u001b[39m undefined)\u001b[33m.\u001b[39msort((a\u001b[33m:\u001b[39m any\u001b[33m,\u001b[39m b\u001b[33m:\u001b[39m any) \u001b[33m=>\u001b[39m distances[a\u001b[33m.\u001b[39mno_id] \u001b[33m-\u001b[39m distances[b\u001b[33m.\u001b[39mno_id] \u001b[33m||\u001b[39m a\u001b[33m.\u001b[39mnome\u001b[33m.\u001b[39mlocaleCompare(b\u001b[33m.\u001b[39mnome\u001b[33m,\u001b[39m \u001b[32m\"pt-BR\"\u001b[39m))\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 86 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mlocator(\u001b[32m'[data-testid^=\"explore-poi-\"]'\u001b[39m)\u001b[33m.\u001b[39mfirst())\u001b[33m.\u001b[39mtoHaveAttribute(\u001b[32m\"data-testid\"\u001b[39m\u001b[33m,\u001b[39m \u001b[32m\"explore-poi-\"\u001b[39m \u001b[33m+\u001b[39m expected[\u001b[35m0\u001b[39m]\u001b[33m.\u001b[39mid)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                                       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 87 |\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 88 |\u001b[39m\n \u001b[90m 89 |\u001b[39m test(\u001b[32m\"Serviços sem loja recebem rotas e permitem voltar à entrada\"\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page\u001b[33m,\u001b[39m request }) \u001b[33m=>\u001b[39m {\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                        "column": 71,
+                        "line": 86
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveAttribute\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('[data-testid^=\"explore-poi-\"]').first()\nExpected: \u001b[32m\"explore-poi-\u001b[7m1\u001b[27m\"\u001b[39m\nReceived: \u001b[31m\"explore-poi-\u001b[7m23\u001b[27m\"\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveAttribute\" locator('[data-testid^=\"explore-poi-\"]').first() with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-testid^=\"explore-poi-\"]').first()\u001b[22m\n\u001b[2m    14 × locator resolved to <div data-testid=\"explore-poi-23\" class=\"css-175oi2r r-7vjg70 r-qklmqi r-t23y2h r-1y00bll r-1gjx2kl r-1ml3abn r-3o4zer\">…</div>\u001b[22m\n\u001b[2m       - unexpected value \"explore-poi-23\"\u001b[22m\n\n\n  84 |   const shopNodes = new Set(graphs.flatMap((graph: any) => graph.nos.filter((node: any) => node.tipo === \"loja\").map((node: any) => node.id)));\n  85 |   const expected = pois.filter((p: any) => shopNodes.has(p.no_id) && distances[p.no_id] !== undefined).sort((a: any, b: any) => distances[a.no_id] - distances[b.no_id] || a.nome.localeCompare(b.nome, \"pt-BR\"));\n> 86 |   await expect(page.locator('[data-testid^=\"explore-poi-\"]').first()).toHaveAttribute(\"data-testid\", \"explore-poi-\" + expected[0].id);\n     |                                                                       ^\n  87 | });\n  88 |\n  89 | test(\"Serviços sem loja recebem rotas e permitem voltar à entrada\", async ({ page, request }) => {\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:86:71"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-17T18:17:25.653Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-experience-ux12-artifacts\\visitor-experience-Explora-10361-ordena-pelo-percurso-da-API-chrome\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-experience-ux12-artifacts\\visitor-experience-Explora-10361-ordena-pelo-percurso-da-API-chrome\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                    "column": 71,
+                    "line": 86
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-5945159fd546017af896",
+          "file": "visitor-experience.spec.ts",
+          "line": 58,
+          "column": 1
+        },
+        {
+          "title": "Serviços sem loja recebem rotas e permitem voltar à entrada",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "timedOut",
+                  "duration": 45506,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 45000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "location": {
+                        "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                        "column": 25,
+                        "line": 102
+                      },
+                      "message": "Error: page.waitForResponse: Test timeout of 45000ms exceeded.\n\n  100 |   await page.getByRole(\"button\", { name: \"Mostrar resultados\", exact: true }).click({ force: true });\n  101 |   await page.waitForTimeout(500);\n> 102 |   const response = page.waitForResponse((r) => r.url().endsWith(\"/api/routes\") && r.request().method() === \"POST\");\n      |                         ^\n  103 |   await page.getByTestId(\"explore-node-\" + lift.id).getByRole(\"button\", { name: lift.nome + \", Aberto\", exact: true }).click();\n  104 |   expect((await response).request().postDataJSON().destino_no_id).toBe(lift.id);\n  105 |   await page.getByRole(\"button\", { name: \"Cheguei ao destino\", exact: true }).click();\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:102:25"
+                    },
+                    {
+                      "location": {
+                        "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                        "column": 120,
+                        "line": 103
+                      },
+                      "message": "Error: locator.click: Test timeout of 45000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByTestId('explore-node-78').getByRole('button', { name: 'Elevador — térreo, Aberto', exact: true })\u001b[22m\n\n\n  101 |   await page.waitForTimeout(500);\n  102 |   const response = page.waitForResponse((r) => r.url().endsWith(\"/api/routes\") && r.request().method() === \"POST\");\n> 103 |   await page.getByTestId(\"explore-node-\" + lift.id).getByRole(\"button\", { name: lift.nome + \", Aberto\", exact: true }).click();\n      |                                                                                                                        ^\n  104 |   expect((await response).request().postDataJSON().destino_no_id).toBe(lift.id);\n  105 |   await page.getByRole(\"button\", { name: \"Cheguei ao destino\", exact: true }).click();\n  106 |   await expect(page.getByTestId(\"origin-label\")).toHaveText(lift.nome);\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:103:120"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-17T18:17:37.305Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-experience-ux12-artifacts\\visitor-experience-Serviço-3cdab-e-permitem-voltar-à-entrada-chrome\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-experience-ux12-artifacts\\visitor-experience-Serviço-3cdab-e-permitem-voltar-à-entrada-chrome\\trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-b717a032fda3cf0f7a40",
+          "file": "visitor-experience.spec.ts",
+          "line": 89,
+          "column": 1
+        },
+        {
+          "title": "Avançar instruções e visualizar outro piso não altera a posição",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6485,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-17T18:18:24.602Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "31f8b141317877a86365-8210bb07e35a34295754",
+          "file": "visitor-experience.spec.ts",
+          "line": 113,
+          "column": 1
+        },
+        {
+          "title": "Recálculo mantém mapa, sinaliza falha e recupera sem perder a origem",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4120,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-17T18:18:31.384Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "31f8b141317877a86365-852c333331179c2e9485",
+          "file": "visitor-experience.spec.ts",
+          "line": 134,
+          "column": 1
+        },
+        {
+          "title": "Explorar recupera erro de carregamento e mantém alvos legíveis no celular",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chrome",
+              "projectName": "chrome",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6914,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-17T18:18:35.532Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "31f8b141317877a86365-4644642a74d04aa6900a",
+          "file": "visitor-experience.spec.ts",
+          "line": 158,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-17T18:17:12.309Z",
+    "duration": 90487.657,
+    "expected": 4,
+    "skipped": 0,
+    "unexpected": 3,
+    "flaky": 0
+  }
+}

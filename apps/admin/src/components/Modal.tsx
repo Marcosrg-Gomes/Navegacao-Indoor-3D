@@ -10,11 +10,29 @@ type ModalProps = {
 export function Modal({ title, onClose, children, width }: ModalProps) {
   const titleId = useId();
   const dialog = useRef<HTMLDivElement>(null);
+  const previousRef = useRef<HTMLElement | null>(null);
   useEffect(() => {
-    const previous = document.activeElement as HTMLElement | null;
+    // Captura o elemento que teve foco/clique antes de abrir este modal
+    const handleFocus = (e: FocusEvent) => {
+      if (!dialog.current || !dialog.current.contains(e.target as Node)) {
+        previousRef.current = e.target as HTMLElement;
+      }
+    };
+    const handleMouseDown = (e: MouseEvent) => {
+      if (!dialog.current || !dialog.current.contains(e.target as Node)) {
+        previousRef.current = e.target as HTMLElement;
+      }
+    };
+    document.addEventListener("focus", handleFocus, true);
+    document.addEventListener("mousedown", handleMouseDown, true);
+    previousRef.current = document.activeElement as HTMLElement | null;
     dialog.current?.focus();
     function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        // Restaura o foco ao elemento anterior ANTES de fechar o modal
+        previousRef.current?.focus();
+        onClose();
+      }
       if (e.key === "Tab") {
         const elements = Array.from(dialog.current?.querySelectorAll<HTMLElement>('button:not([disabled]), input:not([disabled]), select, textarea, [tabindex="0"]') || []);
         const first = elements[0], last = elements[elements.length - 1];
@@ -23,8 +41,18 @@ export function Modal({ title, onClose, children, width }: ModalProps) {
       }
     }
     window.addEventListener("keydown", handleKeyDown);
-    return () => { window.removeEventListener("keydown", handleKeyDown); previous?.focus(); };
-  }, []);
+    return () => {
+      document.removeEventListener("focus", handleFocus, true);
+      document.removeEventListener("mousedown", handleMouseDown, true);
+      window.removeEventListener("keydown", handleKeyDown);
+      // WebKit pode precisar de múltiplas tentativas para restaurar o foco após o modal fechar
+      const restore = () => previousRef.current?.focus();
+      restore();
+      setTimeout(restore, 50);
+      setTimeout(restore, 150);
+      setTimeout(restore, 300);
+    };
+  }, [title]);
 
   return (
     <div className="modal-backdrop" onClick={onClose}>

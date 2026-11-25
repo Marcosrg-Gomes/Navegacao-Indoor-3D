@@ -1,0 +1,88 @@
+
+{
+  "$schema": "https://opencode.ai/config.json",
+  "models": {
+    "gemini": {
+      "provider": "openai",
+      "baseUrl": "https://openrouter.ai/api/v1",
+      "model": "google/gemini-3.5-flash-lite",
+      "apiKeyEnv": "OPENROUTER_API_KEY",
+      "displayName": "Google Gemini 3.5 Flash Lite (via OpenRouter)"
+    },
+    "deepseek": {
+      "provider": "openai",
+      "baseUrl": "https://openrouter.ai/api/v1",
+      "model": "deepseek/deepseek-v4.1-flash-1017",
+      "apiKeyEnv": "OPENROUTER_API_KEY",
+      "displayName": "DeepSeek v4.1 Flash 1017 (via OpenRouter)"
+    },
+    "nemotron": {
+      "provider": "openai",
+      "baseUrl": "https://integrate.api.nvidia.com/v1",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "apiKeyEnv": "NVIDIA_API_KEY",
+      "displayName": "NVIDIA Nemotron 3.5 Super VL 120B A12B"
+    }
+  },
+  "defaultModel": "gemini",
+  "mcp": {
+    "github": {
+      "type": "remote",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "enabled": true,
+      "oauth": false,
+      "headers": {
+        "Authorization": "Bearer {env:GITHUB_PERSONAL_ACCESS_TOKEN}"
+      }
+    },
+    "supabase": {
+      "type": "remote",
+      "url": "https://mcp.supabase.com/mcp",
+      "enabled": true
+    },
+    "playwright": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@playwright/mcp@0.0.83"
+      ],
+      "enabled": true,
+      "timeout": 120000
+    },
+    "gh_grep": {
+      "type": "remote",
+      "url": "https://mcp.grep.app",
+      "enabled": true
+    },
+    "sentry": {
+      "type": "remote",
+      "url": "https://mcp.sentry.dev/mcp",
+      "enabled": true
+    },
+    "Roblox_Studio": {
+      "type": "local",
+      "command": [
+        "cmd.exe",
+        "/c",
+        "C:\\Users\\marco\\AppData\\Local\\Roblox\\mcp.bat"
+      ],
+      "enabled": true
+    },
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+      "enabled": true,
+      "oauth": false,
+      "headers": {
+        "Authorization": "Bearer {env:CONTEXT7_API_KEY}"
+      }
+    },
+    "penpot": {
+      "type": "remote",
+      "url": "http://[::1]:4401/mcp",
+      "enabled": true,
+      "codemode": false
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "title": "Codex-planned dual-worker proof",
+  "playbook": "plan-big-execute-small",
+  "phase": "dual-worker-proof",
+  "why": "Codex is the planner; Agy and OpenCode receive independent, pinned no-write tasks concurrently.",
+  "strategy": "balanced",
+  "maxConcurrent": 2,
+  "budget": {
+    "maxCalls": 2,
+    "maxWallSeconds": 300,
+    "maxEstimatedPromptTokens": 4000
+  },
+  "workers": [
+    {
+      "id": "antigravity",
+      "why": "Native Antigravity worker, pinned to a non-forbidden model.",
+      "provider": "agy",
+      "mode": "read-only",
+      "cwd": "../..",
+      "model": "gpt-oss-120b-medium",
+      "effort": "low",
+      "timeoutSeconds": 180,
+      "task": "Connectivity handoff only. Do not use tools or alter files. Reply exactly: ANTIGRAVITY_INTEGRATED"
+    },
+    {
+      "id": "opencode-openrouter-free",
+      "why": "OpenCode custom worker, pinned to an OpenRouter free model with no fallback.",
+      "provider": "custom",
+      "mode": "write",
+      "isolate": true,
+      "cwd": "../..",
+      "command": "C:/Users/marco/AppData/Roaming/npm/node_modules/@opencode/cli/bin/opencode.exe",
+      "args": [
+        "run",
+        "--archived",
+        "--model",
+        "openrouter/cohere/north-mini-code:free",
+        "--format",
+        "json"
+      ],
+      "promptTransport": "argument",
+      "outputFormat": "jsonl",
+      "timeoutSeconds": 180,
+      "task": "Connectivity handoff only. Do not use tools or alter files. Reply exactly: OPENCODE_INTEGRATED"
+    }
+  ]
+}

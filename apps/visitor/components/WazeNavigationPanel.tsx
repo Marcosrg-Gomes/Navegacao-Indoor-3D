@@ -91,10 +91,18 @@ export function WazeNavigationPanel({ onChooseDestination, onCorrectPosition, on
     arrived ? "Novo destino" : "Iniciar navegação";
 
   return <View testID="route-panel" style={[styles.panel, nav.arrivalLoading && styles.panelBusy]} accessibilityState={{ busy }}>
-    {moving && !arrived && <View style={styles.progressTrack} accessible accessibilityRole="progressbar" aria-label="Progresso do percurso" accessibilityLabel="Progresso do percurso"
-      accessibilityValue={{ min: 0, max: 100, now: Math.round(progress * 100) }}>
-      <View style={[styles.progressFill, { width: `${Math.round(progress * 100)}%` }]} />
-    </View>}
+    {moving && !arrived && (
+      <View
+        style={styles.progressTrack}
+        accessible
+        accessibilityRole="progressbar"
+        aria-label="Progresso do percurso"
+        accessibilityLabel="Progresso do percurso"
+        accessibilityValue={{ min: 0, max: 100, now: Math.round(progress * 100) }}
+      >
+        <View style={[styles.progressFill, { width: `${Math.round(progress * 100)}%` }]} />
+      </View>
+    )}
     <View style={styles.tripLine}>
       <View style={{ flex: 1, minWidth: 0 }}>
         <Text style={styles.tripDestination} numberOfLines={1} accessibilityRole="header">{nav.destinationName || "Destino"}</Text>

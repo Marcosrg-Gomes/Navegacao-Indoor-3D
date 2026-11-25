@@ -6,6 +6,13 @@ type FormFieldProps = {
   error?: string;
   className?: string;
   required?: boolean;
+  /**
+   * Id de um controle já renderizado pelo filho (ex.: input dentro de um
+   * wrapper flex). Quando informado, o id não é injetado no filho — caso
+   * contrário o `for` apontaria para um wrapper e o controle ficaria sem
+   * nome acessível.
+   */
+  htmlFor?: string;
   children: React.ReactNode;
 };
 
@@ -15,12 +22,16 @@ export function FormField({
   error,
   className = "",
   required,
+  htmlFor,
   children,
 }: FormFieldProps) {
-  const fieldId = useId();
-  const input = isValidElement(children as any)
-    ? cloneElement(children as any, { id: fieldId })
-    : children;
+  const generatedId = useId();
+  const fieldId = htmlFor ?? generatedId;
+  const input = htmlFor
+    ? children
+    : isValidElement(children as any)
+      ? cloneElement(children as any, { id: fieldId })
+      : children;
   return (
     <label className={`field ${className}`} htmlFor={fieldId}>
       <span className="field-label">

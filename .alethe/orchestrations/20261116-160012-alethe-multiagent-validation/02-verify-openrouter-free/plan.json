@@ -1,0 +1,61 @@
+{
+  "dryRun": false,
+  "skillVersion": "24",
+  "planPath": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\.alethe\\plans\\openrouter-free-smoke.json",
+  "policyPath": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\.alethe\\alethe-orchestrate.json",
+  "title": "OpenCode OpenRouter free smoke test",
+  "why": "Validate the custom OpenCode adapter with one explicitly free, pinned OpenRouter model.",
+  "playbook": "plan-big-execute-small",
+  "phase": "verify-openrouter-free",
+  "strategy": "economy",
+  "requestedStrategy": "economy",
+  "strategyReason": "requested explicitly",
+  "maxConcurrent": 1,
+  "budget": {
+    "maxCalls": 1,
+    "maxWallSeconds": 180,
+    "maxEstimatedPromptTokens": 2000
+  },
+  "workers": [
+    {
+      "id": "opencode-openrouter-free",
+      "why": "Smoke test of OpenCode with a pinned free OpenRouter model and no fallback.",
+      "requestedProvider": "custom",
+      "provider": "custom",
+      "command": "opencode",
+      "switched": false,
+      "routingNote": null,
+      "tier": "cheap",
+      "model": "openrouter/cohere/north-mini-code:free",
+      "effort": null,
+      "modelNote": "tier cheap: no model configured for custom",
+      "mode": "write",
+      "isolate": true,
+      "seedPaths": [],
+      "timeoutSeconds": 180,
+      "effectiveTimeoutSeconds": 180,
+      "promptChars": 701,
+      "estimatedPromptTokens": 176,
+      "subagents": "refused by the worker contract",
+      "mcp": null,
+      "idleTimeoutSeconds": null,
+      "telemetry": {
+        "tokenUsage": false
+      },
+      "listPriceEstimateUsd": null,
+      "listPriceAsOf": null
+    }
+  ],
+  "totals": {
+    "workers": 1,
+    "estimatedPromptTokens": 176,
+    "listPriceEstimateUsd": null
+  },
+  "estimates": "prompt-only chars/4 heuristic; provider-side context such as repository reads and tool calls is additional and cannot be estimated",
+  "listPriceEstimate": {
+    "label": "Standard short-context API list-price estimate for prompt input only; excludes output, cache and provider-side context; not CLI-reported cost",
+    "asOf": []
+  },
+  "quotaForecast": {},
+  "warnings": []
+}

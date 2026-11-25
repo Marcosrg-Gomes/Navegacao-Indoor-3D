@@ -2,6 +2,10 @@
 
 Run: python audit_server.py --port 8765
 Each run creates its own temporary SQLite fixture. Production uses MySQL.
+
+Para validar a mesma fixture em MySQL, defina AUDIT_DATABASE_URL com a URL do
+banco (ex.: navegacao_indoor_e2e_legacy); o SQLite temporário continua sendo o
+padrão quando a variável não existe.
 """
 import argparse
 import os
@@ -13,11 +17,12 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--port", type=int, default=8765)
     parser.add_argument("--database", type=Path, help="Reuse an explicit audit SQLite file (never deletes records)")
-    parser.add_argument("--workers", type=int, default=4, help="Número de workers do uvicorn para atender requisições concorrentes nos testes E2E")
+    parser.add_argument("--workers", type=int, default=1, help="Número de workers do uvicorn (padrão: 1 para evitar problemas de concorrência do SQLite)")
     args = parser.parse_args()
     database = args.database.resolve() if args.database else Path(tempfile.mkdtemp(prefix="indoor-audit-")) / "demo.db"
     database.parent.mkdir(parents=True, exist_ok=True)
-    os.environ["DATABASE_URL"] = "sqlite:///" + database.as_posix()
+    external_url = os.environ.get("AUDIT_DATABASE_URL", "").strip()
+    os.environ["DATABASE_URL"] = external_url or "sqlite:///" + database.as_posix()
     os.environ["ADMIN_API_KEY"] = "audit-local-admin-key-with-32-characters"
     os.environ["ADMIN_API_KEYS"] = "{}"
     os.environ["SECRET_KEY"] = "audit-local-only"
@@ -29,6 +34,12 @@ def main():
     Base.metadata.create_all(engine)
     upgrade_schema(engine)
     seed_db()  # seed legado: preservado integralmente; nunca apaga cadastros existentes.
+    # Habilita WAL mode para melhorar concorrência de leitura no SQLite
+    from sqlalchemy import text
+    if engine.dialect.name == "sqlite":
+        with engine.connect() as conn:
+            conn.execute(text("PRAGMA journal_mode=WAL"))
+            conn.commit()
 
     # Seed aditivo do Mini Shopping (inclui o QR MINI-ENTRADA-PRINCIPAL)
     # em sessão própria, com commit garantido ao sair do bloco.

@@ -32,6 +32,8 @@ export function RouteGuide({ onLost, onPreview, onMap }: { onMap?: () => void; o
     setGuideView((v) => v === "resumo" ? "intermediario" : v === "intermediario" ? "expandido" : "resumo");
   }
   const viewLabel = guideView === "resumo" ? "Ver próximos passos" : guideView === "intermediario" ? "Ver detalhes do percurso" : "Ver resumo";
+  const destFloor = current?.tipo === "troca_piso" && current.piso_destino_id != null
+    ? nav.floors.find((f) => f.id === current.piso_destino_id) : undefined;
   return <View style={styles.panel} testID="route-panel" accessibilityState={{ busy }}>
     <View style={styles.heading}>
       <View style={{ flex: 1, minWidth: 160, gap: 5 }}>
@@ -51,13 +53,14 @@ export function RouteGuide({ onLost, onPreview, onMap }: { onMap?: () => void; o
         <Text style={styles.instruction}>{current.texto}</Text>
         {current.referencia && <Text style={{ color: "#f4d8b0", fontSize: 16, lineHeight: 24 }}>{current.referencia}</Text>}
         {!!current.distancia_metros && <Text style={{ color: paper, fontFamily: mono, fontSize: 23 }}>{current.distancia_metros} m neste trecho</Text>}
-        {current.tipo === "troca_piso" && <TouchableOpacity accessibilityRole="button" style={styles.secondary}
-          onPress={() => current.piso_destino_id && void nav.selectFloor(current.piso_destino_id)}>
-          <Text style={[styles.link, { color: paper }]}>Ver trecho no {nav.floors.find((floor) => floor.id === current.piso_destino_id)?.nome}</Text>
+        {current.tipo === "troca_piso" && current.piso_destino_id && <TouchableOpacity accessibilityRole="button"
+          accessibilityLabel={`Ver trecho no ${destFloor?.nome ?? "outro piso"}`}
+          style={styles.secondary} onPress={() => current.piso_destino_id && void nav.selectFloor(current.piso_destino_id)}>
+          <Text style={[styles.link, { color: paper }]}>Ver trecho no {destFloor?.nome ?? "outro piso"}</Text>
         </TouchableOpacity>}
       </View>
       {guideView !== "resumo" && <View style={styles.routeTools}>
-        {onMap && <TouchableOpacity accessibilityRole="button" style={styles.mapAction} onPress={onMap}><Text style={styles.mapActionText}>Ver mapa do trajeto ↓</Text></TouchableOpacity>}
+        {onMap && <TouchableOpacity accessibilityRole="button" accessibilityLabel="Ver mapa do trajeto" style={styles.mapAction} onPress={onMap}><Text style={styles.mapActionText}>Ver mapa do trajeto ↓</Text></TouchableOpacity>}
         {onLost && <TouchableOpacity accessibilityRole="button" style={styles.lostAction} onPress={onLost}><Text style={styles.lostActionText}>Estou perdido</Text></TouchableOpacity>}
       </View>}
       {guideView !== "resumo" && steps.slice(step + 1, step + 3).map((item, offset) => <View key={offset} style={styles.step}><Text style={d.label}>{offset === 0 ? "DEPOIS" : "EM SEGUIDA"}</Text><Text style={[d.text, { flex: 1 }]}>{item.texto}</Text></View>)}

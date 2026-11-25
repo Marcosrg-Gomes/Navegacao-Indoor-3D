@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "title": "Antigravity allowed-model smoke test",
+  "playbook": "plan-big-execute-small",
+  "phase": "verify-antigravity",
+  "why": "Validate Agy through its native Alethe adapter using the only non-forbidden listed model.",
+  "strategy": "economy",
+  "maxConcurrent": 1,
+  "budget": {
+    "maxCalls": 1,
+    "maxWallSeconds": 180,
+    "maxEstimatedPromptTokens": 2000
+  },
+  "workers": [
+    {
+      "id": "antigravity-gpt-oss",
+      "why": "Native Agy worker with a pinned non-Gemini, non-Claude, non-DeepSeek model.",
+      "provider": "agy",
+      "mode": "read-only",
+      "cwd": "../..",
+      "model": "gpt-oss-120b-medium",
+      "effort": "low",
+      "timeoutSeconds": 180,
+      "task": "This is a connectivity smoke test. Do not use tools and do not modify files. Reply exactly: ANTIGRAVITY_OK"
+    }
+  ]
+}

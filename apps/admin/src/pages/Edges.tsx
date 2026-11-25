@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useId, useMemo, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { api } from "../services/api";
 import { useToast } from "../toast";
@@ -9,6 +9,7 @@ import { FormField } from "../components/FormField";
 export default function Edges() {
   const toast = useToast();
   const nav = useNavigate();
+  const distanciaId = useId();
   const [params, setParams] = useSearchParams();
   const [pisos, setPisos] = useState<Piso[]>([]);
   const [pisoId, setPisoId] = useState<number | "">("");
@@ -426,9 +427,11 @@ export default function Edges() {
                 label="Distância em metros (deixe vazio para auto-cálculo)"
                 hint="Baseado nas dimensões do piso para nós no mesmo andar. Em conexões entre pisos, informe a distância vertical real."
                 className="full"
+                htmlFor={distanciaId}
               >
                 <div style={{ display: "flex", gap: 8 }}>
                   <input
+                    id={distanciaId}
                     type="number"
                     step="0.01"
                     min="0"

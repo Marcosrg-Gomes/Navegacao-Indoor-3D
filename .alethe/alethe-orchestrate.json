@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "onboarded": true,
+  "backend": "skill",
+  "defaultStrategy": "balanced",
+  "providerSwitch": "never",
+  "providerOrder": ["codex", "kimi"],
+  "conserveProviders": [],
+  "maxWorkers": 2,
+  "maxConcurrent": 2,
+  "budget": {
+    "maxCalls": 2,
+    "maxWallSeconds": 900
+  },
+  "modelTiers": {},
+  "trust": {
+    "allowUnsafe": false,
+    "cwdRoots": [],
+    "workerEnv": []
+  }
+}

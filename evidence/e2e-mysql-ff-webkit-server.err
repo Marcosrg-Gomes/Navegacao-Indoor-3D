@@ -1,0 +1,186 @@
+Traceback (most recent call last):
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\pymysql\cursors.py", line 153, in execute
+    result = self._query(query)
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\pymysql\cursors.py", line 322, in _query
+    conn.query(q)
+    ~~~~~~~~~~^^^
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\pymysql\connections.py", line 563, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\pymysql\connections.py", line 825, in _read_query_result
+    result.read()
+    ~~~~~~~~~~~^^
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\pymysql\connections.py", line 1199, in read
+    first_packet = self.connection._read_packet()
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\pymysql\connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\pymysql\protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\pymysql\err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.IntegrityError: (1062, "Duplicate entry '45' for key 'qr_codes.no_id'")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\marco\AppData\Local\Temp\opencode\e2e_mysql_server.py", line 21, in <module>
+    runpy.run_path(str(REPO / "services/api/mini_server.py"), run_name="__main__")
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen runpy>", line 287, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\services\api\mini_server.py", line 65, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\services\api\mini_server.py", line 53, in main
+    with SessionLocal.begin() as db:
+         ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\marco\AppData\Local\Programs\Python\Python313\Lib\contextlib.py", line 148, in __exit__
+    next(self.gen)
+    ~~~~^^^^^^^^^^
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1812, in _maker_context_manager
+    with self.begin():
+         ~~~~~~~~~~^^
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\sqlalchemy\engine\util.py", line 147, in __exit__
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\sqlalchemy\engine\util.py", line 145, in __exit__
+    self.commit()
+    ~~~~~~~~~~~^^
+  File "<string>", line 2, in commit
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1313, in commit
+    self._prepare_impl()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "<string>", line 2, in _prepare_impl
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1288, in _prepare_impl
+    self.session.flush()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4352, in flush
+    self._flush(objects)
+    ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4487, in _flush
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4448, in _flush
+    flush_context.execute()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 466, in execute
+    rec.execute(self)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.mapper,
+        ^^^^^^^^^^^^
+        uow.states_for_mapper_hierarchy(self.mapper, False, False),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        uow,
+        ^^^^
+    )
+    ^
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        base_mapper,
+        ^^^^^^^^^^^^
+    ...<3 lines>...
+        insert,
+        ^^^^^^^
+    )
+    ^
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1233, in _emit_insert_statements
+    result = connection.execute(
+        statement,
+        params,
+        execution_options=execution_options,
+    )
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1418, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\pymysql\cursors.py", line 153, in execute
+    result = self._query(query)
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\pymysql\cursors.py", line 322, in _query
+    conn.query(q)
+    ~~~~~~~~~~^^^
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\pymysql\connections.py", line 563, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\pymysql\connections.py", line 825, in _read_query_result
+    result.read()
+    ~~~~~~~~~~~^^
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\pymysql\connections.py", line 1199, in read
+    first_packet = self.connection._read_packet()
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\pymysql\connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\pymysql\protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Users\marco\OneDrive\Documentos\ChatGPT\Navegacao-Indoor-3D\.venv\Lib\site-packages\pymysql\err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+sqlalchemy.exc.IntegrityError: (pymysql.err.IntegrityError) (1062, "Duplicate entry '45' for key 'qr_codes.no_id'")
+[SQL: INSERT INTO qr_codes (no_id, token, ativo, atualizado_em) VALUES (%(no_id)s, %(token)s, %(ativo)s, %(atualizado_em)s)]
+[parameters: {'no_id': 45, 'token': 'ENTRADA-PRINCIPAL', 'ativo': 1, 'atualizado_em': None}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)

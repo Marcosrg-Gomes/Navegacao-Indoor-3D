@@ -1,0 +1,247 @@
+model = "gpt-5.6-terra"
+model_reasoning_effort = "medium"
+
+service_tier = "default"
+
+
+sandbox_mode = "danger-full-access"
+approval_policy = "never"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+notify = [ "C:\\Program Files\\WindowsApps\\OpenAI.Codex_26.1111.2228.0_x64__2p2nqsd0c76g0\\app\\resources\\cua_node\\bin\\node_modules\\@oai\\sky\\bin\\windows\\codex-computer-use.exe", "turn-ended" ]
+
+[marketplaces.openai-bundled]
+source_type = "local"
+source = '\\?\C:\Users\marco\.codex\.tmp\bundled-marketplaces\openai-bundled'
+
+[marketplaces.openai-primary-runtime]
+source_type = "local"
+source = '\\?\C:\Users\marco\.cache\codex-runtimes\codex-primary-runtime\plugins\openai-primary-runtime'
+
+[marketplaces.alexgreensh-token-optimizer]
+source_type = "git"
+source = "https://github.com/alexgreensh/token-optimizer.git"
+
+[marketplaces.i-have-adhd]
+source_type = "git"
+source = "https://github.com/ayghri/i-have-adhd.git"
+ref = "main"
+
+[plugins."documents@openai-primary-runtime"]
+enabled = true
+
+[plugins."spreadsheets@openai-primary-runtime"]
+enabled = true
+
+[plugins."presentations@openai-primary-runtime"]
+enabled = true
+
+[plugins."browser@openai-bundled"]
+enabled = true
+
+[plugins."codex-app-tools@openai-bundled"]
+enabled = true
+
+[plugins."unified-computer-use@openai-bundled"]
+enabled = true
+
+[plugins."visualize@openai-bundled"]
+enabled = true
+
+[plugins."computer-use@openai-bundled"]
+enabled = true
+
+[plugins."pdf@openai-primary-runtime"]
+enabled = true
+
+[plugins."template-creator@openai-primary-runtime"]
+enabled = true
+
+[plugins."token-optimizer@alexgreensh-token-optimizer"]
+enabled = true
+
+[plugins."i-have-adhd@i-have-adhd"]
+enabled = true
+
+[plugins."chrome@openai-bundled"]
+enabled = true
+
+[windows]
+sandbox = "elevated"
+
+[projects.'c:\users\marco\downloads\teste-melhorado']
+trust_level = "trusted"
+
+[projects.'c:\users\marco\onedrive\documentos\senai\neurolab-v3-completo']
+trust_level = "trusted"
+
+[projects.'c:\users\marco\onedrive\documentos\senai\neurolab-v4-fixed']
+trust_level = "trusted"
+
+[projects.'c:\users\marco\onedrive\documentos\senai\neurolab-v3-corrigido\neurolab-fixed']
+trust_level = "trusted"
+
+[projects.'c:\users\marco\downloads\serenity-system-main\serenity-system-main']
+trust_level = "trusted"
+
+[projects.'c:\xampp\htdocs\serenity-system']
+trust_level = "trusted"
+
+[projects.'c:\users\marco\downloads\neurolabcenter-erros-melhorias-final-corrigido\final_neurolab']
+trust_level = "trusted"
+
+[projects.'c:\users\marco\onedrive\documentos\senai\neurolab\neurolab']
+trust_level = "trusted"
+
+[projects.'c:\users\marco\downloads\neurolabcenter_limpo_sem_md_sem_excesso\neurolabcenter-main']
+trust_level = "trusted"
+
+[projects.'c:\users\marco\downloads\social-auto-scale']
+trust_level = "trusted"
+
+[projects.'c:\users\marco\downloads\neurolabcenter_banco_corrigido_fluxos\neurolabcenter']
+trust_level = "trusted"
+
+[projects.'c:\users\marco\onedrive\documentos\senai\navegacao-indoor']
+trust_level = "trusted"
+
+[projects.'c:\users\marco\onedrive\documentos\senai\shopping-3d']
+trust_level = "trusted"
+
+[projects.'c:\users\marco\onedrive\documentos\chatgpt\tcc']
+trust_level = "trusted"
+
+[projects.'c:\windows\system32']
+trust_level = "trusted"
+
+[projects.'c:\users\marco\documents']
+trust_level = "trusted"
+
+[projects.'c:\users\marco\onedrive\documentos\chatgpt\navegacao-indoor-3d']
+trust_level = "trusted"
+
+[desktop]
+ambient-suggestions-enabled = true
+sansFontSize = 14
+codeFontSize = 13
+conversationDetailMode = "STEPS_COMMANDS"
+followUpQueueMode = "queue"
+external-agent-import-sync-enabled = true
+open-local-url-in-target-preference = "external-browser"
+git-pull-request-merge-method = "merge"
+
+[features]
+js_repl = false
+
+[mcp_servers.node_repl]
+args = []
+command = 'C:\Program Files\WindowsApps\OpenAI.Codex_26.1111.2228.0_x64__2p2nqsd0c76g0\app\resources\cua_node\bin\node_repl.exe'
+env_vars = ["BROWSER_USE_ACCESS_EXECUTOR_ID", "BROWSER_USE_ACCESS_PIPE_PATH", "BROWSER_USE_ACCESS_VERIFYING_IDENTITY", "CODEX_WINDOWS_REGISTERED_CORE"]
+startup_timeout_sec = 120
+
+[mcp_servers.node_repl.env]
+NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
+NODE_REPL_NODE_MODULE_DIRS = 'C:\Program Files\WindowsApps\OpenAI.Codex_26.1111.2228.0_x64__2p2nqsd0c76g0\app\resources\cua_node\bin\node_modules'
+NODE_REPL_NODE_PATH = 'C:\Program Files\WindowsApps\OpenAI.Codex_26.1111.2228.0_x64__2p2nqsd0c76g0\app\resources\cua_node\bin\node.exe'
+NODE_REPL_TRUSTED_CODE_PATHS = 'C:\Users\marco\.codex;C:\Program Files\WindowsApps\OpenAI.Codex_26.1111.2228.0_x64__2p2nqsd0c76g0\app\resources\cua_node\bin\node_modules'
+CODEX_HOME = 'C:\Users\marco\.codex'
+BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab,mcpapps"
+BROWSER_USE_TINYSKY_ENABLED = "1"
+NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = ""
+NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = ""
+BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
+BROWSER_USE_CODEX_APP_VERSION = "26.1111.21308"
+NODE_REPL_TRUSTED_SERVICES = '{"browser":"C:/Users/marco/.codex/plugins/cache/openai-bundled/browser/26.1111.21308/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
+SKY_CUA_NATIVE_PIPE = "1"
+SKY_CUA_NATIVE_PIPE_DIRECTORY = '\\.\pipe\codex-computer-use-cd8622a4-0e2d-4582-befd-f619688d19a5'
+CODEX_CLI_PATH = 'C:\Program Files\WindowsApps\OpenAI.Codex_26.1111.2228.0_x64__2p2nqsd0c76g0\app\resources\codex.exe'
+NODE_REPL_UNTRUSTED_ENV_ALLOWLIST = "CODEX_WINDOWS_REGISTERED_CORE"
+NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = ""
+
+[mcp_servers.rea]
+enabled = true
+startup_timeout_sec = 30
+command = 'C:\Program Files\nodejs\node.exe'
+args = ['C:\Users\marco\AppData\Local\npm-cache\_npx\af752b90495482d7\node_modules\rea-agents\scripts\rea.mjs', "mcp"]
+cwd = 'C:\Users\marco\OneDrive\Documentos\ChatGPT\TCC'
+
+[mcp_servers.rea.env]
+JAVA_HOME = 'C:\Users\marco\Downloads\microsoft-jdk-25.0.4.1-windows-x64\jdk-25.0.4.1+1'
+REA_JADX_MCP_JAR = 'C:\Users\marco\Tools\REA\jadx-headless-mcp-0.7.1-all.jar'
+
+[tui]
+screen_reader_detection_done = true
+
+[tui.model_availability_nux]
+gpt-6-astra = 4
+
+[hooks.state]
+
+[hooks.state."token-optimizer@alexgreensh-token-optimizer:hooks/hooks.json:pre_tool_use:0:0"]
+trusted_hash = "sha256:7d0e8602d0a50d26ebdb2ec34a3bb9cd1789f39bc5110103b0bf3cd9822249c1"
+
+[hooks.state."token-optimizer@alexgreensh-token-optimizer:hooks/hooks.json:pre_tool_use:1:0"]
+trusted_hash = "sha256:bb62a682ac86e5f6bbdb2fd51ab54c89bbd4a0a7e5e7dd2882256a046ef748f5"
+
+[hooks.state."token-optimizer@alexgreensh-token-optimizer:hooks/hooks.json:pre_tool_use:2:0"]
+trusted_hash = "sha256:6020863c6e758f7fff065b76600f3a2bb231ee07896efab4213e1eaa7a6c15f4"
+
+[hooks.state."token-optimizer@alexgreensh-token-optimizer:hooks/hooks.json:pre_tool_use:3:0"]
+trusted_hash = "sha256:c0033595e332e9f3f8715207293161b5bdbb3d888c3edc3b71522479c20cd5b3"
+
+[hooks.state."token-optimizer@alexgreensh-token-optimizer:hooks/hooks.json:post_tool_use:0:0"]
+trusted_hash = "sha256:fc9d6fa1fb56e2b70f3b0c574e6d4c0d4abe8e0ee3fed45fcf577d2de277c561"
+
+[hooks.state."token-optimizer@alexgreensh-token-optimizer:hooks/hooks.json:pre_compact:0:0"]
+trusted_hash = "sha256:3a7deec0225cd23271cf9e9c4a8907778e1949f794ce6ad8522b5457c10592a0"
+
+[hooks.state."token-optimizer@alexgreensh-token-optimizer:hooks/hooks.json:pre_compact:1:0"]
+trusted_hash = "sha256:c9a0e5d1b25e8509bdc86c64cb643f513708eee92904556679191162c5bd9a60"
+
+[hooks.state."token-optimizer@alexgreensh-token-optimizer:hooks/hooks.json:pre_compact:2:0"]
+trusted_hash = "sha256:0575ce1c1d95ee3a7eed03f26ef482e8b4b29020ac8faa2537f7c9886357ed4b"
+
+[hooks.state."token-optimizer@alexgreensh-token-optimizer:hooks/hooks.json:post_compact:0:0"]
+trusted_hash = "sha256:28426d71e769687768513ea60b563cc494d9f8221a45949ffcd7ef73d15a52b6"
+
+[hooks.state."token-optimizer@alexgreensh-token-optimizer:hooks/hooks.json:session_start:0:0"]
+trusted_hash = "sha256:7cb1a4094d87a10a1efd2b74af4c0587edc4c1272caccd3edb614063e92de82c"
+
+[hooks.state."token-optimizer@alexgreensh-token-optimizer:hooks/hooks.json:session_end:0:0"]
+trusted_hash = "sha256:e77974c574dd60ef097dd7ab3018157db5e52934f2102b7704e14bd2630c9d0b"
+
+[hooks.state."token-optimizer@alexgreensh-token-optimizer:hooks/hooks.json:user_prompt_submit:0:0"]
+trusted_hash = "sha256:87148c85a5ab815f1975ce879abf1d6121b3f5daa4b607712edd1968da8bfc80"
+
+[hooks.state."token-optimizer@alexgreensh-token-optimizer:hooks/hooks.json:stop:0:0"]
+trusted_hash = "sha256:62219916de5c90b12e08bf5429f7f9b27ec9d2f183d54b4ff35adc2647138099"
+
+[hooks.state."i-have-adhd@i-have-adhd:hooks/hooks.json:session_start:0:0"]
+trusted_hash = "sha256:f14f820a4bb04f568faf482695f08471d7ed733a25fd94181693a7be4f06a637"
+
+[notice]
+hide_rate_limit_model_nudge = true
+
+[mcp_servers.Roblox_Studio]
+args = ["/c", "cd /d %LOCALAPPDATA%\\Roblox && .\\mcp.bat"]
+command = "cmd.exe"

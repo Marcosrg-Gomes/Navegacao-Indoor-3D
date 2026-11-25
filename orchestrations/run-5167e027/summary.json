@@ -1,0 +1,19 @@
+{
+  "run_id": "5167e027",
+  "plan": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\.alethe\\plans\\tcc-navegacao-indoor-2workers.json",
+  "executed_at": "2026-11-16T17:39:55.261608",
+  "results": [
+    {
+      "worker": "opencode-mobile",
+      "returncode": 1,
+      "stdout": "DESCRIPTION\n  Run OpenCode with a message\n\nUSAGE\n  opencode run [flags] [<message...>]\n\nARGUMENTS\n  message... string    Message to send (optional)\n\nFLAGS\n  --continue, -c            Continue the last session\n  --session, -s string      Session ID to continue, or to create if it does not exist\n  --fork                    Fork the session before continuing\n  --worktree, -w [=name]    Start a new session in a new git worktree, optionally with this name\n  --model, -m string        Model to use in the format provider/model#variant\n  --agent string            Agent to use\n  --format choice           Output format (choices: default, json)\n  --file, -f string         File to attach to the message\n  --title string            Session title\n  --archived                Create the session archived so it stays out of session lists (useful for scripted or CI runs)\n  --thinking                Show thinking blocks\n  --auto                    Auto-approve permissions that are not explicitly denied\n\nGLO",
+      "stderr": "\nERROR\n  Unrecognized flag: --prompt in command opencode run\n"
+    },
+    {
+      "worker": "opencode-ci",
+      "returncode": 1,
+      "stdout": "DESCRIPTION\n  Run OpenCode with a message\n\nUSAGE\n  opencode run [flags] [<message...>]\n\nARGUMENTS\n  message... string    Message to send (optional)\n\nFLAGS\n  --continue, -c            Continue the last session\n  --session, -s string      Session ID to continue, or to create if it does not exist\n  --fork                    Fork the session before continuing\n  --worktree, -w [=name]    Start a new session in a new git worktree, optionally with this name\n  --model, -m string        Model to use in the format provider/model#variant\n  --agent string            Agent to use\n  --format choice           Output format (choices: default, json)\n  --file, -f string         File to attach to the message\n  --title string            Session title\n  --archived                Create the session archived so it stays out of session lists (useful for scripted or CI runs)\n  --thinking                Show thinking blocks\n  --auto                    Auto-approve permissions that are not explicitly denied\n\nGLO",
+      "stderr": "\nERROR\n  Unrecognized flag: --prompt in command opencode run\n"
+    }
+  ]
+}

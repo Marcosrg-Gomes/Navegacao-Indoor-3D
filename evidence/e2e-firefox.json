@@ -1,0 +1,824 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--project=firefox",
+      "tests/visitor-experience.spec.ts",
+      "tests/scene.spec.ts",
+      "tests/navigation.spec.ts"
+    ],
+    "configFile": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\playwright.config.ts",
+    "rootDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-firefox-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-firefox-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-firefox-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-firefox-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chrome",
+        "name": "chrome",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/evidence/e2e-firefox-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "msedge",
+        "name": "msedge",
+        "testDir": "C:/Users/marco/OneDrive/Documentos/ChatGPT/Navegacao-Indoor-3D/apps/admin/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "../../evidence/e2e-firefox.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "navigation.spec.ts",
+      "file": "navigation.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Fluxo completo: QR, busca, rota, navegação simulada, chegada e nova navegação",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 31898,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('NATURA', { exact: true })\nExpected: visible\nError: strict mode violation: getByText('NATURA', { exact: true }) resolved to 2 elements:\n    1) <text x=\"7.5\" text-anchor=\"middle\" y=\"28.700000000000003\">NATURA</text> aka getByTestId('floor-plan-layer').getByText('NATURA')\n    2) <div dir=\"auto\" class=\"css-146c3p1 r-1iewvzr r-1inkyih r-1kfrs79 r-hbpseb\">NATURA</div> aka getByRole('button', { name: 'NATURA, ver detalhes' })\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('NATURA', { exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('NATURA', { exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('NATURA', { exact: true })\nExpected: visible\nError: strict mode violation: getByText('NATURA', { exact: true }) resolved to 2 elements:\n    1) <text x=\"7.5\" text-anchor=\"middle\" y=\"28.700000000000003\">NATURA</text> aka getByTestId('floor-plan-layer').getByText('NATURA')\n    2) <div dir=\"auto\" class=\"css-146c3p1 r-1iewvzr r-1inkyih r-1kfrs79 r-hbpseb\">NATURA</div> aka getByRole('button', { name: 'NATURA, ver detalhes' })\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('NATURA', { exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('NATURA', { exact: true })\u001b[22m\n\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\navigation.spec.ts:17:59",
+                    "location": {
+                      "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\navigation.spec.ts",
+                      "column": 59,
+                      "line": 17
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 15 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForTimeout(\u001b[35m2000\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 16 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByLabel(\u001b[32m\"Buscar no Explorar\"\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m\"NATURA\"\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 17 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByText(\u001b[32m\"NATURA\"\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                           \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 18 |\u001b[39m\n \u001b[90m 19 |\u001b[39m   expect(errors)\u001b[33m.\u001b[39mtoEqual([])\u001b[33m;\u001b[39m\n \u001b[90m 20 |\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\navigation.spec.ts",
+                        "column": 59,
+                        "line": 17
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('NATURA', { exact: true })\nExpected: visible\nError: strict mode violation: getByText('NATURA', { exact: true }) resolved to 2 elements:\n    1) <text x=\"7.5\" text-anchor=\"middle\" y=\"28.700000000000003\">NATURA</text> aka getByTestId('floor-plan-layer').getByText('NATURA')\n    2) <div dir=\"auto\" class=\"css-146c3p1 r-1iewvzr r-1inkyih r-1kfrs79 r-hbpseb\">NATURA</div> aka getByRole('button', { name: 'NATURA, ver detalhes' })\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('NATURA', { exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('NATURA', { exact: true })\u001b[22m\n\n\n  15 |   await page.waitForTimeout(2000);\n  16 |   await page.getByLabel(\"Buscar no Explorar\").fill(\"NATURA\");\n> 17 |   await expect(page.getByText(\"NATURA\", { exact: true })).toBeVisible();\n     |                                                           ^\n  18 |\n  19 |   expect(errors).toEqual([]);\n  20 | });\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\navigation.spec.ts:17:59"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-19T14:31:38.083Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-firefox-artifacts\\navigation-Fluxo-completo--938bc-da-chegada-e-nova-navegação-firefox\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-firefox-artifacts\\navigation-Fluxo-completo--938bc-da-chegada-e-nova-navegação-firefox\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\navigation.spec.ts",
+                    "column": 59,
+                    "line": 17
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "5d2868f7d23420c27cca-d65bbbac122e76dd1682",
+          "file": "navigation.spec.ts",
+          "line": 4,
+          "column": 1
+        },
+        {
+          "title": "Destino inexistente não quebra o fluxo",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 14373,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-19T14:32:17.656Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5d2868f7d23420c27cca-34730d003776f182a317",
+          "file": "navigation.spec.ts",
+          "line": 22,
+          "column": 1
+        },
+        {
+          "title": "Acessibilidade: rota sem escadas com mudança de pavimento",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5516,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-19T14:32:32.659Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5d2868f7d23420c27cca-6b1de8ced21e9421d555",
+          "file": "navigation.spec.ts",
+          "line": 32,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "scene.spec.ts",
+      "file": "scene.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Mini Shopping: QR, GLB real, loja térrea, rota idêntica em 2D/3D e chegada",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4656,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-19T14:32:38.214Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "route",
+                      "contentType": "application/json",
+                      "body": "ewogICJzdWNlc3NvIjogdHJ1ZSwKICAibm9zIjogWwogICAgewogICAgICAiaWQiOiA0NSwKICAgICAgImNvb3JkX3giOiAwLjUsCiAgICAgICJjb29yZF95IjogMC4wMjUsCiAgICAgICJ0aXBvIjogImVudHJhZGEiLAogICAgICAibm9tZSI6ICJFbnRyYWRhIHByaW5jaXBhbCIsCiAgICAgICJwaXNvX2lkIjogMQogICAgfSwKICAgIHsKICAgICAgImlkIjogNDYsCiAgICAgICJjb29yZF94IjogMC40MTMzMzMsCiAgICAgICJjb29yZF95IjogMC4wMjUsCiAgICAgICJ0aXBvIjogImNvcnJlZG9yIiwKICAgICAgIm5vbWUiOiAiVF9DT1JfRV8wMTUwMCIsCiAgICAgICJwaXNvX2lkIjogMQogICAgfSwKICAgIHsKICAgICAgImlkIjogMiwKICAgICAgImNvb3JkX3giOiAwLjQxMzMzMywKICAgICAgImNvb3JkX3kiOiAwLjIxLAogICAgICAidGlwbyI6ICJjb3JyZWRvciIsCiAgICAgICJub21lIjogIlRfQ09SX0VfMTI2MDAiLAogICAgICAicGlzb19pZCI6IDEKICAgIH0sCiAgICB7CiAgICAgICJpZCI6IDEsCiAgICAgICJjb29yZF94IjogMC4zODY2NjcsCiAgICAgICJjb29yZF95IjogMC4yMSwKICAgICAgInRpcG8iOiAibG9qYSIsCiAgICAgICJub21lIjogIkFESURBUyIsCiAgICAgICJwaXNvX2lkIjogMQogICAgfQogIF0sCiAgImRpc3RhbmNpYV90b3RhbF9tZXRyb3MiOiAxNC41LAogICJpbnN0cnVjb2VzIjogWwogICAgIlBhcnRpbmRvIGRlIEVudHJhZGEgcHJpbmNpcGFsIChwb250byBkZSBvcmlnZW0pIiwKICAgICJTaWdhIGVtIGZyZW50ZSBwb3IgMi42IG1ldHJvcyIsCiAgICAiVmlyZSDDoCBlc3F1ZXJkYSBwb3IgMTEuMSBtZXRyb3MiLAogICAgIlZpcmUgw6AgZGlyZWl0YSBwb3IgMC44IG1ldHJvcyIsCiAgICAiVm9jw6ogY2hlZ291IGFvIGRlc3Rpbm86IEFESURBUyIKICBdLAogICJldGFwYXMiOiBbCiAgICB7CiAgICAgICJ0ZXh0byI6ICJQYXJ0aW5kbyBkZSBFbnRyYWRhIHByaW5jaXBhbCAocG9udG8gZGUgb3JpZ2VtKSIsCiAgICAgICJ0aXBvIjogImluaWNpbyIsCiAgICAgICJub19vcmlnZW1faWQiOiA0NSwKICAgICAgIm5vX2Rlc3Rpbm9faWQiOiA0NSwKICAgICAgInBpc29fb3JpZ2VtX2lkIjogMSwKICAgICAgInBpc29fZGVzdGlub19pZCI6IDEsCiAgICAgICJkaXN0YW5jaWFfbWV0cm9zIjogMCwKICAgICAgImRpc3RhbmNpYV9leGF0YV9tZXRyb3MiOiAwLAogICAgICAicmVmZXJlbmNpYSI6IG51bGwsCiAgICAgICJyZWZlcmVuY2lhX25vX2lkIjogbnVsbAogICAgfSwKICAgIHsKICAgICAgInRleHRvIjogIlNpZ2EgZW0gZnJlbnRlIHBvciAyLjYgbWV0cm9zIiwKICAgICAgInRpcG8iOiAiY2FtaW5obyIsCiAgICAgICJub19vcmlnZW1faWQiOiA0NSwKICAgICAgIm5vX2Rlc3Rpbm9faWQiOiA0NiwKICAgICAgInBpc29fb3JpZ2VtX2lkIjogMSwKICAgICAgInBpc29fZGVzdGlub19pZCI6IDEsCiAgICAgICJkaXN0YW5jaWFfbWV0cm9zIjogMi42LAogICAgICAiZGlzdGFuY2lhX2V4YXRhX21ldHJvcyI6IDIuNiwKICAgICAgInJlZmVyZW5jaWEiOiAiUmVmZXLDqm5jaWEgbmVzdGUgdHJlY2hvOiBFbnRyYWRhIHByaW5jaXBhbCIsCiAgICAgICJyZWZlcmVuY2lhX25vX2lkIjogNDUKICAgIH0sCiAgICB7CiAgICAgICJ0ZXh0byI6ICJWaXJlIMOgIGVzcXVlcmRhIHBvciAxMS4xIG1ldHJvcyIsCiAgICAgICJ0aXBvIjogImNhbWluaG8iLAogICAgICAibm9fb3JpZ2VtX2lkIjogNDYsCiAgICAgICJub19kZXN0aW5vX2lkIjogMiwKICAgICAgInBpc29fb3JpZ2VtX2lkIjogMSwKICAgICAgInBpc29fZGVzdGlub19pZCI6IDEsCiAgICAgICJkaXN0YW5jaWFfbWV0cm9zIjogMTEuMSwKICAgICAgImRpc3RhbmNpYV9leGF0YV9tZXRyb3MiOiAxMS4xLAogICAgICAicmVmZXJlbmNpYSI6ICJSZWZlcsOqbmNpYSBuZXN0ZSB0cmVjaG86IEVudHJhZGEgcHJpbmNpcGFsIiwKICAgICAgInJlZmVyZW5jaWFfbm9faWQiOiA0NQogICAgfSwKICAgIHsKICAgICAgInRleHRvIjogIlZpcmUgw6AgZGlyZWl0YSBwb3IgMC44IG1ldHJvcyIsCiAgICAgICJ0aXBvIjogImNhbWluaG8iLAogICAgICAibm9fb3JpZ2VtX2lkIjogMiwKICAgICAgIm5vX2Rlc3Rpbm9faWQiOiAxLAogICAgICAicGlzb19vcmlnZW1faWQiOiAxLAogICAgICAicGlzb19kZXN0aW5vX2lkIjogMSwKICAgICAgImRpc3RhbmNpYV9tZXRyb3MiOiAwLjgsCiAgICAgICJkaXN0YW5jaWFfZXhhdGFfbWV0cm9zIjogMC44LAogICAgICAicmVmZXJlbmNpYSI6ICJSZWZlcsOqbmNpYSBuZXN0ZSB0cmVjaG86IEFESURBUyIsCiAgICAgICJyZWZlcmVuY2lhX25vX2lkIjogMQogICAgfSwKICAgIHsKICAgICAgInRleHRvIjogIlZvY8OqIGNoZWdvdSBhbyBkZXN0aW5vOiBBRElEQVMiLAogICAgICAidGlwbyI6ICJjaGVnYWRhIiwKICAgICAgIm5vX29yaWdlbV9pZCI6IDEsCiAgICAgICJub19kZXN0aW5vX2lkIjogMSwKICAgICAgInBpc29fb3JpZ2VtX2lkIjogMSwKICAgICAgInBpc29fZGVzdGlub19pZCI6IDEsCiAgICAgICJkaXN0YW5jaWFfbWV0cm9zIjogMCwKICAgICAgImRpc3RhbmNpYV9leGF0YV9tZXRyb3MiOiAwLAogICAgICAicmVmZXJlbmNpYSI6IG51bGwsCiAgICAgICJyZWZlcmVuY2lhX25vX2lkIjogbnVsbAogICAgfQogIF0sCiAgInJlc3VtbyI6IHsKICAgICJtZXRyb3NfY29ycmVkb3IiOiAxNC41LAogICAgImVsZXZhZG9yZXMiOiAwLAogICAgImVzY2FkYXMiOiAwLAogICAgIm1pbnV0b3NfZXN0aW1hZG9zIjogMQogIH0sCiAgInJldmlzYW8iOiAiYTcyM2RmNzc4NjQzNDYzN2Y0MDc5YzQ2YThhMzZiNTRmNzFmYmQ1NmI2NjQxYTljMDc2NTE0OTMxMmE1YmQwMyIKfQ=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3aa4c5b91f4bbc99f382-648c022e2ac797c48d28",
+          "file": "scene.spec.ts",
+          "line": 6,
+          "column": 1
+        },
+        {
+          "title": "Mini Shopping: elevador acessível, mudança de piso e bloqueio",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5408,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-19T14:32:42.887Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3aa4c5b91f4bbc99f382-7a4e0e9ff633cfbafd2c",
+          "file": "scene.spec.ts",
+          "line": 33,
+          "column": 1
+        },
+        {
+          "title": "Falha do GLB preserva mapa 2D, destino e instruções; tentativa manual recupera",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2751,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-19T14:32:48.312Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3aa4c5b91f4bbc99f382-231b866acca4118d5d1d",
+          "file": "scene.spec.ts",
+          "line": 44,
+          "column": 1
+        },
+        {
+          "title": "Painel mostra inventário da cena e links dos pisos",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1827,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-19T14:32:51.077Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3aa4c5b91f4bbc99f382-9ae9e9f00d9862abd663",
+          "file": "scene.spec.ts",
+          "line": 65,
+          "column": 1
+        },
+        {
+          "title": "Botão acessível da loja visível do térreo abre o POI correto",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3685,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-19T14:32:52.917Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3aa4c5b91f4bbc99f382-92bc47daff8db6c8ca40",
+          "file": "scene.spec.ts",
+          "line": 74,
+          "column": 1
+        },
+        {
+          "title": "Sem WebGL o visitante mantém QR e mapa 2D",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1743,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-19T14:32:56.616Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3aa4c5b91f4bbc99f382-8a1e0370416b6c059b3d",
+          "file": "scene.spec.ts",
+          "line": 91,
+          "column": 1
+        },
+        {
+          "title": "GLB sem resposta atinge o limite de carregamento e libera o mapa 2D",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 21340,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-19T14:32:58.371Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3aa4c5b91f4bbc99f382-023881333a7b8d764229",
+          "file": "scene.spec.ts",
+          "line": 104,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "visitor-experience.spec.ts",
+      "file": "visitor-experience.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Favoritos e recentes persistem; a posição precisa ser confirmada novamente",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 6786,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('NATURA', { exact: true })\nExpected: visible\nError: strict mode violation: getByText('NATURA', { exact: true }) resolved to 2 elements:\n    1) <text x=\"7.5\" text-anchor=\"middle\" y=\"28.700000000000003\">NATURA</text> aka getByTestId('floor-plan-layer').getByText('NATURA')\n    2) <div dir=\"auto\" class=\"css-146c3p1 r-1iewvzr r-1inkyih r-1kfrs79 r-hbpseb\">NATURA</div> aka getByRole('button', { name: 'NATURA, ver detalhes' })\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('NATURA', { exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('NATURA', { exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('NATURA', { exact: true })\nExpected: visible\nError: strict mode violation: getByText('NATURA', { exact: true }) resolved to 2 elements:\n    1) <text x=\"7.5\" text-anchor=\"middle\" y=\"28.700000000000003\">NATURA</text> aka getByTestId('floor-plan-layer').getByText('NATURA')\n    2) <div dir=\"auto\" class=\"css-146c3p1 r-1iewvzr r-1inkyih r-1kfrs79 r-hbpseb\">NATURA</div> aka getByRole('button', { name: 'NATURA, ver detalhes' })\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('NATURA', { exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('NATURA', { exact: true })\u001b[22m\n\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:28:59",
+                    "location": {
+                      "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                      "column": 59,
+                      "line": 28
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 26 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"tab\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[35m/Explorar/\u001b[39m })\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 27 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByLabel(\u001b[32m\"Buscar no Explorar\"\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m\"natura\"\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 28 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByText(\u001b[32m\"NATURA\"\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                           \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 29 |\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 30 |\u001b[39m\n \u001b[90m 31 |\u001b[39m test(\u001b[32m\"Explorar busca e ordena pelo percurso da API\"\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page\u001b[33m,\u001b[39m request }) \u001b[33m=>\u001b[39m {\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                        "column": 59,
+                        "line": 28
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('NATURA', { exact: true })\nExpected: visible\nError: strict mode violation: getByText('NATURA', { exact: true }) resolved to 2 elements:\n    1) <text x=\"7.5\" text-anchor=\"middle\" y=\"28.700000000000003\">NATURA</text> aka getByTestId('floor-plan-layer').getByText('NATURA')\n    2) <div dir=\"auto\" class=\"css-146c3p1 r-1iewvzr r-1inkyih r-1kfrs79 r-hbpseb\">NATURA</div> aka getByRole('button', { name: 'NATURA, ver detalhes' })\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('NATURA', { exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('NATURA', { exact: true })\u001b[22m\n\n\n  26 |   await page.getByRole(\"tab\", { name: /Explorar/ }).click();\n  27 |   await page.getByLabel(\"Buscar no Explorar\").fill(\"natura\");\n> 28 |   await expect(page.getByText(\"NATURA\", { exact: true })).toBeVisible();\n     |                                                           ^\n  29 | });\n  30 |\n  31 | test(\"Explorar busca e ordena pelo percurso da API\", async ({ page, request }) => {\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:28:59"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-19T14:33:19.750Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-firefox-artifacts\\visitor-experience-Favorit-dbf0d-sa-ser-confirmada-novamente-firefox\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-firefox-artifacts\\visitor-experience-Favorit-dbf0d-sa-ser-confirmada-novamente-firefox\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                    "column": 59,
+                    "line": 28
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-cb82bc50adbe3475c926",
+          "file": "visitor-experience.spec.ts",
+          "line": 24,
+          "column": 1
+        },
+        {
+          "title": "Explorar busca e ordena pelo percurso da API",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 10807,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-19T14:33:32.803Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "31f8b141317877a86365-749c9d1ae6a39e33587e",
+          "file": "visitor-experience.spec.ts",
+          "line": 31,
+          "column": 1
+        },
+        {
+          "title": "Serviços sem loja recebem rotas e permitem voltar à entrada",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6076,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-19T14:33:44.247Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "31f8b141317877a86365-7cd7cddf326d4e673581",
+          "file": "visitor-experience.spec.ts",
+          "line": 42,
+          "column": 1
+        },
+        {
+          "title": "Avançar instruções e visualizar outro piso não altera a posição",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8995,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-19T14:33:50.339Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "31f8b141317877a86365-b0cdd30511a35a134dd7",
+          "file": "visitor-experience.spec.ts",
+          "line": 52,
+          "column": 1
+        },
+        {
+          "title": "Recálculo mantém mapa, sinaliza falha e recupera sem perder a origem",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5768,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('NATURA', { exact: true })\nExpected: visible\nError: strict mode violation: getByText('NATURA', { exact: true }) resolved to 2 elements:\n    1) <text x=\"7.5\" text-anchor=\"middle\" y=\"28.700000000000003\">NATURA</text> aka getByTestId('floor-plan-layer').getByText('NATURA')\n    2) <div dir=\"auto\" class=\"css-146c3p1 r-1iewvzr r-1inkyih r-1kfrs79 r-hbpseb\">NATURA</div> aka getByRole('button', { name: 'NATURA, ver detalhes' })\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('NATURA', { exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('NATURA', { exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('NATURA', { exact: true })\nExpected: visible\nError: strict mode violation: getByText('NATURA', { exact: true }) resolved to 2 elements:\n    1) <text x=\"7.5\" text-anchor=\"middle\" y=\"28.700000000000003\">NATURA</text> aka getByTestId('floor-plan-layer').getByText('NATURA')\n    2) <div dir=\"auto\" class=\"css-146c3p1 r-1iewvzr r-1inkyih r-1kfrs79 r-hbpseb\">NATURA</div> aka getByRole('button', { name: 'NATURA, ver detalhes' })\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('NATURA', { exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('NATURA', { exact: true })\u001b[22m\n\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:69:59",
+                    "location": {
+                      "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                      "column": 59,
+                      "line": 69
+                    },
+                    "snippet": "\u001b[0m \u001b[90m 67 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m\"tab\"\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[35m/Explorar/\u001b[39m })\u001b[33m.\u001b[39mclick()\u001b[33m;\u001b[39m\n \u001b[90m 68 |\u001b[39m   \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByLabel(\u001b[32m\"Buscar no Explorar\"\u001b[39m)\u001b[33m.\u001b[39mfill(\u001b[32m\"NATURA\"\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 69 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByText(\u001b[32m\"NATURA\"\u001b[39m\u001b[33m,\u001b[39m { exact\u001b[33m:\u001b[39m \u001b[36mtrue\u001b[39m }))\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                           \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 70 |\u001b[39m   \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByTestId(\u001b[32m\"origin-label\"\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m\"Entrada principal\"\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 71 |\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 72 |\u001b[39m\u001b[0m"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                        "column": 59,
+                        "line": 69
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('NATURA', { exact: true })\nExpected: visible\nError: strict mode violation: getByText('NATURA', { exact: true }) resolved to 2 elements:\n    1) <text x=\"7.5\" text-anchor=\"middle\" y=\"28.700000000000003\">NATURA</text> aka getByTestId('floor-plan-layer').getByText('NATURA')\n    2) <div dir=\"auto\" class=\"css-146c3p1 r-1iewvzr r-1inkyih r-1kfrs79 r-hbpseb\">NATURA</div> aka getByRole('button', { name: 'NATURA, ver detalhes' })\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('NATURA', { exact: true }) with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('NATURA', { exact: true })\u001b[22m\n\n\n  67 |   await page.getByRole(\"tab\", { name: /Explorar/ }).click();\n  68 |   await page.getByLabel(\"Buscar no Explorar\").fill(\"NATURA\");\n> 69 |   await expect(page.getByText(\"NATURA\", { exact: true })).toBeVisible();\n     |                                                           ^\n  70 |   await expect(page.getByTestId(\"origin-label\")).toContainText(\"Entrada principal\");\n  71 | });\n  72 |\n    at C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts:69:59"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-19T14:33:59.348Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-firefox-artifacts\\visitor-experience-Recálcu-36b50-ecupera-sem-perder-a-origem-firefox\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\evidence\\e2e-firefox-artifacts\\visitor-experience-Recálcu-36b50-ecupera-sem-perder-a-origem-firefox\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\marco\\OneDrive\\Documentos\\ChatGPT\\Navegacao-Indoor-3D\\apps\\admin\\tests\\visitor-experience.spec.ts",
+                    "column": 59,
+                    "line": 69
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "31f8b141317877a86365-588e4708bfa635521fb3",
+          "file": "visitor-experience.spec.ts",
+          "line": 65,
+          "column": 1
+        },
+        {
+          "title": "Explorar recupera erro de carregamento e mantém alvos legíveis no celular",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6898,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-19T14:34:10.435Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "31f8b141317877a86365-535a45bd2deda32ddcbe",
+          "file": "visitor-experience.spec.ts",
+          "line": 73,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-19T14:31:37.333Z",
+    "duration": 161356.887,
+    "expected": 13,
+    "skipped": 0,
+    "unexpected": 3,
+    "flaky": 0
+  }
+}

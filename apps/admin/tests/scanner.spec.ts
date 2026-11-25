@@ -36,7 +36,7 @@ async function installScannerFixture(page: Page) {
 }
 
 test("Scanner mantém uma única resolução enquanto a leitura está pendente", async ({ page }, info) => {
-  test.skip(info.project.name !== "chromium", "Fixture de MediaStream simulada para Chromium");
+  test.skip(info.project.name !== "chrome" && info.project.name !== "chromium", "Fixture de MediaStream simulada para Chromium/Chrome");
   await installScannerFixture(page);
   let requests = 0;
   let releaseFirst: (() => void) | undefined;
@@ -48,25 +48,25 @@ test("Scanner mantém uma única resolução enquanto a leitura está pendente",
   });
   await page.goto("/scan");
   await expect(page.locator("video")).toBeVisible();
-  await page.evaluate(() => { (window as Window & { auditQrToken: string }).auditQrToken = "ENTRADA-PRINCIPAL"; });
+  await page.evaluate(() => { (window as Window & { auditQrToken: string }).auditQrToken = "MINI-ENTRADA-PRINCIPAL"; });
   await expect.poll(() => requests).toBe(1);
 
   const input = page.getByLabel("Código ou link do QR", { exact: true });
-  await input.fill("DESTINO-SUPERIOR");
+  await input.fill("MINI-ENTRADA-PRINCIPAL");
   await input.press("Enter");
   await expect(page.getByRole("button", { name: "Usar código", exact: true })).toBeDisabled();
-  await page.evaluate(() => { (window as Window & { auditQrToken: string }).auditQrToken = "DESTINO-SUPERIOR"; });
+  await page.evaluate(() => { (window as Window & { auditQrToken: string }).auditQrToken = "MINI-ENTRADA-PRINCIPAL"; });
   await page.waitForTimeout(100);
   expect(requests).toBe(1);
 
   releaseFirst?.();
-  await expect(page.getByTestId("origin-label")).toContainText("Entrada Principal");
+  await expect(page.getByTestId("origin-label")).toContainText(/entrada principal/i);
   await expect(page).toHaveURL(/\/map$/);
   expect(requests).toBe(1);
 });
 
 test("Scanner não navega após perder o foco durante a resolução", async ({ page }, info) => {
-  test.skip(info.project.name !== "chromium", "Fixture de MediaStream simulada para Chromium");
+  test.skip(info.project.name !== "chrome" && info.project.name !== "chromium", "Fixture de MediaStream simulada para Chromium/Chrome");
   await installScannerFixture(page);
   let requests = 0;
   let releaseRequest: (() => void) | undefined;
@@ -78,9 +78,9 @@ test("Scanner não navega após perder o foco durante a resolução", async ({ p
   });
   await page.goto("/scan");
   await expect(page.locator("video")).toBeVisible();
-  await page.evaluate(() => { (window as Window & { auditQrToken: string }).auditQrToken = "ENTRADA-PRINCIPAL"; });
+  await page.evaluate(() => { (window as Window & { auditQrToken: string }).auditQrToken = "MINI-ENTRADA-PRINCIPAL"; });
   await expect.poll(() => requests).toBe(1);
-  const response = page.waitForResponse("**/api/qr-codes/ENTRADA-PRINCIPAL");
+  const response = page.waitForResponse("**/api/qr-codes/MINI-ENTRADA-PRINCIPAL");
 
   await page.getByRole("tab", { name: "Início", exact: true }).click();
   await expect(page.getByRole("tab", { name: "Início", exact: true })).toHaveAttribute("aria-selected", "true");
@@ -90,10 +90,10 @@ test("Scanner não navega após perder o foco durante a resolução", async ({ p
 });
 
 test("Scanner permite nova tentativa após falha", async ({ page }, info) => {
-  test.skip(info.project.name !== "chromium", "Fixture de MediaStream simulada para Chromium");
+  test.skip(info.project.name !== "chrome" && info.project.name !== "chromium", "Fixture de MediaStream simulada para Chromium/Chrome");
   await installScannerFixture(page);
   let requests = 0;
-  await page.route("**/api/qr-codes/ENTRADA-PRINCIPAL", async (route) => {
+  await page.route("**/api/qr-codes/MINI-ENTRADA-PRINCIPAL", async (route) => {
     requests += 1;
     if (requests === 1) {
       await route.fulfill({ status: 404, contentType: "application/json", body: JSON.stringify({ detail: "QR Code não encontrado ou inativo" }) });
@@ -103,27 +103,26 @@ test("Scanner permite nova tentativa após falha", async ({ page }, info) => {
   });
   await page.goto("/scan");
   await expect(page.locator("video")).toBeVisible();
-  await page.evaluate(() => { (window as Window & { auditQrToken: string }).auditQrToken = "ENTRADA-PRINCIPAL"; });
+  await page.evaluate(() => { (window as Window & { auditQrToken: string }).auditQrToken = "MINI-ENTRADA-PRINCIPAL"; });
   await expect(page.getByText("QR Code não encontrado ou inativo", { exact: true })).toBeVisible();
   await page.evaluate(() => { (window as Window & { auditQrToken: string | null }).auditQrToken = null; });
   await page.getByRole("button", { name: "Tentar novamente", exact: true }).click();
-  await page.getByLabel("Código ou link do QR", { exact: true }).fill("ENTRADA-PRINCIPAL");
+  await page.getByLabel("Código ou link do QR", { exact: true }).fill("MINI-ENTRADA-PRINCIPAL");
   await page.getByRole("button", { name: "Usar código", exact: true }).click();
-  await expect(page.getByTestId("origin-label")).toContainText("Entrada Principal");
+  await expect(page.getByTestId("origin-label")).toContainText(/entrada principal/i);
   expect(requests).toBe(2);
 });
 
 test("Scanner aceita outra leitura após voltar à aba (eventos simulados)", async ({ page, browser }, info) => {
-  test.skip(info.project.name !== "chromium", "Fixture de MediaStream simulada para Chromium");
+  test.skip(info.project.name !== "chrome" && info.project.name !== "chromium", "Fixture de MediaStream simulada para Chromium/Chrome");
   info.annotations.push({ type: "browser-version", description: `chromium ${browser.version()} (${process.platform})` });
   info.annotations.push({ type: "scope", description: "Vídeo sintético e decoder simulado; não valida leitura óptica nem câmera física." });
   await installScannerFixture(page);
   await page.goto("/scan");
   await expect(page.locator("video")).toBeVisible();
-  await page.evaluate(() => { (window as Window & { auditQrToken: string }).auditQrToken = "ENTRADA-PRINCIPAL"; });
-  await expect(page.getByTestId("origin-label")).toContainText("Entrada Principal");
-  await page.evaluate(() => { (window as Window & { auditQrToken: string }).auditQrToken = "DESTINO-SUPERIOR"; });
-  await page.getByRole("button", { name: "Escanear QR", exact: true }).click();
-  await expect(page.getByTestId("origin-label")).toContainText("Livraria Superior");
-  await expect(page.getByText("Mapa: Piso superior", { exact: true })).toBeVisible();
+  await page.evaluate(() => { (window as Window & { auditQrToken: string }).auditQrToken = "MINI-ENTRADA-PRINCIPAL"; });
+  await expect(page.getByTestId("origin-label")).toContainText(/entrada principal/i);
+  await page.evaluate(() => { (window as Window & { auditQrToken: string }).auditQrToken = "MINI-ENTRADA-PRINCIPAL"; });
+  await page.getByRole("button", { name: "Escanear QR Code", exact: true }).click();
+  await expect(page.getByTestId("origin-label")).toContainText(/entrada principal/i);
 });

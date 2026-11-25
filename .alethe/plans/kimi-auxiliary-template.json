@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "title": "Kimi native auxiliary worker",
+  "playbook": "plan-execute",
+  "phase": "auxiliary",
+  "why": "Template for the native Kimi worker while preserving its configured default model and authentication.",
+  "strategy": "economy",
+  "maxConcurrent": 1,
+  "workers": [
+    {
+      "id": "kimi-auxiliary",
+      "why": "Auxiliary native Kimi worker in an isolated worktree; Kimi has no enforceable read-only mode.",
+      "provider": "kimi",
+      "mode": "write",
+      "isolate": true,
+      "cwd": "../..",
+      "outputFormat": "jsonl",
+      "task": "Replace this placeholder with a bounded auxiliary brief before execution. Specify owned paths, validation, and forbidden changes."
+    }
+  ]
+}

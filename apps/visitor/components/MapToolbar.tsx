@@ -4,12 +4,14 @@ import { Text } from "@/components/AppText";
 import { colors } from "@/constants/colors";
 import { WayfindingIcon, type WayfindingIconName } from "./WayfindingIcon";
 
+const TOUCH_SLOP = { top: 6, bottom: 6, left: 6, right: 6 };
+
 function ToolButton({ label, icon, onPress, tone = "neutral", accessibilityLabel, expanded, iconOnly = false }: {
   label: string; icon?: WayfindingIconName; onPress: () => void; tone?: "neutral" | "primary"; accessibilityLabel?: string; expanded?: boolean; iconOnly?: boolean;
 }) {
   const primary = tone === "primary";
   return <TouchableOpacity accessibilityRole="button" accessibilityLabel={accessibilityLabel} accessibilityState={expanded === undefined ? undefined : { expanded }}
-    onPress={onPress} style={[styles.button, primary && styles.primary, iconOnly && styles.iconOnly]}>
+    onPress={onPress} hitSlop={TOUCH_SLOP} style={[styles.button, primary && styles.primary, iconOnly && styles.iconOnly]}>
     {icon && <WayfindingIcon name={icon} color={primary ? colors.textOnPrimary : colors.primary} size={18} strokeWidth={2} />}
     {iconOnly ? null : <Text style={[styles.text, primary && styles.textOnPrimary]}>{label}</Text>}
   </TouchableOpacity>;
@@ -22,11 +24,11 @@ export function MapToolbar({ zoom, onZoom, onReset, onLocate, onRoute, children 
   const [expanded, setExpanded] = useState(false);
   return <View style={styles.toolbar}>
     <View style={styles.zoom}>
-      <TouchableOpacity accessibilityRole="button" accessibilityLabel="Diminuir zoom" style={styles.step} onPress={() => onZoom(1 / 1.5)}>
+      <TouchableOpacity accessibilityRole="button" accessibilityLabel="Diminuir zoom" style={styles.step} hitSlop={TOUCH_SLOP} onPress={() => onZoom(1 / 1.5)}>
         <WayfindingIcon name="minus" color={colors.primary} size={18} strokeWidth={2.2} />
       </TouchableOpacity>
       <Text style={styles.value} testID="map-zoom">{zoom.toFixed(1)}×</Text>
-      <TouchableOpacity accessibilityRole="button" accessibilityLabel="Aumentar zoom" style={styles.step} onPress={() => onZoom(1.5)}>
+      <TouchableOpacity accessibilityRole="button" accessibilityLabel="Aumentar zoom" style={styles.step} hitSlop={TOUCH_SLOP} onPress={() => onZoom(1.5)}>
         <WayfindingIcon name="plus" color={colors.primary} size={18} strokeWidth={2.2} />
       </TouchableOpacity>
     </View>
@@ -83,10 +85,10 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: colors.surface,
   },
-  step: { width: 40, height: 40, alignItems: "center", justifyContent: "center" },
+  step: { width: 44, height: 44, alignItems: "center", justifyContent: "center" },
   value: { minWidth: 44, textAlign: "center", color: colors.primary, fontWeight: "700", fontSize: 13, fontVariant: ["tabular-nums"] },
   button: {
-    minHeight: 42,
+    minHeight: 48,
     paddingHorizontal: 12,
     flexDirection: "row",
     alignItems: "center",
@@ -97,7 +99,7 @@ const styles = StyleSheet.create({
     borderColor: colors.borderLight,
   },
   primary: { backgroundColor: colors.primary, borderColor: colors.primary },
-  iconOnly: { width: 42, paddingHorizontal: 0, justifyContent: "center" },
+  iconOnly: { width: 44, paddingHorizontal: 0, justifyContent: "center" },
   text: { fontSize: 13, color: colors.primary, fontWeight: "600" },
   textOnPrimary: { color: colors.textOnPrimary },
   legend: {

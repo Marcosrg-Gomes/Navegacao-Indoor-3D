@@ -11,7 +11,7 @@ const palette = {
 
 export function PoiStatus({ status }: { status: StatusOperacional }) {
   const [foreground, backgroundColor] = palette[status];
-  return <View style={[styles.badge, { backgroundColor }]}>
+  return <View style={[styles.badge, { backgroundColor }]} accessibilityLabel={STATUS_OPERACIONAL_LABEL[status]}>
     <Text accessible={false} style={{ color: foreground, fontSize: 14 }}>{status === "aberto" ? "✓" : status === "fechado" ? "×" : "!"}</Text>
     <Text style={[styles.label, { color: foreground }]}>{STATUS_OPERACIONAL_LABEL[status]}</Text>
   </View>;

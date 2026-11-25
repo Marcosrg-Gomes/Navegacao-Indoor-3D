@@ -6,14 +6,20 @@ from app.services.opening_hours import opening_summary
 
 
 def test_reference_uses_corridor_connection_not_proximity_through_wall(db_session, sample_data):
-    corridor = sample_data["nodes"]["n2"]
+    nodes = sample_data["nodes"]
+    engine = NavigationEngine(db_session)
+    base = engine.calcular_rota(nodes["n1"].id, nodes["n5"].id)
+    # Attach the connected POI to a corridor the route actually traverses and
+    # give it a shorter edge than any other non-corridor neighbour, so the
+    # reference must come from the graph connection.
+    corridor_id = next(node["id"] for node in base["nos"][1:] if node["tipo"] == "corredor")
+    corridor = db_session.get(No, corridor_id)
     linked = No(piso_id=corridor.piso_id, coord_x=.31, coord_y=.5, tipo="loja", nome="Referência conectada", ativo=True)
     isolated = No(piso_id=corridor.piso_id, coord_x=.3, coord_y=.5, tipo="loja", nome="Atrás da parede", ativo=True)
     db_session.add_all([linked, isolated]); db_session.flush()
-    edge = Aresta(no_origem_id=corridor.id, no_destino_id=linked.id, distancia=3, bidirecional=True, acessivel=True, ativa=True)
+    edge = Aresta(no_origem_id=corridor.id, no_destino_id=linked.id, distancia=.4, bidirecional=True, acessivel=True, ativa=True)
     db_session.add(edge); db_session.commit()
-    engine = NavigationEngine(db_session)
-    route = engine.calcular_rota(sample_data["nodes"]["n1"].id, sample_data["nodes"]["n5"].id)
+    route = engine.calcular_rota(nodes["n1"].id, nodes["n5"].id)
     references = [step.get("referencia_no_id") for step in route["etapas"]]
     assert linked.id in references
     assert isolated.id not in references
@@ -21,7 +27,7 @@ def test_reference_uses_corridor_connection_not_proximity_through_wall(db_sessio
     assert route["resumo"]["elevadores"] == 0
     assert route["resumo"]["escadas"] == 0
     edge.ativa = False; db_session.commit()
-    changed = engine.calcular_rota(sample_data["nodes"]["n1"].id, sample_data["nodes"]["n5"].id)
+    changed = engine.calcular_rota(nodes["n1"].id, nodes["n5"].id)
     assert linked.id not in [step.get("referencia_no_id") for step in changed["etapas"]]
 
 

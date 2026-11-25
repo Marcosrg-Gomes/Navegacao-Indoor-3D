@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "title": "GitHub Copilot isolated worker",
+  "playbook": "plan-execute",
+  "phase": "implementation",
+  "why": "Template preserving the previously validated Copilot custom adapter and its isolated worktree requirement.",
+  "strategy": "economy",
+  "maxConcurrent": 1,
+  "workers": [
+    {
+      "id": "copilot-implementation",
+      "why": "Existing Copilot custom adapter, restricted to an isolated implementation worktree.",
+      "provider": "custom",
+      "mode": "write",
+      "isolate": true,
+      "cwd": "../..",
+      "command": "node",
+      "args": ["C:/Users/marco/AppData/Local/copilot/pkg/win32-x64/1.0.112/cli-main.js", "--allow-tool=write", "-p"],
+      "promptTransport": "argument",
+      "outputFormat": "text",
+      "task": "Replace this placeholder with a bounded implementation brief before execution. Specify owned paths, validation, and forbidden changes."
+    }
+  ]
+}
