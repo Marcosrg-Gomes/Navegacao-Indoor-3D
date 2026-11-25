@@ -38,9 +38,10 @@ def main():
     upgrade_schema(engine)
     # Habilita WAL mode para melhorar concorrência de leitura no SQLite
     from sqlalchemy import text
-    with engine.connect() as conn:
-        conn.execute(text("PRAGMA journal_mode=WAL"))
-        conn.commit()
+    if engine.dialect.name == "sqlite":
+        with engine.connect() as conn:
+            conn.execute(text("PRAGMA journal_mode=WAL"))
+            conn.commit()
     with SessionLocal.begin() as db:
         seed_mini_shopping(db, catalog_path=catalog_path)
         publish_scene(db, catalog_path)

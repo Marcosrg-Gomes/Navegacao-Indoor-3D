@@ -36,7 +36,7 @@ async function installScannerFixture(page: Page) {
 }
 
 test("Scanner mantém uma única resolução enquanto a leitura está pendente", async ({ page }, info) => {
-  test.skip(info.project.name !== "chromium", "Fixture de MediaStream simulada para Chromium");
+  test.skip(info.project.name !== "chrome" && info.project.name !== "chromium", "Fixture de MediaStream simulada para Chromium/Chrome");
   await installScannerFixture(page);
   let requests = 0;
   let releaseFirst: (() => void) | undefined;
@@ -66,7 +66,7 @@ test("Scanner mantém uma única resolução enquanto a leitura está pendente",
 });
 
 test("Scanner não navega após perder o foco durante a resolução", async ({ page }, info) => {
-  test.skip(info.project.name !== "chromium", "Fixture de MediaStream simulada para Chromium");
+  test.skip(info.project.name !== "chrome" && info.project.name !== "chromium", "Fixture de MediaStream simulada para Chromium/Chrome");
   await installScannerFixture(page);
   let requests = 0;
   let releaseRequest: (() => void) | undefined;
@@ -90,7 +90,7 @@ test("Scanner não navega após perder o foco durante a resolução", async ({ p
 });
 
 test("Scanner permite nova tentativa após falha", async ({ page }, info) => {
-  test.skip(info.project.name !== "chromium", "Fixture de MediaStream simulada para Chromium");
+  test.skip(info.project.name !== "chrome" && info.project.name !== "chromium", "Fixture de MediaStream simulada para Chromium/Chrome");
   await installScannerFixture(page);
   let requests = 0;
   await page.route("**/api/qr-codes/ENTRADA-PRINCIPAL", async (route) => {
@@ -114,7 +114,7 @@ test("Scanner permite nova tentativa após falha", async ({ page }, info) => {
 });
 
 test("Scanner aceita outra leitura após voltar à aba (eventos simulados)", async ({ page, browser }, info) => {
-  test.skip(info.project.name !== "chromium", "Fixture de MediaStream simulada para Chromium");
+  test.skip(info.project.name !== "chrome" && info.project.name !== "chromium", "Fixture de MediaStream simulada para Chromium/Chrome");
   info.annotations.push({ type: "browser-version", description: `chromium ${browser.version()} (${process.platform})` });
   info.annotations.push({ type: "scope", description: "Vídeo sintético e decoder simulado; não valida leitura óptica nem câmera física." });
   await installScannerFixture(page);
@@ -123,7 +123,7 @@ test("Scanner aceita outra leitura após voltar à aba (eventos simulados)", asy
   await page.evaluate(() => { (window as Window & { auditQrToken: string }).auditQrToken = "ENTRADA-PRINCIPAL"; });
   await expect(page.getByTestId("origin-label")).toContainText("Entrada Principal");
   await page.evaluate(() => { (window as Window & { auditQrToken: string }).auditQrToken = "DESTINO-SUPERIOR"; });
-  await page.getByRole("button", { name: "Escanear QR", exact: true }).click();
+  await page.getByRole("button", { name: "Escanear QR Code", exact: true }).click();
   await expect(page.getByTestId("origin-label")).toContainText("Livraria Superior");
-  await expect(page.getByText("Mapa: Piso superior", { exact: true })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Ver Piso superior", exact: true })).toHaveAttribute("aria-pressed", "true");
 });

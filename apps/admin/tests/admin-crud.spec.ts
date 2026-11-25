@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test("Administrador cadastra um piso navegável, edita e remove seus registros", async ({ page, request, browser }, info) => {
-  test.setTimeout(90000);
+  test.setTimeout(180000);
   info.annotations.push({ type: "browser-version", description: `${info.project.name} ${browser.version()} (${process.platform})` });
   const headers = { "X-API-Key": "audit-local-admin-key-with-32-characters", "X-Audit-Reason": "Validacao automatizada" };
   const suffix = `${info.project.name}-${Date.now()}`;

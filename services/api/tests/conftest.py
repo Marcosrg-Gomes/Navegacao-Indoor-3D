@@ -16,11 +16,18 @@ from pathlib import Path
 
 # Variaveis de ambiente devem ser definidas ANTES de importar a app,
 # pois get_settings() usa @lru_cache e o engine e criado no modulo.
-# Usamos um caminho placeholder; o engine real e recriado por teste.
-os.environ["DATABASE_URL"] = "sqlite:///:placeholder:"
+# MySQL (TEST_DATABASE_URL) e o banco principal; sem ele, SQLite temporario.
+TEST_DATABASE_URL = os.environ.get("TEST_DATABASE_URL", "").strip()
+os.environ["DATABASE_URL"] = TEST_DATABASE_URL or "sqlite:///:placeholder:"
 os.environ["ADMIN_API_KEY"] = "audit-local-admin-key-with-32-characters"
 os.environ["SECRET_KEY"] = "audit-local-only-secret-key-32-chars"
 os.environ["ADMIN_API_KEYS"] = "{}"
+# Os testes de API fazem muitas requisições de rota no mesmo processo. A
+# cobertura de rate limit é feita por testes dedicados que substituem os
+# limiters com monkeypatch; aqui a cota alta evita 429 espúrio entre testes.
+os.environ["ROUTES_RATE_LIMIT"] = "600"
+os.environ["ROUTE_DISTANCES_RATE_LIMIT"] = "600"
+os.environ["DIAGNOSTICS_RATE_LIMIT"] = "600"
 
 import pytest  # noqa: E402
 from fastapi.testclient import TestClient  # noqa: E402
@@ -32,7 +39,12 @@ from app.main import app  # noqa: E402
 
 
 def _make_test_engine():
-    """Cria um engine SQLite em arquivo temporario unico."""
+    """Cria o banco isolado de um teste: MySQL dedicado ou SQLite temporario."""
+    if TEST_DATABASE_URL.startswith("mysql"):
+        engine = create_engine(TEST_DATABASE_URL, pool_pre_ping=True)
+        Base.metadata.drop_all(bind=engine)
+        Base.metadata.create_all(bind=engine)
+        return engine, None
     tmp_db = tempfile.NamedTemporaryFile(suffix=".db", delete=False)
     tmp_db.close()
     engine = create_engine(
@@ -45,7 +57,7 @@ def _make_test_engine():
 
 @pytest.fixture
 def db_session():
-    """Sessao SQLite isolada por teste (banco temporario proprio)."""
+    """Sessao isolada por teste (MySQL dedicado ou SQLite temporario)."""
     engine, db_path = _make_test_engine()
     SessionLocal = sessionmaker(
         autocommit=False, autoflush=False, bind=engine
@@ -55,8 +67,11 @@ def db_session():
         yield session
     finally:
         session.close()
+        if db_path is None:
+            Base.metadata.drop_all(bind=engine)
         engine.dispose()
-        Path(db_path).unlink(missing_ok=True)
+        if db_path is not None:
+            Path(db_path).unlink(missing_ok=True)
 
 
 @pytest.fixture
