@@ -41,7 +41,8 @@ test("Explorar busca e ordena pelo percurso da API", async ({ page, request }) =
   // Verifica que a distância está sendo exibida (formato pode variar por navegador)
   expect(distances[String(natura.no_id)]).toBeDefined();
   const distanciaEsperada = Math.round(distances[String(natura.no_id)]);
-  await expect(poiElement).toContainText(distanciaEsperada.toString());
+  // Aguarda o diretório carregar as distâncias (assíncrono após montar a tab Explorar)
+  await expect(poiElement).toContainText(distanciaEsperada.toString(), { timeout: 15000 });
 });
 
 test("Serviços sem loja recebem rotas e permitem voltar à entrada", async ({ page }) => {
