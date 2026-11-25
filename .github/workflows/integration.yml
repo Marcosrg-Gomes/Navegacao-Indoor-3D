@@ -67,6 +67,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y blender
+          sudo /usr/lib/blender/python/bin/python -m pip install numpy --quiet || sudo python3 -m pip install numpy --quiet
       - name: Existing generation smoke test
         run: blender --background --factory-startup --python-exit-code 1 --python scripts/blender_smoke.py
       - name: Physical navigation and GLB export
