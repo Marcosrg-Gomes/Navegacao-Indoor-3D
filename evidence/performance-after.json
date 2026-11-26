@@ -3,24 +3,24 @@
   "fixture": "mini shopping (MINI-ENTRADA-PRINCIPAL → NATURA)",
   "samples": [
     {
-      "mapMs": 2887,
-      "routeMs": 470
+      "mapMs": 2798,
+      "routeMs": 512
     },
     {
-      "mapMs": 2874,
-      "routeMs": 591
+      "mapMs": 2789,
+      "routeMs": 461
     },
     {
-      "mapMs": 2840,
-      "routeMs": 653
+      "mapMs": 2813,
+      "routeMs": 566
     },
     {
-      "mapMs": 2865,
-      "routeMs": 614
+      "mapMs": 2802,
+      "routeMs": 436
     },
     {
-      "mapMs": 2849,
-      "routeMs": 574
+      "mapMs": 2825,
+      "routeMs": 352
     }
   ]
 }

@@ -48,6 +48,7 @@ export default function MapScreen() {
   // acompanhamento e centraliza o mapa na posição confirmada.
   const [following, setFollowing] = useState(false);
   const [navigating, setNavigating] = useState(false);
+  const [activeStepIndex, setActiveStepIndex] = useState(0);
   const [mobileMapSpace, setMobileMapSpace] = useState(0);
   const [lost, setLost] = useState(false);
   const [savedOpen, setSavedOpen] = useState(false);
@@ -57,6 +58,9 @@ export default function MapScreen() {
   const nearFavorites = directory.places.filter((place) => (preferences.data.favorites[nav.shopping?.codigo || ""] || []).includes(place.key) && directory.distances?.[place.node.id] !== undefined && directory.distances[place.node.id] <= 35);
   async function previewStep(step: EtapaRota) { await nav.selectFloor(step.piso_origem_id); setPreview(step); requestAnimationFrame(goToMap); }
   useEffect(() => { setPreview(null); }, [nav.route, nav.hasArrived]);
+  // Reseta o índice de passo ao mudar de rota
+  useEffect(() => { setActiveStepIndex(0); }, [nav.route?.revisao]);
+
 
   const params = useLocalSearchParams<{ qr?: string; token?: string; manualOrigin?: string; shopping?: string; floor?: string; locate?: string }>();
   // Ler parâmetros QR diretamente da URL do navegador.
@@ -93,15 +97,33 @@ export default function MapScreen() {
   // botão vira "Encerrar navegação" enquanto o modo estiver ativo.
   function startNavigation() {
     setNavigating(true);
+    setActiveStepIndex(0);
     locate();
   }
   function stopNavigation() {
     setNavigating(false);
     setFollowing(false);
   }
+  function handleNextStep() {
+    const steps = nav.route?.etapas?.filter((s) => s.tipo !== "inicio") ?? [];
+    const nextIdx = Math.min(activeStepIndex + 1, steps.length - 1);
+    const nextStep = steps[nextIdx];
+    setActiveStepIndex(nextIdx);
+    if (nextStep && nextStep.piso_origem_id !== nav.floor?.id) void nav.selectFloor(nextStep.piso_origem_id);
+    locate();
+  }
+  function handlePrevStep() {
+    const prevIdx = Math.max(0, activeStepIndex - 1);
+    const steps = nav.route?.etapas?.filter((s) => s.tipo !== "inicio") ?? [];
+    const prevStep = steps[prevIdx];
+    setActiveStepIndex(prevIdx);
+    if (prevStep && prevStep.piso_origem_id !== nav.floor?.id) void nav.selectFloor(prevStep.piso_origem_id);
+    locate();
+  }
   useEffect(() => {
-    if (!activeRoute) setNavigating(false);
+    if (!activeRoute) { setNavigating(false); setActiveStepIndex(0); }
   }, [activeRoute]);
+
   const [manual, setManual] = useState(false);
   const [help, setHelp] = useState(false);
   const [options, setOptions] = useState(false);
@@ -286,14 +308,14 @@ export default function MapScreen() {
         <StatusBar style={activeRoute ? "light" : "dark"} backgroundColor={activeRoute ? colors.primaryDark : colors.bg} />
         <View style={styles.mobileMap} onLayout={(event) => setMobileMapSpace(Math.floor(event.nativeEvent.layout.height))}>
           {renderMap(mobileMapSpace || mobileMapHeight, true)}
-          {activeRoute ? <View style={styles.mobileTop}><WazeManeuverBanner navigating={navigating} /></View> : <View style={styles.mobileTop}>
+          {activeRoute ? <View style={styles.mobileTop}><WazeManeuverBanner navigating={navigating} currentStepIndex={activeStepIndex} /></View> : <View style={styles.mobileTop}>
             <View style={styles.mobileSearchRow}><TouchableOpacity accessibilityRole="button" accessibilityLabel="Pesquisar destinos" style={styles.mobileSearch} onPress={() => router.push("/explore")}><WayfindingIcon name="search" color="#223246" /><Text style={styles.mobileSearchText} numberOfLines={1}>Para onde você vai?</Text></TouchableOpacity><TouchableOpacity accessibilityRole="button" accessibilityLabel="Ajuda" style={styles.mobileHelp} onPress={() => setHelp(true)}><WayfindingIcon name="help" color="#223246" /></TouchableOpacity></View>
           </View>}
           <FloorSwitcher floors={nav.floors} currentId={nav.floor?.id} top={Platform.OS === "web" ? activeRoute ? 155 : 136 : activeRoute ? 90 : 76}
             onSelect={(floorId) => { setFollowing(false); void nav.selectFloor(floorId); }} />
           {(nav.mapError || error) && <View style={styles.mobileError} accessibilityRole="alert"><Text style={styles.errorText}>{error || nav.mapError}</Text><TouchableOpacity accessibilityRole="button" onPress={() => { setLocalError(null); nav.clearError(); void nav.refresh(); }}><Text style={styles.link}>Tentar novamente</Text></TouchableOpacity></View>}
         </View>
-        {activeRoute ? <WazeNavigationPanel navigating={navigating} onStartNavigation={startNavigation} onStopNavigation={stopNavigation} onChooseDestination={() => router.push("/explore")} onCorrectPosition={() => setLost(true)} onHelp={() => setHelp(true)} /> : nav.hasArrived ? <View testID="arrival-notice" style={styles.mobileBottom} accessibilityRole="alert">
+        {activeRoute ? <WazeNavigationPanel navigating={navigating} currentStepIndex={activeStepIndex} onStartNavigation={startNavigation} onStopNavigation={stopNavigation} onNextStep={handleNextStep} onPrevStep={handlePrevStep} onChooseDestination={() => router.push("/explore")} onCorrectPosition={() => setLost(true)} onHelp={() => setHelp(true)} /> : nav.hasArrived ? <View testID="arrival-notice" style={styles.mobileBottom} accessibilityRole="alert">
           <Text accessibilityRole="header" style={styles.mobileBottomTitle}>Você chegou a <Text testID="origin-label">{nav.originNode?.nome || nav.destinationName}</Text></Text><Text testID="location-update" style={styles.mobileBottomMeta}>{nav.floor?.nome} · Posição atualizada. A próxima rota começa daqui.</Text>
           <TouchableOpacity accessibilityRole="button" accessibilityLabel="Iniciar outra navegação" style={styles.mobilePrimary} onPress={() => { nav.clearRoute(); router.push("/explore"); }}><Text style={styles.mobilePrimaryText}>Escolher outro destino</Text></TouchableOpacity>
         </View> : <View style={styles.mobileBottom}>

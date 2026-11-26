@@ -61,7 +61,12 @@ export function SceneMap(props: SceneMapProps) {
   }, [mode, ready, failure, attempt, props.shoppingId]);
 
   const show3d = mode !== "2d" && !failure;
-  return <View style={{ gap: 8, position: "relative" }}>
+  // O container precisa de dimensões explícitas para que a pílula
+  // `position: "absolute"` fique ancorada no canto inferior-direito do mapa.
+  const containerStyle = props.compact && props.width && props.height
+    ? { width: props.width, height: props.height, position: "relative" as const, overflow: "hidden" as const }
+    : { gap: 8, position: "relative" as const };
+  return <View style={containerStyle}>
     {/* Controle segmentado: um único trilho com o modo atual preenchido.
         No modo compacto fica ancorado acima dos controles do mapa, longe do
         seletor de piso e do banner de manobra, para não sobrepor nada. */}
@@ -71,7 +76,7 @@ export function SceneMap(props: SceneMapProps) {
       accessibilityRole="tablist" accessibilityLabel="Modo do mapa">
       {([["auto", "Automático"], ["3d", "Mapa 3D"], ["2d", "Mapa 2D"]] as const).map(([value, label]) => {
         const selected = mode === value;
-        return <TouchableOpacity key={value} accessibilityRole="tab" accessibilityLabel={label} accessibilityState={{ selected }}
+        return <TouchableOpacity key={value} accessibilityRole="button" accessibilityLabel={label} accessibilityState={{ selected }}
           style={props.compact ? [segment.compactItem, selected && segment.itemSelected] : [segment.item, selected && segment.itemSelected]}
           onPress={() => { setMode(value); if (value !== "2d") setHasUsed3d(true); if (value !== "2d" && failure) setAttempt((n) => n + 1); }}>
           <Text style={props.compact ? [segment.compactText, selected && segment.textSelected] : [segment.text, selected && segment.textSelected]}>

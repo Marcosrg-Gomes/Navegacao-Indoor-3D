@@ -15,12 +15,21 @@ import {
   DsSearch,
 } from "@/components/DesignSystem";
 
+/** Detecta se o navegador bloqueou câmera por HTTP (IP local, não HTTPS). */
+function useInsecureContext() {
+  if (Platform.OS !== "web" || typeof window === "undefined") return false;
+  return !window.isSecureContext && window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1";
+}
+
 export default function ScanScreen() {
+
   const [permission, requestPermission] = useCameraPermissions();
   const [token, setToken] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [cameraError, setCameraError] = useState<string | null>(null);
+  const insecureCtx = useInsecureContext();
+
   const locked = useRef(false);
   const unlockTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const resolving = useRef(false);
@@ -97,40 +106,65 @@ export default function ScanScreen() {
         />
       ) : (
         <View style={styles.cameraFallback}>
-          <Text style={styles.textMuted}>
-            {cameraError || (Platform.OS === "web"
-              ? "A câmera precisa de permissão. Em navegador, use HTTPS ou abra o link pela câmera do celular."
-              : "Permita o uso da câmera para ler o QR Code da placa mais próxima.")}
-          </Text>
-          {permission?.canAskAgain === false && (
-            <Text style={styles.textMuted}>
-              Abra as configurações do navegador ou do aplicativo, procure
-              Permissões e permita o uso da câmera. Você também pode digitar o
-              código abaixo ou definir sua localização no mapa.
-            </Text>
-          )}
-          {permission?.canAskAgain === false && Platform.OS !== "web" && (
-            <DsButton variant="outline" onPress={() => void Linking.openSettings()} style={styles.retryButton}
-              accessibilityHint="Abre as configurações do aplicativo para permitir a câmera">
-              Abrir configurações
-            </DsButton>
-          )}
-          {cameraError && (
-            <DsButton variant="outline" onPress={() => setCameraError(null)} style={styles.retryButton}>
-              Tentar câmera novamente
-            </DsButton>
-          )}
-          {!cameraError && !permission?.granted && permission?.canAskAgain !== false && (
-            <DsButton
-              variant="secondary"
-              onPress={() => void requestPermission().catch(() => setCameraError("Não foi possível acessar a câmera."))}
-              style={styles.permissionButton}
-            >
-              Permitir acesso à câmera
-            </DsButton>
+          {insecureCtx ? (
+            <>
+              <Text style={styles.textMuted}>
+                📵 Navegadores bloqueiam a câmera em conexões HTTP (IP local).{"\n"}
+                Use a câmera do celular para escanear a placa — ela abre o link direto — ou escolha um ponto de entrada abaixo:
+              </Text>
+              <View style={styles.qrShortcuts}>
+                {[
+                  { label: "Entrada Principal", code: "MINI-ENTRADA-PRINCIPAL" },
+                  { label: "Praça Alimentação", code: "MINI-PRACA-ALIMENTACAO" },
+                  { label: "Elevador Térreo", code: "MINI-ELEVADOR-TERREO" },
+                  { label: "Escada Rolante", code: "MINI-ESCADA-ROLANTE" },
+                ].map(({ label, code }) => (
+                  <TouchableOpacity key={code} accessibilityRole="button" accessibilityLabel={`Entrar por ${label}`}
+                    style={styles.qrChip} onPress={() => void scan(code)}>
+                    <Text style={styles.qrChipText}>{label}</Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            </>
+          ) : (
+            <>
+              <Text style={styles.textMuted}>
+                {cameraError || (Platform.OS === "web"
+                  ? "A câmera precisa de permissão. Em navegador, use HTTPS ou abra o link pela câmera do celular."
+                  : "Permita o uso da câmera para ler o QR Code da placa mais próxima.")}
+              </Text>
+              {permission?.canAskAgain === false && (
+                <Text style={styles.textMuted}>
+                  Abra as configurações do navegador ou do aplicativo, procure
+                  Permissões e permita o uso da câmera. Você também pode digitar o
+                  código abaixo ou definir sua localização no mapa.
+                </Text>
+              )}
+              {permission?.canAskAgain === false && Platform.OS !== "web" && (
+                <DsButton variant="outline" onPress={() => void Linking.openSettings()} style={styles.retryButton}
+                  accessibilityHint="Abre as configurações do aplicativo para permitir a câmera">
+                  Abrir configurações
+                </DsButton>
+              )}
+              {cameraError && (
+                <DsButton variant="outline" onPress={() => setCameraError(null)} style={styles.retryButton}>
+                  Tentar câmera novamente
+                </DsButton>
+              )}
+              {!cameraError && !permission?.granted && permission?.canAskAgain !== false && (
+                <DsButton
+                  variant="secondary"
+                  onPress={() => void requestPermission().catch(() => setCameraError("Não foi possível acessar a câmera."))}
+                  style={styles.permissionButton}
+                >
+                  Permitir acesso à câmera
+                </DsButton>
+              )}
+            </>
           )}
         </View>
       )}
+
 
       <DsLabel>Código ou link do QR</DsLabel>
       <DsSearch
@@ -162,6 +196,12 @@ export default function ScanScreen() {
       </TouchableOpacity>
     </ScrollView>
   );
+}
+
+/** Detecta se o navegador bloqueou câmera por HTTP (IP local, não HTTPS). */
+function useInsecureContext() {
+  if (Platform.OS !== "web" || typeof window === "undefined") return false;
+  return !window.isSecureContext && window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1";
 }
 
 const styles = StyleSheet.create({

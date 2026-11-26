@@ -156,3 +156,34 @@ export function turnDirection(currentBearing: number, nextBearing: number): Turn
   if (diff > 150 && diff < 210) return "back";
   return diff < 180 ? "right" : "left";
 }
+
+/**
+ * Decide a rotação do mapa (0° ou 180°) para que a navegação sempre venha de
+ * baixo para cima (padrão Waze). Usa o trecho à frente da posição; quando ainda
+ * não há posição, usa o primeiro segmento da rota no piso.
+ */
+export function routeOrientationFor(
+  floorId: number,
+  position: { x: number; y: number; floorId: number; fromNodeId?: number; toNodeId?: number } | null | undefined,
+  routeNodes: { coord_x: number; coord_y: number; piso_id: number; id: number }[],
+  previous: MapOrientation = 0,
+): MapOrientation {
+  const path = routeNodes.filter((node) => node.piso_id === floorId);
+  if (path.length < 2) return previous;
+  const onFloor = position?.floorId === floorId ? position : undefined;
+  let index = onFloor && onFloor.fromNodeId !== undefined ? path.findIndex((node) => node.id === onFloor.fromNodeId) : -1;
+  if (index < 0 && onFloor && onFloor.toNodeId !== undefined) index = path.findIndex((node) => node.id === onFloor.toNodeId);
+  if (index < 0 && onFloor) {
+    index = path.reduce((best, node, i) => {
+      const distance = Math.hypot(node.coord_x - onFloor.x, node.coord_y - onFloor.y);
+      const bestNode = path[best];
+      const bestDistance = Math.hypot(bestNode.coord_x - onFloor.x, bestNode.coord_y - onFloor.y);
+      return distance < bestDistance ? i : best;
+    }, 0);
+  }
+  const next = index >= 0 && index < path.length - 1 ? path[index + 1] : path[1] ?? path[0];
+  if (!next) return previous;
+  const start = onFloor ? { x: onFloor.x, y: onFloor.y } : { x: path[0].coord_x, y: path[0].coord_y };
+  return snapOrientation(bearingBetween(start, { x: next.coord_x, y: next.coord_y }));
+}
+

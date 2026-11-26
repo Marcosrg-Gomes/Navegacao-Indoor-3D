@@ -31,7 +31,6 @@ test("2D mantém arrastes sucessivos em 1×, alteração de preferências e troc
   const map = await openMap(page, "2D");
   await drag(page, map, 120, 35);
   await expect.poll(async () => (await view2d(map)).x).toBeCloseTo(120, 0);
-  await page.waitForTimeout(1500);
   await drag(page, map, -45, 20);
   const panned = await view2d(map);
   expect(panned.x).toBeCloseTo(75, 0);

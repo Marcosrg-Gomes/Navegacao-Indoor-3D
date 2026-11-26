@@ -21,7 +21,7 @@ export function SceneControls({ floor, scene, props, orientation, command, onVie
   const baseZoom = useRef(1);
   const lastFloor = useRef<number>();
   const lastLocate = useRef(0);
-  const lastOrientation = useRef(orientation);
+  const lastOrientation = useRef<MapOrientation | null>(null);
   const latest = useRef({ floor, scene, props, onView, size, orientation }); latest.current = { floor, scene, props, onView, size, orientation };
   /** Rumo da planta que fica no topo da tela (0° ou 180°), no plano do modelo. */
   const forward = () => new Vector3(...sceneHeadingDirection(latest.current.floor, latest.current.orientation));
