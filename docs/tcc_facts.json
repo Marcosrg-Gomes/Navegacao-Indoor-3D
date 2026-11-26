@@ -2,13 +2,13 @@
   "repositorio": {
     "url": "https://github.com/Marcosrg-Gomes/Navegacao-Indoor-3D.git",
     "commit": {
-      "short": "7a2584c",
-      "full": "7a2584ca6f270fbfb0acbb6538175812e5e28984",
-      "date": "2026-11-26 12:05:18 -0300"
+      "short": "4611545",
+      "full": "46115450c23632c980d186033bcf188060cf0607",
+      "date": "2026-11-26 12:08:34 -0300"
     },
     "branch_atual": "fix/tcc-final"
   },
-  "gerado_em": "2026-11-26T15:06:44.950362+00:00",
+  "gerado_em": "2026-11-26T15:09:30.445144+00:00",
   "api": {
     "tabelas": {
       "shoppings": [
@@ -930,7 +930,7 @@
       "MINI-MEZANINO-CENTRAL",
       "MINI-TERREO-CENTRAL"
     ],
-    "banco_temporario": "C:\\Users\\DEV_2O~1\\AppData\\Local\\Temp\\tmpupbk_v7_.db"
+    "banco_temporario": "C:\\Users\\DEV_2O~1\\AppData\\Local\\Temp\\tmp295qzsch.db"
   },
   "testes": {
     "test_api.py": {
