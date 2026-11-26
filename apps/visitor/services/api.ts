@@ -35,6 +35,12 @@ function getBaseUrl(): string {
   const hostUri = Constants.expoConfig?.hostUri;
   if (hostUri) return `http://${hostUri.split(":")[0]}:8000`;
 
+  // No navegador (CI e producao), o visitante e servido pelo mesmo mini_server
+  // que expoe a API, entao a origem da pagina e a base URL da API.
+  if (typeof window !== "undefined" && window.location.origin) {
+    return window.location.origin;
+  }
+
   return "http://localhost:8000";
 }
 
