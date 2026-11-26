@@ -93,8 +93,8 @@ export function SceneMap(props: SceneMapProps) {
 }
 
 const segment = StyleSheet.create({
-  track: { flexDirection: "row", gap: 2, padding: 3, borderRadius: 14, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.borderLight, shadowColor: "#0b1f1b", shadowOpacity: .14, shadowRadius: 10, shadowOffset: { width: 0, height: 3 }, elevation: 4 },
-  item: { minHeight: 44, minWidth: 48, paddingHorizontal: 12, borderRadius: 11, alignItems: "center", justifyContent: "center" },
+  track: { flexDirection: "row", gap: 4, padding: 7, borderRadius: 16, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.borderLight, shadowColor: "#0b1f1b", shadowOpacity: .14, shadowRadius: 10, shadowOffset: { width: 0, height: 3 }, elevation: 4 },
+  item: { minHeight: 46, minWidth: 70, paddingHorizontal: 16, borderRadius: 12, alignItems: "center", justifyContent: "center" },
   itemSelected: { backgroundColor: colors.primary },
   text: { color: colors.textMuted, fontSize: 13, fontWeight: "600" },
   textSelected: { color: colors.textOnPrimary, fontWeight: "700" },

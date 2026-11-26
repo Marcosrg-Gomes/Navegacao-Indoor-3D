@@ -26,6 +26,13 @@ def main():
     os.environ["ADMIN_API_KEY"] = "audit-local-admin-key-with-32-characters"
     os.environ["ADMIN_API_KEYS"] = "{}"
     os.environ["SECRET_KEY"] = "audit-local-only"
+    # Rate limits elevados para ambiente de teste isolado (evita 429 durante suíte E2E)
+    os.environ["DIAGNOSTICS_RATE_LIMIT"] = "600"
+    os.environ["DIAGNOSTICS_RATE_WINDOW_SECONDS"] = "60"
+    os.environ["ROUTES_RATE_LIMIT"] = "600"
+    os.environ["ROUTES_RATE_WINDOW_SECONDS"] = "60"
+    os.environ["ROUTE_DISTANCES_RATE_LIMIT"] = "600"
+    os.environ["ROUTE_DISTANCES_RATE_WINDOW_SECONDS"] = "60"
     from app.database import Base, engine, SessionLocal
     from app.migrations import upgrade_schema
     from app.models import Aresta, Categoria, Loja, No, Piso, QRCode, Shopping

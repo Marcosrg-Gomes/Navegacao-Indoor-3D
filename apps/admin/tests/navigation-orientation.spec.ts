@@ -9,8 +9,8 @@ const { sceneHeadingDirection, sceneTransform, sceneYawForDirection } =
 const { followPosition, framePoints, INITIAL_VIEW } =
   loadVisitorModule<typeof import("../../visitor/components/mapViewport")>("../../visitor/components/mapViewport");
 const {
-  bearingBetween, isAllowedOrientation, lookaheadPoint, markerPlanRotation, markerScreenRotation, normalizeDegrees,
-  orientationForVector, resolveMapOrientation, snapOrientation, turnDirection, upcomingFloorPath,
+  bearingBetween, headingToNextRouteNode, isAllowedOrientation, lookaheadPoint, markerPlanRotation, markerScreenRotation,
+  normalizeDegrees, orientationForVector, resolveMapOrientation, snapOrientation, turnDirection, upcomingFloorPath,
 } = orientation;
 
 const FLOOR = 1;
@@ -203,4 +203,21 @@ test("direção da curva para instruções e indicadores", () => {
   expect(turnDirection(350, 80)).toBe("right");
   expect(turnDirection(90, 0)).toBe("left");
   expect(turnDirection(0, 180)).toBe("back");
+});
+
+test("seta numa posição confirmada aponta para o próximo nó da rota", () => {
+  const route = [node(1, .5, .9), node(2, .5, .5), node(3, .9, .5), node(4, .9, .1)];
+  // Origem confirmada no nó 1: sem simulação não há heading, mas a seta
+  // acompanha o primeiro trecho em vez de ficar travada para cima.
+  expect(headingToNextRouteNode({ floorId: FLOOR, x: .5, y: .9, fromNodeId: 1 }, route)).toBeCloseTo(0);
+  // No nó 2 o próximo trecho vira à direita.
+  expect(headingToNextRouteNode({ floorId: FLOOR, x: .5, y: .5, fromNodeId: 2 }, route)).toBeCloseTo(90);
+  // Sem ids (posição estimada), ancora no nó mais próximo.
+  expect(headingToNextRouteNode({ floorId: FLOOR, x: .9, y: .5 }, route)).toBeCloseTo(0);
+  expect(headingToNextRouteNode({ floorId: FLOOR, x: .5, y: .5, toNodeId: 2 }, route)).toBeCloseTo(90);
+  // Último nó, piso sem trecho e ausência de posição não inventam rumo.
+  expect(headingToNextRouteNode({ floorId: FLOOR, x: .9, y: .1, fromNodeId: 4 }, route)).toBeNull();
+  expect(headingToNextRouteNode({ floorId: 2, x: .5, y: .5 }, route)).toBeNull();
+  expect(headingToNextRouteNode(null, route)).toBeNull();
+  expect(headingToNextRouteNode({ floorId: FLOOR, x: .5, y: .5 }, [])).toBeNull();
 });

@@ -78,7 +78,7 @@ export function AccessibleSheet({ visible, title, onClose, children, footer }: {
 
   const titleId = `sheet-title-${title.replace(/\s+/g, "-").toLowerCase()}`;
 
-  return (
+  const sheet = (
     <div
       role="dialog"
       aria-modal="true"
@@ -99,26 +99,34 @@ export function AccessibleSheet({ visible, title, onClose, children, footer }: {
           position: "absolute", bottom: 0, left: 0, right: 0,
           width: "100%", maxWidth: 660, maxHeight: "90%",
           backgroundColor: colors.surface, borderTopWidth: 5, borderTopColor: colors.accent,
+          borderTopLeftRadius: 20, borderTopRightRadius: 20,
+          boxShadow: "0 -14px 44px rgba(16, 31, 43, .3)",
           zIndex: 1001, pointerEvents: "auto", overflow: "hidden", display: "flex", flexDirection: "column",
         }}
         tabIndex={-1}
         onClick={(e) => e.stopPropagation()}
       >
-        <div style={{ padding: 18, flexDirection: "row", alignItems: "center", gap: 12, borderBottomWidth: 1, borderBottomColor: colors.border, pointerEvents: "auto" }}>
-          <h2 ref={heading} id={titleId} tabIndex={-1} style={{ flex: 1, color: colors.text, fontSize: 24, fontWeight: "600" }}>{title}</h2>
+        <div style={{ padding: "16px 18px", display: "flex", flexDirection: "row", alignItems: "center", gap: 12, borderBottomWidth: 1, borderBottomColor: colors.border, pointerEvents: "auto", flexShrink: 0 }}>
+          <h2 ref={heading} id={titleId} tabIndex={-1} style={{ flex: 1, minWidth: 0, margin: 0, lineHeight: 1.25, color: colors.text, fontSize: 23, fontWeight: "700" }}>{title}</h2>
           <button
             aria-label={`Fechar ${title}`}
             onClick={(e) => { e.stopPropagation(); onClose(); }}
-            style={{ minWidth: 48, minHeight: 48, display: "flex", alignItems: "center", justifyContent: "center", background: "none", border: "none", cursor: "pointer", padding: 0 }}
+            style={{ minWidth: 44, minHeight: 44, display: "flex", alignItems: "center", justifyContent: "center", background: colors.bg, borderRadius: 22, border: "none", cursor: "pointer", padding: 0, flexShrink: 0 }}
           >
             <WayfindingIcon name="close" />
           </button>
         </div>
-        <div style={{ padding: 20, gap: 16, pointerEvents: "auto", overflowY: "auto", flex: 1 }}>
+        <div style={{ padding: "18px 20px 22px", display: "flex", flexDirection: "column", gap: 16, pointerEvents: "auto", overflowY: "auto", flex: 1, minHeight: 0 }}>
           {children}
         </div>
-        {footer && <div style={{ padding: 16, borderTopWidth: 1, borderTopColor: colors.border, gap: 8, pointerEvents: "auto" }}>{footer}</div>}
+        {footer && <div style={{ padding: "14px 20px calc(14px + env(safe-area-inset-bottom))", display: "flex", flexDirection: "column", gap: 8, borderTopWidth: 1, borderTopColor: colors.border, pointerEvents: "auto", flexShrink: 0 }}>{footer}</div>}
       </div>
     </div>
   );
+
+  // Portal para o body: sem isso o sheet fica preso ao stacking context da tela
+  // e a barra de abas (fora dele) cobre o rodapé do modal.
+  if (Platform.OS !== "web" || typeof document === "undefined") return sheet;
+  const { createPortal } = require("react-dom") as { createPortal: (children: ReactNode, container: Element) => ReactNode };
+  return createPortal(sheet, document.body);
 }

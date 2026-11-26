@@ -120,8 +120,36 @@ export function rotatePlanVector(x: number, y: number, degrees: MapOrientation):
   return degrees === 180 ? { x: -x, y: -y } : { x, y };
 }
 
+/**
+ * Rumo da seta a partir de uma posição confirmada, seguindo o primeiro trecho
+ * da rota no mesmo piso. Sem simulação não há `heading`, mas a seta ainda deve
+ * apontar para onde o percurso segue (como no Waze), e não sempre para cima.
+ */
+export function headingToNextRouteNode(
+  position: { x: number; y: number; floorId: number; fromNodeId?: number; toNodeId?: number } | null | undefined,
+  routeNodes: NoRota[],
+): number | null {
+  if (!position) return null;
+  const path = routeNodes.filter((node) => node.piso_id === position.floorId);
+  if (!path.length) return null;
+  let index = path.findIndex((node) => node.id === position.fromNodeId);
+  if (index < 0) index = path.findIndex((node) => node.id === position.toNodeId);
+  if (index < 0) {
+    index = path.reduce((best, node, i) => {
+      const distance = Math.hypot(node.coord_x - position.x, node.coord_y - position.y);
+      const bestNode = path[best];
+      const bestDistance = Math.hypot(bestNode.coord_x - position.x, bestNode.coord_y - position.y);
+      return distance < bestDistance ? i : best;
+    }, 0);
+  }
+  const next = path[index + 1];
+  if (!next) return null;
+  return bearingBetween(position, { x: next.coord_x, y: next.coord_y });
+}
+
 /** Direção de curva relativa ao sentido atual, para instruções e indicadores. */
 export type TurnDirection = "straight" | "left" | "right" | "back";
+
 export function turnDirection(currentBearing: number, nextBearing: number): TurnDirection {
   const diff = normalizeDegrees(nextBearing - currentBearing);
   if (diff <= 30 || diff >= 330) return "straight";

@@ -15,8 +15,8 @@ import { SceneLabels } from "./SceneLabels.web";
 import { MapLegend, MapToolbar } from "./MapToolbar";
 import { WalkCamera } from "./WalkCamera.web";
 import { sceneHeadingDirection, sceneTransform, sceneYawForDirection } from "./sceneTransform";
-import { markerPlanRotation, type MapOrientation } from "./navigationOrientation";
-import { useMapOrientation } from "@/hooks/useMapOrientation";
+import type { MapOrientation } from "./navigationOrientation";
+import { headingToNextRouteNode } from "./navigationOrientation";
 import { colors } from "@/constants/colors";
 import { FollowRouteButton, MapControls } from "./MapControls";
 
@@ -28,6 +28,9 @@ navigationArrow.lineTo(.62, -.62);
 navigationArrow.lineTo(0, -.3);
 navigationArrow.lineTo(-.62, -.62);
 navigationArrow.closePath();
+
+/** O mapa 3D segue a mesma regra do 2D: nunca gira, fica sempre de baixo para cima (0°). */
+const NORTH_UP: MapOrientation = 0;
 
 function dispose(model: Object3D) {
   model.traverse((object) => { if (object instanceof Mesh) { object.geometry.dispose(); (Array.isArray(object.material) ? object.material : [object.material]).forEach((m: Material) => m.dispose()); } });
@@ -45,8 +48,11 @@ function Viewport({ model, props, orientation, command, onView, previewNext }: {
   useEffect(() => { if (floor) callbacks.current.onReady(); else callbacks.current.onError("Piso ausente no catálogo 3D."); }, [floor, model]);
   useEffect(() => { invalidate(); }, [props.position?.x, props.position?.y, props.position?.floorId, invalidate]);
   if (!floor) return null;
-  // A câmera olha para `orientation`; a seta aponta para o mesmo rumo e, portanto, para cima na tela.
-  const markerYaw = sceneYawForDirection(sceneHeadingDirection(floor, markerPlanRotation(orientation)));
+  // A câmera olha sempre para cima (0°); o mapa 3D nunca gira, igual ao 2D.
+  // Só a seta vira: durante a simulação usa o rumo do deslocamento e, numa
+  // posição confirmada, aponta para o próximo nó da rota.
+  const heading = props.position?.heading ?? headingToNextRouteNode(props.position, props.routeNodes) ?? 0;
+  const markerYaw = sceneYawForDirection(sceneHeadingDirection(floor, heading));
   return <>
     <color attach="background" args={[colors.bg]} />
     <ambientLight intensity={1.7} /><directionalLight position={[15, 45, 20]} intensity={2.2} />
@@ -73,8 +79,8 @@ function Viewport({ model, props, orientation, command, onView, previewNext }: {
 
 export default function SceneCanvas(props: Props) {
   const [model, setModel] = useState<Object3D | null>(null);
-  // Mesma regra do 2D: 0° ou 180°, decidida pelo percurso à frente e não pelas curvas.
-  const orientation = useMapOrientation(props.routeNodes, props.floorId, props.position);
+  // O mapa 3D nunca gira: fica sempre de baixo para cima (0°). Só a seta indica o sentido do percurso.
+  const orientation: MapOrientation = NORTH_UP;
   const [view, setView] = useState<CameraView>({ zoom: 1, northAngle: 0, target: [], position: [], labels: {} });
   const [command, setCommand] = useState<CameraCommand | null>(null);
   const [topView, setTopView] = useState(false);
