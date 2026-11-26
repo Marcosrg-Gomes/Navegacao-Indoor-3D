@@ -10,8 +10,25 @@ import { centerOnPosition, clampView, followPosition, framePoints, INITIAL_VIEW,
 import { colors } from "@/constants/colors";
 import { FollowRouteButton, MapControls } from "./MapControls";
 import type { MapOrientation } from "./navigationOrientation";
+import { bearingBetween, snapOrientation } from "./navigationOrientation";
 
-/** A planta 2D fica sempre de baixo para cima: nunca gira 180°. */
+/**
+ * Decide a rotação do mapa (0° ou 180°) para que a navegação sempre venha de
+ * baixo para cima (padrão Waze). Quando o próximo ponto do percurso está abaixo
+ * na planta (coord_y crescente), o mapa rotaciona 180°.
+ */
+function snapOrientationForRoute(position: PositionEstimate | null | undefined, routeNodes: NoRota[], previous: MapOrientation): MapOrientation {
+  if (!position || routeNodes.length < 2) return previous;
+  const path = routeNodes.filter((node) => node.piso_id === position.floorId);
+  let index = path.findIndex((node) => node.id === position.fromNodeId);
+  if (index < 0) index = path.findIndex((node) => node.id === position.toNodeId);
+  if (index < 0) return previous;
+  const next = path[index + 1];
+  if (!next) return previous;
+  const bearing = bearingBetween({ x: position.x, y: position.y }, { x: next.coord_x, y: next.coord_y });
+  return snapOrientation(bearing);
+}
+
 const NORTH_UP: MapOrientation = 0;
 
 export function Map2D({ width, height, floor, graph, routeNodes, origin, position, following, onExplore, compact, controlsTop, destination, highlight, pins, onNodePress, onLocate, locateRequest }: {
@@ -28,8 +45,8 @@ export function Map2D({ width, height, floor, graph, routeNodes, origin, positio
   const anchor = position?.floorId === floor.id ? { x: position.x, y: position.y }
     : origin?.piso_id === floor.id ? { x: origin.coord_x, y: origin.coord_y }
     : (() => { const entry = graph.nos.find((node) => node.tipo === "entrada"); return entry ? { x: entry.coord_x, y: entry.coord_y } : undefined; })();
-  // A planta 2D nunca gira: fica sempre de baixo para cima (0°). Só a seta de
-  // navegação indica o sentido do percurso (gira nas curvas).
+  // A planta 2D gira 0° ou 180° para que a navegação sempre venha de baixo para cima (padrão Waze).
+  // Quando o próximo ponto do percurso está "abaixo" na planta, o mapa rotaciona 180°.
   const overview = { ...INITIAL_VIEW, rotation: NORTH_UP };
   const [view, setView] = useState(() => compact ? nearbyView(bounds, anchor, NORTH_UP) : overview);
   const explored = useRef(false);
@@ -48,31 +65,33 @@ export function Map2D({ width, height, floor, graph, routeNodes, origin, positio
   useEffect(() => {
     if (viewedFloor.current !== floor.id) { viewedFloor.current = floor.id; explored.current = false; followedSimulation.current = false; }
     if (compact && !explored.current && !routeNodes.some((node) => node.piso_id === floor.id) && !(isFollowing && position?.source === "simulation"))
-      setView(nearbyView(bounds, anchor, NORTH_UP));
-  }, [compact, floor.id, bounds, anchor?.x, anchor?.y, routeNodes.length, isFollowing, position?.source]);
+      setView(nearbyView(bounds, anchor, view.rotation));
+  }, [compact, floor.id, bounds, anchor?.x, anchor?.y, routeNodes.length, isFollowing, position?.source, view.rotation]);
   useEffect(() => {
     if (compact && !explored.current && !(isFollowing && position?.source === "simulation") && routeNodes.some((node) => node.piso_id === floor.id)) {
-      setView(framePoints(routeNodes.filter((node) => node.piso_id === floor.id), bounds, NORTH_UP));
+      setView(framePoints(routeNodes.filter((node) => node.piso_id === floor.id), bounds, view.rotation));
     }
-  }, [compact, routeNodes, floor.id, bounds, isFollowing, position?.source]);
+  }, [compact, routeNodes, floor.id, bounds, isFollowing, position?.source, view.rotation]);
   useEffect(() => {
-    if (compact && isFollowing && position?.source === "simulation" && position.floorId === floor.id && !followedSimulation.current) {
+    if (compact && isFollowing && position?.floorId === floor.id && !followedSimulation.current) {
       followedSimulation.current = true;
-      setView((current) => followPosition({ ...current, zoom: Math.min(current.zoom, 1.6), rotation: NORTH_UP }, position, bounds, nextTurn));
+      // Rotaciona o mapa para que a navegação sempre venha de baixo para cima.
+      const rotation = snapOrientationForRoute(position, routeNodes, view.rotation);
+      setView((current) => followPosition({ ...current, zoom: Math.min(current.zoom, 1.6), rotation }, position, bounds, nextTurn));
     }
     if (position?.source !== "simulation") followedSimulation.current = false;
-  }, [compact, isFollowing, position?.source, position?.floorId, floor.id, bounds, nextTurn?.x, nextTurn?.y]);
+  }, [compact, isFollowing, position?.source, position?.floorId, floor.id, bounds, nextTurn?.x, nextTurn?.y, view.rotation]);
   useEffect(() => {
     if (locateRequest && position?.floorId === floor.id) {
       if (following === undefined) setLocalFollowing(true);
       setView((current) => position.source === "simulation"
-        ? followPosition({ ...current, rotation: NORTH_UP }, position, bounds, nextTurn)
-        : compact ? nearbyView(bounds, position, NORTH_UP) : centerOnPosition({ ...current, zoom: Math.max(current.zoom, 2.5), rotation: NORTH_UP }, position, bounds));
-    } else if (locateRequest && origin?.piso_id === floor.id) setView((current) => compact ? nearbyView(bounds, { x: origin.coord_x, y: origin.coord_y }, NORTH_UP) : centerOnPosition({ ...current, zoom: Math.max(current.zoom, 2.5), rotation: NORTH_UP }, { x: origin.coord_x, y: origin.coord_y }, bounds));
+        ? followPosition({ ...current, rotation: current.rotation }, position, bounds, nextTurn)
+        : compact ? nearbyView(bounds, position, current.rotation) : centerOnPosition({ ...current, zoom: Math.max(current.zoom, 2.5), rotation: current.rotation }, position, bounds));
+    } else if (locateRequest && origin?.piso_id === floor.id) setView((current) => compact ? nearbyView(bounds, { x: origin.coord_x, y: origin.coord_y }, current.rotation) : centerOnPosition({ ...current, zoom: Math.max(current.zoom, 2.5), rotation: current.rotation }, { x: origin.coord_x, y: origin.coord_y }, bounds));
   }, [locateRequest, floor.id]);
   useEffect(() => {
     if (isFollowing && position?.floorId === floor.id) setView((current) => position.source === "simulation"
-      ? followPosition({ ...current, rotation: NORTH_UP }, position, bounds, nextTurn) : centerOnPosition({ ...current, rotation: NORTH_UP }, position, bounds));
+      ? followPosition({ ...current, rotation: current.rotation }, position, bounds, nextTurn) : centerOnPosition({ ...current, rotation: current.rotation }, position, bounds));
   }, [isFollowing, position?.floorId, position?.x, position?.y, floor.id, bounds, nextTurn?.x, nextTurn?.y]);
   const scaledWidth = bounds.mapWidth * view.zoom, scaledHeight = bounds.mapHeight * view.zoom;
   const scaleMeters = view.zoom >= 3 ? 2 : 5;
@@ -80,11 +99,11 @@ export function Map2D({ width, height, floor, graph, routeNodes, origin, positio
   return <View testID="floor-map" style={compact ? { overflow: "hidden", width, maxWidth: "100%" } : { borderRadius: 18, overflow: "hidden", borderWidth: 1, borderColor: colors.borderLight, backgroundColor: colors.surface, width: width + 2, maxWidth: "100%", shadowColor: "#0b1f1b", shadowOpacity: .08, shadowRadius: 18, shadowOffset: { width: 0, height: 6 } }}>
     {!compact && <MapToolbar zoom={view.zoom} onZoom={(factor) => { explore(); setView((v) => zoomAt(v, v.zoom * factor, bounds)); }}
       onReset={() => { explore(); setView(overview); }} onLocate={position || origin ? onLocate : undefined}
-      onRoute={routeNodes.length ? () => { explore(); setView(framePoints(routeNodes.filter((n) => n.piso_id === floor.id), bounds, NORTH_UP)); } : undefined} />}
+      onRoute={routeNodes.length ? () => { explore(); setView((current) => framePoints(routeNodes.filter((n) => n.piso_id === floor.id), bounds, current.rotation)); } : undefined} />}
     <View style={{ backgroundColor: colors.surfaceElevated }}>
       <MapGestureSurface bounds={bounds} view={view} onChange={setView} onDrag={(gesture) => { explore(); if (gesture !== "zoom") ignoreClickUntil.current = Date.now() + 250; }}>
-        {/* A planta 2D NUNCA gira: fica sempre NORTH_UP (0°). Só a seta de navegação indica o sentido do percurso. */}
-        <View testID="map-2d-plan" style={{ position: "absolute", left: (width - scaledWidth) / 2 + view.x, top: (height - scaledHeight) / 2 + view.y, width: scaledWidth, height: scaledHeight, transform: [{ rotate: `${NORTH_UP}deg` }] }}>
+        {/* A planta 2D gira 0° ou 180° para que a navegação venha de baixo para cima (padrão Waze). */}
+        <View testID="map-2d-plan" style={{ position: "absolute", left: (width - scaledWidth) / 2 + view.x, top: (height - scaledHeight) / 2 + view.y, width: scaledWidth, height: scaledHeight, transform: [{ rotate: `${view.rotation}deg` }] }}>
           <FloorMap width={scaledWidth} height={scaledHeight} floorId={floor.id} imagemPlantaUrl={floor.imagem_planta_url}
             nodes={graph.nos} edges={graph.arestas} routeNodes={routeNodes} originNodeId={origin?.id} destinationNodeId={destination} compact={compact}
             highlightNodeId={highlight} pinnedNodeIds={pins}
@@ -92,7 +111,7 @@ export function Map2D({ width, height, floor, graph, routeNodes, origin, positio
         </View>
       </MapGestureSurface>
       <CompassBadge rotation={view.rotation} top={controlsTop ?? 12} />
-      {compact && position?.source === "simulation" && !isFollowing && <FollowRouteButton onPress={onLocate} />}
+      {compact && !!position && !isFollowing && <FollowRouteButton onPress={onLocate} />}
       {compact && <MapControls onOverview={() => { explore(); setView(overview); }}
         onZoomIn={() => { explore(); setView((v) => zoomAt(v, v.zoom * 1.5, bounds)); }}
         onZoomOut={() => { explore(); setView((v) => zoomAt(v, v.zoom / 1.5, bounds)); }} onLocate={onLocate} />}

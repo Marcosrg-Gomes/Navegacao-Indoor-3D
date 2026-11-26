@@ -40,7 +40,7 @@ export function WazeManeuverBanner() {
         : <WayfindingIcon name={failed ? "alert" : maneuver.icon} color={failed ? colors.danger : colors.primary} size={34} strokeWidth={2.4} />}
     </View>
     <View style={{ flex: 1, minWidth: 0 }}>
-      <Text style={[styles.maneuverEyebrow, failed && styles.maneuverEyebrowError]}>{arrived ? "VOCÊ CHEGOU" : moving ? "NAVEGAÇÃO SIMULADA" : failed ? "ROTA NÃO DISPONÍVEL" : loading ? "CALCULANDO CAMINHO" : "CAMINHO PREPARADO"}</Text>
+      <Text style={[styles.maneuverEyebrow, failed && styles.maneuverEyebrowError]}>{arrived ? "VOCÊ CHEGOU" : failed ? "ROTA NÃO DISPONÍVEL" : loading ? "CALCULANDO CAMINHO" : "CAMINHO PRONTO"}</Text>
       <Text testID="current-instruction" style={[styles.maneuverInstruction, failed && styles.maneuverInstructionError]}>{arrived ? nav.destinationName : failed ? nav.routeError : current?.texto || (nav.routeLoading ? "Calculando caminho…" : "Rota pronta para começar")}</Text>
       {!!next && !arrived && !failed && <Text style={styles.maneuverNext} numberOfLines={1}>Depois: {next.texto}</Text>}
     </View>
@@ -82,7 +82,7 @@ export function WazeNavigationPanel({ onChooseDestination, onCorrectPosition, on
     else if (nav.simulationStatus === "error" || !nav.route) void nav.recalculate();
     else if (nav.simulationStatus === "paused") void nav.resumeSimulation();
     else if (arrived) onChooseDestination();
-    else void nav.startSimulation();
+    else void nav.recalculate();
   }
 
   const primaryLabel = nav.simulationStatus === "running" ? "Pausar" :
@@ -108,7 +108,7 @@ export function WazeNavigationPanel({ onChooseDestination, onCorrectPosition, on
         <Text style={styles.tripDestination} numberOfLines={1} accessibilityRole="header">{nav.destinationName || "Destino"}</Text>
         <Text style={styles.tripMeta} numberOfLines={1}>
           De <Text testID="origin-label">{nav.originNode?.nome || "origem"}</Text> ·
-          {arrived ? "destino alcançado" : nav.simulationStatus === "running" ? "simulação" : "rota pronta"}
+          {arrived ? "destino alcançado" : "rota pronta"}
           {nav.acessivel ? " · sem escadas" : ""}
         </Text>
       </View>

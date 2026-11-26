@@ -99,10 +99,9 @@ export default function MapScreen() {
     if (nav.hasArrived) setLocateRequest((value) => value + 1);
   }, [nav.hasArrived]);
   useEffect(() => {
-    if (following && nav.simulationStatus !== "idle" && nav.positionEstimate?.floorId && nav.floor?.id !== nav.positionEstimate.floorId)
+    if (following && nav.positionEstimate?.floorId && nav.floor?.id !== nav.positionEstimate.floorId)
       void nav.selectFloor(nav.positionEstimate.floorId);
-  }, [following, nav.simulationStatus, nav.positionEstimate?.floorId, nav.floor?.id]);
-  useEffect(() => { if (nav.simulationStatus === "running" && nav.simulationProgress?.traveledMeters === 0) setFollowing(true); }, [nav.simulationStatus]);
+  }, [following, nav.positionEstimate?.floorId, nav.floor?.id]);
   useEffect(() => {
     if (params.locate === "1" && !nav.loading && nav.originNode) { setFullMap(true); locate(); router.setParams({ locate: "" }); }
   }, [params.locate, nav.loading, nav.originNode?.id]);
@@ -159,12 +158,12 @@ export default function MapScreen() {
     navigationRevision={nav.navigationRevision} previewStep={preview}
     shoppingId={nav.shopping?.id} floorId={nav.floor.id} width={compact ? width : viewportWidth} height={surfaceHeight}
     routeNodes={nav.routeDisplayNodes} originNodeId={nav.originNode?.id} position={nav.positionEstimate}
-    following={following && nav.simulationStatus !== "idle"} onExplore={() => setFollowing(false)}
+    following={following && !!nav.positionEstimate} onExplore={() => setFollowing(false)}
     destinationNodeId={nav.hasArrived ? undefined : nav.destinationNodeId} onLocate={locate} locateRequest={locateRequest} hasOrigin={!!nav.originNode}
     onPoiPress={(id) => { void getPoi(id).then(setPoi).catch((cause) => setLocalError(cause.message)); }}
     fallback={nav.graph?.piso_id === nav.floor.id ? <Map2D key={nav.floor.id} compact={compact} controlsTop={compact ? activeRoute ? 90 : 75 : undefined} width={compact ? width : viewportWidth} height={surfaceHeight}
       floor={nav.floor} graph={nav.graph} routeNodes={nav.routeDisplayNodes} origin={nav.originNode} position={nav.positionEstimate}
-      following={following && nav.simulationStatus !== "idle"} onExplore={() => setFollowing(false)}
+      following={following && !!nav.positionEstimate} onExplore={() => setFollowing(false)}
       destination={nav.hasArrived ? undefined : nav.destinationNodeId} onNodePress={(node) => void inspectNode(node)}
       onLocate={locate} locateRequest={locateRequest} highlight={preview?.referencia_no_id ?? preview?.no_destino_id} />
       : <ActivityIndicator accessibilityLabel="Carregando piso" />} /> : <ActivityIndicator accessibilityLabel="Carregando piso" />;
