@@ -102,6 +102,8 @@ Versões: Python 3.14.3, pytest 8.3.3, MySQL 8.0.40
 Resultado: **203 passed, 0 failed** em 414,63s (6m 54s)
 
 - MySQL configurado como banco principal e único (senha do root via variável de ambiente `MYSQL_ROOT_PASSWORD`).
+- Usuário dedicado criado: `navegacao_app` (sem privilégios globais, apenas `navegacao_indoor` e `navegacao_indoor_test`).
+- Testes executados com o usuário dedicado `navegacao_app` (não root).
 - Banco de teste: `navegacao_indoor_test`.
 - Nenhum teste pulado; todos executados contra MySQL.
 
