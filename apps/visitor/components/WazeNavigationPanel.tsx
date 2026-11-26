@@ -21,7 +21,7 @@ export function walkingMinutes(meters: number) {
   return Math.max(1, Math.round(meters / 1.2 / 60));
 }
 
-export function WazeManeuverBanner() {
+export function WazeManeuverBanner({ navigating = false }: { navigating?: boolean }) {
   const nav = useNavigation();
   const visible = !!(nav.route || nav.routeLoading || nav.routeError);
   const steps = nav.route?.etapas?.filter((item) => item.tipo !== "inicio") ?? [];
@@ -40,14 +40,17 @@ export function WazeManeuverBanner() {
         : <WayfindingIcon name={failed ? "alert" : maneuver.icon} color={failed ? colors.danger : colors.primary} size={34} strokeWidth={2.4} />}
     </View>
     <View style={{ flex: 1, minWidth: 0 }}>
-      <Text style={[styles.maneuverEyebrow, failed && styles.maneuverEyebrowError]}>{arrived ? "VOCÊ CHEGOU" : failed ? "ROTA NÃO DISPONÍVEL" : loading ? "CALCULANDO CAMINHO" : "CAMINHO PRONTO"}</Text>
+      <Text style={[styles.maneuverEyebrow, failed && styles.maneuverEyebrowError]}>{arrived ? "VOCÊ CHEGOU" : failed ? "ROTA NÃO DISPONÍVEL" : loading ? "CALCULANDO CAMINHO" : navigating ? "NAVEGAÇÃO ATIVA" : "CAMINHO PRONTO"}</Text>
       <Text testID="current-instruction" style={[styles.maneuverInstruction, failed && styles.maneuverInstructionError]}>{arrived ? nav.destinationName : failed ? nav.routeError : current?.texto || (nav.routeLoading ? "Calculando caminho…" : "Rota pronta para começar")}</Text>
       {!!next && !arrived && !failed && <Text style={styles.maneuverNext} numberOfLines={1}>Depois: {next.texto}</Text>}
     </View>
   </View>;
 }
 
-export function WazeNavigationPanel({ onChooseDestination, onCorrectPosition, onHelp }: {
+export function WazeNavigationPanel({ navigating = false, onStartNavigation, onStopNavigation, onChooseDestination, onCorrectPosition, onHelp }: {
+  navigating?: boolean;
+  onStartNavigation: () => void;
+  onStopNavigation: () => void;
   onChooseDestination: () => void;
   onCorrectPosition: () => void;
   onHelp: () => void;
@@ -78,17 +81,19 @@ export function WazeNavigationPanel({ onChooseDestination, onCorrectPosition, on
   const minutes = remaining !== undefined ? walkingMinutes(remaining) : 0;
 
   function primaryAction() {
+    if (navigating) { onStopNavigation(); return; }
     if (nav.simulationStatus === "running") nav.pauseSimulation();
     else if (nav.simulationStatus === "error" || !nav.route) void nav.recalculate();
     else if (nav.simulationStatus === "paused") void nav.resumeSimulation();
     else if (arrived) onChooseDestination();
-    else void nav.recalculate();
+    else onStartNavigation();
   }
 
-  const primaryLabel = nav.simulationStatus === "running" ? "Pausar" :
+  const primaryLabel = arrived ? "Novo destino" :
+    navigating ? "Encerrar navegação" :
+    nav.simulationStatus === "running" ? "Pausar" :
     nav.routeStale || nav.simulationStatus === "error" || (!nav.route && !busy) ? "Tentar novamente" :
-    nav.simulationStatus === "paused" ? "Continuar" :
-    arrived ? "Novo destino" : "Iniciar navegação";
+    nav.simulationStatus === "paused" ? "Continuar" : "Iniciar navegação";
 
   return <View testID="route-panel" style={[styles.panel, nav.arrivalLoading && styles.panelBusy]} accessibilityState={{ busy }}>
     {moving && !arrived && (
@@ -108,7 +113,7 @@ export function WazeNavigationPanel({ onChooseDestination, onCorrectPosition, on
         <Text style={styles.tripDestination} numberOfLines={1} accessibilityRole="header">{nav.destinationName || "Destino"}</Text>
         <Text style={styles.tripMeta} numberOfLines={1}>
           De <Text testID="origin-label">{nav.originNode?.nome || "origem"}</Text> ·
-          {arrived ? "destino alcançado" : "rota pronta"}
+          {arrived ? "destino alcançado" : navigating ? "navegação ativa" : "rota pronta"}
           {nav.acessivel ? " · sem escadas" : ""}
         </Text>
       </View>
@@ -123,6 +128,10 @@ export function WazeNavigationPanel({ onChooseDestination, onCorrectPosition, on
     {busy && <View style={styles.busy} accessibilityLiveRegion="polite">
       <ActivityIndicator color={colors.primary} />
       <Text style={styles.busyText}>Atualizando caminho…</Text>
+    </View>}
+    {navigating && !arrived && !busy && <View style={styles.active} accessibilityLiveRegion="polite">
+      <WayfindingIcon name="locate" color={colors.primary} size={16} strokeWidth={2.2} />
+      <Text style={styles.activeText}>Navegação ativa · siga a seta no mapa</Text>
     </View>}
 
     <View style={styles.actions}>
@@ -291,6 +300,8 @@ const styles = StyleSheet.create({
   stopText: { color: colors.danger, fontSize: 14, fontWeight: "700" },
   busy: { flexDirection: "row", alignItems: "center", gap: 8 },
   busyText: { color: colors.textMuted, fontSize: 13 },
+  active: { flexDirection: "row", alignItems: "center", gap: 8, paddingHorizontal: 12, paddingVertical: 8, borderRadius: 10, backgroundColor: colors.primarySoft },
+  activeText: { color: colors.primaryDark, fontSize: 13, fontWeight: "700" },
   error: {
     color: colors.danger,
     backgroundColor: colors.dangerSoft,
