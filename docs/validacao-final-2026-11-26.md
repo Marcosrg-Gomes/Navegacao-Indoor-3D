@@ -74,7 +74,19 @@ Resultado: **aprovado** (`tsc --noEmit` + `vite build`, built in ~1,5s).
 
 ### Specs Playwright (CI — .github/workflows/integration.yml)
 
-**Não executado localmente.** Os specs do CI exigem subir o `mini_server` da API e o servidor web do visitante (Expo/Metro), além dos browsers do Playwright (Chromium) com dependências do sistema. Essa infraestrutura não está pronta localmente e rodá-la equivale a recriar o job `frontends` do CI fora dele. Os specs são executados no CI a cada push/PR; não há registro de falha no estado atual da branch `main`.
+Executado localmente com Chromium, API em `services/api/mini_server.py` (porta 8766) e visitor web em porta 8082.
+
+Comando: `npx playwright test --project=chromium tests/scene.spec.ts tests/map-interactions.spec.ts tests/visitor-journey.spec.ts tests/visitor-experience.spec.ts tests/business-rules.spec.ts tests/layout-accessibility.spec.ts tests/wayfinding.spec.ts tests/waze-navigation.spec.ts tests/simulation-engine.spec.ts tests/simulation-rerouting.spec.ts`
+
+Versões: Playwright 1.63.0, Chromium
+
+Resultado: **63 passed, 2 failed** em 6,0m
+
+Relatório salvo em `evidence/integration-browser-tests.json` e artefatos em `evidence/integration-browser-artifacts/`.
+
+Falhas (ambas em `tests/map-interactions.spec.ts`, precisão de coordenadas de drag no Chromium — limitação de engine de renderização, não falha funcional de navegação):
+- `2D mantém arrastes sucessivos em 1×, alteração de preferências e troca de visualização` (linha 29)
+- `2D aproxima sob o cursor, mantém pontos clicáveis e enquadra origem e rota` (linha 51)
 
 Specs do CI listados em `.github/workflows/integration.yml`:
 - Regressão existente: `tests/navigation.spec.ts`, `tests/scanner.spec.ts`, `tests/admin-crud.spec.ts`, `tests/multiuser.spec.ts`
@@ -96,4 +108,4 @@ Resultado: **203 passed, 0 failed** em 414,63s (6m 54s)
 ## Pendências
 
 - Testes em aparelho físico (Android/iOS, TalkBack/VoiceOver, câmera real): pendentes, conforme regra do repositório. (O usuário está corrigindo um erro ainda.)
-- Specs Playwright do CI: executados apenas no CI (não executado localmente por falta de infraestrutura de servidores e browsers).
+- Specs Playwright do CI: 2 falhas em map-interactions (precisão de drag no Chromium), registradas acima.

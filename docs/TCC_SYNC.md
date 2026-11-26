@@ -1,9 +1,9 @@
 # Sincronização do TCC
 
 - Repositório: https://github.com/Marcosrg-Gomes/Navegacao-Indoor-3D.git
-- Commit: 1631880e4cc403b61af4c9d6c7693dd4dccf5f73 (1631880)
-- Data do commit: 2026-11-26 11:17:18 -0300
-- Gerado em: 2026-11-26T14:20:22.067869+00:00
+- Commit: 085917e780cfdd50dbce85bac8aeb2450c54ee71 (085917e)
+- Data do commit: 2026-11-26 11:37:25 -0300
+- Gerado em: 2026-11-26T15:02:50.793982+00:00
 - Branch: fix/tcc-final
 
 ## Tabelas e campos da API
@@ -189,4 +189,4 @@
 - test_seguranca_estabilidade.py: 8 teste(s) definido(s)
 - test_wayfinding.py: 5 teste(s) definido(s)
 
-- Total pytest: 203 aprovados, 0 ignorados, 0 falhos (contra MySQL 8.0.40, banco navegacao_indoor_test)
+- Total pytest: 202 aprovados, 1 ignorados, 0 falhos
