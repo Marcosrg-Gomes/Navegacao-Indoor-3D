@@ -14,19 +14,19 @@ import { bearingBetween, snapOrientation } from "./navigationOrientation";
 
 /**
  * Decide a rotação do mapa (0° ou 180°) para que a navegação sempre venha de
- * baixo para cima (padrão Waze). Quando o próximo ponto do percurso está abaixo
- * na planta (coord_y crescente), o mapa rotaciona 180°.
+ * baixo para cima (padrão Waze). Usa o trecho à frente da posição; quando ainda
+ * não há posição, usa o primeiro segmento da rota no piso.
  */
-function snapOrientationForRoute(position: PositionEstimate | null | undefined, routeNodes: NoRota[], previous: MapOrientation): MapOrientation {
-  if (!position || routeNodes.length < 2) return previous;
-  const path = routeNodes.filter((node) => node.piso_id === position.floorId);
-  let index = path.findIndex((node) => node.id === position.fromNodeId);
-  if (index < 0) index = path.findIndex((node) => node.id === position.toNodeId);
-  if (index < 0) return previous;
-  const next = path[index + 1];
+function routeOrientationFor(floorId: number, position: PositionEstimate | null | undefined, routeNodes: NoRota[], previous: MapOrientation): MapOrientation {
+  const path = routeNodes.filter((node) => node.piso_id === floorId);
+  if (path.length < 2) return previous;
+  const onFloor = position?.floorId === floorId ? position : undefined;
+  let index = onFloor ? path.findIndex((node) => node.id === onFloor.fromNodeId) : -1;
+  if (index < 0 && onFloor) index = path.findIndex((node) => node.id === onFloor.toNodeId);
+  const next = index >= 0 ? path[index + 1] : path[1];
   if (!next) return previous;
-  const bearing = bearingBetween({ x: position.x, y: position.y }, { x: next.coord_x, y: next.coord_y });
-  return snapOrientation(bearing);
+  const start = onFloor ? { x: onFloor.x, y: onFloor.y } : { x: path[0].coord_x, y: path[0].coord_y };
+  return snapOrientation(bearingBetween(start, { x: next.coord_x, y: next.coord_y }));
 }
 
 const NORTH_UP: MapOrientation = 0;
@@ -54,6 +54,11 @@ export function Map2D({ width, height, floor, graph, routeNodes, origin, positio
   const followedSimulation = useRef(false);
   const [localFollowing, setLocalFollowing] = useState(false);
   const isFollowing = following ?? localFollowing;
+  // Orientação derivada da rota (0°/180°), independente de estar acompanhando.
+  const routeOrientation = useMemo(
+    () => routeOrientationFor(floor.id, position, routeNodes, NORTH_UP),
+    [floor.id, position, routeNodes],
+  );
   const nextTurn = position?.source === "simulation" ? (() => {
     const index = routeNodes.findIndex((node) => node.id === position.toNodeId && node.piso_id === floor.id);
     const next = routeNodes[index + 1]?.piso_id === floor.id ? routeNodes[index + 1] : routeNodes[index];
@@ -62,25 +67,47 @@ export function Map2D({ width, height, floor, graph, routeNodes, origin, positio
   const explore = () => { explored.current = true; if (following === undefined) setLocalFollowing(false); onExplore?.(); };
   const ignoreClickUntil = useRef(0);
   useEffect(() => { setView((v) => clampView(v, bounds)); }, [bounds]);
+  // Garante que a planta esteja invertida sempre que a rota apontar para baixo,
+  // mesmo antes de iniciar o acompanhamento (visão geral da rota).
+  useEffect(() => {
+    setView((current) => {
+      if (current.rotation === routeOrientation) return current;
+      const focus = position?.floorId === floor.id ? { x: position.x, y: position.y }
+        : origin?.piso_id === floor.id ? { x: origin.coord_x, y: origin.coord_y } : undefined;
+      const next = { ...current, rotation: routeOrientation };
+      return focus ? centerOnPosition(next, focus, bounds) : next;
+    });
+  }, [routeOrientation, position?.x, position?.y, position?.floorId, floor.id, origin?.id, bounds]);
   useEffect(() => {
     if (viewedFloor.current !== floor.id) { viewedFloor.current = floor.id; explored.current = false; followedSimulation.current = false; }
-    if (compact && !explored.current && !routeNodes.some((node) => node.piso_id === floor.id) && !(isFollowing && position?.source === "simulation"))
-      setView(nearbyView(bounds, anchor, view.rotation));
-  }, [compact, floor.id, bounds, anchor?.x, anchor?.y, routeNodes.length, isFollowing, position?.source, view.rotation]);
+    if (compact && !explored.current && !routeNodes.some((node) => node.piso_id === floor.id) && !isFollowing)
+      setView(nearbyView(bounds, anchor, routeOrientation));
+  }, [compact, floor.id, bounds, anchor?.x, anchor?.y, routeNodes.length, isFollowing, routeOrientation]);
   useEffect(() => {
-    if (compact && !explored.current && !(isFollowing && position?.source === "simulation") && routeNodes.some((node) => node.piso_id === floor.id)) {
-      setView(framePoints(routeNodes.filter((node) => node.piso_id === floor.id), bounds, view.rotation));
+    if (compact && !explored.current && !isFollowing && routeNodes.some((node) => node.piso_id === floor.id)) {
+      setView(framePoints(routeNodes.filter((node) => node.piso_id === floor.id), bounds, routeOrientation));
     }
-  }, [compact, routeNodes, floor.id, bounds, isFollowing, position?.source, view.rotation]);
+  }, [compact, routeNodes, floor.id, bounds, isFollowing, routeOrientation]);
   useEffect(() => {
     if (compact && isFollowing && position?.floorId === floor.id && !followedSimulation.current) {
       followedSimulation.current = true;
-      // Rotaciona o mapa para que a navegação sempre venha de baixo para cima.
-      const rotation = snapOrientationForRoute(position, routeNodes, view.rotation);
-      setView((current) => followPosition({ ...current, zoom: Math.min(current.zoom, 1.6), rotation }, position, bounds, nextTurn));
+      // O mapa já está na orientação da rota; só centraliza e aproxima.
+      setView((current) => followPosition({ ...current, zoom: Math.min(current.zoom, 1.6) }, position, bounds, nextTurn));
     }
     if (position?.source !== "simulation") followedSimulation.current = false;
-  }, [compact, isFollowing, position?.source, position?.floorId, floor.id, bounds, nextTurn?.x, nextTurn?.y, view.rotation]);
+  }, [compact, isFollowing, position?.source, position?.floorId, floor.id, bounds, nextTurn?.x, nextTurn?.y]);
+  useEffect(() => {
+    if (locateRequest && position?.floorId === floor.id) {
+      if (following === undefined) setLocalFollowing(true);
+      setView((current) => position.source === "simulation"
+        ? followPosition({ ...current, rotation: current.rotation }, position, bounds, nextTurn)
+        : compact ? nearbyView(bounds, position, current.rotation) : centerOnPosition({ ...current, zoom: Math.max(current.zoom, 2.5), rotation: current.rotation }, position, bounds));
+    } else if (locateRequest && origin?.piso_id === floor.id) setView((current) => compact ? nearbyView(bounds, { x: origin.coord_x, y: origin.coord_y }, current.rotation) : centerOnPosition({ ...current, zoom: Math.max(current.zoom, 2.5), rotation: current.rotation }, { x: origin.coord_x, y: origin.coord_y }, bounds));
+  }, [locateRequest, floor.id]);
+  useEffect(() => {
+    if (isFollowing && position?.floorId === floor.id) setView((current) => position.source === "simulation"
+      ? followPosition({ ...current, rotation: current.rotation }, position, bounds, nextTurn) : centerOnPosition({ ...current, rotation: current.rotation }, position, bounds));
+  }, [isFollowing, position?.floorId, position?.x, position?.y, floor.id, bounds, nextTurn?.x, nextTurn?.y]);
   useEffect(() => {
     if (locateRequest && position?.floorId === floor.id) {
       if (following === undefined) setLocalFollowing(true);

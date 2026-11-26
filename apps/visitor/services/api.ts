@@ -23,11 +23,6 @@ export class ApiError extends Error {
 }
 
 function getBaseUrl(): string {
-  // No web, a origem da janela é sempre a porta do servidor que está servindo o app,
-  // evitando problemas de CORS quando o servidor roda em porta diferente da do .env.
-  if (Platform.OS === "web" && typeof window !== "undefined") {
-    return window.location.origin;
-  }
   const fromEnv = process.env.EXPO_PUBLIC_API_URL;
   if (fromEnv) return normalizarBaseUrl(fromEnv);
 
