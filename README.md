@@ -6,7 +6,7 @@ entre os dois. O visitante usa Expo Web com Three.js/React Three Fiber ou mapa S
 Android/iOS usam apenas o mapa 2D. O painel React valida a cena e administra a navegação.
 
 **Repositório:** https://github.com/Marcosrg-Gomes/Navegacao-Indoor-3D.git  
-**Quadro Kanban (Notion):** a ser preenchido quando existir.
+**Quadro Kanban:** https://app2.artia.com/a/6814930/f/6814931/kanban
 
 ## Estrutura
 
