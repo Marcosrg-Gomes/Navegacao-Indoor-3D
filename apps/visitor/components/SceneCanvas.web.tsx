@@ -60,9 +60,9 @@ function Viewport({ model, props, orientation, command, onView, previewNext }: {
   useEffect(() => { if (floor) callbacks.current.onReady(); else callbacks.current.onError("Piso ausente no catálogo 3D."); }, [floor, model]);
   useEffect(() => { invalidate(); }, [props.position?.x, props.position?.y, props.position?.floorId, invalidate]);
   if (!floor) return null;
-  // A câmera olha sempre para cima (0°); o mapa 3D nunca gira, igual ao 2D.
-  // Só a seta vira: durante a simulação usa o rumo do deslocamento e, numa
-  // posição confirmada, aponta para o próximo nó da rota.
+  // A câmera segue a orientação 0°/180° da rota (o percurso sempre vem de baixo
+  // para cima). A seta acompanha o rumo do deslocamento e, numa posição
+  // confirmada, aponta para o próximo nó da rota.
   const heading = props.position?.heading ?? headingToNextRouteNode(props.position, props.routeNodes) ?? 0;
   const markerYaw = sceneYawForDirection(sceneHeadingDirection(floor, heading));
   return <>

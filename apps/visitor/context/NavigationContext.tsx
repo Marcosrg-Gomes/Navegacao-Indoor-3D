@@ -114,7 +114,12 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
     setPositionSession(next);
   }, []);
   const originNode = positionSession.confirmed?.node ?? null;
-  const positionEstimate = currentPosition(positionSession);
+  // Sem simulação, o marcador usa sempre a última posição confirmada (QR ou
+  // seleção manual), nunca um ponto simulado remanescente.
+  const positionEstimate = useMemo(() => {
+    const current = currentPosition(positionSession);
+    return current?.source === "simulation" ? positionSession.confirmed?.estimate ?? null : current;
+  }, [positionSession]);
   const simulationStatus = positionSession.status;
   const originUpdate = useMemo(() => positionSession.confirmed ? {
     source: positionSession.confirmed.estimate.source,

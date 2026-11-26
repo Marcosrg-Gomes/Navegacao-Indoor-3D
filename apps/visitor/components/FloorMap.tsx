@@ -215,9 +215,9 @@ export function FloorMap({
 
 /**
  * Indicador de navegação: chevron com halo. Desenhado apontando para o topo da
- * planta e rotacionado pelo `heading` do deslocamento, de modo que na tela
- * segue o sentido do percurso (vira nas curvas). O mapa 2D permanece sempre
- * de baixo para cima (0°) e não gira.
+ * planta e rotacionado pelo `heading` do deslocamento. A planta pode estar
+ * invertida em 180°, de modo que o giro final na tela mantém a seta sobre o
+ * percurso (vira nas curvas) sem nunca apontar contra ele.
  */
 export function NavigationMarker({ x, y, rotation, simulated, showLabel }: { x: number; y: number; rotation: number; simulated: boolean; showLabel: boolean }) {
   return <G testID="position-marker" role="img" aria-label={simulated ? "Sua posição simulada; a seta indica o sentido do percurso" : "Sua última posição confirmada"}>

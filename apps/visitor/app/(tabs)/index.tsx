@@ -44,7 +44,10 @@ export default function MapScreen() {
   const guideOffset = useRef(0);
   const goToMap = () => scroll.current?.scrollTo({ y: mapOffset.current, animated: false });
   const [fullMap, setFullMap] = useState(false);
-  const [following, setFollowing] = useState(true);
+  // A visão geral da rota começa sem acompanhar; "Iniciar navegação" ativa o
+  // acompanhamento e centraliza o mapa na posição confirmada.
+  const [following, setFollowing] = useState(false);
+  const [navigating, setNavigating] = useState(false);
   const [mobileMapSpace, setMobileMapSpace] = useState(0);
   const [lost, setLost] = useState(false);
   const [savedOpen, setSavedOpen] = useState(false);
@@ -86,6 +89,19 @@ export default function MapScreen() {
     const floorId = nav.positionEstimate?.floorId ?? nav.originNode?.piso_id;
     if (floorId && floorId !== nav.floor?.id) void nav.selectFloor(floorId);
   }
+  // "Iniciar navegação" passa a acompanhar a posição e centraliza o mapa; o
+  // botão vira "Encerrar navegação" enquanto o modo estiver ativo.
+  function startNavigation() {
+    setNavigating(true);
+    locate();
+  }
+  function stopNavigation() {
+    setNavigating(false);
+    setFollowing(false);
+  }
+  useEffect(() => {
+    if (!activeRoute) setNavigating(false);
+  }, [activeRoute]);
   const [manual, setManual] = useState(false);
   const [help, setHelp] = useState(false);
   const [options, setOptions] = useState(false);
