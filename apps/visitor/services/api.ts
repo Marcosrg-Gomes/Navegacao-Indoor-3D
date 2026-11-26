@@ -26,6 +26,9 @@ function getBaseUrl(): string {
   const fromEnv = process.env.EXPO_PUBLIC_API_URL;
   if (fromEnv) return normalizarBaseUrl(fromEnv);
 
+  const fromVisitor = process.env.VISITOR_URL || process.env.AUDIT_URL;
+  if (fromVisitor) return normalizarBaseUrl(fromVisitor);
+
   const fromExtra = Constants.expoConfig?.extra?.apiUrl as string | undefined;
   if (fromExtra) return normalizarBaseUrl(fromExtra);
 
