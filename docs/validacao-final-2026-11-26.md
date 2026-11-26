@@ -81,8 +81,19 @@ Specs do CI listados em `.github/workflows/integration.yml`:
 - Integrado 3D: `tests/scene.spec.ts`, `tests/map-interactions.spec.ts`, `tests/visitor-journey.spec.ts`, `tests/visitor-experience.spec.ts`, `tests/business-rules.spec.ts`, `tests/layout-accessibility.spec.ts`, `tests/wayfinding.spec.ts`, `tests/waze-navigation.spec.ts`, `tests/simulation-engine.spec.ts`, `tests/simulation-rerouting.spec.ts`
 - Acessibilidade (axe-core WCAG 2.2 AA): `tests/accessibility.spec.ts`
 
+### API — MySQL (banco principal e único)
+
+Comando: `TEST_DATABASE_URL=mysql+pymysql://root:...@127.0.0.1:3306/navegacao_indoor_test .venv\Scripts\python.exe -m pytest services/api/tests -q`
+
+Versões: Python 3.14.3, pytest 8.3.3, MySQL 8.0.40
+
+Resultado: **203 passed, 0 failed** em 414,63s (6m 54s)
+
+- MySQL configurado como banco principal e único (senha do root via variável de ambiente `MYSQL_ROOT_PASSWORD`).
+- Banco de teste: `navegacao_indoor_test`.
+- Nenhum teste pulado; todos executados contra MySQL.
+
 ## Pendências
 
-- Suíte da API contra MySQL de homologação: não há servidor MySQL local; documentado como bloqueio (tarefa 2).
-- Testes em aparelho físico (Android/iOS, TalkBack/VoiceOver, câmera real): pendentes, conforme regra do repositório.
-- Specs Playwright do CI: executados apenas no CI.
+- Testes em aparelho físico (Android/iOS, TalkBack/VoiceOver, câmera real): pendentes, conforme regra do repositório. (O usuário está corrigindo um erro ainda.)
+- Specs Playwright do CI: executados apenas no CI (não executado localmente por falta de infraestrutura de servidores e browsers).
