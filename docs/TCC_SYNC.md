@@ -1,9 +1,9 @@
 # Sincronização do TCC
 
 - Repositório: https://github.com/Marcosrg-Gomes/Navegacao-Indoor-3D.git
-- Commit: 93c8c4dc96054145dd5fd3898348f1266c7354e6 (93c8c4d)
-- Data do commit: 2026-11-26 13:39:03 -0300
-- Gerado em: 2026-11-26T16:39:46.799380+00:00
+- Commit: f69abc3eb6c7e4b2d6d7737d7bfbc7a55cf0984f (f69abc3)
+- Data do commit: 2026-11-26 14:12:07 -0300
+- Gerado em: 2026-11-26T17:12:46.819286+00:00
 - Branch: fix/tcc-final
 
 ## Tabelas e campos da API
