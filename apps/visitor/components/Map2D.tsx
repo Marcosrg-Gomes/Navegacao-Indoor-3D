@@ -108,18 +108,6 @@ export function Map2D({ width, height, floor, graph, routeNodes, origin, positio
     if (isFollowing && position?.floorId === floor.id) setView((current) => position.source === "simulation"
       ? followPosition({ ...current, rotation: current.rotation }, position, bounds, nextTurn) : centerOnPosition({ ...current, rotation: current.rotation }, position, bounds));
   }, [isFollowing, position?.floorId, position?.x, position?.y, floor.id, bounds, nextTurn?.x, nextTurn?.y]);
-  useEffect(() => {
-    if (locateRequest && position?.floorId === floor.id) {
-      if (following === undefined) setLocalFollowing(true);
-      setView((current) => position.source === "simulation"
-        ? followPosition({ ...current, rotation: current.rotation }, position, bounds, nextTurn)
-        : compact ? nearbyView(bounds, position, current.rotation) : centerOnPosition({ ...current, zoom: Math.max(current.zoom, 2.5), rotation: current.rotation }, position, bounds));
-    } else if (locateRequest && origin?.piso_id === floor.id) setView((current) => compact ? nearbyView(bounds, { x: origin.coord_x, y: origin.coord_y }, current.rotation) : centerOnPosition({ ...current, zoom: Math.max(current.zoom, 2.5), rotation: current.rotation }, { x: origin.coord_x, y: origin.coord_y }, bounds));
-  }, [locateRequest, floor.id]);
-  useEffect(() => {
-    if (isFollowing && position?.floorId === floor.id) setView((current) => position.source === "simulation"
-      ? followPosition({ ...current, rotation: current.rotation }, position, bounds, nextTurn) : centerOnPosition({ ...current, rotation: current.rotation }, position, bounds));
-  }, [isFollowing, position?.floorId, position?.x, position?.y, floor.id, bounds, nextTurn?.x, nextTurn?.y]);
   const scaledWidth = bounds.mapWidth * view.zoom, scaledHeight = bounds.mapHeight * view.zoom;
   const scaleMeters = view.zoom >= 3 ? 2 : 5;
   const scaleWidth = scaleMeters * scaledWidth / (floor.largura_metros || 100);
