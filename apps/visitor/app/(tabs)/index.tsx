@@ -170,14 +170,14 @@ export default function MapScreen() {
   const error = localError || nav.error;
   const status = nav.destinationLoja ? getStatusOperacional(nav.destinationLoja) : null;
   const renderMap = (surfaceHeight: number, compact: boolean) => nav.floor ? <SceneMap
-    initialMode="auto" compact={compact} controlsTop={compact ? activeRoute ? 90 : 75 : undefined}
+    initialMode="auto" compact={compact} controlsTop={compact ? activeRoute ? 106 : 72 : undefined} controlsBottom={compact ? 164 : undefined}
     navigationRevision={nav.navigationRevision} previewStep={preview}
     shoppingId={nav.shopping?.id} floorId={nav.floor.id} width={compact ? width : viewportWidth} height={surfaceHeight}
     routeNodes={nav.routeDisplayNodes} originNodeId={nav.originNode?.id} position={nav.positionEstimate}
     following={following && !!nav.positionEstimate} onExplore={() => setFollowing(false)}
     destinationNodeId={nav.hasArrived ? undefined : nav.destinationNodeId} onLocate={locate} locateRequest={locateRequest} hasOrigin={!!nav.originNode}
     onPoiPress={(id) => { void getPoi(id).then(setPoi).catch((cause) => setLocalError(cause.message)); }}
-    fallback={nav.graph?.piso_id === nav.floor.id ? <Map2D key={nav.floor.id} compact={compact} controlsTop={compact ? activeRoute ? 90 : 75 : undefined} width={compact ? width : viewportWidth} height={surfaceHeight}
+    fallback={nav.graph?.piso_id === nav.floor.id ? <Map2D key={nav.floor.id} compact={compact} controlsTop={compact ? activeRoute ? 106 : 72 : undefined} width={compact ? width : viewportWidth} height={surfaceHeight}
       floor={nav.floor} graph={nav.graph} routeNodes={nav.routeDisplayNodes} origin={nav.originNode} position={nav.positionEstimate}
       following={following && !!nav.positionEstimate} onExplore={() => setFollowing(false)}
       destination={nav.hasArrived ? undefined : nav.destinationNodeId} onNodePress={(node) => void inspectNode(node)}
@@ -286,7 +286,7 @@ export default function MapScreen() {
         <StatusBar style={activeRoute ? "light" : "dark"} backgroundColor={activeRoute ? colors.primaryDark : colors.bg} />
         <View style={styles.mobileMap} onLayout={(event) => setMobileMapSpace(Math.floor(event.nativeEvent.layout.height))}>
           {renderMap(mobileMapSpace || mobileMapHeight, true)}
-          {activeRoute ? <View style={styles.mobileTop}><WazeManeuverBanner /></View> : <View style={styles.mobileTop}>
+          {activeRoute ? <View style={styles.mobileTop}><WazeManeuverBanner navigating={navigating} /></View> : <View style={styles.mobileTop}>
             <View style={styles.mobileSearchRow}><TouchableOpacity accessibilityRole="button" accessibilityLabel="Pesquisar destinos" style={styles.mobileSearch} onPress={() => router.push("/explore")}><WayfindingIcon name="search" color="#223246" /><Text style={styles.mobileSearchText} numberOfLines={1}>Para onde você vai?</Text></TouchableOpacity><TouchableOpacity accessibilityRole="button" accessibilityLabel="Ajuda" style={styles.mobileHelp} onPress={() => setHelp(true)}><WayfindingIcon name="help" color="#223246" /></TouchableOpacity></View>
           </View>}
           <FloorSwitcher floors={nav.floors} currentId={nav.floor?.id} top={Platform.OS === "web" ? activeRoute ? 155 : 136 : activeRoute ? 90 : 76}
