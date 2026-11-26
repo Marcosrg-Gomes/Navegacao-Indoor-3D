@@ -43,7 +43,7 @@ export function SceneLabels({ scene, floor, origin, destination, simulated, posi
       font: "600 12px/18px system-ui, sans-serif", cursor: label.poi ? "pointer" : "default" }}>
       <span style={{ display: "inline-block", maxWidth: "100%", overflow: "hidden", textOverflow: "ellipsis", verticalAlign: "middle", borderRadius: 8,
         border: `1px solid ${label.primary ? "#fff" : "#cbd5e1"}`, background: label.primary ? label.color : "#fffffff2", color: label.primary ? "#fff" : label.color,
-        padding: mobile ? "3px 7px" : "4px 8px", font: mobile ? "700 11px/16px system-ui, sans-serif" : "600 12px/18px system-ui, sans-serif", boxShadow: "0 2px 5px #10243a15" }}>{label.text}</span>
+        padding: mobile ? "4px 8px" : "6px 10px", minHeight: 24, minWidth: 24, font: mobile ? "700 11px/16px system-ui, sans-serif" : "600 12px/18px system-ui, sans-serif", boxShadow: "0 2px 5px #10243a15" }}>{label.text}</span>
     </button>;
   })}</div>;
 }
