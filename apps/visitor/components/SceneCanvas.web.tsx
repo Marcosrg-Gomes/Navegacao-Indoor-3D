@@ -136,7 +136,7 @@ export default function SceneCanvas(props: Props) {
       {model && <Canvas key={props.previewStep ? "walk" : "map"} orthographic={!props.previewStep} frameloop="demand" dpr={[1, 1.5]} camera={{ near: .1, far: 400, fov: 65 }} gl={{ antialias: true }}>
         <Viewport model={model} props={props} orientation={orientation} command={command} onView={setView} previewNext={previewNext} />
       </Canvas>}
-      {model && floor && <SceneLabels scene={props.scene} floor={floor} origin={props.originNodeId} destination={props.destinationNodeId} simulated={props.position?.source === "simulation"} position={props.position} view={view} width={props.width} height={props.height} onPoiPress={props.onPoiPress} />}
+      {model && floor && <SceneLabels scene={props.scene} floor={floor} origin={props.originNodeId} destination={props.destinationNodeId} simulated={props.position?.source === "simulation"} position={props.position} view={view} width={props.width} height={props.height} controlsBottom={props.compact ? props.controlsBottom ?? 164 : undefined} onPoiPress={props.onPoiPress} />}
       {props.compact && !props.previewStep && <MapControls onOverview={() => { props.onExplore?.(); send("reset"); }}
         onZoomIn={() => { props.onExplore?.(); send("in"); }} onZoomOut={() => { props.onExplore?.(); send("out"); }} onLocate={props.onLocate} />}
 

@@ -73,7 +73,7 @@ export function SceneMap(props: SceneMapProps) {
     <View style={props.compact
       ? [segment.compactTrack, { bottom: props.controlsBottom ?? 164 }]
       : [segment.track, { alignSelf: "flex-start" }]}
-      accessibilityRole="tablist" accessibilityLabel="Modo do mapa">
+      role="group" accessibilityLabel="Modo do mapa">
       {([["auto", "Automático"], ["3d", "Mapa 3D"], ["2d", "Mapa 2D"]] as const).map(([value, label]) => {
         const selected = mode === value;
         return <TouchableOpacity key={value} accessibilityRole="button" accessibilityLabel={label} accessibilityState={{ selected }}
