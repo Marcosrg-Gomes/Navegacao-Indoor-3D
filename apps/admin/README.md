@@ -29,3 +29,18 @@ O Vite encaminha `/api` para o backend, então não é necessário configurar CO
 - Relatório de validação (`/api/admin/graph/validate`)
 
 A URL gravada no QR aponta para `VITE_PUBLIC_APP_URL` (navegador do visitante, ainda a ser publicado).
+
+## Testes E2E (Playwright)
+
+Execute a partir de `apps/admin`, com a API disponível em `AUDIT_URL`:
+
+```powershell
+$env:AUDIT_URL = 'http://127.0.0.1:8001'
+npx playwright test --project=chromium
+```
+
+Sem `VISITOR_URL`, a configuração inicia o Expo web temporariamente em
+`http://127.0.0.1:8081` e aponta `EXPO_PUBLIC_API_URL` para `AUDIT_URL`. Assim,
+os testes exercitam o código-fonte atual do visitante, enquanto páginas e
+requisições administrativas usam o backend informado. Defina `VISITOR_URL` para
+usar um visitante já hospedado; nesse caso, o Playwright não inicia o Expo.

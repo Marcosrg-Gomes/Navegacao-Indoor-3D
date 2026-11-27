@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { visitorQrUrl } from "./visitor-url";
 
-const auth = { "X-API-Key": "audit-local-admin-key-with-32-characters", "X-Audit-Reason": "Validacao automatizada" };
+const auth = { "X-API-Key": "audit-local-admin-key-with-32-caracteres", "X-Audit-Reason": "Validacao automatizada" };
 
 test("Mini Shopping: QR, GLB real, loja térrea, rota idêntica em 2D/3D e chegada", async ({ page, request }, info) => {
   test.skip(info.project.name === "webkit", "WebKit headless não renderiza WebGL/Three.js GLB (limitação do engine)");
@@ -66,7 +66,7 @@ test("Falha do GLB preserva mapa 2D, destino e instruções; tentativa manual re
 test("Painel mostra inventário da cena e links dos pisos", async ({ page }) => {
   await page.goto("/admin/cena-3d");
   await expect(page.getByLabel(/Chave de acesso/)).toBeVisible({ timeout: 15000 });
-  await page.getByLabel(/Chave de acesso/).fill("audit-local-admin-key-with-32-characters");
+  await page.getByLabel(/Chave de acesso/).fill("audit-local-admin-key-with-32-caracteres");
   await page.getByRole("button", { name: "Entrar no painel", exact: true }).click();
   await expect(page.getByRole("heading", { name: /Catálogo/ })).toBeVisible({ timeout: 15000 });
   await page.screenshot({ path: "../../evidence/admin-scene-validation.png", fullPage: true });

@@ -79,23 +79,24 @@ test("Texto ampliado preserva ações e detalhes com movimento reduzido", async 
 });
 
 test("Logotipo cadastrado aparece e falha de carregamento mantém identificação", async ({ page }) => {
+  const remoteLogoName = "LOJA TESTE SEM LOGO LOCAL";
   await page.route("**/api/pois?*", async (route) => {
     const response = await route.fetch(); const pois = await response.json();
-    await route.fulfill({ response, json: pois.map((poi: any) => ({ ...poi, logo_url: poi.nome === "ADIDAS" ? "/marca-teste.svg" : poi.logo_url })) });
+    await route.fulfill({ response, json: pois.map((poi: any) => poi.nome === "ADIDAS" ? { ...poi, nome: remoteLogoName, logo_url: "/marca-teste.svg" } : poi) });
   });
   await page.route("**/marca-teste.svg", (route) => route.fulfill({ contentType: "image/svg+xml", body: '<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48"><rect width="48" height="48" fill="#164c70"/></svg>' }));
   await loadWithQr(page);
-  const adidas = page.getByRole("button", { name: "ADIDAS, ver detalhes", exact: true });
-  await expect(adidas).toBeVisible();
-  await expect(adidas.locator("img")).toBeVisible();
-  await expect(adidas.getByText("E01", { exact: true })).toHaveCount(0);
+  const store = page.getByRole("button", { name: `${remoteLogoName}, ver detalhes`, exact: true });
+  await expect(store).toBeVisible();
+  await expect(store.locator("img")).toBeVisible();
+  await expect(store.getByText("E01", { exact: true })).toHaveCount(0);
   await page.unroute("**/marca-teste.svg");
   await page.route("**/marca-teste.svg", (route) => route.fulfill({ status: 404, headers: { "cache-control": "no-store" } }));
   // Recarrega com o 404 ativo para invalidar o cache do SVG e voltar ao Explorar
   await loadWithQr(page);
-  const adidasAfterReload = page.getByRole("button", { name: "ADIDAS, ver detalhes", exact: true });
-  await expect(adidasAfterReload.getByText("E01", { exact: true })).toBeVisible();
-  await adidasAfterReload.click();
+  const storeAfterReload = page.getByRole("button", { name: `${remoteLogoName}, ver detalhes`, exact: true });
+  await expect(storeAfterReload.getByText("E01", { exact: true })).toBeVisible();
+  await storeAfterReload.click();
   await expect(page.getByRole("button", { name: "Traçar rota", exact: true })).toBeVisible();
 });
 
