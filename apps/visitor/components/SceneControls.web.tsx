@@ -21,6 +21,7 @@ export function SceneControls({ floor, scene, props, orientation, command, onVie
   const baseZoom = useRef(1);
   const lastFloor = useRef<number>();
   const lastLocate = useRef(0);
+  const lastOrientation = useRef<MapOrientation | null>(null);
   const latest = useRef({ floor, scene, props, onView, size, orientation }); latest.current = { floor, scene, props, onView, size, orientation };
   /** Rumo da planta que fica no topo da tela (0° ou 180°), no plano do modelo. */
   const forward = () => new Vector3(...sceneHeadingDirection(latest.current.floor, latest.current.orientation));
@@ -144,13 +145,29 @@ export function SceneControls({ floor, scene, props, orientation, command, onVie
     else centerOn([new Vector3(...sceneTransform(floor, x, y))], zoom);
     lastLocate.current = props.locateRequest;
   }, [props.locateRequest, floor.piso_id, props.originNodeId]);
+  // Quando a rota passa a correr para baixo na planta, a câmera precisa girar
+  // 180° em torno do alvo para o percurso continuar vindo de baixo para cima.
+  // Sem este efeito o azimute ficava travado no norte e só o marcador girava.
+  useEffect(() => {
+    const control = controls.current;
+    if (!control || !(camera instanceof OrthographicCamera) || lastOrientation.current === orientation) return;
+    lastOrientation.current = orientation;
+    const distance = camera.position.distanceTo(control.target);
+    lockAzimuth(control);
+    camera.position.copy(control.target).add(standardOffset(distance || undefined));
+    camera.lookAt(control.target);
+    camera.updateProjectionMatrix();
+    control.update();
+    report();
+  }, [orientation]);
   useEffect(() => {
     if (props.following && props.position?.floorId === floor.piso_id && camera instanceof OrthographicCamera) {
       if (props.position.source === "simulation") followRouteOverview(props.position.x, props.position.y);
       else centerOn([new Vector3(...sceneTransform(floor, props.position.x, props.position.y))], camera.zoom);
     }
   }, [props.following, props.position?.floorId, props.position?.x, props.position?.y, floor.piso_id, orientation]);
-  // A câmera 3D mantém norte fixo para cima: não inverte quando a orientação 0°/180° muda.
+  // Os comandos de vista respeitam a orientação 0°/180° vigente; arrastar com
+  // o botão direito só inclina, nunca gira livremente o mapa.
   useEffect(() => {
     const control = controls.current;
     if (!command || !control || !(camera instanceof OrthographicCamera)) return;

@@ -1,0 +1,982 @@
+{
+  "repositorio": {
+    "url": "https://github.com/Marcosrg-Gomes/Navegacao-Indoor-3D.git",
+    "commit": {
+      "short": "7f87204",
+      "full": "7f872041620483994a6220a471d43f6679ef9da3",
+      "date": "2026-11-26 14:23:10 -0300"
+    },
+    "branch_atual": "fix/tcc-final"
+  },
+  "gerado_em": "2026-11-26T17:23:49.820999+00:00",
+  "api": {
+    "tabelas": {
+      "shoppings": [
+        {
+          "nome": "codigo",
+          "tipo": "VARCHAR(80)",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "id",
+          "tipo": "INTEGER",
+          "nullable": false,
+          "primary_key": true
+        },
+        {
+          "nome": "nome",
+          "tipo": "VARCHAR(200)",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "endereco",
+          "tipo": "TEXT",
+          "nullable": true,
+          "primary_key": false
+        },
+        {
+          "nome": "latitude",
+          "tipo": "NUMERIC(10, 8)",
+          "nullable": true,
+          "primary_key": false
+        },
+        {
+          "nome": "longitude",
+          "tipo": "NUMERIC(11, 8)",
+          "nullable": true,
+          "primary_key": false
+        },
+        {
+          "nome": "ativo",
+          "tipo": "BOOLEAN",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "criado_em",
+          "tipo": "DATETIME",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "atualizado_em",
+          "tipo": "DATETIME",
+          "nullable": true,
+          "primary_key": false
+        }
+      ],
+      "pisos": [
+        {
+          "nome": "codigo",
+          "tipo": "VARCHAR(80)",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "id",
+          "tipo": "INTEGER",
+          "nullable": false,
+          "primary_key": true
+        },
+        {
+          "nome": "shopping_id",
+          "tipo": "INTEGER",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "nome",
+          "tipo": "VARCHAR(100)",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "nivel",
+          "tipo": "INTEGER",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "imagem_planta_url",
+          "tipo": "VARCHAR(500)",
+          "nullable": true,
+          "primary_key": false
+        },
+        {
+          "nome": "largura_metros",
+          "tipo": "NUMERIC(8, 2)",
+          "nullable": true,
+          "primary_key": false
+        },
+        {
+          "nome": "altura_metros",
+          "tipo": "NUMERIC(8, 2)",
+          "nullable": true,
+          "primary_key": false
+        },
+        {
+          "nome": "ativo",
+          "tipo": "BOOLEAN",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "criado_em",
+          "tipo": "DATETIME",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "atualizado_em",
+          "tipo": "DATETIME",
+          "nullable": true,
+          "primary_key": false
+        }
+      ],
+      "nos": [
+        {
+          "nome": "codigo",
+          "tipo": "VARCHAR(80)",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "id",
+          "tipo": "INTEGER",
+          "nullable": false,
+          "primary_key": true
+        },
+        {
+          "nome": "piso_id",
+          "tipo": "INTEGER",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "coord_x",
+          "tipo": "NUMERIC(10, 6)",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "coord_y",
+          "tipo": "NUMERIC(10, 6)",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "tipo",
+          "tipo": "VARCHAR(20)",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "nome",
+          "tipo": "VARCHAR(200)",
+          "nullable": true,
+          "primary_key": false
+        },
+        {
+          "nome": "ativo",
+          "tipo": "BOOLEAN",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "criado_em",
+          "tipo": "DATETIME",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "atualizado_em",
+          "tipo": "DATETIME",
+          "nullable": true,
+          "primary_key": false
+        }
+      ],
+      "arestas": [
+        {
+          "nome": "id",
+          "tipo": "INTEGER",
+          "nullable": false,
+          "primary_key": true
+        },
+        {
+          "nome": "no_origem_id",
+          "tipo": "INTEGER",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "no_destino_id",
+          "tipo": "INTEGER",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "distancia",
+          "tipo": "NUMERIC(10, 2)",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "bidirecional",
+          "tipo": "BOOLEAN",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "acessivel",
+          "tipo": "BOOLEAN",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "ativa",
+          "tipo": "BOOLEAN",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "criado_em",
+          "tipo": "DATETIME",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "atualizado_em",
+          "tipo": "DATETIME",
+          "nullable": true,
+          "primary_key": false
+        }
+      ],
+      "lojas": [
+        {
+          "nome": "codigo",
+          "tipo": "VARCHAR(80)",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "id",
+          "tipo": "INTEGER",
+          "nullable": false,
+          "primary_key": true
+        },
+        {
+          "nome": "no_id",
+          "tipo": "INTEGER",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "nome",
+          "tipo": "VARCHAR(200)",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "descricao",
+          "tipo": "TEXT",
+          "nullable": true,
+          "primary_key": false
+        },
+        {
+          "nome": "categoria_id",
+          "tipo": "INTEGER",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "horario_funcionamento",
+          "tipo": "VARCHAR(200)",
+          "nullable": true,
+          "primary_key": false
+        },
+        {
+          "nome": "telefone",
+          "tipo": "VARCHAR(20)",
+          "nullable": true,
+          "primary_key": false
+        },
+        {
+          "nome": "logo_url",
+          "tipo": "VARCHAR(500)",
+          "nullable": true,
+          "primary_key": false
+        },
+        {
+          "nome": "status_operacional",
+          "tipo": "VARCHAR(20)",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "ativo",
+          "tipo": "BOOLEAN",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "criado_em",
+          "tipo": "DATETIME",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "atualizado_em",
+          "tipo": "DATETIME",
+          "nullable": true,
+          "primary_key": false
+        }
+      ],
+      "categorias": [
+        {
+          "nome": "id",
+          "tipo": "INTEGER",
+          "nullable": false,
+          "primary_key": true
+        },
+        {
+          "nome": "nome",
+          "tipo": "VARCHAR(100)",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "icone",
+          "tipo": "VARCHAR(100)",
+          "nullable": true,
+          "primary_key": false
+        },
+        {
+          "nome": "criado_em",
+          "tipo": "DATETIME",
+          "nullable": false,
+          "primary_key": false
+        }
+      ],
+      "qr_codes": [
+        {
+          "nome": "id",
+          "tipo": "INTEGER",
+          "nullable": false,
+          "primary_key": true
+        },
+        {
+          "nome": "no_id",
+          "tipo": "INTEGER",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "token",
+          "tipo": "VARCHAR(100)",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "ativo",
+          "tipo": "BOOLEAN",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "criado_em",
+          "tipo": "DATETIME",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "atualizado_em",
+          "tipo": "DATETIME",
+          "nullable": true,
+          "primary_key": false
+        }
+      ],
+      "auditoria": [
+        {
+          "nome": "id",
+          "tipo": "INTEGER",
+          "nullable": false,
+          "primary_key": true
+        },
+        {
+          "nome": "usuario",
+          "tipo": "VARCHAR(80)",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "motivo",
+          "tipo": "VARCHAR(240)",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "entidade",
+          "tipo": "VARCHAR(40)",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "registro_id",
+          "tipo": "INTEGER",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "acao",
+          "tipo": "VARCHAR(20)",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "antes",
+          "tipo": "JSON",
+          "nullable": true,
+          "primary_key": false
+        },
+        {
+          "nome": "depois",
+          "tipo": "JSON",
+          "nullable": true,
+          "primary_key": false
+        },
+        {
+          "nome": "criado_em",
+          "tipo": "DATETIME",
+          "nullable": false,
+          "primary_key": false
+        }
+      ],
+      "diagnosticos": [
+        {
+          "nome": "tipo",
+          "tipo": "VARCHAR(20)",
+          "nullable": false,
+          "primary_key": true
+        },
+        {
+          "nome": "codigo",
+          "tipo": "VARCHAR(20)",
+          "nullable": false,
+          "primary_key": true
+        },
+        {
+          "nome": "ocorrencias",
+          "tipo": "INTEGER",
+          "nullable": false,
+          "primary_key": false
+        },
+        {
+          "nome": "atualizado_em",
+          "tipo": "DATETIME",
+          "nullable": false,
+          "primary_key": false
+        }
+      ]
+    },
+    "endpoints": [
+      {
+        "path": "",
+        "methods": []
+      },
+      {
+        "path": "/admin",
+        "methods": []
+      },
+      {
+        "path": "/admin",
+        "methods": [
+          "GET"
+        ]
+      },
+      {
+        "path": "/api/admin/audit",
+        "methods": [
+          "GET"
+        ]
+      },
+      {
+        "path": "/api/admin/audit/{audit_id}/restore",
+        "methods": [
+          "POST"
+        ]
+      },
+      {
+        "path": "/api/admin/categories",
+        "methods": [
+          "GET"
+        ]
+      },
+      {
+        "path": "/api/admin/categories",
+        "methods": [
+          "POST"
+        ]
+      },
+      {
+        "path": "/api/admin/categories/{id}",
+        "methods": [
+          "DELETE"
+        ]
+      },
+      {
+        "path": "/api/admin/categories/{id}",
+        "methods": [
+          "GET"
+        ]
+      },
+      {
+        "path": "/api/admin/categories/{id}",
+        "methods": [
+          "PUT"
+        ]
+      },
+      {
+        "path": "/api/admin/diagnostics",
+        "methods": [
+          "GET"
+        ]
+      },
+      {
+        "path": "/api/admin/edges",
+        "methods": [
+          "GET"
+        ]
+      },
+      {
+        "path": "/api/admin/edges",
+        "methods": [
+          "POST"
+        ]
+      },
+      {
+        "path": "/api/admin/edges/{id}",
+        "methods": [
+          "DELETE"
+        ]
+      },
+      {
+        "path": "/api/admin/edges/{id}",
+        "methods": [
+          "GET"
+        ]
+      },
+      {
+        "path": "/api/admin/edges/{id}",
+        "methods": [
+          "PUT"
+        ]
+      },
+      {
+        "path": "/api/admin/floors",
+        "methods": [
+          "GET"
+        ]
+      },
+      {
+        "path": "/api/admin/floors",
+        "methods": [
+          "POST"
+        ]
+      },
+      {
+        "path": "/api/admin/floors/{id}",
+        "methods": [
+          "DELETE"
+        ]
+      },
+      {
+        "path": "/api/admin/floors/{id}",
+        "methods": [
+          "GET"
+        ]
+      },
+      {
+        "path": "/api/admin/floors/{id}",
+        "methods": [
+          "PUT"
+        ]
+      },
+      {
+        "path": "/api/admin/floors/{id}/upload-planta",
+        "methods": [
+          "POST"
+        ]
+      },
+      {
+        "path": "/api/admin/graph/validate",
+        "methods": [
+          "GET"
+        ]
+      },
+      {
+        "path": "/api/admin/nodes",
+        "methods": [
+          "GET"
+        ]
+      },
+      {
+        "path": "/api/admin/nodes",
+        "methods": [
+          "POST"
+        ]
+      },
+      {
+        "path": "/api/admin/nodes/{id}",
+        "methods": [
+          "DELETE"
+        ]
+      },
+      {
+        "path": "/api/admin/nodes/{id}",
+        "methods": [
+          "GET"
+        ]
+      },
+      {
+        "path": "/api/admin/nodes/{id}",
+        "methods": [
+          "PUT"
+        ]
+      },
+      {
+        "path": "/api/admin/qr-codes",
+        "methods": [
+          "GET"
+        ]
+      },
+      {
+        "path": "/api/admin/qr-codes",
+        "methods": [
+          "POST"
+        ]
+      },
+      {
+        "path": "/api/admin/qr-codes/{id}",
+        "methods": [
+          "DELETE"
+        ]
+      },
+      {
+        "path": "/api/admin/qr-codes/{id}",
+        "methods": [
+          "GET"
+        ]
+      },
+      {
+        "path": "/api/admin/qr-codes/{id}",
+        "methods": [
+          "PUT"
+        ]
+      },
+      {
+        "path": "/api/admin/session",
+        "methods": [
+          "GET"
+        ]
+      },
+      {
+        "path": "/api/admin/shoppings",
+        "methods": [
+          "GET"
+        ]
+      },
+      {
+        "path": "/api/admin/shoppings",
+        "methods": [
+          "POST"
+        ]
+      },
+      {
+        "path": "/api/admin/shoppings/{id}",
+        "methods": [
+          "DELETE"
+        ]
+      },
+      {
+        "path": "/api/admin/shoppings/{id}",
+        "methods": [
+          "GET"
+        ]
+      },
+      {
+        "path": "/api/admin/shoppings/{id}",
+        "methods": [
+          "PUT"
+        ]
+      },
+      {
+        "path": "/api/admin/shoppings/{shopping_id}/scene/validation",
+        "methods": [
+          "GET"
+        ]
+      },
+      {
+        "path": "/api/admin/stores",
+        "methods": [
+          "GET"
+        ]
+      },
+      {
+        "path": "/api/admin/stores",
+        "methods": [
+          "POST"
+        ]
+      },
+      {
+        "path": "/api/admin/stores/{id}",
+        "methods": [
+          "DELETE"
+        ]
+      },
+      {
+        "path": "/api/admin/stores/{id}",
+        "methods": [
+          "GET"
+        ]
+      },
+      {
+        "path": "/api/admin/stores/{id}",
+        "methods": [
+          "PUT"
+        ]
+      },
+      {
+        "path": "/api/diagnostics/events",
+        "methods": [
+          "POST"
+        ]
+      },
+      {
+        "path": "/api/floors/{piso_id}/graph",
+        "methods": [
+          "GET"
+        ]
+      },
+      {
+        "path": "/api/pois",
+        "methods": [
+          "GET"
+        ]
+      },
+      {
+        "path": "/api/pois/{loja_id}",
+        "methods": [
+          "GET"
+        ]
+      },
+      {
+        "path": "/api/qr-codes/{token}",
+        "methods": [
+          "GET"
+        ]
+      },
+      {
+        "path": "/api/routes",
+        "methods": [
+          "POST"
+        ]
+      },
+      {
+        "path": "/api/routes/distances",
+        "methods": [
+          "GET"
+        ]
+      },
+      {
+        "path": "/api/shoppings",
+        "methods": [
+          "GET"
+        ]
+      },
+      {
+        "path": "/api/shoppings/{shopping_id}",
+        "methods": [
+          "GET"
+        ]
+      },
+      {
+        "path": "/api/shoppings/{shopping_id}/floors",
+        "methods": [
+          "GET"
+        ]
+      },
+      {
+        "path": "/api/shoppings/{shopping_id}/navigation-state",
+        "methods": [
+          "GET"
+        ]
+      },
+      {
+        "path": "/api/shoppings/{shopping_id}/scene",
+        "methods": [
+          "GET"
+        ]
+      },
+      {
+        "path": "/docs",
+        "methods": [
+          "GET",
+          "HEAD"
+        ]
+      },
+      {
+        "path": "/docs/oauth2-redirect",
+        "methods": [
+          "GET",
+          "HEAD"
+        ]
+      },
+      {
+        "path": "/health",
+        "methods": [
+          "GET"
+        ]
+      },
+      {
+        "path": "/openapi.json",
+        "methods": [
+          "GET",
+          "HEAD"
+        ]
+      },
+      {
+        "path": "/redoc",
+        "methods": [
+          "GET",
+          "HEAD"
+        ]
+      },
+      {
+        "path": "/static",
+        "methods": []
+      }
+    ],
+    "versoes_dependencias": {
+      "services/api/requirements.txt": {
+        "fastapi": "fastapi==0.115.0",
+        "uvicorn": "uvicorn[standard]==0.30.0",
+        "sqlalchemy": "sqlalchemy==2.0.35",
+        "pymysql": "pymysql==1.1.1",
+        "cryptography": "cryptography==43.0.0",
+        "pydantic-settings": "pydantic-settings==2.5.2",
+        "python-dotenv": "python-dotenv==1.0.1",
+        "alembic": "alembic==1.13.2",
+        "pytest": "pytest==8.3.3",
+        "httpx": "httpx==0.27.2",
+        "python-multipart": "python-multipart>=0.0.12",
+        "Pillow": "Pillow>=10.4,<13"
+      },
+      "apps/visitor/package.json": {
+        "@expo-google-fonts/ibm-plex-sans": "0.2.3",
+        "@expo/metro-runtime": "~4.0.1",
+        "@react-native-async-storage/async-storage": "1.23.1",
+        "@react-three/fiber": "8.18.0",
+        "expo": "~52.0.46",
+        "expo-asset": "~11.0.5",
+        "expo-camera": "~16.0.18",
+        "expo-constants": "~17.0.8",
+        "expo-font": "~13.0.4",
+        "expo-linking": "~7.0.5",
+        "expo-router": "~4.0.20",
+        "expo-splash-screen": "~0.29.24",
+        "expo-status-bar": "~2.0.1",
+        "react": "18.3.1",
+        "react-dom": "18.3.1",
+        "react-native": "0.76.9",
+        "react-native-safe-area-context": "4.12.0",
+        "react-native-screens": "~4.4.0",
+        "react-native-svg": "15.8.0",
+        "react-native-web": "~0.19.13",
+        "three": "0.170.0",
+        "@babel/core": "^7.25.2",
+        "@types/react": "~18.3.12",
+        "@types/three": "0.170.0",
+        "typescript": "~5.3.3"
+      },
+      "apps/admin/package.json": {
+        "@fontsource/ibm-plex-sans": "5.3.0",
+        "qrcode": "^1.5.4",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
+        "react-router-dom": "^6.28.0",
+        "@axe-core/playwright": "^4.14.0",
+        "@playwright/test": "^1.63.0",
+        "@types/qrcode": "^1.5.5",
+        "@types/react": "^18.3.12",
+        "@types/react-dom": "^18.3.1",
+        "@vitejs/plugin-react": "^4.3.3",
+        "playwright": "^1.49.0",
+        "typescript": "^5.6.3",
+        "vite": "^5.4.10"
+      }
+    }
+  },
+  "seed": {
+    "pisos": 2,
+    "pois_lojas": 27,
+    "tokens_qr": [
+      "MINI-ELEVADOR-MEZANINO",
+      "MINI-ELEVADOR-TERREO",
+      "MINI-ENTRADA-PRINCIPAL",
+      "MINI-ESCADA-MEZANINO",
+      "MINI-ESCADA-TERREO",
+      "MINI-MEZANINO-CENTRAL",
+      "MINI-TERREO-CENTRAL"
+    ],
+    "banco_temporario": "C:\\Users\\DEV_2O~1\\AppData\\Local\\Temp\\tmp8l47q979.db"
+  },
+  "testes": {
+    "test_api.py": {
+      "definidos": 20
+    },
+    "test_audit.py": {
+      "definidos": 15
+    },
+    "test_business_rules.py": {
+      "definidos": 9
+    },
+    "test_config.py": {
+      "definidos": 8
+    },
+    "test_diagnostics_rate_limit.py": {
+      "definidos": 4
+    },
+    "test_integracao_admin_visitante.py": {
+      "definidos": 9
+    },
+    "test_integracao_funcional.py": {
+      "definidos": 10
+    },
+    "test_mysql_homologation.py": {
+      "definidos": 1
+    },
+    "test_navigation.py": {
+      "definidos": 13
+    },
+    "test_public_rate_limit.py": {
+      "definidos": 9
+    },
+    "test_scene.py": {
+      "definidos": 11
+    },
+    "test_seguranca_estabilidade.py": {
+      "definidos": 8
+    },
+    "test_wayfinding.py": {
+      "definidos": 5
+    },
+    "_total_pytest": {
+      "aprovados": 202,
+      "ignorados": 1,
+      "falhos": 0,
+      "executado": true
+    }
+  }
+}

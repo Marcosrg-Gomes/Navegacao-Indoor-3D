@@ -44,7 +44,11 @@ export default function MapScreen() {
   const guideOffset = useRef(0);
   const goToMap = () => scroll.current?.scrollTo({ y: mapOffset.current, animated: false });
   const [fullMap, setFullMap] = useState(false);
-  const [following, setFollowing] = useState(true);
+  // A visão geral da rota começa sem acompanhar; "Iniciar navegação" ativa o
+  // acompanhamento e centraliza o mapa na posição confirmada.
+  const [following, setFollowing] = useState(false);
+  const [navigating, setNavigating] = useState(false);
+  const [activeStepIndex, setActiveStepIndex] = useState(0);
   const [mobileMapSpace, setMobileMapSpace] = useState(0);
   const [lost, setLost] = useState(false);
   const [savedOpen, setSavedOpen] = useState(false);
@@ -54,6 +58,9 @@ export default function MapScreen() {
   const nearFavorites = directory.places.filter((place) => (preferences.data.favorites[nav.shopping?.codigo || ""] || []).includes(place.key) && directory.distances?.[place.node.id] !== undefined && directory.distances[place.node.id] <= 35);
   async function previewStep(step: EtapaRota) { await nav.selectFloor(step.piso_origem_id); setPreview(step); requestAnimationFrame(goToMap); }
   useEffect(() => { setPreview(null); }, [nav.route, nav.hasArrived]);
+  // Reseta o índice de passo ao mudar de rota
+  useEffect(() => { setActiveStepIndex(0); }, [nav.route?.revisao]);
+
 
   const params = useLocalSearchParams<{ qr?: string; token?: string; manualOrigin?: string; shopping?: string; floor?: string; locate?: string }>();
   // Ler parâmetros QR diretamente da URL do navegador.
@@ -86,6 +93,37 @@ export default function MapScreen() {
     const floorId = nav.positionEstimate?.floorId ?? nav.originNode?.piso_id;
     if (floorId && floorId !== nav.floor?.id) void nav.selectFloor(floorId);
   }
+  // "Iniciar navegação" passa a acompanhar a posição e centraliza o mapa; o
+  // botão vira "Encerrar navegação" enquanto o modo estiver ativo.
+  function startNavigation() {
+    setNavigating(true);
+    setActiveStepIndex(0);
+    locate();
+  }
+  function stopNavigation() {
+    setNavigating(false);
+    setFollowing(false);
+  }
+  function handleNextStep() {
+    const steps = nav.route?.etapas?.filter((s) => s.tipo !== "inicio") ?? [];
+    const nextIdx = Math.min(activeStepIndex + 1, steps.length - 1);
+    const nextStep = steps[nextIdx];
+    setActiveStepIndex(nextIdx);
+    if (nextStep && nextStep.piso_origem_id !== nav.floor?.id) void nav.selectFloor(nextStep.piso_origem_id);
+    locate();
+  }
+  function handlePrevStep() {
+    const prevIdx = Math.max(0, activeStepIndex - 1);
+    const steps = nav.route?.etapas?.filter((s) => s.tipo !== "inicio") ?? [];
+    const prevStep = steps[prevIdx];
+    setActiveStepIndex(prevIdx);
+    if (prevStep && prevStep.piso_origem_id !== nav.floor?.id) void nav.selectFloor(prevStep.piso_origem_id);
+    locate();
+  }
+  useEffect(() => {
+    if (!activeRoute) { setNavigating(false); setActiveStepIndex(0); }
+  }, [activeRoute]);
+
   const [manual, setManual] = useState(false);
   const [help, setHelp] = useState(false);
   const [options, setOptions] = useState(false);
@@ -99,10 +137,9 @@ export default function MapScreen() {
     if (nav.hasArrived) setLocateRequest((value) => value + 1);
   }, [nav.hasArrived]);
   useEffect(() => {
-    if (following && nav.simulationStatus !== "idle" && nav.positionEstimate?.floorId && nav.floor?.id !== nav.positionEstimate.floorId)
+    if (following && nav.positionEstimate?.floorId && nav.floor?.id !== nav.positionEstimate.floorId)
       void nav.selectFloor(nav.positionEstimate.floorId);
-  }, [following, nav.simulationStatus, nav.positionEstimate?.floorId, nav.floor?.id]);
-  useEffect(() => { if (nav.simulationStatus === "running" && nav.simulationProgress?.traveledMeters === 0) setFollowing(true); }, [nav.simulationStatus]);
+  }, [following, nav.positionEstimate?.floorId, nav.floor?.id]);
   useEffect(() => {
     if (params.locate === "1" && !nav.loading && nav.originNode) { setFullMap(true); locate(); router.setParams({ locate: "" }); }
   }, [params.locate, nav.loading, nav.originNode?.id]);
@@ -155,16 +192,16 @@ export default function MapScreen() {
   const error = localError || nav.error;
   const status = nav.destinationLoja ? getStatusOperacional(nav.destinationLoja) : null;
   const renderMap = (surfaceHeight: number, compact: boolean) => nav.floor ? <SceneMap
-    initialMode="auto" compact={compact} controlsTop={compact ? activeRoute ? 90 : 75 : undefined}
+    initialMode="auto" compact={compact} controlsTop={compact ? activeRoute ? 106 : 72 : undefined} controlsBottom={compact ? 164 : undefined}
     navigationRevision={nav.navigationRevision} previewStep={preview}
     shoppingId={nav.shopping?.id} floorId={nav.floor.id} width={compact ? width : viewportWidth} height={surfaceHeight}
     routeNodes={nav.routeDisplayNodes} originNodeId={nav.originNode?.id} position={nav.positionEstimate}
-    following={following && nav.simulationStatus !== "idle"} onExplore={() => setFollowing(false)}
+    following={following && !!nav.positionEstimate} onExplore={() => setFollowing(false)}
     destinationNodeId={nav.hasArrived ? undefined : nav.destinationNodeId} onLocate={locate} locateRequest={locateRequest} hasOrigin={!!nav.originNode}
     onPoiPress={(id) => { void getPoi(id).then(setPoi).catch((cause) => setLocalError(cause.message)); }}
-    fallback={nav.graph?.piso_id === nav.floor.id ? <Map2D key={nav.floor.id} compact={compact} controlsTop={compact ? activeRoute ? 90 : 75 : undefined} width={compact ? width : viewportWidth} height={surfaceHeight}
+    fallback={nav.graph?.piso_id === nav.floor.id ? <Map2D key={nav.floor.id} compact={compact} controlsTop={compact ? activeRoute ? 106 : 72 : undefined} width={compact ? width : viewportWidth} height={surfaceHeight}
       floor={nav.floor} graph={nav.graph} routeNodes={nav.routeDisplayNodes} origin={nav.originNode} position={nav.positionEstimate}
-      following={following && nav.simulationStatus !== "idle"} onExplore={() => setFollowing(false)}
+      following={following && !!nav.positionEstimate} onExplore={() => setFollowing(false)}
       destination={nav.hasArrived ? undefined : nav.destinationNodeId} onNodePress={(node) => void inspectNode(node)}
       onLocate={locate} locateRequest={locateRequest} highlight={preview?.referencia_no_id ?? preview?.no_destino_id} />
       : <ActivityIndicator accessibilityLabel="Carregando piso" />} /> : <ActivityIndicator accessibilityLabel="Carregando piso" />;
@@ -271,14 +308,14 @@ export default function MapScreen() {
         <StatusBar style={activeRoute ? "light" : "dark"} backgroundColor={activeRoute ? colors.primaryDark : colors.bg} />
         <View style={styles.mobileMap} onLayout={(event) => setMobileMapSpace(Math.floor(event.nativeEvent.layout.height))}>
           {renderMap(mobileMapSpace || mobileMapHeight, true)}
-          {activeRoute ? <View style={styles.mobileTop}><WazeManeuverBanner /></View> : <View style={styles.mobileTop}>
+          {activeRoute ? <View style={styles.mobileTop}><WazeManeuverBanner navigating={navigating} currentStepIndex={activeStepIndex} /></View> : <View style={styles.mobileTop}>
             <View style={styles.mobileSearchRow}><TouchableOpacity accessibilityRole="button" accessibilityLabel="Pesquisar destinos" style={styles.mobileSearch} onPress={() => router.push("/explore")}><WayfindingIcon name="search" color="#223246" /><Text style={styles.mobileSearchText} numberOfLines={1}>Para onde você vai?</Text></TouchableOpacity><TouchableOpacity accessibilityRole="button" accessibilityLabel="Ajuda" style={styles.mobileHelp} onPress={() => setHelp(true)}><WayfindingIcon name="help" color="#223246" /></TouchableOpacity></View>
           </View>}
           <FloorSwitcher floors={nav.floors} currentId={nav.floor?.id} top={Platform.OS === "web" ? activeRoute ? 155 : 136 : activeRoute ? 90 : 76}
             onSelect={(floorId) => { setFollowing(false); void nav.selectFloor(floorId); }} />
           {(nav.mapError || error) && <View style={styles.mobileError} accessibilityRole="alert"><Text style={styles.errorText}>{error || nav.mapError}</Text><TouchableOpacity accessibilityRole="button" onPress={() => { setLocalError(null); nav.clearError(); void nav.refresh(); }}><Text style={styles.link}>Tentar novamente</Text></TouchableOpacity></View>}
         </View>
-        {activeRoute ? <WazeNavigationPanel onChooseDestination={() => router.push("/explore")} onCorrectPosition={() => setLost(true)} onHelp={() => setHelp(true)} /> : nav.hasArrived ? <View testID="arrival-notice" style={styles.mobileBottom} accessibilityRole="alert">
+        {activeRoute ? <WazeNavigationPanel navigating={navigating} currentStepIndex={activeStepIndex} onStartNavigation={startNavigation} onStopNavigation={stopNavigation} onNextStep={handleNextStep} onPrevStep={handlePrevStep} onChooseDestination={() => router.push("/explore")} onCorrectPosition={() => setLost(true)} onHelp={() => setHelp(true)} /> : nav.hasArrived ? <View testID="arrival-notice" style={styles.mobileBottom} accessibilityRole="alert">
           <Text accessibilityRole="header" style={styles.mobileBottomTitle}>Você chegou a <Text testID="origin-label">{nav.originNode?.nome || nav.destinationName}</Text></Text><Text testID="location-update" style={styles.mobileBottomMeta}>{nav.floor?.nome} · Posição atualizada. A próxima rota começa daqui.</Text>
           <TouchableOpacity accessibilityRole="button" accessibilityLabel="Iniciar outra navegação" style={styles.mobilePrimary} onPress={() => { nav.clearRoute(); router.push("/explore"); }}><Text style={styles.mobilePrimaryText}>Escolher outro destino</Text></TouchableOpacity>
         </View> : <View style={styles.mobileBottom}>

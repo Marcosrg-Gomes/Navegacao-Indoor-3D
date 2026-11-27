@@ -30,6 +30,9 @@ type Sort = typeof sorting[number][0];
 export default function ExploreScreen() {
   const nav = useNavigation();
   const { shopping, floors, originNode } = nav;
+  // Durante a demonstração o marcador anda pela rota: não podemos continuar
+  // afirmando que o visitante está na origem confirmada.
+  const simulatedPosition = nav.positionEstimate?.source === "simulation" ? nav.positionEstimate : null;
   const saved = useVisitorPreferences();
   const [accessibleOnly, setAccessibleOnly] = useState(false);
   const [status, setStatus] = useState("all");
@@ -54,7 +57,7 @@ export default function ExploreScreen() {
   const [actionError, setActionError] = useState<string | null>(null);
   const favorites = saved.data.favorites[shopping?.codigo || ""] || [];
   const recent = saved.data.recent[shopping?.codigo || ""] || [];
-  const currentFloorId = originNode?.piso_id ?? nav.floor?.id;
+  const currentFloorId = (simulatedPosition?.floorId ?? originNode?.piso_id) ?? nav.floor?.id;
 
   function clearFilters() { setLetter(""); setCategory(undefined); setFloorId(undefined); setQuery(""); setShortcut("all"); setStatus("all"); setAccessibleOnly(false); setSort("name"); }
   useEffect(() => { if (!originNode) setAccessibleOnly(false); }, [originNode]);
@@ -150,7 +153,7 @@ export default function ExploreScreen() {
       <ScrollView style={{ flex: 1 }} contentContainerStyle={{ width: "100%", maxWidth: 840, alignSelf: "center", paddingHorizontal: 20, paddingBottom: 30 }} keyboardShouldPersistTaps="handled">
         {!wide && directoryHeader}
         <TouchableOpacity accessibilityRole="button" accessibilityLabel="Ver minha localização no mapa" accessibilityHint="Toque para ver onde você está no mapa do shopping" style={styles.positionBanner} onPress={() => router.push(originNode ? "/?locate=1" : "/?manualOrigin=1")} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
-          <View style={styles.positionPin}><WayfindingIcon name="locate" color={colors.primary} size={20} strokeWidth={2} /></View><Text style={styles.positionText}>{originNode ? `Você está em ${originNode.nome} · ${floors.find((floor) => floor.id === originNode.piso_id)?.nome || "Piso"}` : "Onde você está? Defina sua posição"}</Text><View style={{ transform: [{ rotate: "-90deg" }] }}><WayfindingIcon name="chevron" color={colors.textMuted} size={18} /></View>
+          <View style={styles.positionPin}><WayfindingIcon name="locate" color={colors.primary} size={20} strokeWidth={2} /></View><Text style={styles.positionText}>{simulatedPosition ? `Em deslocamento · ${floors.find((floor) => floor.id === simulatedPosition.floorId)?.nome || "Piso"}` : originNode ? `Você está em ${originNode.nome} · ${floors.find((floor) => floor.id === originNode.piso_id)?.nome || "Piso"}` : "Onde você está? Defina sua posição"}</Text><View style={{ transform: [{ rotate: "-90deg" }] }}><WayfindingIcon name="chevron" color={colors.textMuted} size={18} /></View>
         </TouchableOpacity>
         <DsSearch value={query} onChangeText={(value) => { setQuery(value); setLetter(""); }} placeholder="Buscar por nome ou serviço" error={!!actionError} accessibilityLabel="Buscar no Explorar" />
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.shortcutStrip} accessibilityLabel="Tipos de lugares">{shortcuts.filter(([value]) => ["all", "shops", "food", "wc", "lift"].includes(value)).map(([value, label]) => <DsChip key={value} selected={shortcut === value} onPress={() => { setShortcut(value); setLetter(""); }}>{label}</DsChip>)}</ScrollView>
@@ -172,7 +175,7 @@ export default function ExploreScreen() {
           </View>
         )}
         {groups.map((group) => <View key={group.label}>{grouped && <Text accessibilityRole="header" aria-level={2} style={[d.section, { marginVertical: 16 }]}>{group.label}</Text>}{group.places.map((item) => {
-          const here = item.node.id === originNode?.id, identity = placeIdentity(item), distance = directory.distances?.[item.node.id], favorite = favorites.includes(item.key);
+          const here = !simulatedPosition && item.node.id === originNode?.id, identity = placeIdentity(item), distance = directory.distances?.[item.node.id], favorite = favorites.includes(item.key);
           return <View key={item.key} testID={item.poi ? "explore-poi-" + item.poi.id : "explore-node-" + item.node.id} style={[styles.store, { flexDirection: "row", backgroundColor: selectedPlace?.key === item.key ? colors.sunSoft : paper }]} {...(Platform.OS === "web" ? { onMouseEnter: () => setSelected(item) } : {})}>
             <TouchableOpacity accessibilityRole="button" accessibilityLabel={item.name + ", ver detalhes"} onFocus={() => setSelected(item)} onPress={() => { setSelected(item); setDetail(item); }} style={styles.storeTitle}>
               <View style={styles.spaceCode}>{item.poi?.logo_url ? <PlaceIdentity name={item.name} code={identity.sign} logo={item.poi.logo_url} /> : <Text style={[styles.spaceCodeText, { color: identity.color }]}>{identity.sign}</Text>}</View>

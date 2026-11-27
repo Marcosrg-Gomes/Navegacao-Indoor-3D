@@ -5,8 +5,8 @@ import type { PositionEstimate } from "../positioning/types";
 import { sceneTransform } from "./sceneTransform";
 import { colors } from "@/constants/colors";
 
-export function SceneLabels({ scene, floor, origin, destination, simulated, position, view, width, height, onPoiPress }: {
-  scene: Scene; floor: SceneFloor; origin?: number; destination?: number; simulated?: boolean; position?: PositionEstimate | null; view: CameraView; width: number; height: number; onPoiPress: (id: number) => void;
+export function SceneLabels({ scene, floor, origin, destination, simulated, position, view, width, height, controlsBottom, onPoiPress }: {
+  scene: Scene; floor: SceneFloor; origin?: number; destination?: number; simulated?: boolean; position?: PositionEstimate | null; view: CameraView; width: number; height: number; controlsBottom?: number; onPoiPress: (id: number) => void;
 }) {
   const compact = view.zoom < 1.5;
   const mobile = width < 600;
@@ -34,6 +34,12 @@ export function SceneLabels({ scene, floor, origin, destination, simulated, posi
     const [x, pointY, depth] = point, y = pointY - 20;
     const w = Math.min(mobile ? label.primary ? 132 : 102 : 190, label.text.length * (mobile ? 5.7 : 6.3) + 18);
     if (depth < -1 || depth > 1 || x < w / 2 || x > width - w / 2 || y < 22 || y > height - (mobile ? 78 : 22) || occupied.some((r) => Math.abs(r.y - y) < (mobile ? 37 : 45) && Math.abs(r.x - x) < (r.w + w) / 2 + 5)) return null;
+    // Não sobrepõe o seletor Auto/3D/2D: o alvo clicável da loja (mín. 44 px) o cobriria parcialmente.
+    if (controlsBottom !== undefined) {
+      const zoneTop = height - controlsBottom - 36 - 12, zoneBottom = height - controlsBottom + 12;
+      const labelH = label.poi ? 44 : 28;
+      if (x + w / 2 > width - 12 - 148 - 4 && y + labelH / 2 > zoneTop && y - labelH / 2 < zoneBottom) return null;
+    }
     occupied.push({ x, y, w });
     return <button key={label.anchor.node_id}
     data-poi-code={label.poi?.codigo} aria-label={label.poi ? `${label.anchor.name}, ver detalhes` : label.anchor.name}
@@ -43,7 +49,7 @@ export function SceneLabels({ scene, floor, origin, destination, simulated, posi
       font: "600 12px/18px system-ui, sans-serif", cursor: label.poi ? "pointer" : "default" }}>
       <span style={{ display: "inline-block", maxWidth: "100%", overflow: "hidden", textOverflow: "ellipsis", verticalAlign: "middle", borderRadius: 8,
         border: `1px solid ${label.primary ? "#fff" : "#cbd5e1"}`, background: label.primary ? label.color : "#fffffff2", color: label.primary ? "#fff" : label.color,
-        padding: mobile ? "3px 7px" : "4px 8px", font: mobile ? "700 11px/16px system-ui, sans-serif" : "600 12px/18px system-ui, sans-serif", boxShadow: "0 2px 5px #10243a15" }}>{label.text}</span>
+        padding: mobile ? "4px 8px" : "6px 10px", minHeight: 24, minWidth: 24, font: mobile ? "700 11px/16px system-ui, sans-serif" : "600 12px/18px system-ui, sans-serif", boxShadow: "0 2px 5px #10243a15" }}>{label.text}</span>
     </button>;
   })}</div>;
 }

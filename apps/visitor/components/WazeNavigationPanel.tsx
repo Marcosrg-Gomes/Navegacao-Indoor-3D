@@ -21,18 +21,22 @@ export function walkingMinutes(meters: number) {
   return Math.max(1, Math.round(meters / 1.2 / 60));
 }
 
-export function WazeManeuverBanner() {
+export function WazeManeuverBanner({ navigating = false, currentStepIndex = 0 }: { navigating?: boolean; currentStepIndex?: number }) {
   const nav = useNavigation();
   const visible = !!(nav.route || nav.routeLoading || nav.routeError);
   const steps = nav.route?.etapas?.filter((item) => item.tipo !== "inicio") ?? [];
   const moving = nav.simulationStatus !== "idle" && !!nav.simulationProgress;
-  const current = moving ? nav.simulationProgress?.instruction : steps[0];
+  // Em simulação usa o passo da simulação; em navegação real usa currentStepIndex
+  const current = moving ? nav.simulationProgress?.instruction : steps[currentStepIndex] ?? steps[0];
   const index = current ? steps.findIndex((item) => item.no_origem_id === current.no_origem_id && item.no_destino_id === current.no_destino_id) : -1;
   const next = index >= 0 ? steps[index + 1] : undefined;
   const arrived = nav.simulationStatus === "arrived";
   const failed = !nav.route && !!nav.routeError;
   const loading = !nav.route && nav.routeLoading;
   const maneuver = maneuverIcon(arrived ? { tipo: "chegada", texto: "" } : current);
+  const stepLabel = navigating && !moving && steps.length > 0
+    ? `NAVEGAÇÃO ATIVA · PASSO ${Math.min(currentStepIndex + 1, steps.length)} DE ${steps.length}`
+    : arrived ? "VOCÊ CHEGOU" : failed ? "ROTA NÃO DISPONÍVEL" : loading ? "CALCULANDO CAMINHO" : navigating ? "NAVEGAÇÃO ATIVA" : "CAMINHO PRONTO";
   if (!visible) return null;
   return <View testID="maneuver-banner" style={[styles.maneuver, failed && styles.maneuverFailed, arrived && styles.maneuverArrived]} accessibilityLiveRegion="polite">
     <View style={[styles.maneuverTile, failed && styles.maneuverTileFailed]} accessible accessibilityRole="image" accessibilityLabel={failed ? "Atenção" : maneuver.label}>
@@ -40,14 +44,20 @@ export function WazeManeuverBanner() {
         : <WayfindingIcon name={failed ? "alert" : maneuver.icon} color={failed ? colors.danger : colors.primary} size={34} strokeWidth={2.4} />}
     </View>
     <View style={{ flex: 1, minWidth: 0 }}>
-      <Text style={[styles.maneuverEyebrow, failed && styles.maneuverEyebrowError]}>{arrived ? "VOCÊ CHEGOU" : moving ? "NAVEGAÇÃO SIMULADA" : failed ? "ROTA NÃO DISPONÍVEL" : loading ? "CALCULANDO CAMINHO" : "CAMINHO PREPARADO"}</Text>
+      <Text style={[styles.maneuverEyebrow, failed && styles.maneuverEyebrowError]}>{stepLabel}</Text>
       <Text testID="current-instruction" style={[styles.maneuverInstruction, failed && styles.maneuverInstructionError]}>{arrived ? nav.destinationName : failed ? nav.routeError : current?.texto || (nav.routeLoading ? "Calculando caminho…" : "Rota pronta para começar")}</Text>
       {!!next && !arrived && !failed && <Text style={styles.maneuverNext} numberOfLines={1}>Depois: {next.texto}</Text>}
     </View>
   </View>;
 }
 
-export function WazeNavigationPanel({ onChooseDestination, onCorrectPosition, onHelp }: {
+export function WazeNavigationPanel({ navigating = false, currentStepIndex = 0, onStartNavigation, onStopNavigation, onNextStep, onPrevStep, onChooseDestination, onCorrectPosition, onHelp }: {
+  navigating?: boolean;
+  currentStepIndex?: number;
+  onStartNavigation: () => void;
+  onStopNavigation: () => void;
+  onNextStep?: () => void;
+  onPrevStep?: () => void;
   onChooseDestination: () => void;
   onCorrectPosition: () => void;
   onHelp: () => void;
@@ -70,25 +80,33 @@ export function WazeNavigationPanel({ onChooseDestination, onCorrectPosition, on
   if (!nav.route && !nav.routeLoading && !nav.routeError) return null;
 
   const moving = nav.simulationStatus !== "idle" && !!nav.simulationProgress;
-  const remaining = moving ? nav.simulationProgress?.remainingMeters : nav.route?.distancia_total_metros;
+  const steps = nav.route?.etapas?.filter((item) => item.tipo !== "inicio") ?? [];
+  // Em navegação real (não simulação), calcula distância restante a partir do passo atual
+  const remainingFromStep = !moving && navigating && steps.length > 0
+    ? steps.slice(currentStepIndex).reduce((sum, s) => sum + (s.distancia_metros ?? 0), 0)
+    : undefined;
+  const remaining = moving ? nav.simulationProgress?.remainingMeters : remainingFromStep ?? nav.route?.distancia_total_metros;
   const busy = nav.routeLoading || nav.arrivalLoading || nav.simulationStatus === "rerouting";
   const arrived = nav.simulationStatus === "arrived";
   const total = nav.route?.distancia_total_metros ?? 0;
   const progress = moving && total > 0 && remaining !== undefined ? Math.min(1, Math.max(0, 1 - remaining / total)) : 0;
   const minutes = remaining !== undefined ? walkingMinutes(remaining) : 0;
+  const isLastStep = steps.length > 0 && currentStepIndex >= steps.length - 1;
 
   function primaryAction() {
+    if (navigating) { onStopNavigation(); return; }
     if (nav.simulationStatus === "running") nav.pauseSimulation();
     else if (nav.simulationStatus === "error" || !nav.route) void nav.recalculate();
     else if (nav.simulationStatus === "paused") void nav.resumeSimulation();
     else if (arrived) onChooseDestination();
-    else void nav.startSimulation();
+    else onStartNavigation();
   }
 
-  const primaryLabel = nav.simulationStatus === "running" ? "Pausar" :
+  const primaryLabel = arrived ? "Novo destino" :
+    navigating ? "Encerrar navegação" :
+    nav.simulationStatus === "running" ? "Pausar" :
     nav.routeStale || nav.simulationStatus === "error" || (!nav.route && !busy) ? "Tentar novamente" :
-    nav.simulationStatus === "paused" ? "Continuar" :
-    arrived ? "Novo destino" : "Iniciar navegação";
+    nav.simulationStatus === "paused" ? "Continuar" : "Iniciar navegação";
 
   return <View testID="route-panel" style={[styles.panel, nav.arrivalLoading && styles.panelBusy]} accessibilityState={{ busy }}>
     {moving && !arrived && (
@@ -108,7 +126,7 @@ export function WazeNavigationPanel({ onChooseDestination, onCorrectPosition, on
         <Text style={styles.tripDestination} numberOfLines={1} accessibilityRole="header">{nav.destinationName || "Destino"}</Text>
         <Text style={styles.tripMeta} numberOfLines={1}>
           De <Text testID="origin-label">{nav.originNode?.nome || "origem"}</Text> ·
-          {arrived ? "destino alcançado" : nav.simulationStatus === "running" ? "simulação" : "rota pronta"}
+          {arrived ? "destino alcançado" : navigating ? "navegação ativa" : "rota pronta"}
           {nav.acessivel ? " · sem escadas" : ""}
         </Text>
       </View>
@@ -123,6 +141,24 @@ export function WazeNavigationPanel({ onChooseDestination, onCorrectPosition, on
     {busy && <View style={styles.busy} accessibilityLiveRegion="polite">
       <ActivityIndicator color={colors.primary} />
       <Text style={styles.busyText}>Atualizando caminho…</Text>
+    </View>}
+    {navigating && !arrived && !busy && <View style={styles.active} accessibilityLiveRegion="polite">
+      <WayfindingIcon name="locate" color={colors.primary} size={16} strokeWidth={2.2} />
+      <Text style={styles.activeText}>Navegação ativa · siga a seta no mapa</Text>
+    </View>}
+
+    {/* Botões de progressão de etapas — apenas durante navegação ativa sem simulação */}
+    {navigating && !arrived && !busy && !moving && steps.length > 0 && <View style={styles.stepActions}>
+      {currentStepIndex > 0 && <TouchableOpacity accessibilityRole="button" accessibilityLabel="Passo anterior"
+        onPress={onPrevStep} style={styles.stepSecondary}>
+        <Text style={styles.stepSecondaryText}>← Anterior</Text>
+      </TouchableOpacity>}
+      <TouchableOpacity accessibilityRole="button"
+        accessibilityLabel={isLastStep ? "Cheguei ao destino" : "Próximo passo"}
+        onPress={isLastStep ? () => void nav.completeNavigation() : onNextStep}
+        style={[styles.stepPrimary, isLastStep && styles.stepPrimaryArrival]}>
+        <Text style={styles.stepPrimaryText}>{isLastStep ? "Cheguei ao destino ✓" : "Próximo passo →"}</Text>
+      </TouchableOpacity>
     </View>}
 
     <View style={styles.actions}>
@@ -158,10 +194,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     flexDirection: "row",
     alignItems: "center",
-    gap: 14,
-    paddingHorizontal: 14,
-    paddingVertical: 12,
-    minHeight: 84,
+    gap: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    minHeight: 100,
     borderRadius: 18,
     shadowColor: "#0b1f1b",
     shadowOpacity: 0.22,
@@ -191,17 +227,17 @@ const styles = StyleSheet.create({
   maneuverEyebrowError: { color: colors.danger },
   maneuverInstruction: {
     color: colors.textOnPrimary,
-    fontSize: 19,
-    lineHeight: 24,
+    fontSize: 20,
+    lineHeight: 26,
     fontWeight: "700",
-    marginTop: 2,
+    marginTop: 3,
   },
   maneuverInstructionError: { color: "#7d2620" },
   maneuverNext: {
     color: "#c5d8d2",
-    fontSize: 13,
-    lineHeight: 18,
-    marginTop: 3,
+    fontSize: 14,
+    lineHeight: 20,
+    marginTop: 6,
   },
   panel: {
     backgroundColor: colors.surface,
@@ -291,6 +327,8 @@ const styles = StyleSheet.create({
   stopText: { color: colors.danger, fontSize: 14, fontWeight: "700" },
   busy: { flexDirection: "row", alignItems: "center", gap: 8 },
   busyText: { color: colors.textMuted, fontSize: 13 },
+  active: { flexDirection: "row", alignItems: "center", gap: 8, paddingHorizontal: 12, paddingVertical: 8, borderRadius: 10, backgroundColor: colors.primarySoft },
+  activeText: { color: colors.primaryDark, fontSize: 13, fontWeight: "700" },
   error: {
     color: colors.danger,
     backgroundColor: colors.dangerSoft,
@@ -300,4 +338,19 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   disabled: { opacity: 0.55 },
+  stepActions: { flexDirection: "row", gap: 8, alignItems: "center", paddingTop: 4 },
+  stepPrimary: {
+    flex: 1, minHeight: 44, borderRadius: 12,
+    backgroundColor: colors.primarySoft, borderWidth: 1.5, borderColor: colors.primary,
+    alignItems: "center", justifyContent: "center", paddingHorizontal: 14,
+  },
+  stepPrimaryArrival: { backgroundColor: colors.successSoft, borderColor: colors.success },
+  stepPrimaryText: { color: colors.primaryDark, fontSize: 14, fontWeight: "700" },
+  stepSecondary: {
+    minHeight: 44, borderRadius: 12,
+    backgroundColor: colors.surfaceElevated, borderWidth: 1, borderColor: colors.borderLight,
+    alignItems: "center", justifyContent: "center", paddingHorizontal: 14,
+  },
+  stepSecondaryText: { color: colors.textMuted, fontSize: 14, fontWeight: "600" },
+
 });

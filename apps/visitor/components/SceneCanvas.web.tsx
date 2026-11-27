@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
 import { Material, Mesh, Object3D, Shape } from "three";
 import { TouchableOpacity, View } from "react-native";
@@ -15,8 +15,7 @@ import { SceneLabels } from "./SceneLabels.web";
 import { MapLegend, MapToolbar } from "./MapToolbar";
 import { WalkCamera } from "./WalkCamera.web";
 import { sceneHeadingDirection, sceneTransform, sceneYawForDirection } from "./sceneTransform";
-import { markerPlanRotation, type MapOrientation } from "./navigationOrientation";
-import { useMapOrientation } from "@/hooks/useMapOrientation";
+import { bearingBetween, snapOrientation, headingToNextRouteNode, routeOrientationFor, type MapOrientation } from "./navigationOrientation";
 import { colors } from "@/constants/colors";
 import { FollowRouteButton, MapControls } from "./MapControls";
 
@@ -28,6 +27,10 @@ navigationArrow.lineTo(.62, -.62);
 navigationArrow.lineTo(0, -.3);
 navigationArrow.lineTo(-.62, -.62);
 navigationArrow.closePath();
+
+/** O mapa 3D segue a mesma regra do 2D: fica sempre de baixo para cima, rotacionando 180° quando o percurso aponta para baixo (padrão Waze). */
+const NORTH_UP: MapOrientation = 0;
+
 
 function dispose(model: Object3D) {
   model.traverse((object) => { if (object instanceof Mesh) { object.geometry.dispose(); (Array.isArray(object.material) ? object.material : [object.material]).forEach((m: Material) => m.dispose()); } });
@@ -45,8 +48,11 @@ function Viewport({ model, props, orientation, command, onView, previewNext }: {
   useEffect(() => { if (floor) callbacks.current.onReady(); else callbacks.current.onError("Piso ausente no catálogo 3D."); }, [floor, model]);
   useEffect(() => { invalidate(); }, [props.position?.x, props.position?.y, props.position?.floorId, invalidate]);
   if (!floor) return null;
-  // A câmera olha para `orientation`; a seta aponta para o mesmo rumo e, portanto, para cima na tela.
-  const markerYaw = sceneYawForDirection(sceneHeadingDirection(floor, markerPlanRotation(orientation)));
+  // A câmera segue a orientação 0°/180° da rota (o percurso sempre vem de baixo
+  // para cima). A seta acompanha o rumo do deslocamento e, numa posição
+  // confirmada, aponta para o próximo nó da rota.
+  const heading = props.position?.heading ?? headingToNextRouteNode(props.position, props.routeNodes) ?? 0;
+  const markerYaw = sceneYawForDirection(sceneHeadingDirection(floor, heading));
   return <>
     <color attach="background" args={[colors.bg]} />
     <ambientLight intensity={1.7} /><directionalLight position={[15, 45, 20]} intensity={2.2} />
@@ -73,8 +79,10 @@ function Viewport({ model, props, orientation, command, onView, previewNext }: {
 
 export default function SceneCanvas(props: Props) {
   const [model, setModel] = useState<Object3D | null>(null);
-  // Mesma regra do 2D: 0° ou 180°, decidida pelo percurso à frente e não pelas curvas.
-  const orientation = useMapOrientation(props.routeNodes, props.floorId, props.position);
+  // O mapa 3D rotaciona 0° ou 180° para que a navegação sempre venha de baixo para cima (padrão Waze).
+  const orientation: MapOrientation = useMemo(() => {
+    return routeOrientationFor(props.floorId, props.position, props.routeNodes, NORTH_UP);
+  }, [props.floorId, props.position, props.routeNodes]);
   const [view, setView] = useState<CameraView>({ zoom: 1, northAngle: 0, target: [], position: [], labels: {} });
   const [command, setCommand] = useState<CameraCommand | null>(null);
   const [topView, setTopView] = useState(false);
@@ -128,11 +136,11 @@ export default function SceneCanvas(props: Props) {
       {model && <Canvas key={props.previewStep ? "walk" : "map"} orthographic={!props.previewStep} frameloop="demand" dpr={[1, 1.5]} camera={{ near: .1, far: 400, fov: 65 }} gl={{ antialias: true }}>
         <Viewport model={model} props={props} orientation={orientation} command={command} onView={setView} previewNext={previewNext} />
       </Canvas>}
-      {model && floor && <SceneLabels scene={props.scene} floor={floor} origin={props.originNodeId} destination={props.destinationNodeId} simulated={props.position?.source === "simulation"} position={props.position} view={view} width={props.width} height={props.height} onPoiPress={props.onPoiPress} />}
+      {model && floor && <SceneLabels scene={props.scene} floor={floor} origin={props.originNodeId} destination={props.destinationNodeId} simulated={props.position?.source === "simulation"} position={props.position} view={view} width={props.width} height={props.height} controlsBottom={props.compact ? props.controlsBottom ?? 164 : undefined} onPoiPress={props.onPoiPress} />}
       {props.compact && !props.previewStep && <MapControls onOverview={() => { props.onExplore?.(); send("reset"); }}
         onZoomIn={() => { props.onExplore?.(); send("in"); }} onZoomOut={() => { props.onExplore?.(); send("out"); }} onLocate={props.onLocate} />}
 
-      {props.compact && !props.previewStep && props.position?.source === "simulation" && !props.following && <FollowRouteButton onPress={props.onLocate} />}
+      {props.compact && !props.previewStep && !!props.position && !props.following && props.routeNodes.length > 0 && <FollowRouteButton onPress={props.onLocate} />}
     </div>
     {!props.compact && <Text style={{ backgroundColor: colors.surface, color: colors.textMuted, paddingHorizontal: 12, paddingTop: 10, fontSize: 12 }}>{props.previewStep ? "Simulação orientada pelo trecho. Alterne entre a vista atual e a próxima referência." : "Arraste para explorar · roda ou pinça para aproximar"}</Text>}
     {!props.compact && <MapLegend simulated={props.position?.source === "simulation"} />}

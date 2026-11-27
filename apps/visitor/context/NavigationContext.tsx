@@ -114,7 +114,12 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
     setPositionSession(next);
   }, []);
   const originNode = positionSession.confirmed?.node ?? null;
-  const positionEstimate = currentPosition(positionSession);
+  // Sem simulação, o marcador usa sempre a última posição confirmada (QR ou
+  // seleção manual), nunca um ponto simulado remanescente.
+  const positionEstimate = useMemo(() => {
+    const current = currentPosition(positionSession);
+    return current?.source === "simulation" ? positionSession.confirmed?.estimate ?? null : current;
+  }, [positionSession]);
   const simulationStatus = positionSession.status;
   const originUpdate = useMemo(() => positionSession.confirmed ? {
     source: positionSession.confirmed.estimate.source,
@@ -161,8 +166,8 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
   // o liveNavigation pode defini-los de forma assíncrona. O clock apenas envia
   // ticks; o reducer já valida geração e status, e o liveNavigation para o
   // clock se detectar mudança de revisão durante a simulação.
-  const simulationActive = pathname === "/" && !loading && !arrivalLoading &&
-    !!routeRef.current && (!positionSession.simulated || simulationRouteRef.current === routeRef.current);
+  // Simulação desativada: apenas navegação real, sem "NAVEGAÇÃO SIMULADA".
+  const simulationActive = false;
   const { pause: pauseSimulation, stop: stopSimulationClock, setSpeed: setSimulationSpeed } =
     useSimulationClock(positionSession, dispatchPosition, simulationActive);
 

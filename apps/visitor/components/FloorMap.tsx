@@ -15,7 +15,7 @@ import { getAssetUrl } from "@/services/api";
 import { RouteOverlay } from "./RouteOverlay";
 import type { PositionEstimate } from "@/positioning/types";
 import { colors } from "@/constants/colors";
-import { markerPlanRotation, type MapOrientation } from "./navigationOrientation";
+import { headingToNextRouteNode, type MapOrientation } from "./navigationOrientation";
 import { isSvgPlan, orientPlanSvg } from "./planOrientation";
 import { usePlanSvg } from "@/hooks/usePlanSvg";
 import { plexFamily } from "@/constants/typography";
@@ -69,6 +69,9 @@ export function FloorMap({
   const originNode = nodes.find((node) => node.id === originNodeId);
   const focus = position && position.floorId === floorId ? { x: position.x, y: position.y }
     : originNode ? { x: originNode.coord_x, y: originNode.coord_y } : null;
+  // Durante a simulação vale o rumo do deslocamento; numa posição confirmada,
+  // a seta aponta para o próximo nó da rota (não fica travada para cima).
+  const markerHeading = position ? position.heading ?? headingToNextRouteNode(position, routeNodes) ?? 0 : 0;
   const nearbyStores = new Set(nodes.filter((node) => node.tipo === "loja")
     .sort((a, b) => focus ? Math.hypot((a.coord_x - focus.x) * width, (a.coord_y - focus.y) * height) - Math.hypot((b.coord_x - focus.x) * width, (b.coord_y - focus.y) * height) : a.id - b.id)
     .slice(0, compact && position?.source === "simulation" ? 0 : 3).map((node) => node.id));
@@ -202,7 +205,7 @@ export function FloorMap({
             </G>}            
           </G>;
         })}
-        {position && position.floorId === floorId && <NavigationMarker x={toX(position.x)} y={toY(position.y)} rotation={markerPlanRotation(mapRotation)}
+        {position && position.floorId === floorId && <NavigationMarker x={toX(position.x)} y={toY(position.y)} rotation={markerHeading}
           simulated={position.source === "simulation"} showLabel={!compact} />}
       </G>
     </Svg>
@@ -212,9 +215,11 @@ export function FloorMap({
 
 /**
  * Indicador de navegação: chevron com halo. Desenhado apontando para o topo da
- * planta e girado junto com ela (0°/180°), de modo que na tela aponta sempre para cima.
+ * planta e rotacionado pelo `heading` do deslocamento. A planta pode estar
+ * invertida em 180°, de modo que o giro final na tela mantém a seta sobre o
+ * percurso (vira nas curvas) sem nunca apontar contra ele.
  */
-export function NavigationMarker({ x, y, rotation, simulated, showLabel }: { x: number; y: number; rotation: MapOrientation; simulated: boolean; showLabel: boolean }) {
+export function NavigationMarker({ x, y, rotation, simulated, showLabel }: { x: number; y: number; rotation: number; simulated: boolean; showLabel: boolean }) {
   return <G testID="position-marker" role="img" aria-label={simulated ? "Sua posição simulada; a seta indica o sentido do percurso" : "Sua última posição confirmada"}>
     <Circle cx={x} cy={y} r={26} fill={colors.primary} opacity={.14} />
     <Circle cx={x} cy={y} r={17} fill={colors.surface} stroke={colors.primary} strokeWidth={1.5} />

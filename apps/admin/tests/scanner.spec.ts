@@ -77,7 +77,9 @@ test("Scanner não navega após perder o foco durante a resolução", async ({ p
     await route.continue();
   });
   await page.goto("/scan");
-  await expect(page.locator("video")).toBeVisible();
+  // A câmera pode não renderizar <video> em headless sem dispositivo real;
+  // verifica que a tela de scanner carregou pelo campo de código.
+  await expect(page.getByLabel("Código ou link do QR", { exact: true })).toBeVisible();
   await page.evaluate(() => { (window as Window & { auditQrToken: string }).auditQrToken = "MINI-ENTRADA-PRINCIPAL"; });
   await expect.poll(() => requests).toBe(1);
   const response = page.waitForResponse("**/api/qr-codes/MINI-ENTRADA-PRINCIPAL");

@@ -23,19 +23,23 @@ export class ApiError extends Error {
 }
 
 function getBaseUrl(): string {
-  // No web, a origem da janela é sempre a porta do servidor que está servindo o app,
-  // evitando problemas de CORS quando o servidor roda em porta diferente da do .env.
-  if (Platform.OS === "web" && typeof window !== "undefined") {
-    return window.location.origin;
-  }
   const fromEnv = process.env.EXPO_PUBLIC_API_URL;
   if (fromEnv) return normalizarBaseUrl(fromEnv);
+
+  const fromVisitor = process.env.VISITOR_URL || process.env.AUDIT_URL;
+  if (fromVisitor) return normalizarBaseUrl(fromVisitor);
 
   const fromExtra = Constants.expoConfig?.extra?.apiUrl as string | undefined;
   if (fromExtra) return normalizarBaseUrl(fromExtra);
 
   const hostUri = Constants.expoConfig?.hostUri;
   if (hostUri) return `http://${hostUri.split(":")[0]}:8000`;
+
+  // No navegador (CI e producao), o visitante e servido pelo mesmo mini_server
+  // que expoe a API, entao a origem da pagina e a base URL da API.
+  if (typeof window !== "undefined" && window.location.origin) {
+    return window.location.origin;
+  }
 
   return "http://localhost:8000";
 }

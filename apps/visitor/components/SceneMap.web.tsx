@@ -61,15 +61,27 @@ export function SceneMap(props: SceneMapProps) {
   }, [mode, ready, failure, attempt, props.shoppingId]);
 
   const show3d = mode !== "2d" && !failure;
-  return <View style={{ gap: 8 }}>
-    {/* Controle segmentado: um único trilho com o modo atual preenchido. */}
-    <View style={[segment.track, props.compact ? { position: "absolute", top: props.controlsTop ?? 8, left: 10, zIndex: 3 } : { alignSelf: "flex-start" }]} accessibilityLabel="Modo do mapa">
+  // O container precisa de dimensões explícitas para que a pílula
+  // `position: "absolute"` fique ancorada no canto inferior-direito do mapa.
+  const containerStyle = props.compact && props.width && props.height
+    ? { width: props.width, height: props.height, position: "relative" as const, overflow: "hidden" as const }
+    : { gap: 8, position: "relative" as const };
+  return <View style={containerStyle}>
+    {/* Controle segmentado: um único trilho com o modo atual preenchido.
+        No modo compacto fica ancorado acima dos controles do mapa, longe do
+        seletor de piso e do banner de manobra, para não sobrepor nada. */}
+    <View style={props.compact
+      ? [segment.compactTrack, { bottom: props.controlsBottom ?? 164 }]
+      : [segment.track, { alignSelf: "flex-start" }]}
+      role="group" accessibilityLabel="Modo do mapa">
       {([["auto", "Automático"], ["3d", "Mapa 3D"], ["2d", "Mapa 2D"]] as const).map(([value, label]) => {
         const selected = mode === value;
         return <TouchableOpacity key={value} accessibilityRole="button" accessibilityLabel={label} accessibilityState={{ selected }}
-          style={[segment.item, selected && segment.itemSelected]}
+          style={props.compact ? [segment.compactItem, selected && segment.itemSelected] : [segment.item, selected && segment.itemSelected]}
           onPress={() => { setMode(value); if (value !== "2d") setHasUsed3d(true); if (value !== "2d" && failure) setAttempt((n) => n + 1); }}>
-          <Text style={[segment.text, selected && segment.textSelected]}>{props.compact ? (value === "auto" ? "Auto" : value.toUpperCase()) : label}</Text>
+          <Text style={props.compact ? [segment.compactText, selected && segment.textSelected] : [segment.text, selected && segment.textSelected]}>
+            {props.compact ? (value === "auto" ? "Auto" : value.toUpperCase()) : label}
+          </Text>
         </TouchableOpacity>;
       })}
     </View>
@@ -93,11 +105,16 @@ export function SceneMap(props: SceneMapProps) {
 }
 
 const segment = StyleSheet.create({
-  track: { flexDirection: "row", gap: 2, padding: 3, borderRadius: 14, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.borderLight, shadowColor: "#0b1f1b", shadowOpacity: .14, shadowRadius: 10, shadowOffset: { width: 0, height: 3 }, elevation: 4 },
-  item: { minHeight: 44, minWidth: 48, paddingHorizontal: 12, borderRadius: 11, alignItems: "center", justifyContent: "center" },
+  track: { flexDirection: "row", gap: 6, padding: 6, borderRadius: 16, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.borderLight, shadowColor: "#0b1f1b", shadowOpacity: .14, shadowRadius: 10, shadowOffset: { width: 0, height: 3 }, elevation: 4 },
+  item: { minHeight: 44, minWidth: 96, paddingHorizontal: 18, borderRadius: 12, alignItems: "center", justifyContent: "center" },
   itemSelected: { backgroundColor: colors.primary },
   text: { color: colors.textMuted, fontSize: 13, fontWeight: "600" },
   textSelected: { color: colors.textOnPrimary, fontWeight: "700" },
+  // Pílula compacta: três alvos curtos cabem em qualquer celular e não colidem
+  // com o seletor de piso, o banner de manobra ou os controles de zoom.
+  compactTrack: { position: "absolute", right: 12, flexDirection: "row", gap: 3, padding: 4, borderRadius: 999, zIndex: 4, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.borderLight, shadowColor: "#0b1f1b", shadowOpacity: .16, shadowRadius: 10, shadowOffset: { width: 0, height: 3 }, elevation: 5 },
+  compactItem: { minHeight: 36, paddingHorizontal: 11, borderRadius: 999, alignItems: "center", justifyContent: "center" },
+  compactText: { color: colors.textMuted, fontSize: 12, fontWeight: "600" },
   notice: { flexDirection: "row", gap: 10, padding: 12, borderRadius: 12, backgroundColor: colors.warningSoft, borderWidth: 1, borderColor: "#f1dca4" },
   noticeText: { color: colors.text, fontSize: 14, lineHeight: 20 },
   noticeLink: { color: colors.primary, fontSize: 14, fontWeight: "700", textDecorationLine: "underline" },

@@ -5,6 +5,9 @@ grafo e rotas; Blender como fonte da geometria; catálogo versionado como contra
 entre os dois. O visitante usa Expo Web com Three.js/React Three Fiber ou mapa SVG.
 Android/iOS usam apenas o mapa 2D. O painel React valida a cena e administra a navegação.
 
+**Repositório:** https://github.com/Marcosrg-Gomes/Navegacao-Indoor-3D.git  
+**Quadro Kanban:** https://app2.artia.com/a/6814930/f/6814931/kanban
+
 ## Estrutura
 
 - `apps/visitor`: Expo / React Native / web.
@@ -308,6 +311,23 @@ npm run test:e2e -- --project=chromium tests/scene.spec.ts tests/map-interaction
 Os testes E2E antigos usam `services/api/audit_server.py --port 8765` e a fixture
 antiga. São mantidos no CI junto aos novos fluxos. Uma exportação Android/iOS
 nunca equivale à execução em dispositivo físico.
+
+## Testes ignorados em Firefox/WebKit
+
+Os specs E2E do painel (`apps/admin/tests`) rodam no CI apenas em Chromium. Vários
+casos são intencionalmente ignorados (`test.skip`) em Firefox e WebKit por
+limitações de engine, nunca por falha funcional do sistema:
+
+- `accessibility.spec.ts`: contraste de cor do toast no Firefox/WebKit (limitação de renderização do engine).
+- `business-rules.spec.ts`: falha de recálculo após QR no WebKit (timing do engine).
+- `layout-accessibility.spec.ts`: WebKit não restaura foco de modal via React Native Web (limitação do engine).
+- `map-interactions.spec.ts`: precisão de coordenadas de drag no WebKit (limitação do engine).
+- `scene.spec.ts`: WebKit headless não renderiza WebGL/Three.js GLB (limitação do engine).
+- `multiuser.spec.ts`, `performance.spec.ts`, `scanner.spec.ts`: executados apenas em Chrome/Chromium (fixtures MediaStream/CDP).
+
+Esses skips estão registrados nos próprios specs e não contam como aprovação. Navegadores
+Firefox, WebKit, Chrome instalado e Edge não foram executados nesta integração; a
+validação normativa exige o roteiro físico (`docs/teste-fisico-visitante.md`).
 
 ## Documentação
 

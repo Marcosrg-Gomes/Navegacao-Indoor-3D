@@ -14,6 +14,8 @@ export type SceneMapProps = {
   onExplore?: () => void;
   compact?: boolean;
   controlsTop?: number;
+  /** Distância do rodapé do mapa para o seletor Auto/3D/2D no modo compacto. */
+  controlsBottom?: number;
   originNodeId?: number;
   destinationNodeId?: number;
   onPoiPress: (id: number) => void;
