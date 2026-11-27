@@ -198,12 +198,6 @@ export default function ScanScreen() {
   );
 }
 
-/** Detecta se o navegador bloqueou câmera por HTTP (IP local, não HTTPS). */
-function useInsecureContext() {
-  if (Platform.OS !== "web" || typeof window === "undefined") return false;
-  return !window.isSecureContext && window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1";
-}
-
 const styles = StyleSheet.create({
   screen: {
     flexGrow: 1,
@@ -250,6 +244,26 @@ const styles = StyleSheet.create({
   permissionButton: {
     alignSelf: "flex-start",
     marginTop: 6,
+  },
+  qrShortcuts: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 8,
+  },
+  qrChip: {
+    minHeight: 44,
+    paddingHorizontal: 14,
+    borderRadius: 22,
+    borderWidth: 1,
+    borderColor: colors.primary,
+    backgroundColor: colors.surface,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  qrChipText: {
+    color: colors.primary,
+    fontSize: 14,
+    fontWeight: "600",
   },
   linkRow: {
     paddingTop: 4,
